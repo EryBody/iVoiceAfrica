@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iVoice Africa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Open+Sans:wght@400;500;600&family=Rasa:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="/Onboarding/CSS/onboarding.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//g.tutorialjinni.com/mojoaxel/bootstrap-select-country/dist/css/bootstrap-select-country.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
+    />
+
+    <script src="/Onboarding/JS/onboarding.js" defer></script>
+    <script
+      src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+      defer
+    ></script>
+    <script
+      src="/node_modules/@popperjs/core/dist/umd/popper.min.js"
+      defer
+    ></script>
+
+    <style>
+      .service-content {
+        margin-top: 3em;
+        padding-left: 1.5em;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.7s;
+      }
+
+      .service-content-active {
+      }
+
+      .service-content-label {
+        font-size: 1.375rem;
+        letter-spacing: 0.4px;
+      }
+
+      .portfolio-input {
+        width: 39%;
+      }
+      .custom-select {
+        position: relative;
+        width: 39%;
+      }
+
+      .custom-select select {
+        width: 100%;
+        color: rgba(28, 46, 69, 0.6);
+        appearance: none;
+        padding: 1em 1.5em;
+        margin: 0;
+      }
+
+      .custom-select-arrow {
+        position: absolute;
+        top: 54%;
+        right: 0;
+        transform: translate(-50%, -50%);
+        display: block;
+        width: 1.2em;
+        height: 50%;
+        pointer-events: none;
+      }
+
+      .custom-select-arrow::after {
+        content: "\25be";
+        transform: scale(1.2);
+        float: right;
+      }
+
+      .custom-file-lang-label {
+        color: hsla(214, 42%, 19%, 0.6);
+        font-weight: 600;
+        margin-bottom: 0.5em;
+      }
+
+      .custom-file-upload-space {
+        width: 244px;
+        height: 56px;
+        background: hsla(0, 0%, 98%, 1);
+        position: relative;
+        border-radius: 10px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+      }
+
+      .custom-file-upload-text {
+        font-family: "Open Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        color: hsla(214, 50%, 22%, 0.26);
+        display: block;
+        padding: 1em;
+      }
+
+      .custom-file-upload {
+        background: hsla(210, 5%, 9%, 1);
+        width: 53px;
+        height: 54px;
+        padding: 0.75em 1.1em;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 0 10px 10px 0;
+      }
+
+      .custom-min-word {
+        width: 191px;
+        height: 56px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .drag-drop {
+        width: 320px;
+        height: 320px;
+        border: 1px solid hsla(0, 0%, 98%, 1);
+        background: hsla(0, 0%, 98%, 1);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: hsla(214, 50%, 22%, 0.26);
+        padding: 2em;
+      }
+
+      .drag-drop-area {
+        border: 2px solid red;
+        width: 100%;
+        height: 100%;
+      }
+
+      .drag-drop-initial {
+        border: 2px solid blue;
+        display: flex;
+        flex-direction: column;
+        
+      }
+      .drag-drop span {
+        font-size: 16px;
+      }
+
+      .drag-drop p {
+        color: rgba(24, 39, 58, 0.94);
+      }
+
+      .drag-drop button {
+        font-size: 16px;
+        padding: .8em 2em;
+        border: 1px solid rgba(28, 52, 84, 0.26);
+        border-radius: 15px;
+        background: hsla(0, 0%, 98%, 1);
+      }
+
+      /* .drop-zone__thumb {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: hsla(214, 42%, 19%, 0.6);
+        background-size: cover;
+      } */
+
+    </style>
+  </head>
+  <body>
+    <div class="drag-drop">
+      <div class="drag-drop-area">
+        <div class="drop-zone__thumb">
+        </div>
+        <div class="drag-drop-initial">
+          <span>Drag and drop image here</span>
+        <p class="py-5">Or</p>
+        <input type="file" name="upload" id="upload4" hidden />
+        <label for="upload4">
+          <button type="button" id="upload">Upload from device</button>
+        </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <button
+        class="services-head d-flex align-items-center justify-content-between"
+        type="button"
+      >
+        <div>
+          <h2>Translation</h2>
+          <p>Convert Textscript into Textscript (different language)</p>
+        </div>
+        <div class="services-head-info">
+          <div class="service_info-progress-bar">
+            <div class="progress"></div>
+          </div>
+          <span class="edit-icon"
+            ><img src="/assets/icons/edit.svg" alt="edit-icon"
+          /></span>
+        </div>
+      </button>
+      <div class="service-content">
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >How long have you been offering this service?</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select</option>
+            </select>
+
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your Language(s) of expertise</label
+          >
+
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Language</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Choose preferred industry to work for</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Industry</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your portfolio link</label
+          >
+          <input type="text" class="portfolio-input" />
+        </div>
+
+        <label for="" class="service-content-label mb-3"
+          >Upload samples of your languages of expertise</label
+        >
+        <div
+          class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+        >
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here</span
+              >
+              <input
+                type="file"
+                name="upload1"
+                id="upload"
+                hidden
+              />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here 1</span
+              >
+              <input type="file" name="upload2" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here
+              </span>
+              <input type="file" name="upload3" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+        </div>
+        <label for="" class="service-content-label mb-3"
+          >What is your rate for this service?</label
+        >
+        <div>
+          <label for="" class="custom-file-lang-label">Per word</label>
+          <div class="custom-min-word mb-2">
+            <span>Min</span>
+            <input type="text" class="ms-4" />
+          </div>
+          <div class="custom-min-word">
+            <span>Max</span>
+            <input type="text" class="ms-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="services">
+      <button
+        class="services-head d-flex align-items-center justify-content-between"
+        type="button"
+      >
+        <div>
+          <h2>Interpretation</h2>
+          <p>Convert Audio/ Video into Textscript (different language)</p>
+        </div>
+        <div class="services-head-info">
+          <div class="service_info-progress"></div>
+          <span class="edit-icon"
+            ><img src="/assets/icons/edit.svg" alt="edit-icon"
+          /></span>
+        </div>
+      </button>
+      <div class="service-content">
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >How long have you been offering this service?</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your Language(s) of expertise</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Language</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Choose preferred industry to work for</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Industry</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your portfolio link</label
+          >
+          <input type="text" class="portfolio-input" />
+        </div>
+
+        <label for="" class="service-content-label mb-3"
+          >Upload samples of your languages of expertise</label
+        >
+        <div
+          class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+        >
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here</span
+              >
+              <input
+                type="file"
+                name="upload1"
+                id="upload"
+                id="upload"
+                hidden
+              />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here 1</span
+              >
+              <input type="file" name="upload2" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here
+              </span>
+              <input type="file" name="upload3" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+        </div>
+        <label for="" class="service-content-label mb-3"
+          >What is your rate for this service?</label
+        >
+        <div>
+          <label for="" class="custom-file-lang-label">Per word</label>
+          <div class="custom-min-word mb-2">
+            <span>Min</span>
+            <input type="text" class="ms-4" />
+          </div>
+          <div class="custom-min-word">
+            <span>Max</span>
+            <input type="text" class="ms-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="services">
+      <button
+        class="services-head d-flex align-items-center justify-content-between"
+        type="button"
+      >
+        <div>
+          <h2>Voiceover</h2>
+          <p>Convert Textscript to Audio recording</p>
+        </div>
+        <div class="services-head-info">
+          <div class="service_info-progress"></div>
+          <span class="edit-icon"
+            ><img src="/assets/icons/edit.svg" alt="edit-icon"
+          /></span>
+        </div>
+      </button>
+      <div class="service-content">
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >How long have you been offering this service?</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your Language(s) of expertise</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Language</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Choose preferred industry to work for</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Industry</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your portfolio link</label
+          >
+          <input type="text" class="portfolio-input" />
+        </div>
+
+        <label for="" class="service-content-label mb-3"
+          >Upload samples of your languages of expertise</label
+        >
+        <div
+          class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+        >
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here</span
+              >
+              <input
+                type="file"
+                name="upload1"
+                id="upload"
+                id="upload"
+                hidden
+              />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here 1</span
+              >
+              <input type="file" name="upload2" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here
+              </span>
+              <input type="file" name="upload3" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+        </div>
+        <label for="" class="service-content-label mb-3"
+          >What is your rate for this service?</label
+        >
+        <div>
+          <label for="" class="custom-file-lang-label">Per word</label>
+          <div class="custom-min-word mb-2">
+            <span>Min</span>
+            <input type="text" class="ms-4" />
+          </div>
+          <div class="custom-min-word">
+            <span>Max</span>
+            <input type="text" class="ms-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="services">
+      <button
+        class="services-head d-flex align-items-center justify-content-between"
+        type="button"
+      >
+        <div>
+          <h2>Transcribing</h2>
+          <p>Convert Audio/ Video into Textscript</p>
+        </div>
+        <div class="services-head-info">
+          <div class="service_info-progress"></div>
+          <span class="edit-icon"
+            ><img src="/assets/icons/edit.svg" alt="edit-icon"
+          /></span>
+        </div>
+      </button>
+      <div class="service-content">
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >How long have you been offering this service?</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your Language(s) of expertise</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Language</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Choose preferred industry to work for</label
+          >
+          <div class="custom-select mt-2">
+            <select name="" id="">
+              <option value="">Select Industry</option>
+            </select>
+            <span class="custom-select-arrow"></span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="" class="service-content-label"
+            >Your portfolio link</label
+          >
+          <input type="text" class="portfolio-input" />
+        </div>
+
+        <label for="" class="service-content-label mb-3"
+          >Upload samples of your languages of expertise</label
+        >
+        <div
+          class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+        >
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here</span
+              >
+              <input
+                type="file"
+                name="upload1"
+                id="upload"
+                id="upload"
+                hidden
+              />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here 1</span
+              >
+              <input type="file" name="upload2" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <label for="" class="custom-file-lang-label">French</label>
+            <div class="custom-file-upload-space">
+              <span class="custom-file-upload-text" id="custom-file-upload-text"
+                >Upload file here
+              </span>
+              <input type="file" name="upload3" id="upload" hidden />
+              <label for="upload" class="custom-file-upload"
+                ><img
+                  src="/assets/icons/file upload.png"
+                  alt="custom file upload"
+              /></label>
+            </div>
+          </div>
+        </div>
+        <label for="" class="service-content-label mb-3"
+          >What is your rate for this service?</label
+        >
+        <div>
+          <label for="" class="custom-file-lang-label">Per word</label>
+          <div class="custom-min-word mb-2">
+            <span>Min</span>
+            <input type="text" class="ms-4" />
+          </div>
+          <div class="custom-min-word">
+            <span>Max</span>
+            <input type="text" class="ms-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <select class="selectpicker countrypicker" data-flag="true"></select>
+      <span class="fi fi-gr"></span> <span class="fi fi-gr fis"></span>
+      <div>
+        <select class="me-3" name="flag" id="flag">
+          <option value="" class="fi fi-gr fis">USD</option>
+          <option value="">GBP</option>
+        </select>
+        <input
+          type="text"
+          name="number"
+          id="number"
+          placeholder="+234 903 919 7553"
+        />
+      </div>
+    </div>
+
+    <div class="services-offer-btn">
+      <button id="btn-prev" class="button btn-service" type="button" data-prev>
+        Back
+      </button>
+      <button id="btn-next" class="button" type="button">Continue</button>
+    </div>
+
+    <script src="//cdn.tutorialjinni.com/jquery/3.6.1/jquery.min.js"></script>
+    <script src="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="//g.tutorialjinni.com/mojoaxel/bootstrap-select-country/dist/js/bootstrap-select-country.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iVoice Africa</title>
+
+    <link rel="stylesheet" href="assets/CSS/bootstrap.css" />
+    <link rel="stylesheet" href="assets/CSS/onboarding.css" />
+
+    <script src="assets/JS/onboarding.js" defer></script>
+    <script src="assets/bootstrap/dist/js/bootstrap.bundle.js" defer></script>
+    <script src="assets/@popperjs/core/dist/umd/popper.min.js" defer></script>
+  </head>
+  <body>
+    <form action="" method="get">
+      <section class="onboarding-forms step active">
+        <div class="text-center">
+          <img
+            src="assets/images/ivoiceafrica logo 2.png"
+            alt="ivoiceafrica-logo"
+            class="mb-2"
+          />
+          <h2 class="mb-2">Create your account</h2>
+          <p class="welcome-text">
+            Work with the best language artists in Africa, find 5-star services
+          </p>
+        </div>
+        <div class="form-container">
+          <div class="mb-5">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Ex: Johndoe@gmail.com"
+            />
+          </div>
+          <div class="mb-5">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Write a password"
+            />
+          </div>
+          <div class="onboard-footer footer-2">
+            <a
+              href="#"
+              class="button mb-3"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+              >Signup as Client</a
+            >
+            <p>Already have an account? <a href="sign-in.html">Sign in</a></p>
+          </div>
+        </div>
+        <div class="form-footer onboard-footer">
+          <p>
+            Are you looking to find translation services?
+            <a href="index.html">Sign up as a Freelancer</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header d-block text-center border-0">
+              <img
+                src="assets/images/ivoiceafrica logo 2.png"
+                alt="ivoiceafrica-logo"
+                class="mb-3"
+              />
+              <h2 class="modal-title-edit mb-2" id="exampleModalLabel">
+                Please confirm your email!
+              </h2>
+              <p class="welcome-text mb-4">
+                We have sent an email with a confimation code to
+                <span>johndoe@gmail.com</span>
+              </p>
+            </div>
+            <div
+              class="modal-body d-flex justify-content-around align-items-center"
+            >
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text"></span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text"></span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text"></span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text"></span>
+              </div>
+            </div>
+            <div class="modal-footer d-block mt-4 border-0 text-center">
+              <button
+                type="button"
+                class="modal-btn mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal-2"
+              >
+                Resend email
+              </button>
+              <p class="model-footer-text">
+                <span>johndoe@gmail.com</span> is not my email address
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModal-2">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header d-block text-center border-0">
+              <img
+                src="assets/images/ivoiceafrica logo 2.png"
+                alt="ivoiceafrica-logo"
+                class="mb-3"
+              />
+              <h2 class="modal-title-edit mb-2" id="exampleModalLabel">
+                Please confirm your email!
+              </h2>
+              <p class="welcome-text mb-4">
+                We have sent an email with a confimation code to
+                <span>johndoe@gmail.com</span>
+              </p>
+            </div>
+            <div
+              class="modal-body d-flex justify-content-around align-items-center"
+            >
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text">2</span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text">3</span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text">4</span>
+              </div>
+              <div
+                class="token-space d-flex justify-content-center align-items-center fs-3"
+              >
+                <span class="token-text">5</span>
+              </div>
+            </div>
+            <div class="modal-footer d-block mt-4 border-0 text-center mb-2">
+              <button
+                type="button"
+                class="modal-btn"
+                id="formBtn-next"
+                data-bs-dismiss="modal"
+              >
+                confirm email
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="step form-section">
+        <div class="form-header">
+          <img src="assets/images/ivoiceafrica logo 3.png" alt="logo" />
+          <h2 class="form-header-title">Set up your profile</h2>
+          <p class="form-header-text">
+            It’ll take only 3 minutes to set up your profile. Don’t worry, your
+            progress is<br />
+            being saved as you go on.
+          </p>
+        </div>
+        <div class="form multistep active-card">
+          <label for="" class="mb-3">Tell us your name</label>
+
+          <div class="row justify-content-between mb-4">
+            <div class="col-5">
+              <label for="location" class="label-text_accent">First name</label>
+              <input
+                type="text"
+                name="location"
+                id="fname"
+                placeholder="Ex: John"
+                required
+              />
+            </div>
+            <div class="col-5">
+              <label for="location" class="label-text_accent">Last name</label>
+              <input
+                type="text"
+                name="location"
+                id="lname"
+                placeholder="Ex: Doe"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-5">
+              <label for="sex">Choose your sex</label>
+              <select class="me-3 client-sex-select" name="flag" id="sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-5">
+            <div class="col-5">
+              <label for="location">What is your nationality?</label>
+              <input
+                type="text"
+                name="location"
+                id="location"
+                placeholder="Country"
+                required
+              />
+            </div>
+          </div>
+
+          <label class="mb-3">What's your address?</label>
+          <div class="row justify-content-between mb-4">
+            <div class="col-5">
+              <label for="location" class="label-text_accent"
+                >Street address</label
+              >
+              <input type="text" name="street" id="street" required />
+            </div>
+            <div class="col-5">
+              <label for="location" class="label-text_accent"
+                >Town/ Village</label
+              >
+              <input type="text" name="town" id="town" required />
+            </div>
+          </div>
+
+          <div class="row mb-5">
+            <div class="col-5">
+              <label for="location" class="label-text_accent"
+                >Postal code</label
+              >
+              <input type="text" name="postal" id="postal" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <label for="number">Phone Number</label>
+              <div class="d-flex justify-content-between">
+                <select class="me-3 client-flag-select" name="flag" id="flag">
+                  <option value="selected">NGN</option>
+                  <option value="">USD</option>
+                  <option value="">GBP</option>
+                </select>
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="+234 903 919 7553"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="submit-btn">
+            <button id="formBtn-next" class="button" type="button">
+              Continue
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step form-section">
+        <div class="form-header">
+          <img src="assets/images/ivoiceafrica logo 3.png" alt="logo" />
+          <h2 class="form-header-title">Add a profile picture</h2>
+          <p class="form-header-text">
+            It’ll take only 3 minutes to set up your profile. Don’t worry, your
+            progress is<br />
+            being saved as you go on.
+          </p>
+        </div>
+
+        <div class="form multistep active-card">
+          <div class="client-upload">
+            <img
+              src="assets/icons/client-person-icon.svg"
+              alt="profile-picture"
+              class="profile-picture"
+            />
+            <input
+              type="file"
+              name="profile-picture"
+              id="profile-picture"
+              accept="image/png, image/jpeg"
+            />
+            <label for="profile-picture">
+              <img
+                src="assets/icons/add_profile_photobtn.svg"
+                alt="file-upload"
+                class="file-upload"
+              />
+            </label>
+          </div>
+
+          <div class="services-offer-btn">
+            <button id="formBtn-prev" class="button btn-service" type="button">
+              Back
+            </button>
+            <button
+              class="button"
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal-3"
+            >
+              Finish
+            </button>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <div class="modal fade" id="myModal-3">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="success">
+            <div class="success-container">
+              <img src="assets/images/ivoiceafrica logo 2.png" alt="logo" />
+              <h2 class="my-2">All good!</h2>
+              <p>
+                Your profile has successfully been created! Be ready to explore
+                great opportunities
+              </p>
+              <img
+                src="assets/images/Frame 79.png"
+                alt="successicon"
+                class="success-icon"
+              />
+              <a href="sign-in.html" class="success-button button">Start</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
