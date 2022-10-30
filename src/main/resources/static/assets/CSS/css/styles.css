@@ -1,0 +1,2479 @@
+/*
+    CSS INDEX
+    ===================
+  
+    1. Core Css
+    2. Dashboard One
+        2.1 Sidebar Menu
+            2.1.1 Horizontal Menu
+        2.2 Header Area
+        2.3 Page Title Area
+        2.4 Fact Area
+        2.5 Overview
+        2.6 Market value
+        2.7 Live Crypto Price
+        2.8 Trading History
+        2.9 Letest Post
+    3. Dashboard Two
+    4. Dashboard Three
+    5. Bar Chart
+    6. Line Chart
+    7. Pie Chart
+    8. Accroding
+    9. Alert
+   10. Badge
+   11. Button
+   12. Cards
+   13. Dropdown Button
+   14. List Group
+   15. Modal
+   16. Pagination
+   17. Form
+   18. Icons
+   19. Table Basic
+   20. Datatable
+   21. Map
+   22. Invoice
+   23. Login
+   24. Pricing
+   25. 404 Page
+   26. Offset Sidebar
+
+-----------------------------------------------------------------------------------*/
+
+/*------------------------- 1. Core Css -------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Open+Sans:wght@400;500;600&family=Rasa:wght@400;600&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  /* background-color: #f9f9f9; */
+}
+
+.page-container {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  position: relative;
+  -webkit-transition: padding-left 0.3s ease 0s;
+  transition: padding-left 0.3s ease 0s;
+}
+
+.sbar_collapsed.page-container {
+  padding-left: 0;
+}
+
+.card {
+  border: none;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.card:hover {
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.02);
+}
+
+.card-body {
+  padding: 25.6px;
+  padding: 1.6rem;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 0%, 98%, 1);
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main-content-inner {
+  padding: 0 30px 50px;
+}
+
+/*------------------------- END Core Css -------------------*/
+
+/*-------------------- 2.1 Sidebar Menu -------------------*/
+
+.sidebar-menu-active {
+  width: 0;
+}
+
+.page-divider {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.main-pagecontent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.sidebar-menu {
+  padding: 1rem 1.6rem;
+  background: hsla(0, 0%, 100%, 1);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+  width: 32rem;
+}
+.main-pagecontent-active {
+  width: 100%;
+}
+
+.bigger-margin {
+  margin-left: 5.6rem;
+}
+.big-margin {
+  margin-left: 3em;
+}
+
+.ml-7 {
+  margin-left: 7em;
+}
+
+.main-menu {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.menu-inner {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.title-medium-font-2 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+.title-medium-font {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 2rem;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.slimScrollBar {
+  background: #fff !important;
+  opacity: 0.1 !important;
+}
+
+.sidebar-menu .logo {
+  text-align: center;
+}
+.logo a img {
+  max-width: 12rem;
+  width: 80%;
+}
+
+.metismenu > li > a {
+  padding-left: 3.2rem !important;
+}
+.metismenu li a {
+  position: relative;
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  color: hsla(214, 41%, 16%, 0.94);
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  padding: 1.2rem;
+  /* letter-spacing: 0; */
+  font-weight: 400;
+}
+
+.metismenu li a:hover {
+  background: hsla(0, 0%, 98%, 1);
+  border-radius: 15rem;
+}
+
+.metismenu li a:active {
+  background: hsla(50, 100%, 51%, 0.1);
+  border-radius: 150px;
+}
+
+.material-icon {
+  color: hsla(11, 75%, 52%, 1);
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.metismenu li a:after {
+  position: absolute;
+  content: '\e5c5';
+  font-family: 'Material Symbols Outlined';
+  right: 4rem;
+  top: 1.5rem;
+  color: hsla(214, 41%, 16%, 0.94);
+  font-size: 2rem;
+}
+
+.metismenu li.active > a:after {
+  content: '\e5df';
+}
+
+.metismenu li a:only-child:after {
+  content: '';
+}
+
+.metismenu li a span {
+  margin-left: 1rem;
+}
+
+.collapse-links li a:link,
+.collapse-links li a:visited {
+  font-size: 1.8rem;
+  padding: 1.2rem 5rem;
+}
+.collapse-links li a:hover,
+.collapse-links li a:active {
+  background-color: hsla(0, 0%, 98%, 1);
+}
+
+/*-------------------- END Sidebar Menu -------------------*/
+
+/*-------------------- 2.1.1 Horizontal Menu -------------------*/
+
+/* .body-bg {
+  background: hsla(0, 0%, 100%, 1);
+}
+
+.horizontal-main-wrapper {
+  min-height: 100vh;
+}
+
+.horizontal-main-wrapper .container {
+  max-width: 1440px;
+}
+
+.horizontal-main-wrapper .header-area,
+.horizontal-main-wrapper .mainheader-area {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.horizontal-main-wrapper .main-content-inner {
+  padding: 0 0 50px;
+}
+
+.mainheader-area {
+  background: #fff;
+  border-bottom: 1px solid #f3f8fb;
+  padding-left: 15px;
+  position: relative;
+  z-index: 99;
+}
+
+.mainheader-area .logo a span {
+  color: #843df9;
+}
+
+.horizontal-menu {
+  position: relative;
+}
+
+.horizontal-menu ul li {
+  display: inline-block;
+  position: relative;
+}
+
+.horizontal-menu ul li a {
+  display: block;
+  font-size: 13px;
+  padding: 10px 20px;
+  color: #000000;
+  text-transform: capitalize;
+}
+
+.horizontal-menu ul li:hover > a,
+.horizontal-menu ul li.active > a {
+  color: #007bff;
+}
+
+.horizontal-menu nav > ul > li:first-child > a {
+  padding-left: 0;
+}
+
+.horizontal-menu ul li a i {
+  margin-right: 5px;
+}
+
+.horizontal-menu .submenu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 99;
+  width: 200px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  border-top: 4px solid #007bff;
+  border-radius: 3px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
+}
+
+.horizontal-menu .submenu li {
+  display: block;
+}
+
+.horizontal-menu ul li:hover > .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.horizontal-menu .mega-menu {
+  position: inherit;
+}
+
+.horizontal-menu .mega-menu .submenu {
+  width: 100%;
+  max-width: 900px;
+}
+
+.horizontal-menu .mega-menu .submenu li {
+  display: inline-block;
+  width: calc(100% * (1 / 3) - 5px);
+}
+
+.header-bottom .search-box input {
+  max-width: 350px;
+  width: 100%;
+} */
+
+/* mobile menu */
+
+.slicknav_menu {
+  background: #8255f7;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.slicknav_menu > a {
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+  margin: 0;
+  background: transparent;
+}
+
+.slicknav_menu .slicknav_icon {
+  float: right;
+}
+
+.slicknav_menu .slicknav_icon-bar {
+  box-shadow: none;
+}
+
+.slicknav_menu .slicknav_menutxt {
+  font-weight: 500;
+  text-shadow: none;
+}
+
+.slicknav_nav .slicknav_row,
+.slicknav_nav a {
+  text-transform: capitalize;
+}
+
+.slicknav_nav .slicknav_row:hover {
+  border-radius: 0;
+  background: #8e66f7;
+}
+
+.slicknav_nav li i {
+  width: 2.6rem;
+  display: inline-block;
+}
+
+.slicknav_nav .slicknav_item .slicknav_arrow {
+  float: right;
+}
+
+/*-------------------- END Horizontal Menu -------------------*/
+
+/*-------------------- 2.2 Header Area -------------------*/
+
+.header-area {
+  padding: 0.5rem 4.2rem;
+  background: hsla(0, 0%, 100%, 1);
+  border-bottom: 2.4px solid hsla(0, 0%, 98%, 1);
+  position: relative;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.headerarea-divder {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-header {
+  margin-right: 12rem;
+  display: flex;
+  gap: 6.2rem;
+  align-items: center;
+}
+
+.nav-btn {
+  cursor: pointer;
+}
+.nav-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+.nav-btn span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-btn span:first-child {
+  -webkit-transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-btn span:last-child {
+  -webkit-transform: rotate(-45deg) translate(3px, -3px);
+  transform: rotate(-45deg) translate(3px, -3px);
+}
+
+.sbar_collapsed .nav-btn span {
+  transform: none;
+  opacity: 1;
+}
+
+.search-box {
+  max-width: 53.7rem;
+  display: flex;
+  align-items: center;
+  margin-right: 16rem;
+  background: hsla(0, 0%, 98%, 1);
+  padding: 1.3rem 2rem;
+  gap: 7px;
+  border-radius: 3rem;
+}
+
+.search-box input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+}
+
+.search-box input::placeholder {
+  color: #72767e;
+}
+ion-icon {
+  font-size: 2.4rem;
+  margin: 0 4px;
+}
+.search-box input::-moz-placeholder {
+  color: #b1a7a7;
+}
+
+.search-box input:-ms-input-placeholder {
+  color: #b1a7a7;
+}
+
+.profile-modal {
+  width: 220px;
+  height: 290px;
+  padding: 1em 0;
+  border: 1px solid rgba(26, 56, 96, 0.1);
+  border-radius: 10px;
+  background: hsla(0, 0%, 100%, 1);
+  text-align: center;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  display: block;
+}
+
+.profile-modal_active {
+  display: none;
+}
+
+.freelancer-name {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: hsla(216, 35%, 15%, 1);
+  margin-top: 0.5em;
+}
+
+.freelancer-name p {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 0.75rem;
+  margin: 0;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.freelancers-status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 32px;
+  background: linear-gradient(0deg, #f9f9f9, #f9f9f9),
+    linear-gradient(0deg, rgba(28, 55, 90, 0.16), rgba(28, 55, 90, 0.16));
+}
+
+.modal-body {
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* notification-area */
+
+.notification-area {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: flex;
+  gap: 7.6rem;
+}
+
+.notification-area button {
+  background: hsla(0, 0%, 100%, 1);
+  border: none;
+  color: hsla(11, 75%, 52%, 1);
+}
+
+.notification-area button p {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+/*-------------------- END Header Area -------------------*/
+
+/*-------------------- 2.3 Page Title Area -------------------*/
+
+.page-title-area {
+  padding: 1rem 9rem;
+  height: 56px;
+  background: hsla(0, 0%, 100%, 1);
+  position: relative;
+}
+
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: #313b3d;
+  letter-spacing: 0;
+  margin-right: 30px;
+}
+
+.page-title-icon {
+  color: hsla(11, 75%, 52%, 1);
+}
+.details-box {
+  padding-right: 32rem;
+}
+
+.job-alerts,
+.job-alertReq {
+  background: hsla(0, 0%, 100%, 1);
+  padding: 2.4rem 3.2rem;
+  border-radius: 1.5rem;
+  color: hsla(214, 42%, 19%, 0.6);
+  border: 1px solid rgba(26, 56, 96, 0.1);
+}
+.job-alertReq {
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+.job-alerts {
+  border-radius: 1.5rem;
+}
+.job-alerts label {
+  font-weight: 600;
+}
+.job-alerts-boxshadow {
+  transition: all 0.3s;
+}
+.job-alerts-boxshadow:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+}
+
+.job-alerts-translation {
+  background: hsla(60, 85%, 95%, 1);
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+}
+
+.job-alerts-service-translation-color {
+  background: hsla(61, 99%, 56%, 1);
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  border-radius: 2rem;
+}
+
+.job-alerts-voiceover {
+  background: hsla(211, 85%, 95%, 1);
+  padding: 0.7em 1em;
+  border-radius: 2rem;
+}
+
+.job-alerts-voiceover-color {
+  background: hsla(213, 99%, 56%, 1);
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  border-radius: 2rem;
+}
+
+.job-alerts-interpretation {
+  background: hsla(3, 85%, 95%, 1);
+  padding: 0.7em 1em;
+  border-radius: 2rem;
+}
+
+.job-alerts-interpretation-color {
+  background: hsla(14, 99%, 56%, 1);
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  border-radius: 2rem;
+}
+.job-alerts-transcribing {
+  background: hsla(130, 85%, 95%, 1);
+  padding: 0.7em 1em;
+  border-radius: 20px;
+}
+
+.job-alerts-transcribing-color {
+  background: hsla(145, 100%, 32%, 1);
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  border-radius: 2rem;
+}
+
+.job-alerts-lang {
+  background: hsla(0, 0%, 98%, 1);
+  padding: 0.7em 1em;
+  border-radius: 20px;
+}
+
+.job-alert-card-body-title {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.job-alert-card-body-text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: hsla(215, 41%, 18%, 0.72);
+  letter-spacing: 0.15px;
+}
+
+.job-alerts-footer {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 24px;
+  color: hsla(214, 45%, 20%, 0.5);
+}
+
+.job-alerts-footer > div div {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.job-btn {
+  display: inline-block;
+  padding: 8px 24px;
+  border: 1px solid #151617;
+  border-radius: 30px;
+  color: hsla(210, 5%, 9%, 1);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Open Sans';
+}
+
+.job-btn:hover,
+.job-btn:focus,
+.job-btn:active {
+  background-color: hsl(220, 5%, 11%);
+  color: #ffffff;
+  border: none;
+}
+.job-deliverables-table {
+}
+.table-margin {
+  border-top: 0.1rem solid transparent;
+}
+.job-accept {
+  background: hsla(11, 75%, 52%, 1);
+  color: #ffffff;
+  border: none;
+}
+
+.job-alerts-client-info {
+  height: 132px;
+}
+
+.job-alerts-client-name {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.job-alerts-client-location {
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.job-details {
+  background: hsla(0, 0%, 100%, 1);
+  padding: 1.5em 2em;
+  border-radius: 15px;
+  color: hsla(214, 42%, 19%, 0.6);
+  border: 1px solid rgba(26, 56, 96, 0.1);
+}
+
+.job-details ul:nth-child(2) li {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-right: 1.5em;
+}
+.job-details ul:nth-child(4) li {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.8rem;
+  margin-right: 1.5em;
+  list-style: disc;
+  margin-left: 1.5em;
+}
+
+.job-details ul:nth-child(2) li a {
+  color: hsla(214, 41%, 16%, 0.94);
+  padding: 0.6em;
+}
+
+.job-desc p {
+  color: hsla(215, 41%, 18%, 0.72);
+  font-family: 'Inter' sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 30px;
+  letter-spacing: 0.15px;
+}
+
+.job-desc span {
+  font-weight: 500;
+  font-size: 1.8rem;
+  margin-bottom: 0.5em;
+  display: block;
+}
+
+.job-deliverables-table {
+  border-collapse: collapse;
+  border-spacing: 15px;
+  min-width: 70%;
+  margin: 2.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 0 2rem hsla(0, 0, 0, 0.15);
+}
+.job-deliverables-table thead tr {
+  background: hsla(50, 100%, 51%, 0.05);
+  color: hsla(216, 35%, 15%, 1);
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.job-deliverables-table thead {
+  /* margin-bottom: 4rem; */
+  border-bottom: 1rem solid transparent;
+}
+
+.job-deliverables-table th,
+.job-deliverables-table td {
+  padding: 1.5rem;
+}
+tbody {
+  /* border: 0.1rem solid hsla(214, 53%, 23%, 0.16); */
+}
+tbody tr {
+  /* border: 0.1rem solid hsla(214, 53%, 23%, 0.16); */
+  padding-bottom: 15px;
+}
+
+.job-attc {
+  padding: 1em;
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid hsla(211, 85%, 95%, 1);
+  border-radius: 10px;
+  margin-bottom: 2em;
+}
+
+.job-attc :is(p) {
+  font-family: 'Inter';
+  font-weight: 400;
+}
+
+.job-desc {
+  display: none;
+}
+.job-deliverables {
+  display: none;
+}
+.job-attachments {
+  display: none;
+}
+
+.job-details-active {
+  display: block;
+}
+
+.job-attc div p:nth-child(1) {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: hsla(216, 35%, 15%, 1);
+}
+.job-attc div p:nth-child(2) {
+  color: hsla(215, 41%, 18%, 0.72);
+  font-size: 1.6rem;
+}
+.job-attc div p:nth-child(3) {
+  font-size: 1.4em;
+  color: hsla(214, 45%, 20%, 0.5);
+}
+
+.job-alert-heading {
+  background: hsla(0, 0%, 100%, 1);
+  /* padding: 0.55em 0; */
+  padding: 0.4rem 0;
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.job-alert-heading-first {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+}
+.job-alert-heading-first span {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.job-alerts-title,
+.job-alerts-title-2 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: rgba(24, 39, 58, 0.94);
+  margin-right: 1em;
+}
+
+.job-alerts-title-2 {
+  font-size: 1rem;
+}
+
+.job-details-title,
+.job-details-content-title {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.job-alerts-heading-btn {
+  display: inline-block;
+  padding: 0.5em 1em;
+  color: hsla(0, 0%, 100%, 1);
+  background: hsla(11, 75%, 52%, 1);
+  border-radius: 30px;
+}
+
+.job-alerts-heading-btn_accent {
+  background: hsla(0, 0%, 100%, 1);
+  color: hsla(215, 41%, 18%, 0.72);
+  border: 1px solid hsla(215, 41%, 18%, 0.72);
+}
+
+.job-alert-filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.job-alert-filter div {
+  border-right: 1px solid hsla(214, 53%, 23%, 0.16);
+  height: 100%;
+  padding: 0.5em;
+}
+
+.job-alert-filter select {
+  border: none;
+  background: none;
+}
+
+.job-alerts-sub-heading:last-child {
+  font-size: 1rem;
+  color: hsla(214, 41%, 16%, 0.94);
+  margin-left: 1em;
+}
+
+.job-list-details div {
+  padding: 0.5em;
+  margin-right: 2em;
+}
+
+.job-list-details-border {
+  /* border-top: 1px solid hsla(214, 53%, 23%, 0.16); */
+  border-bottom: 1px solid hsla(214, 53%, 23%, 0.16);
+}
+
+.job-list-details-active {
+  border-bottom: 0.4rem solid hsla(214, 41%, 16%, 0.94);
+}
+
+.job-list-details :is(button) {
+  border: none;
+  background: none;
+  display: inline-block;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 2rem;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.job-alert-service-time {
+  display: flex;
+  align-items: center;
+}
+
+.job-alert-service-time span {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 300;
+  font-size: 16px;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+.job-alert-service-time p {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1rem;
+  color: hsla(214, 45%, 20%, 0.5);
+}
+.job-alert-service-time div {
+  width: 5px;
+  height: 5px;
+  background: hsla(214, 42%, 19%, 0.6);
+  border-radius: 50px;
+  margin: 0 0.4em;
+}
+
+/* Payment Modal */
+.payment-modal {
+  background: hsla(0, 0%, 100%, 1);
+  padding: 1em;
+  border-radius: 30px;
+  border: 0;
+}
+
+.payment-modal-header {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.payment-modal-header h5 {
+  font-size: 1.3rem;
+  color: hsla(216, 35%, 15%, 1);
+  font-weight: 600;
+}
+.payment-modal-header span {
+  font-size: 0.75rem;
+  color: hsla(216, 35%, 15%, 1);
+  font-weight: 400;
+}
+
+.payment-modal-body {
+  border: none;
+}
+
+.payment-modal-body small {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: hsla(145, 80%, 42%, 1);
+}
+
+.payment-modal-input {
+  width: 100%;
+  height: 56px;
+  border-radius: 0px 10px 10px 0px;
+  display: flex;
+}
+
+.payment-money-sign {
+  background: hsla(210, 5%, 9%, 1);
+  height: 54px;
+  width: 50px;
+  border-radius: 10px 0px 0px 10px;
+}
+.payment-money-sign img {
+  padding: 1.2em;
+}
+
+.payment-modal-input input {
+  background: hsla(0, 0%, 98%, 1);
+  margin-right: 5em;
+  border: none;
+  padding-right: 0.5em;
+}
+
+.payment-modal-cancel-btn {
+  padding: 8px 24px;
+  border-radius: 30px;
+  display: inline-block;
+  color: hsla(216, 35%, 15%, 1);
+  background: hsla(0, 0%, 100%, 1);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.payment-modal-done-btn {
+  display: inline-block;
+  background: hsla(210, 5%, 9%, 1);
+  border-radius: 30px;
+  color: hsla(0, 0%, 100%, 1);
+  padding: 8px 24px;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.user-name {
+  font-size: 17px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.notification {
+  background: hsla(0, 0%, 100%, 1);
+  padding: 24px 32px;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+}
+
+.notification > div div div,
+.notification > div div span {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.notification > div div h2 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+.notification > div span {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.notification-btn span {
+  color: hsla(11, 75%, 52%, 1);
+}
+.notification-btn p {
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.notification-btn:hover,
+.notification-btn:focus,
+.notification-btn:active {
+  background: hsla(0, 0%, 85%, 1);
+}
+
+/*-------------------- END Page Title Area -------------------*/
+
+/*-------------------- 2.4 Finished jobs Area ------------------- */
+.finished-job-desc {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.finished-job-title {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+.money-payed {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.lang-service-offered {
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  background: hsla(0, 0%, 100%, 1);
+  border-radius: 15px;
+  padding: 1.5em 2em;
+}
+
+.lang-service-offered > div span {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 16px;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.service-offered {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 1.3em;
+}
+
+.service-offered-duration {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.service-offered-date {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 1rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.finished-jobs-attach {
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  background: hsla(0, 0%, 100%, 1);
+  border-radius: 15px;
+  padding: 1.5em 2em;
+}
+
+.client-review {
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  background: hsla(0, 0%, 100%, 1);
+  border-radius: 15px;
+  padding: 1.5em 2em;
+}
+
+.client-profile-photo {
+  background: hsla(0, 0%, 85%, 1);
+  width: 48px;
+  height: 48px;
+  border-radius: 30px;
+}
+
+.client-profile-name {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.client-rating {
+  background: hsla(45, 100%, 98%, 1);
+  padding: 16px 32px;
+}
+.client-rating-label {
+  color: hsla(214, 41%, 16%, 0.94);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.5em;
+}
+
+.client-rating-review {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.client-rating-review .client-rating {
+  width: 30%;
+  background: hsla(45, 100%, 98%, 1);
+  padding: 16px 32px;
+}
+.client-rating-review .client-comments {
+  width: 40%;
+  background: hsla(45, 100%, 98%, 1);
+  padding: 16px 32px;
+}
+.client-rating-review .client-comments:last-child {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1rem;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+.client-rating-review .client-request {
+  width: 25%;
+  background: hsla(45, 100%, 98%, 1);
+  padding: 16px 32px;
+  text-align: center;
+}
+.client-rating-review .client-request:last-child {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+/*-------------------- Finished Jobs End ------------------- */
+
+/*-------------------- 2.5 Dashboard start ------------------- */
+.dashboard-heading {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-content-one {
+  width: 55%;
+}
+
+.freelancer-dashboard-info {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+  margin: 1em 2em 0 0;
+  padding: 2em;
+  display: flex;
+  align-items: flex-start;
+}
+
+.freelancers-name {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  color: #192434;
+}
+
+.status {
+  width: 10px;
+  height: 10px;
+  background: #15c15d;
+  border-radius: 30px;
+}
+
+.freelancer-dashboard-otherinfo {
+  font-family: 'Open Sans';
+  display: flex;
+}
+
+.freelancer-dashboard-otherinfo div span {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 20px;
+}
+.freelancer-dashboard-otherinfo div small {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(28, 46, 69, 0.6);
+}
+
+.freelancer-dashboard-active-jobs {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+  margin: 1em 2em 0 0;
+  padding: 1.5em 1em;
+}
+
+.freelancers-dashboard-active-jobs-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.freelancers-dashboard-active-jobs-heading label,
+.dashboard-jobalerts label {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 20px;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+.freelancers-dashboard-active-jobs-heading button {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsla(214, 41%, 16%, 0.94);
+  display: inline-block;
+  background: none;
+  border: none;
+}
+
+.dashboard-activejobs-container {
+  border-bottom: 1px solid hsla(214, 57%, 24%, 0.1);
+}
+
+.dashboard-active-jobs-container div div div > span:first-child,
+.dashboard-jobalerts div div > span:first-child {
+  color: hsla(214, 42%, 19%, 0.6);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 12px;
+}
+.dashboard-active-jobs-container div div div > span:last-child {
+  color: hsla(214, 41%, 16%, 0.94);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 12px;
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  background: hsla(214, 57%, 24%, 0.1);
+  padding: 6px 10px 6px 14px;
+}
+.dashboard-active-jobs-container div div div > span:last-child div {
+  background: hsla(145, 100%, 32%, 1);
+  width: 6px;
+  height: 6px;
+}
+
+.bright-red-btn {
+  display: inline-block;
+  background: hsla(3, 100%, 61%, 1);
+  padding: 6px 8px;
+  border-radius: 5px;
+  color: hsla(0, 0%, 100%, 1);
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 12px;
+}
+.bright-yellow-btn {
+  display: inline-block;
+  background: hsla(36, 100%, 61%, 1);
+  padding: 6px 8px;
+  border-radius: 5px;
+  color: hsla(0, 0%, 100%, 1);
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.dashboard-activejobs-h2 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 14px;
+  color: hsla(216, 35%, 15%, 1);
+  margin-bottom: 1em;
+}
+
+.dashboard-deliverables {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: hsla(214, 41%, 16%, 0.282);
+}
+
+.dashboard-deliverables-amt {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: hsla(215, 41%, 18%, 0.72);
+  text-align: justify;
+}
+
+.dashboard-earning {
+  text-align: center;
+  background: hsla(0, 0%, 100%, 1);
+  border: 0.1rem solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+  margin: 1em 0;
+  padding: 1em 0;
+  width: 90%;
+  min-height: 23%;
+}
+
+.dashboard-earning span {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: hsla(214, 41%, 16%, 0.94);
+  margin-right: 0.5em;
+}
+.dashboard-earning select {
+  border: 1px solid rgba(28, 55, 90, 0.16);
+  border-radius: 0.3rem;
+  background: none;
+  padding: 0.4em;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(24, 39, 58, 0.94);
+}
+
+.dashboard-earning-stats {
+  display: flex;
+  border-top: 0.1rem solid hsla(214, 57%, 24%, 0.1);
+  margin: 0 auto;
+  width: max-content;
+}
+
+.dashboard-earning-stats div {
+  padding: 1rem 1.4rem;
+  width: 100%;
+}
+.dashboard-earning-stats div:not(:last-child) {
+  border-right: 0.1rem solid rgba(26, 56, 96, 0.1);
+}
+.dashboard-earning-stats div p:first-child {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2rem;
+}
+.dashboard-earning-stats div p:last-child {
+  font-family: 'Open Sans';
+  font-weight: 400;
+
+  color: rgba(28, 46, 69, 0.6);
+}
+
+.dashboard-earning a {
+  font-family: 'Open Sans';
+  font-weight: 600;
+
+  color: hsla(215, 41%, 18%, 0.72);
+}
+
+.dashboard-jobalerts {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+  padding: 1em 0.9em;
+  width: 90%;
+}
+
+.dashboard-jobalerts-lang {
+  padding: 0.7em 1em;
+  color: hsla(214, 42%, 19%, 0.6);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.dashbaord-activejobs-time {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  color: hsla(214, 45%, 20%, 0.5);
+}
+
+.freelancer-dashboard-no-active-jobs {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 15px;
+  margin: 1em 2em;
+  padding: 1.5em 1em;
+  min-height: 70%;
+}
+
+.dashboard-no-content {
+  border: 2px solid red;
+  width: 70%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.dashboard-no-content {
+  border: 2px solid red;
+}
+
+/*-------------------- Dashboard end ------------------- */
+
+/* ----------------Active Jobs start -----------------*/
+.activejobs-heading span {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.transparentBtn {
+  display: inline-block;
+  border: 1px solid hsla(215, 41%, 18%, 0.72);
+  padding: 0.8rem 1.6rem;
+  color: hsla(215, 41%, 18%, 0.72);
+  border-radius: 3rem;
+  font-family: 'Open Sans';
+  font-weight: 600;
+
+  background: hsla(0, 0%, 100%, 1);
+}
+
+.jobs-card {
+  background: hsla(0, 0%, 100%, 1);
+  width: 40%;
+  padding: 1.8em 0.9em;
+  border: 1px solid rgba(26, 56, 96, 0.1);
+  border-radius: 10px;
+  margin: 0 2em 2em 0;
+}
+
+.activejobs-h2 {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 2rem;
+  color: hsla(216, 35%, 15%, 1);
+  margin-bottom: 2.4rem;
+}
+
+.progressbar span {
+  display: flex;
+  justify-content: flex-end;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: hsla(214, 42%, 19%, 0.6);
+  margin-top: 0.5em;
+}
+
+.progressbar-duesoon {
+  background: hsla(145, 80%, 42%, 1);
+  width: 75%;
+}
+.progressbar-overdue {
+  background: hsla(3, 92%, 53%, 1);
+  width: 100%;
+}
+.progressbar-notdue {
+  background: hsla(145, 80%, 42%, 1);
+  width: 50%;
+}
+
+.color-grey {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.w-60 {
+  width: 60%;
+}
+.w-70 {
+  width: 70%;
+}
+.w-75 {
+  width: 75%;
+}
+.w-80 {
+  width: 80%;
+}
+
+.w-84 {
+  width: 84%;
+}
+.w-72 {
+  width: 72%;
+}
+
+.inprogress-select {
+  padding: 10px 10px 10px 14px;
+  background: hsla(214, 57%, 24%, 0.1);
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  border-radius: 30px;
+  margin-top: 1em;
+  font-size: 1.6rem;
+}
+
+.inprogress-select select {
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+.inprogress-overview {
+  display: flex;
+  gap: 2.4rem;
+  padding-right: 5.6rem;
+}
+.duedate {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  color: rgba(27, 43, 65, 0.72);
+}
+
+.job-id {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.cancel-padding {
+  padding: 0;
+}
+
+.totalpayment {
+  color: hsla(145, 100%, 32%, 1);
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 1em;
+}
+
+.activejob-uploads-area {
+  background: hsla(50, 100%, 99%, 1);
+  padding: 24px 32px;
+  border-radius: 30px;
+}
+
+.upload-start {
+  padding: 5em;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.upload-start span {
+  color: hsla(214, 41%, 16%, 0.94);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.upload-start p {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: hsla(215, 41%, 18%, 0.72);
+  margin-bottom: 1em;
+}
+.service-input {
+  padding-bottom: 16rem;
+}
+
+.uploadbtn {
+  display: inline-block;
+  padding: 8px 32px;
+  border-radius: 30px;
+  border: none;
+  background: hsla(11, 75%, 52%, 1);
+  color: hsla(0, 0%, 100%, 1);
+}
+
+.arrow_back_link {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  cursor: pointer;
+}
+.arrow_back_link:hover,
+.arrow_back_link:focus,
+.arrow_back_link:active {
+  background: hsla(50, 100%, 51%, 0.1);
+  padding: 0.2em 0.3em;
+  border-radius: 15px;
+}
+/* ----------------Active Jobs end ------------------*/
+
+/* ----------------Profile Area start------------------*/
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 84%;
+}
+
+.profile-info {
+  height: 550px;
+  background-color: hsla(0, 0%, 100%, 1);
+  border-radius: 0px 0px 20px 20px;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+}
+
+.profile-bg {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+}
+
+.profile-details {
+  margin-left: 3em;
+  /* padding: 2rem 0; */
+  margin-top: 8rem;
+  color: hsla(215, 41%, 18%, 0.72);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+}
+
+.profile-picture {
+  position: absolute;
+  top: 260px;
+}
+
+.profilename {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+.profile-headline {
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.profile-services {
+  background-color: hsla(0, 0%, 100%, 1);
+  border-radius: 15px;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  padding: 1.5em 2em;
+  margin-top: 1em;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.profile-service-label {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: hsla(214, 42%, 19%, 0.6);
+}
+
+.service-rendered {
+  padding: 1em;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 10px;
+  margin: 1em 0;
+}
+
+.service {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.grey-dot {
+  width: 5px;
+  height: 5px;
+  background: hsla(214, 42%, 19%, 0.6);
+  border-radius: 15px;
+  margin: 0 0.5em;
+}
+
+.portfolio-link {
+  color: hsla(145, 80%, 42%, 1);
+  font-size: 14px;
+  margin-right: 0.3em;
+}
+.experience,
+.charge {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.client-totalreview {
+  color: hsla(216, 35%, 15%, 1);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 1em;
+}
+
+.client-profile-name {
+  color: hsla(216, 35%, 15%, 1);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.client-review-statement {
+  font-size: 1.6rem;
+}
+
+.client-reviewdate {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 14px;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+
+.more-reviews {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 16px;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+
+/* ----------------Profile end ------------------*/
+
+/* ----------------FAQs Start ------------------*/
+
+.card-header .title {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: rgba(24, 39, 58, 0.94);
+}
+.card-header .accicon {
+  float: right;
+  font-size: 1.5rem;
+  color: rgba(24, 39, 58, 0.94);
+  transition: 0.3s;
+}
+.card-header {
+  cursor: pointer;
+  border-bottom: none;
+  background: hsla(0, 0%, 100%, 1);
+  padding: 0.75em 0;
+}
+.card {
+  background: hsla(0, 0%, 100%, 1);
+}
+.card-body {
+  background: hsla(0, 0%, 100%, 1);
+  padding: 0;
+  color: hsla(214, 42%, 19%, 0.6);
+  width: 95%;
+}
+
+.accordion-toggle:not(.collapsed) .rotate-icon {
+  transform: rotate(-90deg);
+  transition: 0.3s;
+}
+
+.accordion-title {
+  border-bottom: 1px solid hsla(214, 57%, 24%, 0.1);
+  margin: 0 0 0.5em;
+  padding-bottom: 1em;
+}
+
+.accordion-heading {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #192434;
+}
+
+.accordion-container {
+  width: 49%;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  background: hsla(0, 0%, 100%, 1);
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+/* ----------------FAQs End ------------------*/
+
+/* ------------------- Logout Modal start ------------------*/
+
+.logoutModal {
+  border-radius: 15px;
+  text-align: center;
+  max-width: 600px;
+  padding: 2em;
+}
+
+.logoutModal .modal-header {
+  text-align: center;
+  display: block;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.65rem;
+  color: #192434;
+  padding: 0;
+  border: 0;
+  margin-bottom: 0;
+}
+
+.logoutModal-body {
+  text-align: center;
+  width: 90%;
+  color: hsla(214, 42%, 19%, 0.6);
+  margin: 0.4em auto;
+  padding: 0;
+}
+
+.logoutModal-footer {
+  border: 0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.logoutBtn {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #192434;
+  background: none;
+  border: none;
+  margin-top: 0.5em;
+}
+
+/* ------------------- Logout Modal end ------------------*/
+
+/* ------------------- Client Profile start ------------------*/
+
+.clientprofile {
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  background: hsla(0, 0%, 100%, 1);
+  padding: 2.5em;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.clientphoto {
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 5px;
+  text-align: center;
+  width: 208px;
+  height: 193px;
+  padding: 1em;
+}
+
+.clientphoto p {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #192434;
+  margin-bottom: 1em;
+}
+
+.clientProfileBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 16px;
+  color: hsla(145, 80%, 42%, 1);
+  padding: 15px 17px;
+}
+
+.clientprofileupdate {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 20px;
+  width: 70%;
+  color: hsla(214, 41%, 16%, 0.94);
+}
+
+.clientprofileupdate .clientform-section1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clientform-section1 input,
+.clientform-section2 select,
+.clientform-section5 select {
+  display: block;
+  background: hsla(0, 0%, 98%, 1);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 17px;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(28, 52, 84, 0.26);
+}
+
+.clientform-section2 select {
+  width: 47%;
+}
+
+.clientform-section3 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 16px;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+
+.clientform-section3 > input {
+  display: block;
+  width: 100%;
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  padding: 14px 17px;
+  border-radius: 10px;
+  background: hsla(0, 0%, 98%, 1);
+}
+
+.clientform-section4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.clientform-section4 div input {
+  display: block;
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  padding: 14px 17px;
+  border-radius: 10px;
+  background: hsla(0, 0%, 98%, 1);
+}
+
+.clientform-section5 {
+  display: block;
+}
+
+.clientform-section5 div {
+  width: 16%;
+  display: flex;
+  align-items: center;
+}
+
+.clientform-section5 div input {
+  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  padding: 14px 17px;
+  border-radius: 10px;
+  background: hsla(0, 0%, 98%, 1);
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 16px;
+  color: hsla(215, 41%, 18%, 0.72);
+}
+
+/* ------------------- Client Profile end ------------------*/
+
+/* ------------------- Client Requests start ------------------*/
+
+.clientrequests-heading {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 55rem;
+  color: rgba(24, 39, 58, 0.94);
+}
+
+.clientrequests-heading > div span:last-child {
+  color: rgba(28, 46, 69, 0.6);
+  margin-left: 1em;
+}
+
+.newrequestBtn {
+  padding: 1.2rem 0.8rem;
+  background: hsla(11, 75%, 52%, 1);
+  color: hsla(0, 0%, 100%, 1);
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  opacity: 0.9;
+  border-radius: 0.5rem;
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+.newrequestBtn:hover,
+.newrequestBtn:focus {
+  background: rgb(183, 77, 54);
+  color: hsla(0, 0%, 100%, 1);
+}
+
+.clientrequesteditBtn {
+  padding: 8px 24px;
+  background: #e14c29;
+
+  font-weight: 600;
+}
+
+.clientbidstitle {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.bidsforjob {
+  color: hsla(214, 45%, 20%, 0.5);
+}
+
+.clientmorejobs {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.freelancer-bidding {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.bidding-freelancer {
+  border-radius: 5px;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  margin: 1em 0;
+  width: 49%;
+}
+
+.freelancers-bidding-name {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 20px;
+  color: #192434;
+  margin-bottom: 0.3em;
+}
+.freelancer-bidding-skill {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 16px;
+  color: #192434;
+}
+
+.freelancer-location {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(28, 46, 69, 0.6);
+  margin-bottom: 2em;
+}
+
+.freelance-expertise {
+  display: inline;
+  padding: 8px;
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  color: rgba(27, 43, 65, 0.72);
+  border-radius: 30px;
+  background: hsla(0, 0%, 98%, 1);
+}
+
+.freelance-history {
+  text-align: center;
+  border-top: 0.1rem solid hsla(214, 57%, 24%, 0.1);
+  width: 100%;
+  display: flex;
+  text-align: center;
+
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.freelance-history div p:first-child {
+  color: #192434;
+}
+.freelance-history div p:last-child {
+  color: #192434;
+}
+.in-progress-card {
+  width: 42%;
+  margin: 0 1em 1em 0;
+  padding: 2.4rem 1.6rem;
+}
+
+.due-in-color {
+  color: hsla(3, 100%, 61%, 1);
+}
+
+.clientreview-heading {
+  display: flex;
+  align-items: center;
+  color: hsla(216, 35%, 15%, 1);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.125rem;
+}
+
+.confirmed-status {
+  color: hsla(145, 80%, 42%, 1);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+/* ------------------- Client Requests  end ------------------*/
+
+/* ------------------- Client New Requests start ------------------*/
+.newrequest-title {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: hsla(216, 35%, 15%, 1);
+  margin: 1rem 0;
+}
+
+.input-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+.input-group label {
+  display: block;
+  width: 100%;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 2.2rem;
+  color: hsla(216, 35%, 15%, 1);
+  margin-bottom: 0.5rem;
+}
+
+.input-group input,
+.input-group textarea {
+  border: 1px solid rgba(26, 56, 96, 0.1);
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: rgba(28, 52, 84, 0.26);
+}
+
+.add-section {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(26, 56, 96, 0.1);
+  padding: 1em 1.5em;
+  border-radius: 10px;
+}
+
+.add-section .add-moreBtn {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.8rem;
+  background: #151617;
+  border-radius: 10px;
+  color: hsla(0, 0%, 100%, 1);
+  border: none;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+.add-section > span {
+  margin-left: 1em;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: rgba(28, 52, 84, 0.26);
+}
+
+.step {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.totalamountforjob {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: hsla(145, 100%, 32%, 1);
+}
+
+.totalamountforjob small {
+  font-size: 1rem;
+}
+
+.viewjobdetails {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+
+  color: hsla(216, 35%, 15%, 1);
+}
+
+.finished-status {
+  display: flex;
+  align-items: center;
+  background: hsla(60, 85%, 95%, 1);
+  color: hsla(54, 100%, 54%, 1);
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.clientfinished-label {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.finishedreview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.job-status {
+  width: 24.8rem;
+}
+
+.job-progress-status {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 1em;
+}
+
+.freelancer-chosen {
+  background: hsla(0, 0%, 100%, 1);
+  border: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.job-status-heading {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: #192434;
+  border-bottom: 1px solid hsla(214, 57%, 24%, 0.1);
+  padding: 0.5em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.job-status-heading p:last-child,
+.job-status-progress span:first-child {
+  font-family: 'Inter';
+  font-weight: 400;
+  /* font-size: 0.875rem; */
+  color: rgba(27, 43, 65, 0.72);
+}
+
+.job-status-progress {
+  display: flex;
+  margin-bottom: 1.7rem;
+  /* gap: 2rem; */
+  align-items: center;
+  /* text-align: left; */
+}
+
+.job-status-progress span:last-child {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1.4rem;
+
+  color: rgba(24, 39, 58, 0.94);
+}
+.incomplete-task-color {
+  color: rgba(28, 52, 84, 0.26);
+  opacity: 0.26;
+}
+
+.circle {
+  width: 3.2rem;
+  height: 3.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(28, 55, 90, 0.16);
+  border-radius: 50%;
+  font-family: 'Inter';
+  z-index: 9;
+  font-weight: 400;
+  color: hsla(0, 0%, 100%, 1);
+  margin-right: 1em;
+  text-align: center;
+}
+.circle-bar,
+.circle-bar-II {
+  position: relative;
+}
+
+.circle-completed {
+  background-color: #151617;
+  color: #fff;
+}
+.circle-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -2rem;
+  z-index: 1;
+  display: block;
+  background-color: #151617;
+  width: 0.3rem;
+  height: 2rem;
+}
+.circle-bar-II::after {
+  content: '';
+  position: absolute;
+  height: 13rem;
+  width: 0.3rem;
+  z-index: 1;
+  display: block;
+  background-color: #151617;
+  top: 2rem;
+}
+.bidsforjob-color {
+  color: hsla(145, 80%, 42%, 1);
+}
+
+.time {
+  display: inline;
+}
+/* ------------------- Client New Requests  end ------------------*/

@@ -1,0 +1,152 @@
+.finance-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background:  hsla(0, 0%, 100%, 1);
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid hsla(214, 57%, 24%, 0.1);
+}
+
+.finance-stats .in-account {
+    border-right: 1px solid hsla(214, 57%, 24%, 0.1);
+    border-left: 1px solid hsla(214, 57%, 24%, 0.1);
+    padding: 2em 2.5em;
+    width: 25%;
+}
+
+.finance-stats > div:first-child {
+    border: none;
+}
+.finance-stats > div:last-child {
+    border: none;
+}
+
+.finance-heading {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: hsla(214, 45%, 20%, 0.5);
+    
+}
+
+.finance-amt {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 2rem;
+    color: hsla(216, 35%, 15%, 1);
+    margin-top: .5em;
+}
+
+.finance-hist-label {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.375rem;
+    color: hsla(216, 35%, 15%, 1);
+}
+
+.financial-history {
+    background:  hsla(0, 0%, 100%, 1);
+    border-radius: 10px;
+    border: 1px solid hsla(214, 57%, 24%, 0.1);
+    padding: 1.5em;
+}
+
+.finance-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.1875em 0;
+}
+
+.trans-finance-filter {
+    border: 1px solid hsla(214, 53%, 23%, 0.16);
+    margin-right: 1em;
+}
+
+.trans-finance-filter span {
+    border-right: 1px solid hsla(214, 57%, 24%, 0.1);
+    padding: .3em;  
+}
+.trans-finance-filter select {
+    padding: .3em; 
+    border: none;
+    background: none; 
+}
+
+.withdraw-btn {
+    display: inline-block;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 5px;
+    background: hsla(14, 99%, 56%, 1);
+    color: hsla(0, 0%, 100%, 1);
+}
+
+.finance-stats-table {
+    border-collapse: collapse;
+    min-width: 100%;
+    margin: 25px 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px hsla(0,0,0,0.15);
+}
+
+.finance-stats-table thead tr {
+    background: hsla(50, 100%, 51%, 0.05);
+    color: hsla(216, 35%, 15%, 1);
+    text-align: left;
+}
+
+.finance-stats-table th,
+.finance-stats-table td {
+    padding: 16px 15px;
+}
+
+.finance-stats-table tbody tr {
+    border-bottom: 1px solid hsla(214, 57%, 24%, 0.1);
+}
+
+.finance-stats-table tbody tr >td:first-child {
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.finance-stats-table tbody tr >td:nth-child(even) {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.finance-stats-table tbody tr >td:last-child {
+    color: #00A344;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+
+/* Client Finance */
+
+.clientFinance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clientFinance .clienttotal {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: hsla(214, 45%, 20%, 0.5);
+}
+
+.clientspent-total {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: hsla(216, 35%, 15%, 1);
+    margin-left: .5em;
+}

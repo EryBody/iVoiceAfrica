@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iVoice Africa</title>
+
+    <link
+      rel="stylesheet"
+      href="../../assets/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/ivoiceafrica logo 1.png"
+      type="image/x-icon"
+    />
+    <script src="../../assets/JS/onboarding.js" defer></script>
+    <script
+      src="../../assets/bootstrap/dist/js/bootstrap.bundle.js"
+      defer
+    ></script>
+    <script
+      src="../../assets/@popperjs/core/dist/umd/popper.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <form action="/" id="mainform" method="GET">
+      <div class="sign-modal">
+        <section class="onboarding-forms step active">
+          <div class="text-center py-5">
+            <img
+              src="../../assets/images/ivoiceafrica logo 2.png"
+              alt="ivoiceafrica-logo"
+              class="mb-2"
+            />
+            <h2 class="mb-2">Create your account</h2>
+            <p class="welcome-text">
+              Meet the right clients, get great value for your professionalism!
+            </p>
+          </div>
+          <div class="form-container">
+            <div class="mb-5">
+              <label for="first-name" class="form-label">First name</label>
+              <input
+                type="text"
+                id="first-name"
+                name="first-name"
+                placeholder="Ex: John"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="last-name" class="form-label">Last name</label>
+              <input
+                type="text"
+                id="last-name"
+                name="last-name"
+                placeholder="Ex: John"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Ex: Johndoe@gmail.com"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Write a password"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="onboard-footer footer-2">
+              <a data-bs-toggle="modal" data-bs-target="#myModal">
+                <input
+                  type="submit"
+                  class="button mb-3"
+                  value="Signup as Freelancer"
+                />
+              </a>
+              <p>
+                Already have an account?
+                <a href="../client/sign-in.html">Sign in</a>
+              </p>
+            </div>
+          </div>
+          <div class="form-footer onboard-footer">
+            <p>
+              Are you looking to find translation services?
+              <a href="../../index.html">Sign up as a Client</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </form>
+
+    <div
+      class="modal fade"
+      id="myModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-block text-center border-0">
+            <h2 class="modal-title-edit my-2" id="exampleModalLabel">
+              Please confirm your email!
+            </h2>
+            <p class="welcome-text mb-4">
+              We have sent an email with a confimation code to
+              <span>johndoe@gmail.com</span>
+            </p>
+          </div>
+          <div class="modal-body modal-codespace">
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space align-items-center fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+          </div>
+          <div class="modal-footer d-block mt-4 border-0 text-center">
+            <button
+              type="button"
+              class="modal-btn mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal-2"
+            >
+              Resend email
+            </button>
+            <p class="model-footer-text">
+              <span>johndoe@gmail.com</span> is not my email address
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal-2">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-block text-center border-0">
+            <h2 class="modal-title-edit mb-2" id="exampleModalLabel">
+              Please confirm your email!
+            </h2>
+            <p class="welcome-text mb-4">
+              We have sent an email with a confimation code to
+              <span>johndoe@gmail.com</span>
+            </p>
+          </div>
+          <div class="modal-body modal-codespace">
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">0</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">2</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">4</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">6</span>
+            </div>
+          </div>
+          <div class="modal-footer d-block mt-4 border-0 text-center">
+            <button
+              type="button"
+              class="btn-close modal-btn mb-2 lol"
+              id="formBtn-next"
+              data-bs-dismiss="modal"
+            >
+              confirm email
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="form-section step">
+      <div class="header">
+        <div class="header__navigation">
+          <div class="logo mb-2">
+            <img src="../../assets/images/ivlogo.svg" alt="ivoice logo" />
+          </div>
+
+          <div class="profile text-center">
+            <span>
+              <img
+                src="../../assets/images/profilenav.svg"
+                alt="profile icon"
+              />
+              <img src="../../assets/images/icoonarrow.svg" alt="icon arrow" />
+            </span>
+            <p>My profile</p>
+          </div>
+        </div>
+        <div class="progress__bar--bar">
+          <div></div>
+        </div>
+      </div>
+      <div class="freelancer-form-header">
+        <h2 class="form-header-title">
+          Hi <span>Bukola!</span> Set up your profile
+        </h2>
+        <p class="form-header-text">
+          It’ll take only 3 minutes to set up your profile. Don’t worry, your
+          progress is<br />
+          being saved as you go on.
+        </p>
+      </div>
+
+      <form id="cardform">
+        <div class="form multistep active-card">
+          <label class="mb-3" style="font-weight: bold"
+            >Fill in your details</label
+          >
+
+          <div class="row justify-content-between mb-4 freelancer-details">
+            <div class="col-sm-12 mb-5">
+              <label for="fname">Where are you based?</label>
+              <input
+                type="text"
+                name="country"
+                id="fname"
+                class="nationality px-4"
+                placeholder="Search to find your country"
+              />
+            </div>
+            <div class="col-sm-12 mb-5">
+              <label for="location">What's your nationality?</label>
+              <input
+                type="text"
+                name="location"
+                id="lname"
+                class="nationality"
+                placeholder="Search to find your country"
+              />
+            </div>
+          </div>
+
+          <label class="mb-3">What's your address?</label>
+          <div
+            class="row align-items-center justify-content-between mb-4 freelancer-details"
+          >
+            <div class="col-lg-5 mb-3">
+              <label for="street" class="label-text_accent"
+                >Street address</label
+              >
+              <input type="text" name="street" id="street" required />
+            </div>
+
+            <div class="col-lg-5 mb-3 mb-sm-5">
+              <label for="town" class="label-text_accent">Town/ Village</label>
+              <input type="text" name="town" id="town" required />
+            </div>
+            <div class="col-lg-5 mb-5">
+              <label for="postal" class="label-text_accent">Postal code</label>
+              <input type="text" name="town" id="postal" required />
+            </div>
+          </div>
+          <!-- <div class="freelancer-details"> -->
+          <div class="mb-5">
+            <div class="col-lg-5 col-sm-12">
+              <label for="sex">Choose your sex</label>
+              <select class="me-3 client-sex-select" name="flag" id="sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+          <!-- </div> -->
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-5">
+              <label for="number">Phone Number</label>
+              <div class="d-flex justify-content-between">
+                <select class="me-3 client-flag-select" name="flag" id="flag">
+                  <option value="selected">NGN</option>
+                  <option value="">USD</option>
+                  <option value="">GBP</option>
+                </select>
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="+234 903 919 7553"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="submit-btn">
+            <div class="onboarding-cta">
+              <button class="btn-mini-trans">Back</button>
+              <button class="btn-mini-black" type="submit" id="btn-next">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form multistep">
+          <h2 class="freelancer__document-heading">
+            Select the services you can offer
+          </h2>
+          <div class="services">
+            <button
+              class="services-head d-flex align-items-center justify-content-between"
+              type="button"
+            >
+              <div>
+                <h2>Translation</h2>
+                <p>Convert Textscript into Textscript (different language)</p>
+              </div>
+              <div class="services-head-info">
+                <div class="service_info-progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <span class="edit-icon"
+                  ><img src="../../assets/icons/edit.svg" alt="edit-icon"
+                /></span>
+              </div>
+            </button>
+          </div>
+
+          <div class="services">
+            <button
+              class="services-head d-flex align-items-center justify-content-between"
+              type="button"
+            >
+              <div>
+                <h2>Interpretation</h2>
+                <p>Convert Audio/ Video into Textscript (different language)</p>
+              </div>
+              <div class="services-head-info">
+                <div class="service_info-progress"></div>
+                <span class="edit-icon"
+                  ><img src="../../assets/icons/edit.svg" alt="edit-icon"
+                /></span>
+              </div>
+            </button>
+            <div class="service-content">
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >How long have you been offering this service?</label
+                >
+                <div class="custom-select mt-2 rel">
+                  <input
+                    type="text"
+                    placeholder="select"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal4-select"
+                  />
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Your Language(s) of expertise</label
+                >
+                <div class="custom-select mt-2 rel">
+                  <input
+                    type="text"
+                    placeholder="select"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal-5"
+                  />
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Choose preferred industry to work for</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select Industry</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Your portfolio link</label
+                >
+                <input type="text" class="portfolio-input" />
+              </div>
+
+              <label for="" class="service-content-label mb-3"
+                >What is your rate for this service?</label
+              >
+              <div>
+                <label for="" class="custom-file-lang-label">Per word</label>
+                <div class="rates">
+                  <div class="custom-min-word mb-2">
+                    <span>Min($)</span>
+                    <input type="text" class="ms-4" />
+                  </div>
+                  <div class="custom-min-word">
+                    <span>Max($)</span>
+                    <input type="text" class="ms-4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="services">
+            <button
+              class="services-head d-flex align-items-center justify-content-between"
+              type="button"
+            >
+              <div>
+                <h2>Voiceover</h2>
+                <p>Convert Textscript to Audio recording</p>
+              </div>
+              <div class="services-head-info">
+                <div class="service_info-progress"></div>
+                <span class="edit-icon"
+                  ><img src="../../assets/icons/edit.svg" alt="edit-icon"
+                /></span>
+              </div>
+            </button>
+            <div class="service-content">
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >How long have you been offering this service?</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Your Language(s) of expertise</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select Language</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Choose preferred industry to work for</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select Industry</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="portfolio" class="service-content-label"
+                  >Your portfolio link</label
+                >
+                <input type="text" class="portfolio-input" id="portfolio" />
+              </div>
+              <div
+                class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+              ></div>
+              <label for="" class="service-content-label mb-3"
+                >What is your rate for this service?</label
+              >
+              <div>
+                <label for="" class="custom-file-lang-label">Per word</label>
+                <div class="custom-min-word mb-2">
+                  <span>Min</span>
+                  <input type="text" class="ms-4" />
+                </div>
+                <div class="custom-min-word mb-2">
+                  <span>Max</span>
+                  <input type="text" class="ms-4" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="services">
+            <button
+              class="services-head d-flex align-items-center justify-content-between"
+              type="button"
+            >
+              <div>
+                <h2>Transcribing</h2>
+                <p>Convert Audio/ Video into Textscript</p>
+              </div>
+              <div class="services-head-info">
+                <div class="service_info-progress"></div>
+                <span class="edit-icon"
+                  ><img src="../../assets/icons/edit.svg" alt="edit-icon"
+                /></span>
+              </div>
+            </button>
+            <div class="service-content">
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >How long have you been offering this service?</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Your Language(s) of expertise</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select Language</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Choose preferred industry to work for</label
+                >
+                <div class="custom-select mt-2">
+                  <select name="" id="">
+                    <option value="">Select Industry</option>
+                  </select>
+                  <span class="custom-select-arrow"></span>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="" class="service-content-label"
+                  >Your portfolio link</label
+                >
+                <input type="text" class="portfolio-input" />
+              </div>
+
+              <label for="" class="service-content-label mb-3"
+                >Upload samples of your languages of expertise</label
+              >
+              <div
+                class="language-upload-container d-flex justify-content-between align-items-center mb-5"
+              >
+                <div>
+                  <label for="" class="custom-file-lang-label">French</label>
+                  <div class="custom-file-upload-space">
+                    <span
+                      class="custom-file-upload-text"
+                      id="custom-file-upload-text"
+                      >Upload file here</span
+                    >
+                    <input
+                      type="file"
+                      name="upload1"
+                      id="upload"
+                      id="upload"
+                      hidden
+                    />
+                    <label for="upload" class="custom-file-upload"
+                      ><img
+                        src="../../assets/icons/file upload.png"
+                        alt="custom
+                      file upload"
+                    /></label>
+                  </div>
+                </div>
+                <div>
+                  <label for="" class="custom-file-lang-label">French</label>
+                  <div class="custom-file-upload-space">
+                    <span
+                      class="custom-file-upload-text"
+                      id="custom-file-upload-text"
+                      >Upload file here 1</span
+                    >
+                    <input type="file" name="upload2" id="upload" hidden />
+                    <label for="upload" class="custom-file-upload"
+                      ><img
+                        src="../../assets/icons/file upload.png"
+                        alt="custom file upload"
+                    /></label>
+                  </div>
+                </div>
+                <div>
+                  <label for="" class="custom-file-lang-label">French</label>
+                  <div class="custom-file-upload-space">
+                    <span
+                      class="custom-file-upload-text"
+                      id="custom-file-upload-text"
+                      >Upload file here
+                    </span>
+                    <input type="file" name="upload3" id="upload" hidden />
+                    <label for="upload" class="custom-file-upload"
+                      ><img
+                        src="../assets/icons/file upload.png"
+                        alt="custom file upload"
+                    /></label>
+                  </div>
+                </div>
+              </div>
+              <label for="" class="service-content-label mb-3"
+                >What is your rate for this service?</label
+              >
+              <div class="rates">
+                <label for="" class="custom-file-lang-label">Per word</label>
+                <div class="custom-min-word mb-2">
+                  <span>Min</span>
+                  <input type="text" class="ms-4" />
+                </div>
+                <div class="custom-min-word">
+                  <span>Max</span>
+                  <input type="text" class="ms-4" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="services-offer-btn">
+            <p>Do this later</p>
+            <div class="onboarding-cta">
+              <button
+                id="btn-prev"
+                class="btn-mini-trans"
+                type="button"
+                data-prev
+              >
+                Back
+              </button>
+              <button class="btn-mini-black" type="submit" id="btn-next">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form multistep active-card">
+          <h2 class="freelancer__document-heading">
+            Upload relevant documents for each service and language
+          </h2>
+          <div class="freelancer__box">
+            <h2 class="freelancer__document--label-heading mb-5">
+              Translation
+              <img src="../../assets/icons/edit.svg" alt="edit-icon" />
+            </h2>
+            <div class="freelancer__document--box mb-5">
+              <div class="freelancer__fr align-items-center">
+                <span class="freelance-language">
+                  Yoruba
+                  <img src="../../assets/icons/edit.svg" alt="edit-icon" />
+                </span>
+                <label for="addoc" class="freelance-labelBtn">
+                  Add +
+                  <input
+                    type="file"
+                    name="docadd"
+                    class="freelancer__file"
+                    id="addoc"
+                  />
+                </label>
+              </div>
+              <div class="freelancer__phy">
+                <span class="freelance-language">
+                  French
+                  <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+                </span>
+                <div class="freelancer__document">
+                  <div>
+                    <img
+                      src="../../assets/images/pdf.svg"
+                      alt="pdf icon"
+                      class="mr-3"
+                    />
+                    <p class="ml-5">Physics textbook in French (01).pdf</p>
+                  </div>
+                  <label for="addpdfdco">
+                    Add +
+                    <input
+                      type="file"
+                      name="docadd"
+                      class="freelancer__file"
+                      id="addpdfdoc"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="freelancer__box">
+            <h2 class="freelancer__document--label-heading mb-5">
+              Voice-over
+              <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+            </h2>
+            <div class="freelancer__document--box mb-5">
+              <div class="freelancer__fr align-items-center">
+                <div class="freelance-language">
+                  Yoruba
+                  <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+                </div>
+                <label for="addoc" class="freelance-labelBtn">
+                  Add +
+                  <input
+                    type="file"
+                    name="docadd"
+                    class="freelancer__file"
+                    id="addoc"
+                  />
+                </label>
+              </div>
+              <div class="freelancer__phy">
+                <span class="freelance-language">
+                  French
+                  <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+                </span>
+                <div class="freelancer__document">
+                  <div>
+                    <img
+                      src="../../assets/images/pdf.svg"
+                      alt="pdf icon"
+                      class="mr-3"
+                    />
+                    <p class="ml-5">Physics textbook in French (01).pdf</p>
+                  </div>
+                  <label for="addpdfdco">
+                    Add +
+                    <input
+                      type="file"
+                      name="docadd"
+                      class="freelancer__file"
+                      id="addpdfdoc"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="services-offer-btn">
+            <p>Do this later</p>
+            <div class="onboarding-cta">
+              <button
+                id="btn-prev"
+                class="btn-mini-trans"
+                type="button"
+                data-prev
+              >
+                Back
+              </button>
+              <button class="btn-mini-black" type="submit" id="btn-next">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form multistep" id="client-form">
+          <div class="profile__overview">
+            <h2 class="profile__overview--heading">
+              Let your clients meet you!
+            </h2>
+            <div class="profile__overview--settings">
+              <div class="profile__sbox">
+                <p>Profile Picture</p>
+                <img
+                  src="../../assets/images/profiledemo.svg"
+                  alt="default profile picture"
+                />
+                <label for="add">
+                  Add+
+                  <input
+                    type="file"
+                    name="file"
+                    id="add"
+                    style="display: none"
+                  />
+                </label>
+              </div>
+              <div class="row">
+                <div class="col-lg-9 com-sm-12 mb-5">
+                  <label for="sex" class="mb-2">Select your sex</label>
+                  <select name="degree" id="sex" class="client-sex-select">
+                    <option value="select" selected>Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Feamil">Female</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="headline" class="location" class="mb-2"
+                    >Headline</label
+                  >
+                  <input
+                    type="text"
+                    name="headline"
+                    id="headline"
+                    style="border-radius: 16px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="services-offer-btn">
+            <p>Do this later</p>
+            <div class="onboarding-cta">
+              <button
+                id="btn-prev"
+                class="btn-mini-trans"
+                type="button"
+                data-prev
+              >
+                Back
+              </button>
+              <button
+                class="btn-mini-black"
+                type="submit"
+                id="btn-next"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal-3"
+              >
+                Finish
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <div class="modal fade" id="myModal-3">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="success">
+            <div class="success-container">
+              <h2 class="my-2">All good!</h2>
+              <p>
+                Your profile has successfully been created! Be ready to explore
+                great opportunities
+              </p>
+              <img
+                src="../../assets/images/Frame 79.png"
+                alt="successicon"
+                class="success-icon"
+              />
+              <a href="dashboard.html" class="success-button button">Start</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal4-select">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <!-- <div class="success"> -->
+          <div class="select-popupI">
+            <h1>I have been offericng Voiceover services for..</h1>
+            <div class="select-options">
+              <input type="radio" id="over-I" name="year" value="over-I" />
+              <label for="over-I">0 - 1 year</label>
+            </div>
+
+            <div class="select-options">
+              <input type="radio" id="over-I" name="year" value="over-I" />
+              <label for="over-I">2 - 4year</label>
+            </div>
+            <div class="select-options">
+              <input type="radio" id="over-I" name="year" value="over-I" />
+              <label for="over-I">More than 5 years</label>
+            </div>
+            <div class="select-options">
+              <input type="radio" id="over-II" name="year" value="over-I" />
+              <label for="over-II">More than 10 years </label>
+            </div>
+            <div class="popup-btns">
+              <p>cancel</p>
+              <button
+                class="btn-mini-black"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal4-select"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal-5">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <h1 class="Lang">
+            Select all languages you can offer over a voice service For
+          </h1>
+          <input
+            type="text"
+            name="language"
+            id="lang"
+            placeholder="Search Language"
+          />
+          <div class="popup-btns">
+            <p>cancel</p>
+            <button
+              class="btn-mini-black"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal5"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
