@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelancer profile setup</title>
+    <link
+      rel="stylesheet"
+      href="../../assets/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/ivoiceafrica logo 1.png"
+      type="image/x-icon"
+    />
+    <script src="../../assets/JS/onboarding.js" defer></script>
+    <script
+      src="../../assets/bootstrap/dist/js/bootstrap.bundle.js"
+      defer
+    ></script>
+    <script
+      src="../../assets/@popperjs/core/dist/umd/popper.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <section class="form-section">
+      <div class="header">
+        <div class="header__navigation text-center">
+          <div class="logo mb-2">
+            <img src="../../assets/images/ivlogo.svg" alt="ivoice logo" />
+          </div>
+        </div>
+      </div>
+      <div class="freelancer-form-header">
+        <h2 class="form-header-title">
+          Hi <span>Bukola!</span> Set up your profile
+        </h2>
+        <p class="form-header-text">
+          It’ll take only 3 minutes to set up your profile. Don’t worry, your
+          progress is<br />
+          being saved as you go on.
+        </p>
+      </div>
+      <form class="form multistep active-card" action="#" method="post">
+        <h2 class="freelancer__document-heading">
+          Upload relevant documents for each service and language
+        </h2>
+        <div class="freelancer__box">
+          <h2 class="freelancer__document--label-heading mb-5">
+            Translation
+            <img src="../../assets/icons/edit.svg" alt="edit-icon" />
+          </h2>
+          <div class="freelancer__document--box mb-5">
+            <div class="freelancer__fr align-items-center">
+              <span class="freelance-language">
+                Yoruba
+                <img src="../../assets/icons/edit.svg" alt="edit-icon" />
+              </span>
+              <label for="addoc" class="freelance-labelBtn">
+                Add +
+                <input
+                  type="file"
+                  name="docadd"
+                  class="freelancer__file"
+                  id="addoc"
+                />
+              </label>
+            </div>
+            <div class="freelancer__phy">
+              <span class="freelance-language">
+                French
+                <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+              </span>
+              <div class="freelancer__document">
+                <div>
+                  <img
+                    src="../../assets/images/pdf.svg"
+                    alt="pdf icon"
+                    class="mr-3"
+                  />
+                  <p class="ml-5">Physics textbook in French (01).pdf</p>
+                </div>
+                <label for="addpdfdco">
+                  Add +
+                  <input
+                    type="file"
+                    name="docadd"
+                    class="freelancer__file"
+                    id="addpdfdoc"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="freelancer__box">
+          <h2 class="freelancer__document--label-heading mb-5">
+            Voice-over
+            <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+          </h2>
+          <div class="freelancer__document--box mb-5">
+            <div class="freelancer__fr align-items-center">
+              <div class="freelance-language">
+                Yoruba
+                <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+              </div>
+              <label for="addoc" class="freelance-labelBtn">
+                Add +
+                <input
+                  type="file"
+                  name="docadd"
+                  class="freelancer__file"
+                  id="addoc"
+                />
+              </label>
+            </div>
+            <div class="freelancer__phy">
+              <span class="freelance-language">
+                French
+                <img src="../../assets/icons/edit.svg" alt="edit-icon" cl />
+              </span>
+              <div class="freelancer__document">
+                <div>
+                  <img
+                    src="../../assets/images/pdf.svg"
+                    alt="pdf icon"
+                    class="mr-3"
+                  />
+                  <p class="ml-5">Physics textbook in French (01).pdf</p>
+                </div>
+                <label for="addpdfdco">
+                  Add +
+                  <input
+                    type="file"
+                    name="docadd"
+                    class="freelancer__file"
+                    id="addpdfdoc"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="services-offer-btn">
+          <p>Do this later</p>
+          <div class="onboarding-cta">
+            <a th:href="@{/freelancer-profile-2}" id="btn-prev" class="btn-mini-trans">
+              Back
+            </a>
+            <button class="btn-mini-black" type="submit" id="btn-next">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

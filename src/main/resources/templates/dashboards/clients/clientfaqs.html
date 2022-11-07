@@ -5,9 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>FAQs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/ivoiceafrica logo 1.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
@@ -20,14 +25,17 @@
       media="all"
     />
     <!-- others css -->
-    <link rel="stylesheet" href="assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="assets/CSS/css/styles.css" />
-    <!-- <link rel="stylesheet" href="assets/CSS/css/responsive.css"/> -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
 
     <!-- modernizr css -->
-    <script src="assets/JS/js/vendor/modernizr-2.8.3.min.js" defer></script>
-    <script src="assets/JS/js/scripts.js" defer></script>
+    <script
+      src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"
+      defer
+    ></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
 
     <script
       src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
@@ -44,594 +52,564 @@
     <div class="page-container">
       <!-- Header area start -->
 
-      <div class="header-area">
-        <div class="headerarea-divder">
-          <div class="sidebar-header d-flex align-items-center">
-            <div class="nav-btn pull-left">
-              <img
-                src="assets/icons/menu-open.svg"
-                alt="menu-open"
-                id="sidebar-menu"
-              />
-            </div>
-            <div class="ml-5 logo">
-              <a href="dashboard.html"
-                ><img src="assets/images/ivoiceafrica logo 1.png" alt="logo"
-              /></a>
-            </div>
+      <div class="overlay"></div>
+      <div class="header">
+        <div class="header__sidenav">
+          <div class="menu-icon">
+            <img src="../../assets/images/options.svg" alt="options-icon" />
           </div>
-          <!-- Searchbar and notification start -->
-          <div
-            class="d-flex align-items-center big-margin justify-content-between w-70"
-          >
-            <div class="search-box pull-left">
-              <form action="#">
-                <i class="ti-search"></i>
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Search..."
-                  required
-                />
-              </form>
-            </div>
+          <img
+            src="../../assets/images/ivoiceafrica logo 1.png"
+            alt="ivoice logo"
+            class="ivoice-logo"
+          />
+        </div>
+        <div class="header__search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" placeholder="Search" />
+        </div>
+        <div class="header__icons">
+          <img
+            src="../../assets/images/notif.svg"
+            alt="bell icon"
+            class="bell-icon"
+          />
+          <div class="profile">
+            <img
+              src="../../assets/images/pro.svg"
+              class="profile-circle"
+              alt="profile circle"
+            />
 
-            <div>
-              <div class="notification-area d-flex">
-                <a
-                  href="clientnotification.html"
-                  class="text-center notification-btn"
-                >
-                  <span class="material-symbols-outlined"> notifications </span>
-                  <p>Notifications</p>
-                </a>
-
-                <button
-                  class="text-center ml-5"
-                  type="button"
-                  id="show_modal_btn"
-                >
-                  <span class="material-symbols-outlined">
-                    account_circle
-                  </span>
-                  <span class="material-symbols-outlined">
-                    arrow_drop_down
-                  </span>
-                  <p>My profile</p>
-                </button>
-
-                <!-- Searchbar and notification end -->
-
-                <!-- The Freelancer's modal start -->
-                <div
-                  class="row border profile-modal profile-modal_active"
-                  id="profileModal"
-                >
-                  <div class="col">
-                    <div class="modal-head">
-                      <div>
-                        <img src="assets/images/profile.svg" alt="profile" />
-                      </div>
-                      <p class="freelancer-name">Bukola Adesina</p>
-                      <p>Freelancer</p>
-                      <div class="freelancers-status">
-                        <div class=""><span>Available</span></div>
-                        <div class=""><span> Away</span></div>
-                        <div class=""><span> Busy</span></div>
-                      </div>
-                    </div>
-                    <div class="modal-body">
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/profile_icon.svg" alt="" />
-                        <span class="ml-2">Profile</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/padlock_icon.svg" alt="" />
-                        <span class="ml-2">Change Password</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/logout_icon.svg" alt="" />
-                        <span class="ml-2">Logout</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- The Freelancer's modal end -->
+            <div class="profile__modal">
+              <img src="../../assets/images/propic.png" alt="profile picture" />
+              <div class="profile__header">
+                <h1>Bukola Adesina</h1>
+                <p>Freelancer</p>
+              </div>
+              <div class="profile__statuses">
+                <p class="active-status">Available</p>
+                <p>Away</p>
+                <p>Busy</p>
+              </div>
+              <div class="profile__settings">
+                <span>
+                  <img
+                    src="../../assets/images/pro1.svg"
+                    alt="profile card icon"
+                  />
+                  Profile
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro2.svg"
+                    alt="profile card icon"
+                  />
+                  Change Password
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro3.svg"
+                    alt="profile card icon"
+                  />
+                  Logout
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Header area end -->
 
-      <div class="main-content">
-        <div class="page-divider">
-          <div class="sidebar-menu">
-            <!-- sidebar menu area start -->
-            <div class="main-menu">
-              <div>
-                <nav>
-                  <ul class="metismenu" id="menu">
-                    <li class="active">
-                      <a href="newrequest.html" aria-expanded="true"
-                        ><span
-                          class="material-symbols-outlined material-icon orange600"
-                        >
-                         add_box </span
-                        ><span class="title-medium-font">New Request</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          work </span
-                        ><span class="title-medium-font">Jobs</span></a
-                      >
-                      <ul class="collapse">
-                        <li><a href="clientrequests.html">Request</a></li>
-                        <li>
-                          <a href="clientbids.html">Bids</a>
-                        </li>
-                        <li><a href="inprogress.html">In Progress</a></li>
-                        <li><a href="clientfinished.html">Finished</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="clientfinance.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          payments </span
-                        ><span class="title-medium-font">Finances</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientfaqs.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          quiz </span
-                        ><span class="title-medium-font">FAQs</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientprofile.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          account_box </span
-                        ><span class="title-medium-font">Profile</span></a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        aria-expanded="true"
-                        data-toggle="modal"
-                        data-target="#logoutModal"
-                        ><span class="material-symbols-outlined material-icon">
-                          logout
-                        </span>
-                        <span class="title-medium-font">Logout</span></a
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- sidebar menu area end -->
+      <div class="sidebar">
+        <img
+          src="../../assets/images/ivoiceafrica logo 1.png"
+          alt="ivoice logo"
+          class="smallnav-logo"
+        />
+        <ul class="metismenu sidebar__links" id="menu">
+          <li class="sidebar__link--item">
+            <a href="#" aria-expanded="true">
+              <img src="../../assets/images/box1.png" alt="add icon" />
+              New request</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a
+              href="javascript:void(0)"
+              aria-expanded="true"
+              class="active-link"
+            >
+              <img src="../../assets/images/box2.svg" alt="add icon" />
+              Jobs</a
+            >
+            <ul class="collapse">
+              <li>
+                <a href="clientrequests.html" class="collapse-link">Request</a>
+              </li>
+              <li>
+                <a href="clientbids.html" class="collapse-link">Bids</a>
+              </li>
+              <li>
+                <a href="inprogress.html" class="collapse-link">In Progress</a>
+              </li>
+              <li>
+                <a href="clientfinished.html" class="collapse-link">Finished</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar__link--item" aria-expanded="true">
+            <a href="clientfinance.html">
+              <img src="../../assets/images/box4.svg" alt="add icon" />
+              Finances</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientfaqs.html" aria-expanded="true">
+              <img src="../../assets/images/box5.svg" alt="add icon" />
+              FAQS</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientprofile.html" aria-expanded="true">
+              <img src="../../assets/images/box6.svg" alt="profile card icon" />
+              Profile</a
+            >
+          </li>
+
+          <li class="sidebar__link--item">
+            <a
+              href="#"
+              aria-expanded="true"
+              aria-expanded="true"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              <img src="../../assets/images/box7.svg" alt="logout icon" />
+              Logout</a
+            >
+          </li>
+        </ul>
+
+        <!-- sidebar menu area end -->
+      </div>
+      <div class="main">
+        <div class="main__headerbox">
+          <h1>FAQs</h1>
+        </div>
+
+        <!-- <div class="job-alert-heading dashboard-heading">
+          <div
+            class="d-flex align-items-center activejobs-heading bigger-margin"
+            id="bigger-margin"
+          >
+            <span>FAQs</span>
           </div>
+        </div> -->
 
-          <div class="main-pagecontent">
-            <div class="job-alert-heading dashboard-heading">
-              <div
-                class="d-flex align-items-center activejobs-heading bigger-margin"
-                id="bigger-margin"
-              >
-                <span>FAQs</span>
+        <div class="main__contentbox">
+          <div class="accordion-section">
+            <div class="accordion-container">
+              <div class="accordion-title d-flex align-items-center">
+                <span class="material-symbols-outlined mr-2"> help </span>
+                <span class="accordion-heading">Payment Structure</span>
+              </div>
+
+              <div class="accordion" id="accordion2">
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion2"
+                      href="#collapseOne"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body in collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion2"
+                      href="#collapseTwo"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion2"
+                      href="#collapseThree"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapseThree" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion2"
+                      href="#collapseFour"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapseFour" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="bigger-margin" id="bigger-margin">
-              <div class="mt-4 w-90 d-flex flex-wrap justify-content-between">
-                <div class="accordion-container">
-                  <div class="accordion-title d-flex align-items-center">
-                    <span class="material-symbols-outlined mr-2"> help </span>
-                    <span class="accordion-heading">Payment Structure</span>
-                  </div>
+            <div class="accordion-container">
+              <div class="accordion-title d-flex align-items-center">
+                <span class="material-symbols-outlined mr-2"> help </span>
+                <span class="accordion-heading">Privacy</span>
+              </div>
 
-                  <div class="accordion" id="accordion2">
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion2"
-                          href="#collapseOne"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapseOne" class="accordion-body in collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion2"
-                          href="#collapseTwo"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapseTwo" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion2"
-                          href="#collapseThree"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapseThree" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion2"
-                          href="#collapseFour"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapseFour" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+              <div class="accordion3" id="accordion3">
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion3"
+                      href="#collapse5"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse5" class="accordion-body in collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
                   </div>
                 </div>
-
-                <div class="accordion-container">
-                  <div class="accordion-title d-flex align-items-center">
-                    <span class="material-symbols-outlined mr-2"> help </span>
-                    <span class="accordion-heading">Privacy</span>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion3"
+                      href="#collapse6"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
                   </div>
-
-                  <div class="accordion3" id="accordion3">
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion3"
-                          href="#collapse5"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse5" class="accordion-body in collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion3"
-                          href="#collapse6"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse6" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion3"
-                          href="#collapse7"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse7" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion3"
-                          href="#collapse8"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse8" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+                  <div id="collapse6" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
                   </div>
                 </div>
-
-                <div class="accordion-container">
-                  <div class="accordion-title d-flex align-items-center">
-                    <span class="material-symbols-outlined mr-2"> help </span>
-                    <span class="accordion-heading">Trainings</span>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion3"
+                      href="#collapse7"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
                   </div>
-
-                  <div class="accordion4" id="accordion4">
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion4"
-                          href="#collapse9"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse9" class="accordion-body in collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion4"
-                          href="#collapse10"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse10" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion4"
-                          href="#collapse11"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse11" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion4"
-                          href="#collapse12"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse12" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+                  <div id="collapse7" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
                   </div>
                 </div>
-
-                <div class="accordion-container">
-                  <div class="accordion-title d-flex align-items-center">
-                    <span class="material-symbols-outlined mr-2"> help </span>
-                    <span class="accordion-heading">Languages</span>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion3"
+                      href="#collapse8"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
                   </div>
+                  <div id="collapse8" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                  <div class="accordion5" id="accordion5">
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion5"
-                          href="#collapse13"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse13" class="accordion-body in collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+            <div class="accordion-container">
+              <div class="accordion-title d-flex align-items-center">
+                <span class="material-symbols-outlined mr-2"> help </span>
+                <span class="accordion-heading">Trainings</span>
+              </div>
+
+              <div class="accordion4" id="accordion4">
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion4"
+                      href="#collapse9"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse9" class="accordion-body in collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion5"
-                          href="#collapse14"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse14" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion4"
+                      href="#collapse10"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse10" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion5"
-                          href="#collapse15"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse15" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion4"
+                      href="#collapse11"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse11" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <a
-                          class="accordion-toggle title"
-                          data-toggle="collapse"
-                          data-parent="#accordion5"
-                          href="#collapse16"
-                        >
-                          How is payment made?
-                          <span
-                            class="material-symbols-outlined rotate-icon accicon"
-                          >
-                            chevron_right
-                          </span>
-                        </a>
-                      </div>
-                      <div id="collapse16" class="accordion-body collapse">
-                        <div class="card-body">
-                          Yes. We are willing to sign a non-disclosure agreement
-                          with our translators and clients for data protection.
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion4"
+                      href="#collapse12"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse12" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-container">
+              <div class="accordion-title d-flex align-items-center">
+                <span class="material-symbols-outlined mr-2"> help </span>
+                <span class="accordion-heading">Languages</span>
+              </div>
+
+              <div class="accordion5" id="accordion5">
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion5"
+                      href="#collapse13"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse13" class="accordion-body in collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion5"
+                      href="#collapse14"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse14" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion5"
+                      href="#collapse15"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse15" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="accordion-toggle title"
+                      data-toggle="collapse"
+                      data-parent="#accordion5"
+                      href="#collapse16"
+                    >
+                      How is payment made?
+                      <span
+                        class="material-symbols-outlined rotate-icon accicon"
+                      >
+                        chevron_right
+                      </span>
+                    </a>
+                  </div>
+                  <div id="collapse16" class="accordion-body collapse">
+                    <div class="card-body">
+                      Yes. We are willing to sign a non-disclosure agreement
+                      with our translators and clients for data protection.
                     </div>
                   </div>
                 </div>
@@ -643,11 +621,21 @@
     </div>
 
     <!-- logout Modal -->
-    <div class="modal fade" id="logoutModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered ">
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content logoutModal">
           <div class="modal-header">
-            <p class="modal-title" id="logoutModalLabel">Log out of iVoice Africa?</p>
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
           </div>
           <div class="modal-body logoutModal-body">
             You can log in anytime with your email and password
@@ -656,24 +644,26 @@
             <a href="index.html">
               <button class="transparentBtn">Logout</button>
             </a>
-            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">Cancel</button>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- jquery latest version -->
-    <script src="assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
-    <script src="assets/JS/js/popper.min.js"></script>
-    <script src="assets/JS/js/bootstrap.min.js"></script>
-    <script src="assets/JS/js/owl.carousel.min.js"></script>
-    <script src="assets/JS/js/metisMenu.min.js"></script>
-    <script src="assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
     <script src="assets/JS/js/jquery.slicknav.min.js"></script>
 
     <!-- others plugins -->
-    <script src="assets/JS/js/plugins.js"></script>
-    <script src="assets/JS/js/scripts.js"></script>
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
   </body>
 </html>

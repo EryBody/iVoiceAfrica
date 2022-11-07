@@ -51,13 +51,17 @@ public class SecurityConfig  {
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/","/signup").permitAll()
+			.antMatchers("/","/signin","/client-signup","/client-profile-setup","/client-upload-pic",
+					"/freelancer-signup","/freelancer-profile-setup","/freelancer-profile-2",
+					"/freelancer-profile-3","/freelancer-profile-4","/freelancer/signup/save",
+					"/freelancer/detail/save", "/freelancer/skill/save","/freelancer/profilepicture/save",
+					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save").permitAll()
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
-				.loginPage("/index")
-				.failureUrl("/index?error=true")
+				.loginPage("/signin")
+				.failureUrl("/signin?error=true")
 				.usernameParameter("username")
 				.passwordParameter("password")
 	//			.defaultSuccessUrl("/admin-home")
@@ -89,7 +93,7 @@ public class SecurityConfig  {
 	SecurityFilterChain resources(HttpSecurity http) throws Exception {
 	    http
 	        .requestMatchers((matchers) -> matchers.antMatchers("/static/**","/assets/**", "/@popperjs/**", "/bootstrap/**", "/CSS/**", 
-					"/fonts/**", "/icons/**", "/images/**","/JS/**","/core/**"))
+					"/fonts/**", "/icons/**", "/images/**","/JS/**"))
 	        .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
 	        .requestCache().disable()
 	        .securityContext().disable()

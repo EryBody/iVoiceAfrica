@@ -5527,8 +5527,7 @@ fieldset:disabled .btn {
 .modal-content {
   position: relative;
   display: flex;
-  align-items: center;
-  padding: 40px;
+  padding: 32px 40px;
   flex-direction: column;
   width: 100%;
   max-width: 700rem;

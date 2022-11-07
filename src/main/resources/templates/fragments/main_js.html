@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<body>
+	<div th:fragment="main_js">
+		 <!-- jquery latest version -->
+    <script th:src="@{assets/JS/js/vendor/jquery-2.2.4.min.js}"></script>
+    <!-- bootstrap 4 js -->
+    <script th:src="@{assets/JS/js/popper.min.js}"></script>
+    <script th:src="@{assets/JS/js/bootstrap.min.js}"></script>
+    <script th:src="@{assets/JS/js/owl.carousel.min.js}"></script>
+    <script th:src="@{assets/JS/js/metisMenu.min.js}"></script>
+    <script th:src="@{assets/JS/js/jquery.slimscroll.min.js}"></script>
+    <script th:src="@{assets/JS/js/jquery.slicknav.min.js}"></script>
+
+    <!-- others plugins -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script th:src="@{assets/JS/js/plugins.js}"></script>
+    <script th:src="@{assets/JS/js/scripts.js}"></script>
+ 	</div>
 </body>
 </html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upload Profile picture</title>
+
+<link rel="stylesheet"
+	href="../../assets/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<script src="../../assets/JS/onboarding.js" defer></script>
+<script src="../../assets/bootstrap/dist/js/bootstrap.bundle.js" defer></script>
+<script src="../../assets/@popperjs/core/dist/umd/popper.min.js" defer></script>
+</head>
+<body>
+	<section class="form-section">
+		<div class="form-header">
+			<img src="../../assets/images/ivoiceafrica logo 3.png" alt="logo" />
+			<h2 class="form-header-title">Add a profile picture</h2>
+			<p class="form-header-text">
+				It’ll take only 3 minutes to set up your profile. Don’t worry, your
+				progress is<br /> being saved as you go on.
+			</p>
+		</div>
+
+		<form th:action="@{/freelancer/profilepicture/save}" th:object="${FreelancerProfilePictureDetailDTO}" method="post">
+			<div class="form multistep" id="client-form">
+				<div class="profile__overview">
+					<h2 class="profile__overview--heading">Let your clients meet
+						you!</h2>
+					<div class="profile__overview--settings">
+						<div class="profile__sbox">
+							<p>Profile Picture</p>
+							<img src="../../assets/images/profiledemo.svg"
+								alt="default profile picture" id="img_pro" /> <label
+								for="img_profile"> Add+ <input type="file"
+								name="profilePicture" id="img_profile" style="display: none"
+								accept="image/png, image/jpeg" onchange="img_pathUrl(this)" />
+							</label>
+						</div>
+						<div class="row text-center">
+							<div class="w-100">
+								<label for="headline" class="location text-center mb-2">Headline</label>
+								<input type="text" name="profileHeadline" id="headline"
+									style="border-radius: 16px" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="services-offer-btn">
+					<p>Do this later</p>
+					<div class="onboarding-cta">
+						<a class="btn-mini-trans" th:href="@{/freelancer-profile-2}">Back</a>
+
+						<button class="btn-mini-black" type="submit">
+							Finish</button>
+
+						<!-- <button
+					class="btn-mini-black"
+					type="submit"
+					id="btn-next"
+					data-bs-toggle="modal"
+					data-bs-target="#myModal-3"
+				  >
+					Finish
+				  </button> -->
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+	<div class="modal fade" id="myModal-3">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="success">
+					<div class="success-container">
+						<h2 class="my-2">All good!</h2>
+						<p>
+							Your profile has successfully been created! A message for <br />
+							the clients.
+						</p>
+						<img src="../../assets/images/Frame 79.png" alt="successicon"
+							class="success-icon" /> <a th:href="@{/signin}"
+							class="success-button button">Start</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+</html>

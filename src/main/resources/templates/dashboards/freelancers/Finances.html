@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Finances</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+
+    <!-- modernizr css -->
+    <!-- <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script> -->
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+      <div class="overlay"></div>
+      <div class="header">
+        <div class="header__sidenav">
+          <div class="menu-icon">
+            <img src="../../assets/images/options.svg" alt="options-icon" />
+          </div>
+          <img
+            src="../../assets/images/ivoiceafrica logo 1.png"
+            alt="ivoice logo"
+            class="ivoice-logo"
+          />
+        </div>
+        <div class="header__search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input type="text" placeholder="Search" />
+        </div>
+        <div class="header__icons">
+          <img
+            src="../../assets/images/notif.svg"
+            alt="bell icon"
+            class="bell-icon"
+          />
+          <div class="profile">
+            <img
+              src="../../assets/images/pro.svg"
+              class="profile-circle"
+              alt="profile circle"
+            />
+
+            <div class="profile__modal">
+              <img src="../../assets/images/propic.png" alt="profile picture" />
+              <div class="profile__header">
+                <h1>Bukola Adesina</h1>
+                <p>Freelancer</p>
+              </div>
+              <div class="profile__statuses">
+                <p class="active-status">Available</p>
+                <p>Away</p>
+                <p>Busy</p>
+              </div>
+              <div class="profile__settings">
+                <span>
+                  <img
+                    src="../../assets/images/pro1.svg"
+                    alt="profile card icon"
+                  />
+                  Profile
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro2.svg"
+                    alt="profile card icon"
+                  />
+                  Change Password
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro3.svg"
+                    alt="profile card icon"
+                  />
+                  Logout
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <img
+          src="../../assets/images/ivoiceafrica logo 1.png"
+          alt="ivoice logo"
+          class="smallnav-logo"
+        />
+        <ul class="metismenu sidebar__links" id="menu">
+          <li class="sidebar__link--item">
+            <a href="#" aria-expanded="true">
+              <img src="../../assets/images/box1.png" alt="add icon" />
+              Dashboard</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a
+              href="javascript:void(0)"
+              aria-expanded="true"
+              class="active-link"
+            >
+              <img src="../../assets/images/box2.svg" alt="add icon" />
+              Jobs</a
+            >
+            <ul class="collapse">
+              <li>
+                <a href="clientrequests.html" class="collapse-link">Request</a>
+              </li>
+              <li>
+                <a href="clientbids.html" class="collapse-link">Bids</a>
+              </li>
+              <li>
+                <a href="inprogress.html" class="collapse-link">In Progress</a>
+              </li>
+              <li>
+                <a href="clientfinished.html" class="collapse-link">Finished</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar__link--item" aria-expanded="true">
+            <a href="Finances.html">
+              <img src="../../assets/images/box4.svg" alt="add icon" />
+              Finances</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientfaqs.html" aria-expanded="true">
+              <img src="../../assets/images/box5.svg" alt="add icon" />
+              FAQS</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientprofile.html" aria-expanded="true">
+              <img src="../../assets/images/box6.svg" alt="profile card icon" />
+              Profile</a
+            >
+          </li>
+
+          <li class="sidebar__link--item">
+            <a
+              href="#"
+              aria-expanded="true"
+              aria-expanded="true"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              <img src="../../assets/images/box7.svg" alt="logout icon" />
+              Logout</a
+            >
+          </li>
+        </ul>
+
+        <!-- sidebar menu area end -->
+      </div>
+      <!-- Header area end -->
+      <div class="main">
+        <div class="main__headerbox">
+          <h1>Finances</h1>
+        </div>
+
+        <!-- job alerts area start -->
+        <div class="main__contentbox fl__finance-box">
+          <!-- <div class="mt-4"> -->
+          <div class="finance-stats">
+            <div class="in-account">
+              <span class="finance-heading">In Account</span>
+              <p class="finance-amt">$ 400</p>
+            </div>
+            <div class="in-account">
+              <span class="finance-heading">In Escrow</span>
+              <p class="finance-amt">$ 200</p>
+            </div>
+            <div class="in-account">
+              <span class="finance-heading">Withdrawn</span>
+              <p class="finance-amt">$ 1800</p>
+            </div>
+            <div class="in-account">
+              <span class="finance-heading">Total Earnings</span>
+              <p class="finance-amt">$ 2400</p>
+            </div>
+          </div>
+          <!-- </div> -->
+
+          <div class="fl_finance-history">
+            <span class="finance-hist-label">Transaction History</span>
+            <div class="finance-filter">
+              <div class="finance-head">
+                <div class="trans-finance-filter">
+                  <span>Transaction type</span>
+                  <select name="" id="">
+                    <option value="">All</option>
+                    <option value="">All</option>
+                    <option value="">All</option>
+                  </select>
+                </div>
+                <div class="trans-finance-filter">
+                  <select name="" id="">
+                    <option value="">Last 7 days</option>
+                    <option value="">Last 7 days</option>
+                  </select>
+                  <span>September 20 - September 27</span>
+                </div>
+              </div>
+              <div>
+                <button class="withdraw-btn">Withdraw</button>
+              </div>
+            </div>
+            <div>
+              <table class="finance-stats-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>26th September, 2022</td>
+                    <td>
+                      Account credited for Translate Physics Textbook From
+                      English To French
+                    </td>
+                    <td>$200</td>
+                  </tr>
+                  <tr>
+                    <td>26th September, 2022</td>
+                    <td>
+                      Account credited for Translate Physics Textbook From
+                      English To French
+                    </td>
+                    <td>$200</td>
+                  </tr>
+                  <tr>
+                    <td>26th September, 2022</td>
+                    <td>
+                      Account credited for Translate Physics Textbook From
+                      English To French
+                    </td>
+                    <td>$200</td>
+                  </tr>
+                  <tr>
+                    <td>26th September, 2022</td>
+                    <td>
+                      Account credited for Translate Physics Textbook From
+                      English To French
+                    </td>
+                    <td>$200</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- logout Modal -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content logoutModal">
+          <div class="modal-header">
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
+          </div>
+          <div class="modal-body logoutModal-body">
+            You can log in anytime with your email and password
+          </div>
+          <div class="modal-footer logoutModal-footer">
+            <a href="sign-in.html">
+              <button class="transparentBtn" data-dismiss="modal">
+                Logout
+              </button>
+            </a>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+    pt>
+  </body>
+</html>

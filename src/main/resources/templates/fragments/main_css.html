@@ -1,18 +1,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="css-header">
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iVoice Africa</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>iVoice Africa</title>
 
-    <link rel="stylesheet" th:href="@{assets/CSS/bootstrap.css}" />
-    <link rel="stylesheet" th:href="@{assets/CSS/onboarding.css}" />
+<link rel="stylesheet"
+	th:href="@{/assets/bootstrap/dist/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/onboarding.css}" />
+<link rel="shortcut icon"
+	th:href="@{/assets/images/ivoiceafrica logo 1.png}" type="image/x-icon" />
 
-    <script th:src="@{assets/JS/onboarding.js}" defer></script>
-    <script th:src="@{assets/bootstrap/dist/js/bootstrap.bundle.js}" defer></script>
-    <script th:src="@{assets/@popperjs/core/dist/umd/popper.min.js}" defer></script>
-  </head>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	
+	<link rel="stylesheet" th:href="@{/assets/CSS/css/metisMenu.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/css/slicknav.min.css}" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" th:href="@{/assets/CSS/css/typography.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/css/default-css.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/css/styles.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/css/responsive.css}" />
+<link rel="stylesheet" th:href="@{/assets/CSS/css/finance.css}" />
 
+<script th:src="@{/assets/JS/onboarding.js}" defer></script>
+<script th:src="@{/assets/bootstrap/dist/js/bootstrap.bundle.js}" defer></script>
+<script th:src="@{/assets/@popperjs/core/dist/umd/popper.min.js}" defer></script>
+<!-- modernizr css -->
+<script th:src="@{/assets/JS/js/vendor/modernizr-2.8.3.min.js}"></script>
+<script th:src="@{/assets/JS/js/scripts.js}" defer></script>
+
+</head>
 
 </html>

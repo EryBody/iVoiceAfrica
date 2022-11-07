@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>freelancer profile setup</title>
+    <link
+      rel="stylesheet"
+      href="../../assets/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/ivoiceafrica logo 1.png"
+      type="image/x-icon"
+    />
+    <script src="../../assets/JS/onboarding.js" defer></script>
+    <script
+      src="../../assets/bootstrap/dist/js/bootstrap.bundle.js"
+      defer
+    ></script>
+    <script
+      src="../../assets/@popperjs/core/dist/umd/popper.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <section class="form-section">
+      <div class="header">
+        <div class="header__navigation text-center">
+          <div class="logo mb-2">
+            <img src="../../assets/images/ivlogo.svg" alt="ivoice logo" />
+          </div>
+        </div>
+      </div>
+      <div class="freelancer-form-header">
+        <h2 class="form-header-title">
+          Hi <span th:text="${session.freelancerSignupDto.firstName}">Bukola</span>! Set up your profile
+        </h2>
+        <p class="form-header-text">
+          It’ll take only 3 minutes to set up your profile. Don’t worry, your
+          progress is<br />
+          being saved as you go on.
+        </p>
+      </div>
+
+      <form id="cardform" th:action="@{/freelancer/detail/save}" th:object="${FreelancerPersonalDetailDTO}" method="post">
+        <!-- Setting Up  profile (PART ONE) -->
+        <div class="form multistep active-card">
+          <label class="mb-3" style="font-weight: bold"
+            >Fill in your details</label
+          >
+
+          <div class="row justify-content-between mb-4 freelancer-details">
+            <div class="col-sm-12 mb-5">
+              <label for="fname">Where are you based?</label>
+              <input
+                type="text"
+                name="country"
+                id="fname"
+                class="nationality px-4"
+                placeholder="Search to find your country"
+              />
+            </div>
+            <div class="col-sm-12 mb-5">
+              <label for="location">What's your nationality?</label>
+              <input
+                type="text"
+                name="nationality"
+                id="lname"
+                class="nationality"
+                placeholder="Search to find your country"
+              />
+            </div>
+          </div>
+
+          <label class="mb-3">What's your address?</label>
+          <div
+            class="row align-items-center justify-content-between mb-4 freelancer-details"
+          >
+            <div class="col-lg-5 mb-3">
+              <label for="street" class="label-text_accent"
+                >Street address</label
+              >
+              <input type="text" name="address" id="address" />
+            </div>
+
+            <div class="col-lg-5 mb-3 mb-sm-5">
+              <label for="town" class="label-text_accent">Town/ Village</label>
+              <input type="text" name="town" id="town" />
+            </div>
+            <div class="col-lg-5 mb-5">
+              <label for="postal" class="label-text_accent">Postal code</label>
+              <input type="text" name="town" id="postal" required />
+            </div>
+          </div>
+          <div class="freelancer-details">
+            <div class="mb-5">
+              <div class="col-lg-5 col-sm-12">
+                <label for="sex">Choose your sex</label>
+                <select class="me-3 client-sex-select" name="gender" id="sex">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-5">
+              <label for="number">Phone Number</label>
+              <div class="d-flex justify-content-between">
+                <select class="me-3 client-flag-select" name="phoneNumber" id="flag">
+                  <option value="selected">NGN</option>
+                  <option value="">USD</option>
+                  <option value="">GBP</option>
+                </select>
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="+234 903 919 7553"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="submit-btn">
+            <div class="onboarding-cta">
+              <a class="btn-mini-trans" th:href="@{/freelancer-signup}">Back</a>
+              <button class="btn-mini-black" type="submit" id="btn-next">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

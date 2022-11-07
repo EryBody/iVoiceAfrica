@@ -1,26 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iVoice Africa</title>
 
-    <link rel="stylesheet" href="../../assets/CSS/bootstrap.css" />
-    <link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
-    <script src="../../assets/JS/onboarding.js" defer></script>
-    <script
-      src="../../assets/bootstrap/dist/js/bootstrap.bundle.js"
-      defer
-    ></script>
-    <script
-      src="../../assets/@popperjs/core/dist/umd/popper.min.js"
-      defer
-    ></script>
-  </head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <div th:replace="fragments/main_css :: css-header"></div>
+  
   <body>
     <div class="sign-modal">
-      <form>
+      <form th:action="@{/signin}" method="post">
         <section class="onboarding-forms step active">
           <div class="text-center">
             <img
@@ -33,12 +19,18 @@
               Meet the right clients, get great value for your professionalism!
             </p>
           </div>
+          
+          <div th:if="${param.error}" class="alert alert-danger mt-3">
+              Invalid username or password.
+          </div>
+          
           <div class="form-container">
             <div class="mb-5">
               <label for="email" class="form-label">Email</label>
               <input
                 type="email"
-                id="email"
+                id="username"
+                name="username"
                 placeholder="Ex: Johndoe@gmail.com"
               />
             </div>
@@ -47,16 +39,21 @@
               <input
                 type="password"
                 id="password"
+                name="password"
                 placeholder="Write a password"
               />
               <span class="forgot-password">Forgot Password?</span>
             </div>
             <div class="onboard-footer footer-2">
-              <a href="newrequest.html" class="button mb-3" id="formBtn-next"
-                >Sign in</a
-              >
+              <button class="button mb-3" id="formBtn-next" type="submit" value="Login">
+                Sign in
+              </button>
+            
+           <!--  <a href="#" type="submit" class="button mb-3" value="Login" id="formBtn-next" 
+                >Sign in</a> -->
+             <!--  <a type="submit" class="button  mb-3" id="formBtn-next" value="Login">Sign in</a> -->
               <p class="mt-2">
-                Don't have an account? <a href="../../index.html">Sign up</a>
+                Don't have an account? <a th:href="@{/index}">Sign up</a>
               </p>
             </div>
           </div>

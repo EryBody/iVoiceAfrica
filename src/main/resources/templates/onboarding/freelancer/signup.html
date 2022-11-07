@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <div th:replace="fragments/main_css :: css-header"></div>
+  <body>
+    <!-- Freelancer"s Sign up -->
+    <form th:action="@{/freelancer/signup/save}" th:object="${FreelancerSignupDTO}" id="mainform" method="POST">
+      <div class="sign-modal">
+        <section class="onboarding-forms step active">
+          <div class="text-center py-5">
+            <img
+              src="../../assets/images/ivoiceafrica logo 2.png"
+              alt="ivoiceafrica-logo"
+              class="mb-2"
+            />
+            <h2 class="mb-2">Create your account</h2>
+            <p class="welcome-text">
+              Meet the right clients, get great value for your professionalism!
+            </p>
+          </div>
+          <div class="form-container">
+            <div class="mb-5">
+              <label for="first-name" class="form-label">First name</label>
+              <input
+                type="text"
+                id="first-name"
+                name="firstName"
+                th:field="*{firstName}"
+                placeholder="Ex: John"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="last-name" class="form-label">Last name</label>
+              <input
+                type="text"
+                id="last-name"
+                name="lastName"
+                th:field="*{lastName}"
+                placeholder="Ex: John"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                th:field="*{email}"
+                placeholder="Ex: Johndoe@gmail.com"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="mb-5">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                th:field="*{password}"
+                placeholder="Write a password"
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="onboard-footer footer-2">
+            
+             <!--  <a data-bs-toggle="modal" data-bs-target="#myModal">
+                <input
+                  type="submit"
+                  class="button mb-3"
+                  value="Signup as Freelancer"
+                />
+              </a> -->
+              
+                <input
+                  type="submit"
+                  class="button mb-3"
+                  value="Signup as Freelancer"
+                />
+              
+              <p>
+                Already have an account?
+                <a th:href="@{/signin}">Sign in</a>
+              </p>
+            </div>
+          </div>
+          <div class="form-footer onboard-footer">
+            <p>
+              Are you looking to find translation services?
+              <a th:href="@{/client-signup}">Sign up as a Client</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </form>
+    
+    
+    <!-- MODALS -->
+    <div
+      class="modal fade"
+      id="myModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-block text-center border-0">
+            <h2 class="modal-title-edit my-2" id="exampleModalLabel">
+              Please confirm your email!
+            </h2>
+            <p class="welcome-text mb-4">
+              We have sent an email with a confimation code to
+              <span>johndoe@gmail.com</span>
+            </p>
+          </div>
+          <div class="modal-body modal-codespace">
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space align-items-center fs-3">
+              <span class="token-text"></span>
+            </div>
+            <div class="token-space fs-3">
+              <span class="token-text"></span>
+            </div>
+          </div>
+          <div class="modal-footer d-block mt-4 border-0 text-center">
+            <button
+              type="button"
+              class="modal-btn mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal-2"
+            >
+              Resend email
+            </button>
+            <p class="model-footer-text">
+              <span>johndoe@gmail.com</span> is not my email address
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ---- -->
+
+    <!-- Token Email Modal -->
+    <div class="modal fade" id="myModal-2">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-block text-center border-0">
+            <h2 class="modal-title-edit mb-2" id="exampleModalLabel">
+              Please confirm your email!
+            </h2>
+            <p class="welcome-text mb-4">
+              We have sent an email with a confimation code to
+              <span>johndoe@gmail.com</span>
+            </p>
+          </div>
+          <div class="modal-body modal-codespace">
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">0</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">2</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">4</span>
+            </div>
+            <div
+              class="token-space d-flex justify-content-center align-items-center fs-3"
+            >
+              <span class="token-text">6</span>
+            </div>
+          </div>
+          <div class="modal-footer d-block mt-4 border-0 text-center">
+            <a th:href="@{/freelancer-profile-setup}" class="btn-close modal-btn mb-2 lol">
+              confirm email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

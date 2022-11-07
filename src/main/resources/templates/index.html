@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iVoice Africa</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <link rel="stylesheet" href="assets/CSS/bootstrap.css" />
-    <link rel="stylesheet" href="assets/CSS/onboarding.css" />
+<div th:replace="fragments/main_css :: css-header"></div>
 
-    <script src="assets/JS/onboarding.js" defer></script>
-    <script src="assets/bootstrap/dist/js/bootstrap.bundle.js" defer></script>
-    <script src="assets/@popperjs/core/dist/umd/popper.min.js" defer></script>
-  </head>
   <body>
     <section class="onboard-section">
       <div class="onboard-container container">
         <div class="text-center">
-          <img src="assets/images/ivoiceafrica logo 2.png" alt="logo" />
+          <img src="assets/images/ivoiceafrica logo 2.png" alt="logo"/>
           <h2>Welcome to iVoice Africa!</h2>
           <p class="welcome-text">How would you like to continue?</p>
         </div>
@@ -78,20 +68,20 @@
         <div class="onboard-footer">
           <a href="#" class="button mb-4" id="btn-normal">Continue</a>
           <a
-            href="onboarding/freelancer/freelancer.html"
+            th:href="@{/freelancer-signup}"
             class="button mb-3"
             id="btn-freelancer"
             >Continue as a freelancer</a
           >
           <a
-            href="./onboarding/client/client.html"
+            th:href="@{/client-signup}"
             class="button mb-3"
             id="btn-client"
             >Continue as a client</a
           >
           <p>
             Already have an account?
-            <a href="../ivoiceafrica/onboarding/client/sign-in.html"
+            <a th:href="@{/signin}"
               >Sign in here</a
             >
           </p>

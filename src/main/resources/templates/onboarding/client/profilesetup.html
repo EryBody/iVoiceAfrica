@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/ivoiceafrica logo 1.png"
+      type="image/x-icon"
+    />
+    <title>Setup Profile</title>
+    <link
+      rel="stylesheet"
+      href="../../assets/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <script src="../../assets/JS/onboarding.js" defer></script>
+    <script
+      src="../../assets/bootstrap/dist/js/bootstrap.bundle.js"
+      defer
+    ></script>
+    <script
+      src="../../assets/@popperjs/core/dist/umd/popper.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <form class="form-section" th:action="@{/client/personalDetail/save}" th:object="${ClientPersonalDetailDTO}" method="post">
+      <div class="form-header">
+        <img src="../../assets/images/ivoiceafrica logo 3.png" alt="logo" />
+        <h2 class="form-header-title">Set up your profile</h2>
+        <p class="form-header-text">
+          It’ll take only 3 minutes to set up your profile. Don’t worry, your
+          progress is<br />
+          being saved as you go on.
+        </p>
+      </div>
+      <div class="form active-card">
+        <label for="" class="mb-3 profile-label">Tell us your name</label>
+
+        <div class="row justify-content-between mb-5">
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="label-text_accent">First name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="fname"
+              placeholder="Ex: John"
+            />
+          </div>
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="label-text_accent">Last name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lname"
+              placeholder="Ex: Doe"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-lg-5 col-md-12">
+            <label for="sex" class="profile-label">Choose your sex</label>
+
+            <select class="me-3 client-sex-select" name="gender" id="sex">
+              <option>Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="profile-label"
+              >What is your nationality?</label
+            >
+            <input
+              type="text"
+              name="nationality"
+              id="location"
+              class="nationality"
+              placeholder="Search to find your country"
+            />
+          </div>
+        </div>
+
+        <label class="profile-label">What's your address?</label>
+        <div class="row justify-content-between mb-4">
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="label-text_accent"
+              >Street address</label
+            >
+            <input type="text" name="streetAddress" id="street" />
+          </div>
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="label-text_accent"
+              >Town/ Village</label
+            >
+            <input type="text" id="town" name="townVillage" />
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-lg-5 col-md-12">
+            <label for="location" class="label-text_accent">Postal code</label>
+            <input type="text" name="postalCode" id="postal" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5 col-md-12">
+            <label for="number" class="profile-label">Phone Number</label>
+            <div class="d-flex justify-content-between">
+              <select class="client-flag-select mr-2" name="mobileNumber" id="flag">
+                <option value="selected">NGN</option>
+                <option value="">USD</option>
+                <option value="">GBP</option>
+              </select>
+              <input
+                type="text"
+                name="number"
+                id="number"
+                placeholder="+234 903 919 7553"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="submit-btn">
+          <button id="formBtn-next" class="button" type="submit">
+            Continue
+          </button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
