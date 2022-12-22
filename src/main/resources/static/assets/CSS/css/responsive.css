@@ -111,11 +111,21 @@
   }
 }
 
+@media (max-width: 1458px) {
+  .job__amt {
+    padding: 0.8rem;
+  }
+}
+@media (min-width: 1259px) and (max-width: 1423px) {
+  .fl__ratings {
+    gap: 0rem;
+  }
+}
 /* Normal desktop :992px. */
 
 @media (max-width: 1323px) {
   html {
-    font-size: 58%;
+    font-size: 60%;
   }
   .clientform-section1 {
     flex-direction: column;
@@ -136,6 +146,11 @@
   .minisidebar.main-menu {
     margin-right: 0;
   }
+
+  /* .fl__ratings {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  } */
   /* main content */
   .main-content-inner {
     padding: 0 15px 50px;
@@ -158,7 +173,55 @@
 }
 @media (max-width: 1265px) {
   .main__contentbox {
-    /* padding-right: 20rem; */
+    /* padding-left: 35rem; */
+  }
+  .fl_overview-right {
+    margin-bottom: 2rem;
+  }
+  .fl__jobs {
+    margin-top: 0;
+  }
+  .w-75 {
+    width: 70% !important;
+  }
+  .fl_overview-right,
+  .fl_overview-left,
+  .inprogress-flex {
+    flex-direction: column;
+    gap: 1.7rem;
+  }
+  .inprogress-view,
+  .inprogress-flex .job-status,
+  .finished-left {
+    width: 100%;
+  }
+  .fl__details--d .griddy {
+    flex-wrap: wrap;
+  }
+  .fl__details {
+    margin: 0;
+    height: auto;
+  }
+  .finance-stats .in-account {
+    padding: 4.4rem 3.2rem;
+  }
+  .fl__details,
+  .job__notifications,
+  .fl__jobs,
+  .languages {
+    width: 100%;
+  }
+  .job__amt {
+    padding: 0.8rem 3rem;
+  }
+  .fl__links {
+    gap: 2rem;
+  }
+  .fl__finance-box {
+    padding-right: 8rem;
+  }
+  .fl__ratings div span {
+    font-size: 1.8rem;
   }
   .clientprofile {
     padding: 2rem;
@@ -166,8 +229,12 @@
   .contentbox {
     margin-right: 20rem;
   }
+
   .accordion-section {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .clientrequests-heading {
+    padding-right: 12rem;
   }
 }
 
@@ -175,35 +242,79 @@
   .main__headerbox {
     padding-left: 4rem;
   }
+  .fl__finance-box {
+    padding-right: 0rem;
+  }
   .main__contentbox {
-    /* padding-right: 10rem; */
+    padding-right: 4rem;
     padding-left: 4rem;
   }
-  .accordion-section {
-    margin-right: 4.6rem;
+  .header__search {
+    margin-left: 0;
   }
+  .finance-stats .in-account {
+    padding: 4.4rem 5.6rem;
+  }
+  .accordion-section,
+  .inprogress-boxes,
+  .fl__d--container,
+  .clientprofile,
+  .profile-fl-box {
+    margin-right: 0;
+  }
+  .job-status {
+    width: 100%;
+    margin: 0 !important;
+  }
+  .cl-details-box {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: left;
+    width: 100%;
+  }
+  .w-75 {
+    width: 100% !important;
+  }
+  .arrow-back {
+    left: -3rem;
+  }
+
   .contentbox {
-    margin-right: 10rem;
+    margin-right: 0;
+  }
+  .arrow_back_link {
+    position: absolute;
+    top: 12.5%;
+    left: 0.5%;
   }
   .sidebar {
     left: -40rem;
+    height: 100%;
+    min-height: 100vh;
     transition: left 0.3s;
   }
   .nav-open .overlay {
     display: block;
   }
+  .profile-box {
+    margin-right: 0rem;
+  }
   .nav-open .smallnav-logo {
     display: block;
   }
   .nav-open .sidebar {
-    position: absolute;
+    position: fixed;
     z-index: 8;
     top: 0;
     left: 0;
   }
 
-  .financial-history {
-    margin-right: 4.6rem;
+  .financial-history,
+  .finished-job-overview {
+    margin-right: 0rem;
+  }
+  .menu-icon {
+    display: flex;
   }
   /* dashboard one */
   .mt-md-30 {
@@ -227,7 +338,8 @@
   .sbar_collapsed .logo a span {
     display: block;
   }
-  .minisidebar.main-menu {
+  .minisidebar.main-menu,
+  .project-box {
     margin-right: 0;
   }
   /* main content */
@@ -314,30 +426,104 @@
   .header__search {
     margin-right: -10rem;
     width: 100%;
-    /* position: relative; */
   }
   .ivoice-logo {
     display: none;
   }
+  .menu-icon {
+    background: rgba(255, 215, 6, 0.15);
+  }
   .header__icons {
     gap: 2.5rem;
-    /* position: absolute; */
-    /* left: 0; */
-    /* top: 0; */
+  }
+  .finance-stats .in-account {
+    padding: 2rem 1.5rem;
+  }
+  .finance-head {
+    flex-direction: column;
+  }
+  .trans-finance-filter:first-child {
+    max-width: 20rem;
+    /* margin-bottom: 1rem; */
+  }
+  .finishedjob-box {
+    flex-direction: column;
+    gap: 1.6rem;
+    z-index: 9;
+  }
+  .span-flex {
+    width: 100%;
+  }
+  .lang-service-offered {
+    width: 100%;
   }
 }
-
 @media (max-width: 690px) {
   .main__headerbox {
     padding-left: 4rem;
+  }
+  .fl__ratings {
+    gap: 0rem;
+  }
+  .activejobs-heading span {
+    font-size: 2rem;
   }
   .flex {
     flex-direction: column;
     width: auto;
     gap: 1.2rem;
+    align-items: flex-start !important;
+  }
+  .client-rating-review {
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+  }
+  .client-review {
+    padding: 1.5rem;
+  }
+  .header {
+    padding-left: 1rem;
+  }
+
+  .arrow_back_link {
+    display: none;
+  }
+  .client-rating-review .client-comments,
+  .client-rating-review .client-request,
+  .client-rating-review .client-rating {
+    width: 100%;
+  }
+  .finance-stats {
+    flex-direction: column;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  .profile-services {
+    padding: 1.5rem;
   }
   .clientprofile {
     margin-right: 0;
+  }
+  .freelancer-bidding {
+    grid-template-columns: 1fr;
+  }
+  .finished-job-overview {
+    margin-right: 0rem;
+  }
+  .job-alert-heading-first {
+    width: 100%;
+  }
+  .calender {
+    font-weight: 500;
+    font-size: 1.4rem;
+  }
+  .job-alert-heading-first span {
+    font-size: 2rem;
+  }
+
+  .job-list-details {
+    gap: 4rem;
   }
   .clientform-section4 {
     flex-direction: column;
@@ -346,6 +532,13 @@
   }
   .clientform-section4 div {
     width: 100%;
+  }
+  .profile-header {
+    padding-right: 2rem;
+  }
+
+  .job-id {
+    margin-top: 1.3rem;
   }
   .clientform-section5 div {
     width: 100%;
@@ -364,588 +557,527 @@
     padding-right: 2rem;
     padding-left: 2rem;
   }
-  .accordion-section {
-    margin-right: 0;
+  .accordion-section,
+  .inprogress-boxes {
+    grid-template-columns: 1fr;
+  }
+  .trans-finance-filter {
+    margin: 0;
+  }
+  .trans-finance-filter span {
+    padding: 0.4rem 0.1rem 0.6rem 0.4rem;
+  }
+
+  .in-progress-card {
+    /* margin: 0; */
+  }
+  .inprogress-boxes {
+    gap: 1rem;
   }
   .financial-history {
     margin-right: 2rem;
   }
   .finance-filter {
-    margin: 2.4rem 0;
+    margin: 1.6rem 0;
+  }
+  .header__sidenav,
+  .contentbox {
+    margin-right: 1rem;
+  }
+  .contentbox {
+    padding: 2.4rem;
+  }
+  .add-section > span {
+    font-size: 1.6rem;
+  }
+  .clientrequests-heading {
+    padding-right: 2rem;
+  }
+  .details-cl-box {
+    margin-right: 2rem;
+  }
+
+  .job-alerts,
+  .job-alertReq {
+    padding: 2.2rem;
+  }
+  .finance-stats .in-account {
+    padding: 2rem;
+    width: 100%;
+  }
+  .finance-stats .in-account {
+    border-bottom: 0.1rem solid hsla(214, 57%, 24%, 0.1);
+  }
+  .finance-heading {
+    font-size: 1.6rem;
+  }
+
+  .finance-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .finance-amt {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .finance-heading {
+    font-size: 1.8rem;
+  }
+  .profile-details {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  .finance-heading {
+    font-size: 1.4rem;
+  }
+  .job-alert-card-body-text {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
+  .job-alerts-footer > div div {
+    font-size: 1.4rem;
+  }
+  .job-alerts-translation {
+    padding: 0.8rem 1.4rem;
+    font-size: 1.4rem;
+  }
+  .job-alerts-lang {
+    padding: 0.8rem 1.4rem;
+  }
+  .upload-start {
+    padding: 5rem;
+  }
+  .job-alerts-interpretation {
+    padding: 0.8rem 1.6rem;
+  }
+  .job-alert-service-time {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .job-alert-service-time div {
+    display: none;
+  }
+  .fl__details,
+  .job__earnings {
+    flex-direction: column;
+    min-width: 100%;
+  }
+  .job__amt {
+    width: 100%;
+  }
+  .client-rating-review .client-request {
+    text-align: left;
+  }
+  .notif-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dash-heading {
+    font-size: 2rem;
+  }
+  .arrow-back {
+    display: none;
+  }
+
+  .fw-600 {
+    font-weight: 600;
+  }
+  .profilename {
+    font-size: 2rem;
+  }
+  .profile-headline {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+  .location,
+  .dateofentry,
+  .completedproject {
+    font-size: 1.4rem;
+  }
+  br {
+    display: none;
+  }
+  .profile-pic {
+    max-width: 26rem;
+  }
+  .deets-tab :is(button) {
+    font-size: 1.8rem;
   }
 }
-/* Normal desktop :991px. */
+
 @media (max-width: 449px) {
+  .job-alert-card-body-title,
+  .job-alerts-sub-heading {
+    font-size: 1.6rem;
+  }
+  .upload-start p {
+    line-height: 2rem;
+  }
+  .details-tab {
+    overflow-x: scroll;
+  }
+  .job-alert-service-time p {
+    font-size: 1.4rem;
+  }
+  .client-notif {
+    padding: 1.6rem 2rem 1.6rem 0.8rem;
+  }
+
+  .freelancers-bidding-name {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+  }
+  .freelancer-bidding-skill {
+    font-size: 1.4rem;
+  }
+  .newrequestBtn {
+    gap: 0.5rem;
+    font-size: 1.4rem;
+    padding: 1rem 0.8rem;
+  }
+  .decline-btn,
+  .job-accept {
+    font-size: 1.4rem;
+    padding: 0.5rem 1.8rem;
+  }
+  .job-alerts-client-name {
+    font-size: 1.6rem;
+  }
+  .job-alerts-client-location,
+  .job-alerts-client-location {
+    font-size: 1.4rem;
+  }
+  .finished-jobs-summary {
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+  }
+  .clientfinished-label {
+    font-size: 1.6rem;
+  }
+  .finished-status {
+    padding: 0.8rem;
+    font-size: 1.4rem;
+  }
+  .finishedreview > img {
+    height: 3.2rem;
+  }
+  .random__flex {
+    gap: 1.6rem;
+  }
+  .uploadbtn {
+    padding: 0.8rem 2.4rem;
+  }
+  .duedate {
+    margin: 0 !important;
+  }
+  .job-attc {
+    padding: 1rem;
+  }
+  .logoutBtn,
+  .uploadbtn,
+  .duedate {
+    font-size: 1.4rem;
+  }
+  .finished-job-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+  .clientreview-heading {
+    font-size: 1.2rem;
+  }
+  .notification-from,
+  .notification-time,
+  .job-details-content-title {
+    font-size: 1.4rem;
+  }
+
+  .clientrequests-heading > div span:last-child {
+    margin-left: 0.8rem;
+  }
+  .job-alerts-footer > div div {
+    font-size: 1.2rem;
+  }
+  .editBtn:link,
+  .editBtn:visited {
+    font-weight: 600;
+    margin-right: 2rem;
+    font-size: 1.4rem;
+  }
+  .clientrequesteditBtn {
+    padding: 0.8rem 2rem;
+  }
+  .bidding-freelancer {
+    margin: 0;
+  }
+  .notif-flex {
+    padding: 1.6rem;
+  }
+  .notification-title {
+    font-size: 1.6rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .job-alerts-translation,
+  .job-alerts-lang,
+  .job-alerts-voiceover,
+  .job-alerts-interpretation,
+  .job-alerts-transcribing {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+  }
+  .inprogress-select {
+    padding: 0.5rem 1.2rem;
+  }
+  .inprogress-dropdown > input {
+    padding: 0.5rem;
+    max-width: 14.7rem;
+  }
+
+  .text-success {
+    font-size: 1.4rem;
+  }
+  .job-alert-card-body-text {
+    font-size: 1.2rem;
+  }
   .financial-history {
     margin-right: 0;
   }
+  .job-id {
+    font-size: 1.6rem;
+  }
+  .job-list-details :is(button),
+  .tablinks {
+    font-size: 1.6rem;
+  }
+
+  .job-attc div p:nth-child(1) {
+    font-size: 1.4rem;
+  }
+
+  .experience,
+  .charge {
+    font-size: 1.6rem;
+  }
+  .grey-dot {
+    display: none;
+  }
+  .finished-jobs-attach {
+    padding: 1.5rem;
+  }
+  .job-details-II {
+    padding: 2rem 1.8rem;
+  }
+  .job-details {
+    padding: 2rem 1.2rem;
+  }
+  .job-alerts-heading-btn {
+    font-size: 1.4rem;
+  }
+  .fl__details {
+    padding: 2rem 1.6rem;
+  }
+  .fl__ratings div span {
+    font-size: 1.6rem;
+  }
+  .fl__ratings {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .fl__links {
+    font-size: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .fl__jobs--header {
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5rem;
+  }
+  .fl__jobs--header h1 {
+    font-size: 1.8rem;
+  }
+
+  .mb {
+    margin-top: 2rem;
+  }
+  .job-alerts-header {
+    gap: 3rem;
+  }
+
+  .alerts-job-footer {
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-start;
+  }
+
   .finance-hist-label,
   .clientspent-total {
     font-size: 1.6rem;
   }
-  .clientFinance .clienttotal {
+  .clientFinance .clienttotal,
+  .abt {
     font-size: 1.4rem;
   }
+  .main__headerbox {
+    padding-left: 2rem;
+  }
   .main__contentbox {
-    padding-right: 0;
+    padding-right: 1rem;
     padding-left: 1rem;
   }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  /* dashboard one */
-  /* sidebar */
-
-  /* .nav-btn span {
-    background: #fffbfb;
+  .details-cl-box {
+    margin-right: 2rem;
   }
-  .sbar_collapsed .sidebar-menu {
-    left: -90%;
+  .upload-start {
+    padding: 3rem;
   }
-  .sbar_collapsed .nav-btn {
-    position: initial;
-    background: none;
-    padding: 0;
-    margin: 10px 30px 0 0;
+  .job-alerts {
+    padding: 2rem;
   }
-  .sbar_collapsed .nav-btn span {
-    background: #b3aaaa;
+  #descriptionContent,
+  .job-details ul:nth-child(4) li {
+    font-size: 1.2rem;
   }
-  .sbar_collapsed .logo a span {
-    display: block;
+  #descriptionContent p {
+    line-height: 2rem;
   }
-  .minisidebar.main-menu {
-    margin-right: 0;
-  }
-  .sbar_collapsed .metismenu li a span,
-  .sbar_collapsed .metismenu li a:after,
-  .sbar_collapsed .metismenu .collapse.in {
-    display: inline-block;
-  } */
-  /* main content */
-  .main-content-inner {
-    padding: 0 15px 50px;
-  }
-  .page-container,
-  .sbar_collapsed.page-container {
-    padding-left: 0;
-  }
-  /* main content */
-
-  /* fact area */
-  .s-report-inner {
-    padding-left: 18px;
-  }
-  .single-report .icon {
-    display: none;
-  }
-  .single-report h2 {
-    font-size: 16px;
-  }
-  .single-report span {
-    font-size: 13px;
-  }
-  .s-report-title {
-    margin-bottom: 19px;
-  }
-  .card-title {
-    font-size: 18px;
-  }
-  /* coin distribution */
-  .coin-distribution {
-    margin-top: 30px;
-  }
-  #coin_distribution-wrapper {
-    margin-top: -101px;
-  }
-  .mt-sm-30 {
-    margin-top: 30px;
-  }
-  /* criptio price */
-  .cripto-live ul li {
-    width: 49%;
-    display: inline-block;
-  }
-  .input-form input {
-    height: 70px;
-    padding-left: 20px;
-  }
-  .exchange-btn button {
-    height: 70px;
-  }
-  .input-form span {
-    height: 70px;
-    line-height: 70px;
-  }
-  /* icons */
-  .icon-container {
-    flex-basis: calc(100% * (1 / 3));
+  .transparentBtn {
+    font-weight: 400;
+    font-size: 1.4rem;
+    padding: 0.6rem 1.3rem;
   }
 
-  /* maps */
-  #mapamchart1,
-  #mapamchart2,
-  #mapamchart3,
-  #mapamchart4,
-  #mapamchart5,
-  #mapamchart6 {
-    height: 300px;
+  .flexS {
+    /* flex-direction: column; */
+    /* gap: 1rem; */
+    /* align-items: flex-start; */
   }
-  #google_map {
-    height: 400px;
+  .job-attc {
+    flex-direction: column;
+    gap: 1rem;
   }
-
-  /* login page */
-  .ptb--100 {
-    padding: 90px 0;
+  .activejobs-heading span,
+  .dash-heading {
+    font-size: 1.8rem;
   }
-  /* horizontal header dashboard */
-  .header-bottom .search-box input {
-    max-width: 100%;
+  .bidheader {
+    gap: 0.8rem;
+  }
+  .inprogress-fbody,
+  .inprogress-fhead {
+    padding: 1.2rem;
+  }
+  .inprogress-fhead h1:nth-child(2),
+  .inprogress-fbody h1:nth-child(2) {
+    min-width: 8.8rem;
+  }
+  .inprogress-fhead h1:nth-child(3),
+  .inprogress-fbody h1:nth-child(3) {
+    min-width: 4rem;
+  }
+  .inprogress-fhead h1,
+  .inprogress-fbody h1 {
+    font-size: 1.4rem;
+  }
+  .totalamountforjob {
+    font-size: 1.8rem;
+  }
+  .viewjobdetails {
+    font-size: 1.4rem;
+  }
+  .inprogress-fhead h1:first-child,
+  .inprogress-fbody h1:first-child {
+    min-width: 8.8rem;
+  }
+  .freelance-history {
+    flex-direction: column;
+  }
+  .dashboard-earning-stats div:not(:last-child) {
+    border-right: 0;
+    border-bottom: 0.1rem solid rgba(26, 56, 96, 0.1);
+  }
+  .clientmorejobs,
+  .client-review-statement,
+  .bidsforjob {
+    font-size: 1.4rem;
+  }
+  .client-profile-name {
+    font-size: 1.6rem;
+  }
+  .client-ratingstar img {
+    max-width: 12rem;
+  }
+  .service {
+    margin-right: 1rem;
+  }
+  .upadatePassword {
+    padding: 2rem;
+  }
+  .update-input label {
+    font-size: 1.6rem;
+  }
+  .inprogress-dropdown > input {
+    font-size: 1.4rem;
+  }
+  .flexS {
+    flex-wrap: wrap;
+  }
+  .inprogress-dropdown::before {
+    top: 1.45rem;
+  }
+  .inprogress-dropdown::after {
+    top: 0.7rem;
+  }
+  .inprogress-select,
+  .inprogress-dropdown {
+    margin-right: 1rem;
+  }
+  .freelancer-bidding {
+    margin-top: 1.5rem;
   }
 }
 
-/* small mobile :320px. */
-
-@media (max-width: 767px) {
-  .ptb--100 {
-    padding: 90px 0;
+@media (max-width: 340px) {
+  .inprogress-fhead h1:nth-child(2),
+  .inprogress-fbody h1:nth-child(2) {
+    min-width: 8rem;
   }
-}
-
-/* Large Mobile :480px. */
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-  /* dashboard one */
-  .mb-xs-30 {
-    margin-bottom: 30px;
+  .service {
+    font-size: 1.6rem;
   }
-  .mt-sm-30 {
-    margin-top: 30px;
+  .my-1 {
+    overflow-x: scroll;
   }
-  .mb-sm-40 {
-    margin-bottom: 40px;
+  .update-input label {
+    font-size: 1.4rem;
   }
-  /* sidebar */
-
-  /* .nav-btn {
-    position: fixed;
-    z-index: 99;
-    left: 363px;
-    background: #303641;
-    padding: 14px;
-    top: 0;
-    margin: 0; */
-  /* } */
-  .nav-btn span {
-    background: #fffbfb;
+  .experience,
+  .charge,
+  .notification-title {
+    font-size: 1.4rem;
   }
-  .sbar_collapsed .sidebar-menu {
-    left: -90%;
+  .contentbox {
+    padding: 1.5rem;
   }
-  .sbar_collapsed .nav-btn {
-    position: initial;
-    background: none;
-    padding: 0;
-    margin: 10px 30px 0 0;
+  .finance-heading,
+  .client-profile-name,
+  .more-reviews,
+  .service {
+    font-size: 1.4rem;
   }
-  .sbar_collapsed .nav-btn span {
-    background: #b3aaaa;
-  }
-  .sbar_collapsed .logo a span {
-    display: block;
-  }
-  .minisidebar.main-menu {
-    margin-right: 0;
-  }
-  /* main content */
-  .main-content-inner {
-    padding: 0 15px 35px;
-  }
-  .page-container,
-  .sbar_collapsed.page-container {
-    padding-left: 0;
-  }
-  /* main content */
-
-  .notification-area li {
-    margin-left: 21px;
-  }
-  .page-title {
-    font-size: 21px;
-  }
-  #coin_distribution-wrapper {
-    margin-top: -74px;
-  }
-  .coin-distribution {
-    margin-top: 30px;
-  }
-  .trd-history-tabs ul li a {
-    margin: 0 8px;
-  }
-  table.dbkit-table tr {
-    height: 64px;
-  }
-  .lts-thumb {
-    margin-bottom: 15px;
-  }
-  .lts-content h2 a {
-    font-size: 19px;
-    font-weight: 500;
-  }
-  .lts-content span {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-  .input-form input {
-    height: 70px;
-    padding-left: 20px;
-  }
-  .exchange-btn button {
-    height: 70px;
-  }
-  .input-form span {
-    height: 70px;
-    line-height: 70px;
-  }
-  /* icons */
-  .icon-container {
-    flex-basis: calc(100% * (1 / 2));
+  .client-notif {
+    padding: 1.6rem 1.6rem 1.6rem 0.8rem;
   }
 
-  /* maps */
-  #mapamchart1,
-  #mapamchart2,
-  #mapamchart3,
-  #mapamchart4,
-  #mapamchart5,
-  #mapamchart6 {
-    height: 300px;
-  }
-  #google_map {
-    height: 400px;
-  }
-
-  /* horizontal header dashboard */
-  .header-bottom .search-box input {
-    max-width: 100%;
-  }
-}
-
-/* small mobile :320px. */
-
-@media (min-width: 240px) and (max-width: 479px) {
-  /* dashboard one */
-  /* sidebar */
-
-  /* .nav-btn {
-    position: fixed;
-    z-index: 99;
-    right: 0;
-    background: #303641;
-    padding: 14px;
-    top: 0;
-    margin: 0;
-  } */
-  .nav-btn span {
-    background: #fffbfb;
-  }
-  /* .sbar_collapsed .sidebar-menu {
-    left: -100%;
-  }
-  .sbar_collapsed .nav-btn {
-    position: initial;
-    background: none;
-    padding: 0;
-    margin: 10px 30px 0 0;
-  } */
-  .sbar_collapsed .nav-btn span {
-    background: #b3aaaa;
-  }
-  .sbar_collapsed .logo a span {
-    display: block;
-  }
-  .minisidebar.main-menu {
-    margin-right: 0;
-  }
-  /* main content */
-  .main-content-inner {
-    padding: 0 15px 50px;
-  }
-  .page-container,
-  .sbar_collapsed.page-container {
-    padding-left: 0;
-  }
-  .card-body {
-    padding: 1.25rem;
-  }
-  /* hedaer */
-
-  .notification-area {
-    text-align: center;
-    margin: 30px 0 3px;
-    float: none;
-  }
-  .notification-area li {
-    margin: 0 15px;
-  }
-  .user-profile {
-    margin: 16px 0 10px 0;
-  }
-  .user-profile .dropdown-menu {
-    width: 100%;
-    right: 0px !important;
-  }
-  .nt-enveloper-box.notify-box {
-    width: 286px;
-    right: -101px !important;
-  }
-  .bell-notify-box.notify-box {
-    width: 286px;
-    right: -160px !important;
-  }
-  .page-title-area {
-    padding: 15px 30px 0;
-  }
-  /* fact area */
-  .s-report-inner {
-    padding-left: 20px;
-  }
-  .single-report .icon {
-    display: none;
-  }
-  .single-report h2 {
-    font-size: 20px;
-  }
-  .card-title {
-    font-size: 18px;
-  }
-  .mb-xs-30 {
-    margin-bottom: 30px;
-  }
-  .mt-xs-30 {
-    margin-top: 30px;
-  }
-  .coin-distribution {
-    margin-top: 30px;
-  }
-  #verview-shart {
-    height: 235px;
-  }
-  #coin_distribution-wrapper {
-    margin-top: -88px;
-  }
-  .market-status-table {
-    padding-top: 0 !important;
-  }
-  .cripto-live ul li {
-    font-size: 14px;
-  }
-  .cripto-live ul li .icon {
-    height: 25px;
-    width: 25px;
-    margin-right: 4px;
-    font-size: 14px;
-    line-height: 25px;
-  }
-  .cripto-live ul li span {
-    width: 45%;
-  }
-  .trd-history-tabs ul li a {
-    margin-right: 18px;
-    margin-left: 0;
-  }
-  .trd-history-tabs {
-    margin: 10px 0;
-  }
-  table.dbkit-table tr {
-    height: 63px;
-  }
-  /* blog */
-  .lts-content h2 a {
-    font-size: 18px;
-    font-weight: 500;
-  }
-  .lts-thumb {
-    flex-basis: 100%;
-    margin-bottom: 10px;
-  }
-  .lts-content {
-    flex-basis: 100%;
-  }
-  .mb-xs-20 {
-    margin-bottom: 20px;
-  }
-  .mb-xs-40 {
-    margin-bottom: 40px;
-  }
-  .input-form input {
-    height: 60px;
-    padding-left: 15px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.07);
-  }
-  .input-form span {
-    width: 86px;
-    line-height: 60px;
-    font-size: 17px;
-  }
-  .exhcange-rate {
-    padding: 0;
-    background-color: #fff;
-  }
-  .exhcange-rate .exchange-devider {
-    font-size: 21px;
-    margin: 13px 0;
-  }
-  .exchange-btn button {
-    height: 60px;
-  }
-  .lts-content span {
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
-  }
-  /* Dashboard Two */
-  #visitor_graph {
-    height: 300px;
-  }
-  .pagination_area {
-    float: none;
-    text-align: center;
-  }
-  .s-member .media img {
-    max-width: 45px;
-  }
-  .member-box .media-body {
-    margin-left: 10px !important;
-  }
-  .member-box .media-body p {
-    font-size: 15px;
-  }
-  .tm-social a {
-    margin-left: 5px;
-    font-size: 16px;
-  }
-  .member-box .media-body span {
-    font-size: 13px;
-    line-height: 20px;
-  }
-  form.team-search {
-    margin-top: 20px;
-  }
-  .s-member {
-    padding: 21px 0px 7px;
-    background: #fff;
-    margin: 15px 0;
-    border-top: 1px solid #f1ebeb;
-  }
-  .s-member:last-child {
-    margin-bottom: 0;
-  }
-  /* bar Chart*/
-  #ambarchart1,
-  #ambarchart2,
-  #ambarchart3,
-  #ambarchart4,
-  #ambarchart5,
-  #ambarchart6 {
-    height: 250px;
-  }
-  /* line chart */
-  #amlinechart1,
-  #amlinechart2,
-  #amlinechart3,
-  #amlinechart4,
-  #amlinechart5 {
-    height: 250px;
-  }
-  /* pie chart */
-  #ampiechart1,
-  #ampiechart2,
-  #ampiechart3,
-  #highpiechart4,
-  #highpiechart5,
-  #highpiechart6 {
-    height: 250px;
-  }
-  /* accordion  */
-  .according .card-header a {
-    padding: 12px 15px;
-  }
-  .accordion-s2 .card-header a:before,
-  .accordion-s3 .card-header a:before {
-    right: 9px;
-  }
-  /* dropdown */
-  .btn {
-    padding: 11px 16px;
-  }
-  /* media object */
-  .child-media {
-    padding-left: 20px;
-  }
-  /* typography */
-  blockquote {
-    padding: 20px 15px 20px 60px;
-  }
-  /* icons */
-  .icon-container {
-    flex-basis: 100%;
-  }
-
-  /* maps */
-  #mapamchart1,
-  #mapamchart2,
-  #mapamchart3,
-  #mapamchart4,
-  #mapamchart5,
-  #mapamchart6 {
-    height: 200px;
-  }
-  #google_map {
-    height: 300px;
-  }
-
-  /* invoice */
-  .invoice-date {
-    margin-top: 20px;
-  }
-  .invoice-buttons a {
-    padding: 12px 12px;
-  }
-  .login-form-head,
-  .login-form-body {
-    padding: 40px 20px;
-  }
-  .rmber-area {
-    font-size: 12px;
-  }
-
-  /* dashboard thee */
-  .seo-fact #seolinechart3,
-  .seo-fact #seolinechart4 {
-    max-width: 128px;
-  }
-  .seofct-icon i {
-    font-size: 37px;
-  }
-  .seo-fact h2 {
-    font-size: 22px;
-  }
-  #user-statistics {
-    height: 250px;
-  }
-  #salesanalytic {
-    height: 400px;
-  }
-  #seomap {
-    height: 180px;
-  }
-  .tstu-img {
-    width: 60px;
-    margin-right: 14px;
-  }
-  .offset-area {
-    width: 300px;
+  .job-attc div p:nth-child(2),
+  .job-attc div p:nth-child(3),
+  .client-review-statement,
+  .client-reviewdate {
+    font-size: 1.2rem;
+    line-height: 2.1rem;
   }
 }

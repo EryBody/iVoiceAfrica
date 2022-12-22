@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="32x32"
+      href="../../assets/icons/fav.png"
+      type="image/x-icon"
+    />
+    <meta
+      name="description"
+      content="We are a translation and localization company that provides expertise in brand identity and language solutions for businesses worldwide."
+    />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <!-- modernizr css -->
+    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+
+      <div class="overlay"></div>
+      <div class="header justify-content-between">
+        <div class="header__sidenav">
+          <div class="menu-icon">
+            <img src="../../assets/images/options.svg" alt="options-icon" />
+          </div>
+          <img
+            src="../../assets/images/ivoiceafrica logo 1.png"
+            alt="ivoice logo"
+            class="ivoice-logo"
+          />
+        </div>
+
+        <div class="header__icons">
+          <a href="notification.html">
+            <img
+              src="../../assets/images/notif.svg"
+              alt="bell icon"
+              class="bell-icon"
+            />
+          </a>
+          <div class="profile">
+            <img
+              src="../../assets/images/pro.svg"
+              class="profile-circle"
+              alt="profile circle"
+            />
+
+            <div class="profile__modal">
+              <img src="../../assets/images/propic.png" alt="profile picture" />
+              <div class="profile__header">
+                <h1>Bukola Adesina</h1>
+                <p>Freelancer</p>
+              </div>
+              <div class="profile__statuses">
+                <p class="active-stat">Available</p>
+                <p class="away-status">Away</p>
+                <p class="busy-status">Busy</p>
+              </div>
+              <div class="profile__settings">
+                <span>
+                  <img
+                    src="../../assets/images/pro1.svg"
+                    alt="profile card icon"
+                  />
+                  Profile
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro2.svg"
+                    alt="profile card icon"
+                  />
+                  Change Password
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro3.svg"
+                    alt="profile card icon"
+                  />
+                  <a
+                    href="../../onboarding/client/sign-in.html"
+                    style="color: inherit"
+                  >
+                    Logout
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <img
+          src="../../assets/images/ivoiceafrica logo 1.png"
+          alt="ivoice logo"
+          class="smallnav-logo"
+        />
+        <ul class="metismenu sidebar__links" id="menu">
+          <li class="sidebar__link--item">
+            <a href="dashboard.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box1.png" alt="add icon" />
+              Dashboard</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a
+              href="javascript:void(0)"
+              aria-expanded="true"
+              class="active-link nav-link"
+            >
+              <img src="../../assets/images/box2.svg" alt="add icon" />
+              Jobs</a
+            >
+            <ul class="collapse">
+              <li>
+                <a href="jobalerts.html" class="collapse-link nav-link"
+                  >job Alerts</a
+                >
+              </li>
+              <li>
+                <a href="activejobs.html" class="collapse-link nav-link"
+                  >Active jobs</a
+                >
+              </li>
+              <li>
+                <a href="finishedjobs.html" class="collapse-link nav-link"
+                  >Finsihed jobs</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar__link--item" aria-expanded="true">
+            <a href="Finances.html" class="nav-link">
+              <img src="../../assets/images/box4.svg" alt="add icon" />
+              Finances</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="faqs.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box5.svg" alt="add icon" />
+              FAQS</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="profile.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box6.svg" alt="profile card icon" />
+              Profile</a
+            >
+          </li>
+
+          <li class="sidebar__link--item">
+            <a
+              href="#"
+              aria-expanded="true"
+              aria-expanded="true"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              <img src="../../assets/images/box7.svg" alt="logout icon" />
+              Logout</a
+            >
+          </li>
+        </ul>
+
+        <!-- sidebar menu area end -->
+      </div>
+
+      <div class="main">
+        <div class="main__headerbox">
+          <h1>Dashboard</h1>
+        </div>
+
+        <!-- <div class="bigger-margin"> -->
+        <div class="fl__d--container main__contentbox">
+          <div class="fl_overview-right">
+            <div class="fl__details">
+              <img src="../../assets/images/Mj.png" alt="lollll" />
+              <div class="fl__details--d">
+                <div class="fl__name">
+                  <h1>Micheal Jordan</h1>
+                  <p>
+                    <span class="active-green"></span>
+                    Available
+                  </p>
+                </div>
+                <div class="fl__ratings griddy">
+                  <div class="mr-4">
+                    <span>0</span>
+                    <p>Projects</p>
+                  </div>
+                  <div class="mr-4">
+                    <span>0</span>
+                    <p>Rating</p>
+                  </div>
+                  <div>
+                    <span>$ 0</span>
+                    <p>Total Earnings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="job__notifications">
+              <div class="jobbings">
+                <div class="job__alerts">
+                  <h1>Earnings</h1>
+                  <!-- <div class="week"> -->
+                  <select name="week" id="week" class="week">
+                    <option value="This Week" class="week">This Week</option>
+                    <option value="Last Week">Last Week</option>
+                  </select>
+                  <!-- </div> -->
+                </div>
+                <div class="job__earnings">
+                  <div class="job__amt">
+                    <span> $ 0 </span>
+                    <p>Withdrawn</p>
+                  </div>
+                  <div class="job__amt">
+                    <span> $ 0 </span>
+                    <p>In Escrow</p>
+                  </div>
+                  <div class="job__amt">
+                    <span> $ 0 </span>
+                    <p>Credited</p>
+                  </div>
+                </div>
+                <p>view details</p>
+              </div>
+            </div>
+          </div>
+          <div class="fl_overview-left">
+            <div class="fl__jobs">
+              <div class="fl__jobs--header">
+                <h1>Active Jobs</h1>
+                <ul class="fl__links">
+                  <li class="active-li">All</li>
+                  <a href="overdue2.html" class="fl__links-link"> Overdue </a>
+                  <a href="upcomingdeadline.html" class="fl__links-link"
+                    >Upcoming deadlines</a
+                  >
+                </ul>
+              </div>
+              <div class="fl__nojobs">
+                <img
+                  src="../../assets/images/undrawnboard.svg"
+                  alt="no jobs"
+                  class="nojob-img"
+                />
+                <span class="no-job-heading"
+                  >You have no active jobs at this time.</span
+                >
+                <p class="no-job-summary">
+                  Update your profile to get matched with jobs and <br />
+                  start earning
+                </p>
+              </div>
+            </div>
+            <div class="languages">
+              <h1>Job Alerts</h1>
+              <div class="no__jobs-box">
+                <img
+                  src="../../assets/images/undrawnojob.svg"
+                  alt=""
+                  class="nojobimg"
+                />
+                <span class="no-job-heading"
+                  >You have no active jobs at this time.</span
+                >
+                <div class="no-job-summary">
+                  Your job aleerts would appear here when <br />
+                  you get them
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content logoutModal">
+          <div class="modal-header">
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
+          </div>
+          <div class="modal-body logoutModal-body">
+            You can log in anytime with your email and password
+          </div>
+          <div class="modal-footer logoutModal-footer">
+            <a href="../../onboarding/client/sign-in.html">
+              <button class="transparentBtn">Logout</button>
+            </a>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+  </body>
+</html>

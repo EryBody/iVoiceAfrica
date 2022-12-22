@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/main_css :: css-header"></div>
+  <body>
+    <section class="onboard-section">
+      <div class="onboard-container container">
+        <div class="text-center">
+          <img src="../assets/images/ivoiceafrica logo 2.png" alt="logo" />
+          <h2>Welcome to iVoice Africa!</h2>
+          <p class="welcome-text">How would you like to continue?</p>
+        </div>
+        <div class="choice-box">
+          <div class="Freelance-box text-center mb-sm-3" id="Freelance-box">
+            <div class="onboard-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  id="Freelancer-icon"
+                  cx="20"
+                  cy="20"
+                  r="20"
+                  fill="#837979"
+                  fill-opacity="0.12"
+                />
+                <path
+                  d="M20.87 23.07L18.33 20.56L18.36 20.53C20.1 18.59 21.34 16.36 22.07 14H25V12H18V10H16V12H9V13.99H20.17C19.5 15.92 18.44 17.75 17 19.35C16.07 18.32 15.3 17.19 14.69 16H12.69C13.42 17.63 14.42 19.17 15.67 20.56L10.58 25.58L12 27L17 22L20.11 25.11L20.87 23.07ZM26.5 18H24.5L20 30H22L23.12 27H27.87L29 30H31L26.5 18ZM23.88 25L25.5 20.67L27.12 25H23.88Z"
+                  fill="#151617"
+                />
+              </svg>
+            </div>
+            <h3>Freelancer</h3>
+            <p>I would like to get translating jobs on iVoice Africa</p>
+          </div>
+          <div class="Freelance-box text-center" id="client-box">
+            <div class="onboard-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  id="client-icon"
+                  cx="20"
+                  cy="20"
+                  r="20"
+                  fill="#837979"
+                  fill-opacity="0.12"
+                />
+                <path
+                  d="M20.222 27.855C20.042 28.035 19.722 28.065 19.512 27.855C19.332 27.675 19.302 27.355 19.512 27.145L22.902 23.755L21.492 22.345L18.102 25.735C17.912 25.935 17.592 25.925 17.392 25.735C17.182 25.525 17.212 25.205 17.392 25.025L20.782 21.635L19.372 20.225L15.982 23.615C15.802 23.795 15.482 23.825 15.272 23.615C15.082 23.425 15.082 23.105 15.272 22.905L18.662 19.515L17.242 18.105L13.852 21.495C13.672 21.675 13.352 21.705 13.142 21.495C12.952 21.295 12.952 20.985 13.142 20.785L17.522 16.405L19.392 18.265C20.342 19.215 21.982 19.205 22.932 18.265C23.912 17.285 23.912 15.705 22.932 14.725L21.072 12.865L21.352 12.585C22.132 11.805 23.402 11.805 24.182 12.585L28.422 16.825C29.202 17.605 29.202 18.875 28.422 19.655L20.222 27.855ZM29.832 21.075C31.392 19.515 31.392 16.985 29.832 15.415L25.592 11.175C24.032 9.615 21.502 9.615 19.932 11.175L19.652 11.455L19.372 11.175C17.812 9.615 15.282 9.615 13.712 11.175L10.172 14.715C8.75205 16.135 8.62205 18.345 9.77205 19.905L11.222 18.455C10.832 17.705 10.962 16.755 11.592 16.125L15.132 12.585C15.912 11.805 17.182 11.805 17.962 12.585L21.522 16.145C21.702 16.325 21.732 16.645 21.522 16.855C21.312 17.065 20.992 17.035 20.812 16.855L17.522 13.575L11.722 19.365C10.742 20.335 10.742 21.925 11.722 22.905C12.112 23.295 12.612 23.535 13.142 23.605C13.212 24.125 13.442 24.625 13.842 25.025C14.242 25.425 14.742 25.655 15.262 25.725C15.332 26.245 15.562 26.745 15.962 27.145C16.362 27.545 16.862 27.775 17.382 27.845C17.452 28.385 17.692 28.875 18.082 29.265C18.552 29.735 19.182 29.995 19.852 29.995C20.522 29.995 21.152 29.735 21.622 29.265L29.832 21.075Z"
+                  fill="black"
+                />
+              </svg>
+            </div>
+            <h3>Client</h3>
+            <p>I would like to buy translating services on iVoice Africa</p>
+          </div>
+        </div>
+        <div class="onboard-footer">
+          <a href="#" class="button mb-4" id="btn-normal">Continue</a>
+          <a
+            th:href="@{/freelancer-signup}"
+            class="button mb-3"
+            id="btn-freelancer"
+            >Continue as a freelancer</a
+          >
+          <a
+            th:href="@{/client-signup}"
+            class="button mb-3"
+            id="btn-client"
+            >Continue as a client</a
+          >
+          <p>
+            Already have an account?
+            <a th:href="@{/signin}"
+              >Sign in here</a
+            >
+          </p>
+        
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

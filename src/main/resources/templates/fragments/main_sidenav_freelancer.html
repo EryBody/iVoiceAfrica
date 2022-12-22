@@ -1,0 +1,44 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="sidebar" th:fragment="sidenavfreelancer">
+	<img src="../../assets/images/ivoiceafrica logo 1.png"
+		alt="ivoice logo" class="smallnav-logo" />
+	<ul class="metismenu sidebar__links" id="menu">
+		<li class="sidebar__link--item"><a th:href="@{/freelancer-dashboard}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box1.png" alt="add icon" /> Dashboard
+		</a></li>
+		<li class="sidebar__link--item"><a href="javascript:void(0)"
+			aria-expanded="true" class="active-link nav-link"> <img
+				src="../../assets/images/box2.svg" alt="add icon" /> Jobs
+		</a>
+			<ul class="collapse">
+				<li><a th:href="@{/freelancer-jobs-alerts}" class="collapse-link nav-link">job
+						Alerts</a></li>
+				<li><a th:href="@{/freelancer-active-jobs}" class="collapse-link nav-link">Active
+						jobs</a></li>
+				<li><a th:href="@{/freelancer-finished-jobs}" class="collapse-link nav-link">Finished
+						jobs</a></li>
+			</ul></li>
+		<li class="sidebar__link--item" aria-expanded="true"><a
+			th:href="@{/freelancer-finances}" class="nav-link"> <img
+				src="../../assets/images/box4.svg" alt="add icon" /> Finances
+		</a></li>
+		<li class="sidebar__link--item"><a th:href="@{/freelancer-faqs}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box5.svg" alt="add icon" /> FAQS
+		</a></li>
+		<li class="sidebar__link--item"><a th:href="@{/freelancer-profile/{user}(user=${session.userId})}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box6.svg" alt="profile card icon" />
+				Profile
+		</a></li>
+
+		<li class="sidebar__link--item"><a th:href="@{/logout}"> <img
+				src="../../assets/images/box7.svg" alt="logout icon" /> Logout
+		</a></li>
+	</ul>
+
+	<!-- sidebar menu area end -->
+</div>
+</html>

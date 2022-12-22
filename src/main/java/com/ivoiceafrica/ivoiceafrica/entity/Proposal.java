@@ -35,16 +35,93 @@ public class Proposal {
     @JoinColumn(name = "proposal_status_id")
     private ProposalStatus proposalStatus;
 	
-	@JoinColumn(name = "amount")
+	@Column(name = "amount")
 	private double amount;
 	
-	@JoinColumn(name = "modified_date")
+	@Column(name = "modified_date")
 	private String modifiedDate;
 	
-	@JoinColumn(name = "created_date")
-	private String createddate;
+	@Column(name = "created_date")
+	private String createdDate;
 	
-	
+	public Proposal() {
+		
+	}
+
+	public Proposal(String proposalId, WorkOrder workOrder, User user, ProposalStatus proposalStatus, double amount,
+			String modifiedDate, String createdDate) {
+		this.proposalId = proposalId;
+		this.workOrder = workOrder;
+		this.user = user;
+		this.proposalStatus = proposalStatus;
+		this.amount = amount;
+		this.modifiedDate = modifiedDate;
+		this.createdDate = createdDate;
+	}
+
+	public String getProposalId() {
+		return proposalId;
+	}
+
+	public void setProposalId(String proposalId) {
+		this.proposalId = proposalId;
+	}
+
+	public WorkOrder getWorkOrder() {
+		return workOrder;
+	}
+
+	public void setWorkOrder(WorkOrder workOrder) {
+		this.workOrder = workOrder;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public ProposalStatus getProposalStatus() {
+		return proposalStatus;
+	}
+
+	public void setProposalStatus(ProposalStatus proposalStatus) {
+		this.proposalStatus = proposalStatus;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public String getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(String modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Proposal [proposalId=" + proposalId + ", workOrder=" + workOrder + ", user=" + user
+				+ ", proposalStatus=" + proposalStatus + ", amount=" + amount + ", modifiedDate=" + modifiedDate
+				+ ", createdDate=" + createdDate + "]";
+	}
+
 	
 	
 }

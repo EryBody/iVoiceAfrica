@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+#outer-div {
+	width: 100%;
+	text-align: center;
+}
+
+#inner-div {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 3px;
+}
+</style>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox">
+				<h1>Dashboard</h1>
+			</div>
+
+			<!-- <div class="bigger-margin"> -->
+			<div class="fl__d--container main__contentbox">
+				<div class="fl_overview-right">
+					<div class="fl__details">
+						<img src="../../assets/images/Mj.png" alt="lollll" />
+						<div class="fl__details--d">
+							<div class="fl__name">
+								<h1 th:text="|${userDetails.firstName} ${userDetails.lastName}|"
+									class="p-2">Micheal Jordan</h1>
+
+								<p class="p-2">
+									<span class="active-green"> </span> <span
+										th:text="${userDetails.userStatus.userStatus}">Available</span>
+								</p>
+							</div>
+							<div class="fl__ratings griddy">
+								<div class="mr-4 p-2">
+									<span>0</span>
+									<p>Projects</p>
+								</div>
+								<!-- <div class="mr-4">
+									 <span>4.5 </span>
+									<p>Rating</p>
+								</div> -->
+								<div class="ml-5 p-2">
+									<span>$ 0</span>
+									<p>Total Earnings</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="job__notifications">
+						<div class="jobbings">
+							<div class="job__alerts">
+								<h1>Earnings</h1>
+								<select name="week" id="week" class="week">
+									<option value="This Week" class="week">This Week</option>
+									<option value="Last Week">Last Week</option>
+								</select>
+							</div>
+							<div class="job__earnings">
+								<div class="job__amt">
+									<span> $ 0 </span>
+									<p>Withdrawn</p>
+								</div>
+								<div class="job__amt">
+									<span> $ 0 </span>
+									<p>In Escrow</p>
+								</div>
+								<div class="job__amt">
+									<span> $ 0 </span>
+									<p>Credited</p>
+								</div>
+							</div>
+							<p>view details</p>
+						</div>
+					</div>
+				</div>
+				<div class="fl_overview-left">
+					<div class="fl__jobs">
+						<div class="fl__jobs--header">
+							<h1>Active Jobs</h1>
+							<ul class="fl__links">
+								<a th:href="@{/freelancer-dashboard}" class="fl__links-link">All</a>
+								<a th:href="@{/freelancer-activedetails-overdue2}"
+									class="fl__links-link"> Overdue </a>
+								<li class="active-li">In Progress</li>
+							</ul>
+						</div>
+
+
+						<div class="job" id="outer-div">
+							<div class="job-statuses" id="inner-div"
+								th:if="${inprogressDeliveries.size() == 0}">
+								<div class="mt-3 ">
+
+									<div class="upload-start mr-3"
+										style="margin-left: auto; margin-right: auto">
+										<span>Active Jobs</span>
+										<p>
+											Oops! No active jobs at this time, <br>Go to job alert
+											to see offers
+										</p>
+										<!-- <button class="uploadbtn">Upload</button> -->
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="job" th:each="delivery: ${inprogressDeliveries}">
+							<div class="job-statuses">
+								<div>
+									<button class="light-jobsbtn mr-3"
+										th:text="${delivery.workOrder.serviceType.typeName}">Voice-over</button>
+									<button class="dark-jobsbtn">
+										<span class="status"></span> <span
+											th:text="${delivery.deliveryStatus.status}">In
+											progress</span>
+									</button>
+								</div>
+
+								<button class="red-jobs-btn"
+									th:if="${delivery.deliveryStatus.status == 5}">
+									<span>Overdue</span>
+								</button>
+								<button class="red-jobs-btn yel-jobs-btn"
+									th:unless="${delivery.deliveryStatus.status == 9}">
+									<span>Duesoon</span>
+								</button>
+							</div>
+							<span class="job__name" th:text="${delivery.workOrder.workTitle}">
+								Translate Physics textbook from English Language to French </span>
+							<div class="job__details">
+								<p>Deliverables</p>
+								<p>
+									<span
+										th:text="@{${@ClientComponentModel.getWorkAttachments(delivery.workOrder.workId)}}">4</span>
+									<span>file(s)</span>
+								</p>
+							</div>
+							<div class="job__details">
+								<p>Uploads</p>
+								<p>
+									<span
+										th:text="@{${@ClientComponentModel.getSizeOfDeliveryAttachment(delivery)}}">4</span>
+									<span>file(s)</span>
+								</p>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="languages">
+						<h1>Job Alerts</h1>
+
+						<div class="lang-overview" th:if="${proposalsByLimit.size() == 0}">
+							<div class="mt-3 ">
+								<div class="upload-start mr-3"
+									style="margin-left: auto; margin-right: auto">
+									<span>Jobs Alerts</span>
+									<p>Oops! No job alerts for you at this time.</p>
+									<!-- <button class="uploadbtn">Upload</button> -->
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="lang-overview"
+							th:each="proposal : ${proposalsByLimit}">
+							<div class="lang-btns">
+								<button class="light-jobsbtn mr-2"
+									th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(proposal.workOrder.workId).sourceLanguage}">
+									<span th:text="${srcLanguage}">Voice-over</span>
+								</button>
+							</div>
+							<p class="lang-title mt-3" th:text="${proposal.workOrder.workTitle}">Translate
+								Physics textbook from English Language to French</p>
+							<p class="lang-time">
+								Posted on <span th:text="${proposal.createdDate}"></span>
+							</p>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn" data-dismiss="modal">
+							Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
+</html>

@@ -1,21 +1,19 @@
 package com.ivoiceafrica.ivoiceafrica.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ClientProfilePictureDTO {
 
-	private String profilePicture;
+	private MultipartFile profilePicture;
 	
 	public ClientProfilePictureDTO() {
 	}
-	
-	public ClientProfilePictureDTO(String profilePicture) {
-		this.profilePicture = profilePicture;
-	}
 
-	public String getProfilePicture() {
+	public MultipartFile getProfilePicture() {
 		return profilePicture;
 	}
 
-	public void setProfilePicture(String profilePicture) {
+	public void setProfilePicture(MultipartFile profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 
@@ -23,5 +21,7 @@ public class ClientProfilePictureDTO {
 	public String toString() {
 		return "ClientProfilePictureDTO [profilePicture=" + profilePicture + "]";
 	}
+	
+	
 	
 }

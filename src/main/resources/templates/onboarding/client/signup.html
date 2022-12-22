@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="fragments/main_css :: css-header"></div>
+
 <body>
 	<form th:action="@{/client/signup/save}" th:object="${ClientSignupDTO}"
 		method="post">
@@ -16,28 +17,36 @@
 						services
 					</p>
 				</div>
+
 				<div class="form-container">
-					<div class="mb-5">
-						<label for="email" class="form-label">Email</label> <input
-							type="email" id="email" name="email"
-							placeholder="Ex: Johndoe@gmail.com" />
-					</div>
-					<div class="mb-5">
-						<label for="password" class="form-label">Password</label> <input
-							type="password" id="password" name="password"
-							placeholder="Write a password" />
-					</div>
-					<div class="onboard-footer footer-2">
+						<div class="mb-5">
+							<label for="email" class="form-label">Username</label> <input
+								type="text" id="username" name="username" placeholder="Johndoe" />
+						</div>
+						<div class="mb-5">
+							<label for="email" class="form-label">Email</label> <input
+								type="email" id="email" name="email"
+								placeholder="Ex: Johndoe@gmail.com" />
+						</div>
+						<div class="mb-5">
+							<label for="password" class="form-label">Password</label> <input
+								type="password" id="password" name="password"
+								placeholder="Write a password" />
+						</div>
+						<div class="onboard-footer footer-2">
 
-						<input type="submit" class="button mb-3" value="Signup as Client" />
+							<input type="submit" class="button mb-3" value="Signup as Client" />
 
-						<!-- <a href="#" class="button mb-3" data-bs-toggle="modal"
+							<!-- <a href="#" class="button mb-3" data-bs-toggle="modal"
 							data-bs-target="#myModal">Signup as Client</a> -->
-						<p>
-							Already have an account? <a th:href="@{/signin}">Sign in</a>
-						</p>
-					</div>
+							<p>
+								Already have an account? <a th:href="@{/signin}">Sign in</a>
+							</p>
+						</div>
 				</div>
+
+
+
 				<div class="form-footer onboard-footer">
 					<p>
 						Are you looking to find translation services? <a

@@ -1,8 +1,10 @@
 package com.ivoiceafrica.ivoiceafrica.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FreelancerProfilePictureDetailDTO {
 
-	private String profilePicture;
+	private MultipartFile profilePicture;
 	private String profileHeadline;
 	
 	
@@ -10,33 +12,37 @@ public class FreelancerProfilePictureDetailDTO {
 		
 	}
 	
-	public FreelancerProfilePictureDetailDTO(String profilePicture, String profileHeadline) {
+	
+	public FreelancerProfilePictureDetailDTO(MultipartFile profilePicture, String profileHeadline) {
 		this.profilePicture = profilePicture;
 		this.profileHeadline = profileHeadline;
 	}
 
-	public String getProfilePicture() {
+
+	public MultipartFile getProfilePicture() {
 		return profilePicture;
 	}
 
-	public void setProfilePicture(String profilePicture) {
+
+	public void setProfilePicture(MultipartFile profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+
 
 	public String getProfileHeadline() {
 		return profileHeadline;
 	}
 
+
 	public void setProfileHeadline(String profileHeadline) {
 		this.profileHeadline = profileHeadline;
 	}
+
 
 	@Override
 	public String toString() {
 		return "FreelancerProfilePictureDetailDTO [profilePicture=" + profilePicture + ", profileHeadline="
 				+ profileHeadline + "]";
 	}
-	
-	
 	
 }

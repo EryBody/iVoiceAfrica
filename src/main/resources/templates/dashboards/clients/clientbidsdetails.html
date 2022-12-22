@@ -1,462 +1,227 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Bidding Freelancers</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Bidding Freelancers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <!-- amchart css -->
-    <link
-      rel="stylesheet"
-      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
-      type="text/css"
-      media="all"
-    />
-    <!-- others css -->
-    <link rel="stylesheet" href="assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="assets/CSS/css/styles.css" />
-    <link rel="stylesheet" href="assets/CSS/css/responsive.css" />
-    <link rel="stylesheet" href="assets/CSS/css/finance.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+	 <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
 
-    <!-- modernizr css -->
-    <script src="assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="assets/JS/js/scripts.js" defer></script>
-  </head>
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+</head>
 
-  <body>
-    <div id="preloader">
-      <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
-      <!-- Header area start -->
-      <div class="header-area">
-        <div class="headerarea-divder">
-          <div class="sidebar-header">
-            <img
-              src="assets/icons/menu-open.svg"
-              alt="menu-open"
-              class="nav-icon"
-            />
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+		<div class="overlay"></div>
 
-            <a href="newrequest.html"
-              ><img src="assets/images/ivoiceafrica logo 1.png" alt="logo"
-            /></a>
-          </div>
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
 
-          <!-- Searchbar and notification start -->
-          <div class="search-box w-50">
-            <ion-icon name="search-outline"></ion-icon>
-            <input type="text" name="search" placeholder="Search" required />
-          </div>
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
 
-          <div>
-            <div class="notification-area">
-              <a
-                href="clientnotification.html"
-                class="text-center notification-btn"
-              >
-                <span class="material-symbols-outlined"> notifications </span>
-                <p>Notifications</p>
-              </a>
+		<div class="main">
+			<div class="main__headerbox">
+				<div
+					class="bigger-margin clientrequests-heading d-flex align-items-center justify-content-between">
+					<div>
+						<a href="clientbids.html" class="header-link"> <span>Bids</span>
+						</a> <span>Freelancers</span>
+					</div>
+				</div>
+			</div>
 
-              <button
-                class="text-center ml-5"
-                type="button"
-                id="show_modal_btn"
-              >
-                <span class="material-symbols-outlined"> account_circle </span>
-                <span class="material-symbols-outlined"> arrow_drop_down </span>
-                <p>My profile</p>
-              </button>
-              <!-- Searchbar and notification end -->
+			<!-- job alerts area start -->
+			<div class="main__contentbox mt-3 details-box-cl">
+				<div>
+					<div class="job-alerts mb-3">
+						<div class="arrow-back">
+							<a th:href="@{/client/job/bids}"> <img
+								src="../../assets/icons/arrow_back_link.svg"
+								alt="arrow_back_link" />
+							</a>
+						</div>
+						<div href="clientrequestdetails.html" class="job-alerts-card-body">
+							<div class="my-4">
+								<div class="griddy">
+									<span class="mr-3 job-alerts-voiceover">
+										<div class="mr-2 job-alerts-voiceover-color"></div> <span
+										th:text="${workOrderDetails?.serviceType?.typeName}">Voice-over</span>
+									</span> <span class="mr-3 job-alerts-lang"
+										th:text="@{ ${workOrderFirstAttachment.source != null} ? ${@ClientComponentModel.translateIdToLanguage(workOrderFirstAttachment?.source)}}">
+										French </span> <span class="mr-3 job-alerts-lang"
+										th:text="@{ ${workOrderFirstAttachment?.destination != null} ? ${@ClientComponentModel.translateIdToLanguage(workOrderFirstAttachment?.destination)}}">
+										English </span>
+								</div>
+							</div>
 
-              <!-- The Freelancer's modal start -->
-              <div
-                class="row border profile-modal profile-modal_active"
-                id="profileModal"
-              >
-                <div class="col">
-                  <div class="modal-head">
-                    <div>
-                      <img src="assets/images/profile.svg" alt="profile" />
-                    </div>
-                    <p class="freelancer-name">Bukola Adesina</p>
-                    <p>Freelancer</p>
-                    <div class="freelancers-status">
-                      <div class=""><span>Available</span></div>
-                      <div class=""><span> Away</span></div>
-                      <div class=""><span> Busy</span></div>
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/profile_icon.svg" alt="" />
-                      <span class="ml-2">Profile</span>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/padlock_icon.svg" alt="" />
-                      <span class="ml-2">Change Password</span>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/logout_icon.svg" alt="" />
-                      <span class="ml-2">Logout</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- The Freelancer's modal end -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Header area end -->
+							<h2 class="job-alert-card-body-title mb-3"
+								th:text="${workOrderDetails?.workTitle}">Translate Physics
+								textbook from English Languague to French</h2>
+							<div class="job-alerts-footer">
+								<div class="d-flex align-items-center mb-3 griddy">
+									<div class="mr-3 d-flex">
 
-      <div class="main-content">
-        <div class="page-divider">
-          <div class="sidebar-menu">
-            <!-- sidebar menu area start -->
-            <div class="main-menu">
-              <div>
-                <nav>
-                  <ul class="metismenu" id="menu">
-                    <li class="active">
-                      <a href="newrequest.html" aria-expanded="true">
-                        <span class="material-symbols-outlined material-icon">
-                          add_box
-                        </span>
-                        <span class="title-medium-font">New Request</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          work </span
-                        ><span class="title-medium-font">Jobs</span></a
-                      >
-                      <ul class="collapse collapse-links">
-                        <li><a href="clientrequests.html">Request</a></li>
-                        <li>
-                          <a href="clientbids.html">Bids</a>
-                        </li>
-                        <li><a href="inprogress.html">In Progress</a></li>
-                        <li><a href="clientfinished.html">Finished</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="clientfinance.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          payments </span
-                        ><span class="title-medium-font">Finances</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientfaqs.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          quiz </span
-                        ><span class="title-medium-font">FAQs</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientprofile.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          account_box </span
-                        ><span class="title-medium-font">Profile</span></a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        aria-expanded="true"
-                        data-toggle="modal"
-                        data-target="#logoutModal"
-                        ><span class="material-symbols-outlined material-icon">
-                          logout
-                        </span>
-                        <span class="title-medium-font">Logout</span></a
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- sidebar menu area end -->
-          </div>
+										<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
+											th:text="${workOrderDetails?.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
+											th:text="${workOrderDetails?.maxAmount}">30</span> <span>&nbsp;
+											per page</span></span>
+									</div>
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">attach_file</span>
+										<span
+											th:text="@{${@ClientComponentModel.getWorkAttachments(workOrderDetails?.workId)}}">4
+											<span>PDFs</span>
+										</span>
+									</div>
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">timer</span> <span
+											th:text="${workOrderDetails?.duration?.duration}">3
+											&nbsp;<span>days</span>
+										</span>
+									</div>
+								</div>
+								<div class="clientmorejobs">
+									<p>
+										<a
+											th:href="@{/client/details/{id}(id=${workOrderDetails?.workId})}">More
+											job details</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 
-          <div class="main-pagecontent">
-            <div class="job-alert-heading">
-              <div
-                class="bigger-margin clientrequests-heading d-flex align-items-center justify-content-between w-80 py-4"
-              >
-                <div>
-                  <span>Bids</span>
-                  <span>Freelancers</span>
-                </div>
-              </div>
-            </div>
+					<div class="job-alerts">
+						<span class="job-details-content-title">Recommended
+							Freelancers</span>
 
-            <div class="arrow_back_link">
-              <a href="clientbids.html">
-                <img
-                  src="assets/icons/arrow_back_link.svg"
-                  alt="arrow_back_link"
-                />
-              </a>
-            </div>
+						<div class="freelancer-bidding">
 
-            <!-- job alerts area start -->
-            <div class="bigger-margin mt-3">
-              <div class="mt-1 w-90">
-                <div class="job-alerts mb-3">
-                  <div
-                    href="clientrequestdetails.html"
-                    class="job-alerts-card-body"
-                  >
-                    <div class="mt-3 mb-5">
-                      <div>
-                        <span class="mr-3 job-alerts-voiceover">
-                          <div class="mr-2 job-alerts-voiceover-color"></div>
-                          Voice-over
-                        </span>
-                        <span class="mr-3 job-alerts-lang"> French </span>
-                        <span class="mr-3 job-alerts-lang"> English </span>
-                      </div>
-                    </div>
-                    <h2 class="job-alert-card-body-title mb-3">
-                      Translate Physics textbook from English Languague to
-                      French
-                    </h2>
-                    <div class="job-alerts-footer">
-                      <div class="d-flex align-items-center mb-3">
-                        <div class="mr-3 d-flex">
-                          <span class="material-symbols-outlined mr-2"
-                            >savings</span
-                          >
-                          <span>$20 -$30 <span>per page</span></span>
-                        </div>
-                        <div class="mr-3 d-flex">
-                          <span class="material-symbols-outlined mr-2"
-                            >attach_file</span
-                          >
-                          <span>4 <span>PDFs</span></span>
-                        </div>
-                        <div class="mr-3 d-flex">
-                          <span class="material-symbols-outlined mr-2"
-                            >timer</span
-                          >
-                          <span>3 days</span>
-                        </div>
-                      </div>
-                      <div class="clientmorejobs">
-                        <p>More job details</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+							<div class="bidding-freelancer"
+								th:each="clientProposal, index : ${clientProposalList}">
+								<a
+									th:href="@{/clientProfileOverview/{id}/{user}(id=${workOrderDetails.workId}, user=${clientProposal.user.username})}">
+									<div class="d-flex align-items-start p-4 griddy pb-0">
+										<img
+											th:src="@{${'/profilepictures/' + clientProposal.user.profilePicture}}"
+											style="width: 80px; height: 80px; border-radius: 50%;"
+											alt="freelancer" />
 
-                <div class="job-alerts">
-                  <span class="job-details-content-title"
-                    >Recommended Freelancers</span
-                  >
+										<div class="ml-4">
+											<p class="freelancers-bidding-name"
+												th:text="|${clientProposal.user.firstName} ${clientProposal.user.lastName}|">Michael
+												Jordan</p>
+											<p class="freelancer-bidding-skill"
+												th:text="${clientProposal.user.address}">No 2, Fassy
+												Adesina</p>
+											<p class="freelancer-location"
+												th:text="${clientProposal.user.country}">Nigeria</p>
+											<p class="mr-3 freelance-expertise"
+												th:each="freelancerLanguage : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(clientProposal.user)}">
+												<span th:text="${freelancerLanguage.languageId.language}">Hausa</span>
+											</p>
+										</div>
+									</div>
 
-                  <div class="freelancer-bidding">
-                    <a href="profile.html" class="bidding-freelancer">
-                      <div class="d-flex align-items-start p-3 pb-0">
-                        <img src="assets/images/profile.svg" alt="freelancer" />
-                        <div class="ml-4">
-                          <p class="freelancers-bidding-name">Michael Jordan</p>
-                          <p class="freelancer-bidding-skill">Translator</p>
-                          <p class="freelancer-location">Lagos, Nigeria</p>
-                          <p class="mr-3 freelance-expertise">Amharic</p>
-                          <p class="mr-3 freelance-expertise">English</p>
-                        </div>
-                      </div>
+									<div class="dashboard-earning-stats mt-3 freelance-history">
+										<div>
+											<p class="withdrawn-amt"
+												th:text="${@ClientComponentModel.getNoOfServiceRendered(clientProposal.user)}">4</p>
+											<p>Service Rendered</p>
+										</div>
+										<div>
+											<p class="credited-amt">
+												$ <span th:text="${clientProposal.amount}">40</span>
+											</p>
+											<p>Rate</p>
+										</div>
+										<!-- <div>
+										<p class="escrow-amt">4.5</p>
+										<p>Rating</p>
+									</div> -->
 
-                      <div
-                        class="dashboard-earning-stats mt-3 freelance-history"
-                      >
-                        <div>
-                          <p class="withdrawn-amt">320</p>
-                          <p>Projects</p>
-                        </div>
-                        <div>
-                          <p class="escrow-amt">4.5</p>
-                          <p>Rating</p>
-                        </div>
-                        <div>
-                          <p class="credited-amt">$40</p>
-                          <p>Rate per hour</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="profile.html" class="bidding-freelancer">
-                      <div class="d-flex align-items-start p-3 pb-0">
-                        <img
-                          src="assets/images/profileI.png"
-                          alt="freelancer"
-                        />
-                        <div class="ml-4">
-                          <p class="freelancers-bidding-name">Michael Jordan</p>
-                          <p class="freelancer-bidding-skill">Translator</p>
-                          <p class="freelancer-location">Lagos, Nigeria</p>
-                          <p class="mr-3 freelance-expertise">Amharic</p>
-                          <p class="mr-3 freelance-expertise">English</p>
-                        </div>
-                      </div>
+									</div>
+								</a>
+							</div>
 
-                      <div
-                        class="dashboard-earning-stats mt-3 freelance-history"
-                      >
-                        <div>
-                          <p class="withdrawn-amt">320</p>
-                          <p>Projects</p>
-                        </div>
-                        <div>
-                          <p class="escrow-amt">4.5</p>
-                          <p>Rating</p>
-                        </div>
-                        <div>
-                          <p class="credited-amt">$40</p>
-                          <p>Rate per hour</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="profile.html" class="bidding-freelancer">
-                      <div class="d-flex align-items-start p-3 pb-0">
-                        <img
-                          src="assets/images/profileII.png"
-                          alt="freelancer"
-                        />
-                        <div class="ml-4">
-                          <p class="freelancers-bidding-name">Michael Jordan</p>
-                          <p class="freelancer-bidding-skill">Translator</p>
-                          <p class="freelancer-location">Lagos, Nigeria</p>
-                          <p class="mr-3 freelance-expertise">Amharic</p>
-                          <p class="mr-3 freelance-expertise">English</p>
-                        </div>
-                      </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                      <div
-                        class="dashboard-earning-stats mt-3 freelance-history"
-                      >
-                        <div>
-                          <p class="withdrawn-amt">320</p>
-                          <p>Projects</p>
-                        </div>
-                        <div>
-                          <p class="escrow-amt">4.5</p>
-                          <p>Rating</p>
-                        </div>
-                        <div>
-                          <p class="credited-amt">$40</p>
-                          <p>Rate per hour</p>
-                        </div>
-                      </div>
-                    </a>
+	<!-- logout Modal -->
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                    <a href="profile.html" class="bidding-freelancer">
-                      <div class="d-flex align-items-start p-3 pb-0">
-                        <img
-                          src="assets/images/profileIII.png"
-                          alt="freelancer"
-                        />
-                        <div class="ml-4">
-                          <p class="freelancers-bidding-name">Michael Jordan</p>
-                          <p class="freelancer-bidding-skill">Translator</p>
-                          <p class="freelancer-location">Lagos, Nigeria</p>
-                          <p class="mr-3 freelance-expertise">Amharic</p>
-                          <p class="mr-3 freelance-expertise">English</p>
-                        </div>
-                      </div>
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
 
-                      <div
-                        class="dashboard-earning-stats mt-3 freelance-history"
-                      >
-                        <div>
-                          <p class="withdrawn-amt">320</p>
-                          <p>Projects</p>
-                        </div>
-                        <div>
-                          <p class="escrow-amt">4.5</p>
-                          <p>Rating</p>
-                        </div>
-                        <div>
-                          <p class="credited-amt">$40</p>
-                          <p>Rate per hour</p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- logout Modal -->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content logoutModal">
-          <div class="modal-header">
-            <p class="modal-title" id="logoutModalLabel">
-              Log out of iVoice Africa?
-            </p>
-          </div>
-          <div class="modal-body logoutModal-body">
-            You can log in anytime with your email and password
-          </div>
-          <div class="modal-footer logoutModal-footer">
-            <a href="index.html">
-              <button class="transparentBtn">Logout</button>
-            </a>
-            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- jquery latest version -->
-    <script src="assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="assets/JS/js/popper.min.js"></script>
-    <script src="assets/JS/js/bootstrap.min.js"></script>
-    <script src="assets/JS/js/owl.carousel.min.js"></script>
-    <script src="assets/JS/js/metisMenu.min.js"></script>
-    <script src="assets/JS/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/JS/js/jquery.slicknav.min.js"></script>
-
-    <!-- others plugins -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="assets/JS/js/plugins.js"></script>
-    <script src="assets/JS/js/scripts.js"></script>
-  </body>
+	<!-- others plugins -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
 </html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Bidding Freelancers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+     <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+
+    <!-- modernizr css -->
+    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+
+      <div class="overlay"></div>
+      
+      
+      	<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+      
+      <div class="main">
+        <div class="main__headerbox">
+          <div class="clientrequests-heading">
+            <div>
+              <a href="clientnotification.html" class="header-link">
+                <span>Notifications</span>
+              </a>
+              <span>Freelancers</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow_back_link">
+          <a href="clientbids.html">
+            <img
+              src="../../assets/icons/arrow_back_link.svg"
+              alt="arrow_back_link"
+            />
+          </a>
+        </div>
+
+        <!-- job alerts area start -->
+        <div class="main__contentbox mt-3 finished-job-overview">
+          <div class="mt-1">
+            <div class="job-alerts">
+              <div class="freelancer-bidding">
+                <a href="freelancerprofile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="profile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+                <a href="profile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="profile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="profile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="profile.html" class="bidding-freelancer">
+                  <div class="d-flex align-items-start p-3 pb-0">
+                    <img
+                      src="../../assets/images/profile.svg"
+                      alt="freelancer"
+                    />
+                    <div class="ml-4">
+                      <p class="freelancers-bidding-name">Michael Jordan</p>
+                      <p class="freelancer-bidding-skill">Translator</p>
+                      <p class="freelancer-location">Lagos, Nigeria</p>
+                      <p class="mr-3 freelance-expertise">Amharic</p>
+                      <p class="mr-3 freelance-expertise">English</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard-earning-stats mt-3 freelance-history">
+                    <div>
+                      <p class="withdrawn-amt">320</p>
+                      <p>Projects</p>
+                    </div>
+                    <div>
+                      <p class="escrow-amt">4.5</p>
+                      <p>Rating</p>
+                    </div>
+                    <div>
+                      <p class="credited-amt">$40</p>
+                      <p>Rate per hour</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- logout Modal -->
+    <!-- logout Modal -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content logoutModal">
+          <div class="modal-header">
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
+          </div>
+          <div class="modal-body logoutModal-body">
+            You can log in anytime with your email and password
+          </div>
+          <div class="modal-footer logoutModal-footer">
+            <a href="../../onboarding/client/sign-in.html">
+              <button class="transparentBtn">Logout</button>
+            </a>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+  </body>
+</html>

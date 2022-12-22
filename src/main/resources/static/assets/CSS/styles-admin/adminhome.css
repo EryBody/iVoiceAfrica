@@ -1,0 +1,165 @@
+.admin-stats-box {
+  background-color: var(--text-white);
+  padding: 1.6rem 1.2rem;
+}
+.admin-stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2.4rem;
+  border-bottom: 0.1rem solid rgba(26, 56, 96, 0.1);
+}
+.admin-stats-header div {
+  display: flex;
+  gap: 1.6rem;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 3.2rem 3.6rem;
+}
+.admin-stats-header div:not(:last-child) {
+  padding-right: 10rem;
+  border-right: 0.1rem solid rgba(26, 56, 96, 0.1);
+}
+.admin-stats-header div:last-child {
+  /* padding-right: 3.2rem; */
+}
+.admin-stats-heading {
+  color: rgba(28, 48, 74, 0.5);
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: var(--opensans-admin);
+}
+
+.admin-stats-number {
+  font-size: 2.4rem;
+}
+.jobs-stats {
+  padding: 2.4rem;
+  background-color: var(--text-white);
+}
+.jobs-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: var(--opensans-admin);
+}
+#job-statistics,
+.jobs-statistics {
+  border-spacing: 3.2rem;
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 1.5rem;
+  table-layout: fixed;
+  min-width: 220.8rem;
+}
+.table-statistics {
+  background-color: var(--text-white);
+  overflow-x: scroll;
+}
+#job-statistics th,
+.jobs-statistics th {
+  padding: 1.2rem 2.4rem;
+  font-family: var(--opensans-admin);
+  color: #192434;
+  font-weight: 600;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 215, 6, 0.05),
+      rgba(255, 215, 6, 0.05)
+    ),
+    var(--text-white);
+  text-align: left;
+  width: 100%;
+}
+
+#job-statistics td:nth-child(5),
+#job-statistics td:nth-child(6),
+.job-statistics td:nth-child(5),
+.job-statistics td:nth-child(6) {
+  color: var(--color-success);
+}
+
+#job-statistics tr:nth-child(even),
+.job-statistics tr:nth-child(even) {
+  background-color: rgba(26, 56, 96, 0.03);
+}
+
+#job-statistics tr:hover,
+.job-statistics tr:hover {
+  background-color: rgba(255, 215, 6, 0.05);
+}
+#job-statistics td,
+.job-statistics td {
+  text-align: left;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+
+/* QUERIES */
+@media (max-width: 1231px) {
+  .admin-stats-header div:not(:last-child) {
+    padding-right: 5rem;
+  }
+}
+@media (max-width: 1058px) {
+  .admin-stats-header div {
+    padding: 2rem;
+  }
+  .admin-stats-header {
+    padding: 2rem;
+  }
+  .admin-contentbox {
+    padding: 7.5rem 4.6rem 0 35rem;
+  }
+}
+@media (max-width: 967px) {
+  .admin-contentbox {
+    padding: 7.5rem 3.6rem 0 3.6rem;
+  }
+  .admin-stats-header div:not(:last-child) {
+    padding-right: 4rem;
+  }
+  .admin-stats-number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .admin-stats-header {
+    flex-direction: column;
+  }
+  .admin-stats-header div {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .admin-stats-header div:not(:last-child) {
+    border-right: 0;
+    border-bottom: 0.1rem solid rgba(26, 56, 96, 0.1);
+  }
+  .admin-stats-header {
+    padding: 2rem 0;
+  }
+  .admin-stats-box {
+    padding: 1.6rem 0;
+  }
+  .jobs-heading {
+    font-size: 1.8rem;
+  }
+  .admin-contentbox {
+    padding: 7.5rem 2rem 0 2rem;
+  }
+  .admin-heading {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 353px) {
+  .admin-heading {
+    font-size: 1.8rem;
+  }
+  .admin-contentbox {
+    padding: 10rem 1.6rem 0 1.6rem;
+    margin-top: 2rem;
+  }
+}

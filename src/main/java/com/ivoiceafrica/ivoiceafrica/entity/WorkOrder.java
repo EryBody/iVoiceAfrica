@@ -21,84 +21,80 @@ import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 @Entity
 @Table(name = "work_orders")
 public class WorkOrder {
-	
+
 	@Id
 	@GenericGenerator(name = "work_id", strategy = "com.ivoiceafrica.ivoiceafrica.IdGenerator.WorkOrderGenerator")
 	@GeneratedValue(generator = "work_id", strategy = GenerationType.SEQUENCE)
 	@Column(name = "work_id")
 	private String workId;
-	
-	@ManyToOne // Mapping the column of this table 
-    @JoinColumn(name = "user_id")
-    private User user;
-	
-	@ManyToOne // Mapping the column of this table 
-    @JoinColumn(name = "type_id")
-    private ServiceType serviceType;
-	
-	
-	@ManyToOne // Mapping the column of this table 
-    @JoinColumn(name = "duration_id")
-    private DurationType duration;
-	
-	
-	@ManyToOne // Mapping the column of this table 
-    @JoinColumn(name = "wo_status_id")
-    private WorkOrderStatus workOrderStatus;
-	
-	@JoinColumn(name = "source")
-	private String source;
-	
-	@JoinColumn(name = "destination")
-	private String destination;
-	
-	@JoinColumn(name = "description")
+
+	@Column(name = "work_title")
+	private String workTitle;
+
+	@ManyToOne // Mapping the column of this table
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@ManyToOne // Mapping the column of this table
+	@JoinColumn(name = "type_id")
+	private ServiceType serviceType;
+
+	@ManyToOne // Mapping the column of this table
+	@JoinColumn(name = "duration_id")
+	private DurationType duration;
+
+	@ManyToOne // Mapping the column of this table
+	@JoinColumn(name = "wo_status_id")
+	private WorkOrderStatus workOrderStatus;
+
+	@Column(name = "description")
 	private String description;
-	
-	@JoinColumn(name = "budget")
-	private double budget;
-	
-	@JoinColumn(name = "modifiedDate")
+
+	@Column(name = "min_amount")
+	private double minAmount;
+
+	@Column(name = "max_amount")
+	private double maxAmount;
+
+	@Column(name = "modifiedDate")
 	private String modifiedDate;
-	
-	@JoinColumn(name = "poatingDate")
+
+	@Column(name = "postingDate")
 	private String postingDate;
-	
-	@OneToMany(mappedBy = "workOrder",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.REFRESH, CascadeType.DETACH})
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
 	@JsonIgnore
-    private Set<Proposal> proposals;
-	
-	@OneToMany(mappedBy = "workOrder",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.REFRESH, CascadeType.DETACH})
+	private Set<Proposal> proposals;
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
 	@JsonIgnore
-    private Set<WorkOrderAttachment> workOrderAttachments;
-	
-	@OneToMany(mappedBy = "workOrder",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.REFRESH, CascadeType.DETACH})
+	private Set<WorkOrderAttachment> workOrderAttachments;
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
 	@JsonIgnore
-    private Set<WorkOrdersDelivery> workOrdersDeliveries;
-	
+	private Set<WorkOrdersDelivery> workOrdersDeliveries;
+
+
 	public WorkOrder() {
-		
+
 	}
 
-	public WorkOrder(String workId, User user, ServiceType serviceType, DurationType duration,
-			WorkOrderStatus workOrderStatus, String source, String destination, String description, double budget,
+	public WorkOrder(String workId, String workTitle, User user, ServiceType serviceType, DurationType duration,
+			WorkOrderStatus workOrderStatus, String description, double minAmount, double maxAmount,
 			String modifiedDate, String postingDate, Set<Proposal> proposals,
 			Set<WorkOrderAttachment> workOrderAttachments, Set<WorkOrdersDelivery> workOrdersDeliveries) {
 		this.workId = workId;
+		this.workTitle = workTitle;
 		this.user = user;
 		this.serviceType = serviceType;
 		this.duration = duration;
 		this.workOrderStatus = workOrderStatus;
-		this.source = source;
-		this.destination = destination;
 		this.description = description;
-		this.budget = budget;
+		this.minAmount = minAmount;
+		this.maxAmount = maxAmount;
 		this.modifiedDate = modifiedDate;
 		this.postingDate = postingDate;
 		this.proposals = proposals;
@@ -112,6 +108,14 @@ public class WorkOrder {
 
 	public void setWorkId(String workId) {
 		this.workId = workId;
+	}
+
+	public String getWorkTitle() {
+		return workTitle;
+	}
+
+	public void setWorkTitle(String workTitle) {
+		this.workTitle = workTitle;
 	}
 
 	public User getUser() {
@@ -146,22 +150,6 @@ public class WorkOrder {
 		this.workOrderStatus = workOrderStatus;
 	}
 
-	public String getSource() {
-		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
-	}
-
-	public String getDestination() {
-		return destination;
-	}
-
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -170,12 +158,20 @@ public class WorkOrder {
 		this.description = description;
 	}
 
-	public double getBudget() {
-		return budget;
+	public double getMinAmount() {
+		return minAmount;
 	}
 
-	public void setBudget(double budget) {
-		this.budget = budget;
+	public void setMinAmount(double minAmount) {
+		this.minAmount = minAmount;
+	}
+
+	public double getMaxAmount() {
+		return maxAmount;
+	}
+
+	public void setMaxAmount(double maxAmount) {
+		this.maxAmount = maxAmount;
 	}
 
 	public String getModifiedDate() {
@@ -216,6 +212,13 @@ public class WorkOrder {
 
 	public void setWorkOrdersDeliveries(Set<WorkOrdersDelivery> workOrdersDeliveries) {
 		this.workOrdersDeliveries = workOrdersDeliveries;
+	}
+
+	@Override
+	public String toString() {
+		return "WorkOrder [workId=" + workId + ", workTitle=" + workTitle + ", description=" + description
+				+ ", minAmount=" + minAmount + ", maxAmount=" + maxAmount + ", modifiedDate=" + modifiedDate
+				+ ", postingDate=" + postingDate + "]";
 	}
 
 }

@@ -1,347 +1,508 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>New Request</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="shortcut icon"
-      href="../../assets/images/ivoiceafrica logo 1.png"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <!-- amchart css -->
-    <link
-      rel="stylesheet"
-      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
-      type="text/css"
-      media="all"
-    />
-    <!-- others css -->
-    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
-    <link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
 
-    <!-- modernizr css -->
-    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="../../assets/JS/js/scripts.js" defer></script>
-  </head>
+<style>
+.language1, .language2, .language3, .language4, .language5, .language6 {
+	display: none;
+}
+</style>
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+	
+		<!-- Header -->
+		<div class="overlay"></div>
+		
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+		
+	
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
 
-  <body>
-    <div id="preloader">
-      <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
-      <!-- Header -->
-      <div class="overlay"></div>
-      <div class="header">
-        <div class="header__sidenav">
-          <div class="menu-icon">
-            <img src="../../assets/images/options.svg" alt="options-icon" />
-          </div>
-          <img
-            src="../../assets/images/ivoiceafrica logo 1.png"
-            alt="ivoice logo"
-            class="ivoice-logo"
-          />
-        </div>
-        <div class="header__search">
-          <ion-icon name="search-outline"></ion-icon>
-          <input type="text" placeholder="Search" />
-        </div>
-        <div class="header__icons">
-          <img
-            src="../../assets/images/notif.svg"
-            alt="bell icon"
-            class="bell-icon"
-          />
-          <div class="profile">
-            <img
-              src="../../assets/images/pro.svg"
-              class="profile-circle"
-              alt="profile circle"
-            />
+		<div class="main">
+			<div class="main__headerbox">
+				<h1>New Project</h1>
+			</div>
+			<div class="main__contentbox">
+				<div class="main-content">
+					<div class="contentbox">
+					
+					 <!-- display details of controller -->
+          			<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary mt-3"></p>
 
-            <div class="profile__modal">
-              <img src="../../assets/images/propic.png" alt="profile picture" />
-              <div class="profile__header">
-                <h1>Bukola Adesina</h1>
-                <p>Freelancer</p>
-              </div>
-              <div class="profile__statuses">
-                <p class="active-status">Available</p>
-                <p>Away</p>
-                <p>Busy</p>
-              </div>
-              <div class="profile__settings">
-                <span>
-                  <img
-                    src="../../assets/images/pro1.svg"
-                    alt="profile card icon"
-                  />
-                  Profile
-                </span>
-                <span>
-                  <img
-                    src="../../assets/images/pro2.svg"
-                    alt="profile card icon"
-                  />
-                  Change Password
-                </span>
-                <span>
-                  <img
-                    src="../../assets/images/pro3.svg"
-                    alt="profile card icon"
-                  />
-                  Logout
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+						<form th:action="@{/client/new/request/save}"
+							th:object="${NewClientRequestDTO}" method="post"
+							enctype="multipart/form-data">
 
-      <div class="sidebar">
-        <img
-          src="../../assets/images/ivoiceafrica logo 1.png"
-          alt="ivoice logo"
-          class="smallnav-logo"
-        />
-        <ul class="metismenu sidebar__links" id="menu">
-          <li class="sidebar__link--item">
-            <a href="#" aria-expanded="true">
-              <img src="../../assets/images/box1.png" alt="add icon" />
-              New request</a
-            >
-          </li>
-          <li class="sidebar__link--item">
-            <a
-              href="javascript:void(0)"
-              aria-expanded="true"
-              class="active-link"
-            >
-              <img src="../../assets/images/box2.svg" alt="add icon" />
-              Jobs</a
-            >
-            <ul class="collapse">
-              <li>
-                <a href="clientrequests.html" class="collapse-link">Request</a>
-              </li>
-              <li>
-                <a href="clientbids.html" class="collapse-link">Bids</a>
-              </li>
-              <li>
-                <a href="inprogress.html" class="collapse-link">In Progress</a>
-              </li>
-              <li>
-                <a href="clientfinished.html" class="collapse-link">Finished</a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar__link--item" aria-expanded="true">
-            <a href="clientfinance.html">
-              <img src="../../assets/images/box4.svg" alt="add icon" />
-              Finances</a
-            >
-          </li>
-          <li class="sidebar__link--item">
-            <a href="clientfaqs.html" aria-expanded="true">
-              <img src="../../assets/images/box5.svg" alt="add icon" />
-              FAQS</a
-            >
-          </li>
-          <li class="sidebar__link--item">
-            <a href="clientprofile.html" aria-expanded="true">
-              <img src="../../assets/images/box6.svg" alt="profile card icon" />
-              Profile</a
-            >
-          </li>
+							<div class="step active section-1">
+								<p class="newrequest-title">Give details of your project</p>
+								<div class="input-group mb-4">
+									 <label for="title">Project Title</label><input type="text"
+										placeholder="Ex: The Secrete of Dumbledore"
+										name="projectTitle"  id="title" />
+								</div>
 
-          <li class="sidebar__link--item">
-            <a
-              href="#"
-              aria-expanded="true"
-              aria-expanded="true"
-              data-toggle="modal"
-              data-target="#logoutModal"
-            >
-              <img src="../../assets/images/box7.svg" alt="logout icon" />
-              Logout</a
-            >
-          </li>
-        </ul>
+								<div class="input-group  mb-4">
+									<label for="" class="custom-file-lang-label"> Project
+										Description</label>
+									<textarea placeholder="Write details of the project here"
+										id="project-desc" name="projectDescription"></textarea>
+								</div>
 
-        <!-- sidebar menu area end -->
-      </div>
+								<div class="input-group  mb-4">
+									<label for="" class="custom-file-lang-label"> Service
+										needed</label>
+									<div class="add-section">
+										<button type="button" class="add-moreBtn" id="serviceSection">
+											Add <span class="material-symbols-outlined"> add </span>
+										</button>
 
-      <div class="main">
-        <div class="main__headerbox">
-          <h1>New Project</h1>
-        </div>
-        <div class="main__contentbox">
-          <div class="main-content">
-            <div class="contentbox">
-              <form action="" class="client-newrequest">
-                <div class="step active section-1">
-                  <p class="newrequest-title">Give details of your project</p>
-                  <div class="input-group">
-                    <label for="">Project Title</label>
-                    <input
-                      type="text"
-                      placeholder="Ex: The Secrete of Dumbledore"
-                    />
-                  </div>
+										<span>Click to select services you want to get</span>
+									</div>
+								</div>
 
-                  <div class="input-group">
-                    <label for="project-desc">Project Description</label>
-                    <textarea
-                      name="project-desc"
-                      id="project-desc"
-                      rows="6"
-                      cols="50"
-                      placeholder="Write details of the project here"
-                    >
-                    </textarea>
-                  </div>
-                  <div class="input-group service-input">
-                    <label for="service-needed">Service Needed</label>
-                    <div class="add-section">
-                      <button
-                        class="add-moreBtn"
-                        data-toggle="modal"
-                        data-target="#moreServicaAddModal"
-                      >
-                        Add
-                        <span class="material-symbols-outlined"> add </span>
-                      </button>
+								<div id="addServiceSection" style="display: none">
+									<div class="input-group  mb-4">
+										<label for="" class="custom-file-lang-label"> Service
+											Type</label>
+										<div class="select-box">
+											<select id="main-combo" name="serviceType">
+												<option value="">Select Service Type</option>
+												<option th:each="tempServiceType : ${serviceTypes}"
+													th:value="${tempServiceType.typeId}"
+													th:text="${tempServiceType.typeName}" />
+											</select>
+											<div class="down-icon">
+												<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+													alt="" />
+											</div>
+										</div>
+									</div>
 
-                      <span>Click to select services you want to get</span>
-                    </div>
-                  </div>
-                  <div class="w-100 d-flex justify-content-end mt-5">
-                    <button class="uploadbtn next-btn">Next</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+									<div class="input-group  mb-4">
+										<label for="" class="custom-file-lang-label"> Duration</label>
+										<div class="select-box">
+											<select id="main-combo" name="duration">
+												<option value="">Select Duration</option>
+												<option th:each="tempDuration : ${durations}"
+													th:value="${tempDuration.durationId}"
+													th:text="${tempDuration.duration}" />
+											</select>
+											<div class="down-icon">
+												<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+													alt="" />
+											</div>
+										</div>
+									</div>
 
-    <!-- logout Modal -->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content logoutModal">
-          <div class="modal-header">
-            <p class="modal-title" id="logoutModalLabel">
-              Log out of iVoice Africa?
-            </p>
-          </div>
-          <div class="modal-body logoutModal-body">
-            You can log in anytime with your email and password
-          </div>
-          <div class="modal-footer logoutModal-footer">
-            <a href="index.html">
-              <button class="transparentBtn">Logout</button>
-            </a>
-            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+									<div class="input-group  mb-4">
+										<label for="" class="custom-file-lang-label"> Rate</label>
+										<div class="rates m-0 p-0">
+											<div class="col-md-6 col-sm-12">
+												<div class="custom-min-word">
+													<span>Min($)</span> <input type="text" name="minAmount"
+														id="minAmount" />
+												</div>
+											</div>
+											<div class="col-md-6 col-sm-12">
+												<div class="custom-min-word">
+													<span>Max($)</span> <input type="text" name="maxAMount"
+														id="maxAMount" />
+												</div>
+											</div>
+										</div>
+									</div>
 
-    <!-- Job Posted Modal -->
-    <div
-      class="modal fade"
-      id="jobPostedModal"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content logoutModal">
-          <div class="modal-header">
-            <p class="modal-title" id="logoutModalLabel">Job Posted!</p>
-          </div>
-          <div class="modal-body logoutModal-body">
-            Your job has been posted, you would be notified of the best
-            freelancers for the job soon.
-          </div>
-          <div class="modal-footer logoutModal-footer">
-            <a href="clientrequests.html">
-              <button class="transparentBtn">Okay</button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+									<div class="input-group mb-4">
+										<label for="" class="custom-file-lang-label"> Select
+											Number of languages to Upload</label>
+										<div class="select-box">
+											<select name="jobLanguages" class="jobLanguages"
+												id="main-combo">
+												<option value="">Select no of Languages</option>
+												<option value="language1">1</option>
+												<option value="language2">2</option>
+												<option value="language3">3</option>
+												<option value="language4">4</option>
+												<option value="language5">5</option>
+												<option value="language6">6</option>
+											</select>
+											<div class="down-icon">
+												<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+													alt="" />
+											</div>
+										</div>
+									</div>
 
-    <!-- More Services added Modal -->
-    <div
-      class="modal fade"
-      id="moreServicaAddModal"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content logoutModal">
-          <div class="modal-header">
-            <p class="modal-title" id="logoutModalLabel">Job Posted!</p>
-          </div>
-          <div class="modal-body logoutModal-body">
-            Your job has been posted, you would be notified of the best
-            freelancers for the job soon.
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- jquery latest version -->
-    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="../../assets/JS/js/popper.min.js"></script>
-    <script src="../../assets/JS/js/bootstrap.min.js"></script>
-    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
-    <script src="../../assets/JS/js/metisMenu.min.js"></script>
-    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
-    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <!-- others plugins -->
-    <script src="../../assets/JS/js/plugins.js"></script>
-    <script src="../../assets/JS/js/scripts.js"></script>
-  </body>
+									<div class="language6 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label>
+											<div class="select-box">
+												<select name="languageSource1" class="job1" id="main-combo">
+													<option value="">Select language</option>
+													<option th:each="tempLanguage : ${languages}"
+														th:value="${tempLanguage.languageId}"
+														th:text="${tempLanguage.language}" />
+												</select>
+												<div class="down-icon">
+													<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+														alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label>
+											<div class="select-box">
+												<select name="languageDestination1" class="job2"
+													id="main-combo">
+													<option value="">Select language</option>
+													<option th:each="tempLanguage : ${languages}"
+														th:value="${tempLanguage.languageId}"
+														th:text="${tempLanguage.language}" />
+												</select>
+												<div class="down-icon">
+													<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+														alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn"
+													onclick="imgUrl(null,'upfile','.uploadBtn')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload1" id="upfile" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn')" />
+												</div>
+											</div>
+										</div>
+										</div>
+										
+										
+									<div class="language6 language5 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label>
+
+											<div class="select-box">
+												<select name="languageSource2" class="job3" id="main-combo">
+													<option value="">Select language</option>
+													<option th:each="tempLanguage : ${languages}"
+														th:value="${tempLanguage.languageId}"
+														th:text="${tempLanguage.language}" />
+												</select>
+												<div class="down-icon">
+													<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+														alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label>
+
+											<div class="select-box">
+												<select name="languageDestination2" class="job4"
+													id="main-combo">
+													<option value="">Select language</option>
+													<option th:each="tempLanguage : ${languages}"
+														th:value="${tempLanguage.languageId}"
+														th:text="${tempLanguage.language}" />
+												</select>
+												<div class="down-icon">
+													<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+														alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn3"
+													onclick="imgUrl(null,'upfile3','.uploadBtn3')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload2" id="upfile3" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn3')" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="language6 language5 language4 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label>
+											<div class="select-box">
+												<select name="languageSource3" class="job5" id="main-combo">
+													<option value="">Select language</option>
+													<option th:each="tempLanguage : ${languages}"
+														th:value="${tempLanguage.languageId}"
+														th:text="${tempLanguage.language}" />
+												</select>
+												<div class="down-icon">
+													<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+														alt="" />
+												</div>
+											</div>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label> <select name="languageDestination3"
+												class="job6" id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn4"
+													onclick="imgUrl(null,'upfile4','.uploadBtn4')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload3" id="upfile4" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn4')" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="language6 language5 language4 language3 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label> <select name="languageSource4" class="job7"
+												id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label> <select name="languageDestination4"
+												class="job8" id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn5"
+													onclick="imgUrl(null,'upfile5','.uploadBtn5')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload4" id="upfile5" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn5')" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div
+										class="language6 language5 language4 language3 language2 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label> <select name="languageSource5" class="job9"
+												id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label> <select name="languageDestination5"
+												class="job10" id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn6"
+													onclick="imgUrl(null,'upfile6','.uploadBtn6')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload5" id="upfile6" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn6')" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div
+										class="language6 language5 language4 language3 language2 language1 language">
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language source</label> <select name="languageSource6" class="job11"
+												id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="input-group mb-4">
+											<label for="" class="custom-file-lang-label">
+												Language destination</label> <select name="languageDestination6"
+												class="job12" id="main-combo">
+												<option value="">Select language</option>
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select>
+										</div>
+
+										<div class="language-upload-container mb-4">
+											<div>
+												<label for="" class="custom-file-lang-label">Upload
+													File </label>
+												<div class="uploadBtn7"
+													onclick="imgUrl(null,'upfile7','.uploadBtn7')">Upload
+													file here</div>
+												<div style="height: 0px; width: 0px; overflow: hidden">
+													<input name="languageUpload6" id="upfile7" type="file"
+														value="upload"
+														onchange="imgUrl(this,'upfile','.uploadBtn7')" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="w-100 d-flex justify-content-end mt-5">
+									<button type="submit" class="uploadbtn next-btn">Submit
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- logout Modal -->
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a th:href="@{/logout}">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Job Posted Modal -->
+	<div class="modal fade" id="jobPostedModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Job Posted!</p>
+				</div>
+				<div class="modal-body logoutModal-body">Your job has been
+					posted, you would be notified of the best freelancers for the job
+					soon.</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="clientrequests.html">
+						<button class="transparentBtn">Okay</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addRequest" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">Done!</div>
+		</div>
+	</div>
+
+
+	<div th:replace="fragments/main_js :: main_js"></div>
+	<script>
+		var button = document.getElementById('serviceSection');
+
+		button.onclick = function() {
+			var div = document.getElementById('addServiceSection');
+			if (div.style.display !== 'none') {
+				div.style.display = 'none';
+			} else {
+				div.style.display = 'block';
+			}
+		};
+	</script>
+	<script>
+		$('.jobLanguages').on('change', function() {
+			var divClass = $(this).val();
+			$(".language").hide();
+			$("." + divClass).slideDown('medium');
+		});
+	</script>
+</body>
 </html>

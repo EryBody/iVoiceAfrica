@@ -31,8 +31,7 @@ public class UserStatus {
 	@OneToMany(mappedBy = "userStatus",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.REFRESH, CascadeType.DETACH})
-	@JsonIgnore
-    private Set<User> user;  //
+    private Set<User> user;
 	
 	public UserStatus() {
 		
@@ -70,7 +69,7 @@ public class UserStatus {
 
 	@Override
 	public String toString() {
-		return "UserStatus [userStatusId=" + userStatusId + ", userStatus=" + userStatus + ", user=" + user + "]";
+		return "UserStatus [userStatusId=" + userStatusId + ", userStatus=" + userStatus+"]";
 	}
 
 	

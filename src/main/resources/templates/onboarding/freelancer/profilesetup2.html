@@ -59,1179 +59,1289 @@
 				progress is<br /> being saved as you go on.
 			</p>
 		</div>
-		
-		<form th:action="@{/freelancer/skill/save}" th:object="${FreelancerSkillDetailDTO}" method="post">
-		<div class="form multistep">
-			<h2 class="freelancer__document-heading">Select the services you
-				can offer</h2>
-			<div class="services">
-				<button
-					class="services-head d-flex align-items-center justify-content-between"
-					type="button">
-					<div>
-						<h2>Translation</h2>
-						<p>Convert Textscript into Textscript (different language)</p>
-					</div>
-					<div class="services-head-info">
-						<div class="service_info-progress">0%</div>
-						<span class="pen-icon"><img
-							src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
-					</div>
-				</button>
-				<div class="service-content" style="overflow-y: scroll;">
-					
-					
-					<input type="hidden" class="portfolio-input"
-							name="translationServiceType" value="ST01"/>
-					
-					<div class="mb-4">
-						<label for="" class="service-content-label">How long have
-							you been offering this service?  <span class="text-danger">*</span></label>
-						<div class="custom-select mt-2 rel">
-							<select name="translationExperience">
-								<option value="1">0 -1 years</option>
 
-								<option value="2">2-5 years</option>
-								<option value="3">More than 5 years</option>
-								<option value="4">More than 10 years</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-
-					<div class="mb-4">
-						<label for="" class="service-content-label">Choose
-							preferred industry to work for  <span class="text-danger">*</span></label>
-
-						<!-- Multiselect dropdown -->
-						<div class="custom-select mt-2">
-							<select class="selectpicker w-100" title="Select Industry"
-								multiple name="translationIndustries">
-								<option value="fiverr">Fiverr</option>
-								<option value="upworks">Upworks</option>
-								<option value="Selfemployed">SelfEmployed</option>
-								<option value="Melodia">Melodia Coding Academy</option>
-								<option value="UBA">UBA</option>
-							</select>
-							<!-- </div> -->
-							<span class="custom-select-arrow"></span>
-						</div>
-					</div>
-
-					<div class="mb-4">
-						<label for="language4" class="service-content-label">Your
-							Language(s) of expertise <span class="text-danger">*</span></label>
-
-						<div class="custom-select mt-2 rel">
-							<select name="translationLanguages" id="translationLanguages">
-								<option value="select" selected>Select language</option>
-								<option value="translate5">1</option>
-								<option value="translate4">2</option>
-								<option value="translate3">3</option>
-								<option value="translate2">4</option>
-								<option value="translate1">5</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-
-					<label for="" class="service-content-label mb-3">Upload
-						samples of your languages of expertise <span class="text-danger">*</span></label>
-					<div class="row">
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="translate1 tlop">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="translationLanguage1">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn" onclick="imgUrl(null,'upfile','.uploadBtn')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="translationUpload1"
-										  id="upfile"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn')"
-										/>
-									  </div>
-									</div>
-								  </div>
-								
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="translate1 translate2 tlop">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="translationLanguage2">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn2" onclick="imgUrl(null,'upfile2','.uploadBtn2')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="translationUpload2"
-										  id="upfile2"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn2')"
-										/>
-									  </div>
-									</div>
-								  </div>
-
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="translate1 translate2  translate3 tlop">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="translationLanguage3">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn3" onclick="imgUrl(null,'upfile3','.uploadBtn3')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="translationUpload3"
-										  id="upfile3"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn3')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="translate1 translate2 translate3 translate4 tlop">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="translationLanguage4">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn4" onclick="imgUrl(null,'upfile4','.uploadBtn4')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="translationUpload4"
-										  id="upfile4"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn4')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="translate1 translate2 translate3 translate4 translate5 tlop">
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="translationLanguage5">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn5" onclick="imgUrl(null,'upfile5','.uploadBtn5')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="translationUpload5"
-										  id="upfile5"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn5')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-					</div>
-
-					<div class="mb-4">
-						<label for="" class="service-content-label">Your portfolio
-							link <span class="text-danger">*</span></label> <input type="text" class="portfolio-input"
-							name="translationPortfolioLink" />
-					</div>
-
-					<div>
-						<label for="" class="service-content-label mb-3">What is
-							your rate for this service <span class="text-danger">*</span> </label>
+		<form th:action="@{/freelancer/skill/save}"
+			th:object="${FreelancerSkillDetailDTO}" method="post" enctype="multipart/form-data">
+			<div class="form multistep">
+				<h2 class="freelancer__document-heading">Select the services
+					you can offer</h2>
+				<div class="services">
+					<button
+						class="services-head d-flex align-items-center justify-content-between"
+						type="button">
 						<div>
-							<label for="" class="custom-file-lang-label">Per word</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text"
-										name="translationPerWordMin" />
+							<h2>Translation</h2>
+							<p>Convert Textscript into Textscript (different language)</p>
+						</div>
+						<div class="services-head-info">
+							<div class="service_info-progress">0%</div>
+							<span class="pen-icon"><img
+								src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
+						</div>
+					</button>
+					<div class="service-content" style="overflow-y: scroll;">
+
+
+						<input type="hidden" class="portfolio-input"
+							name="translationServiceType" value="ST101" />
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">How long have
+								you been offering this service? <span class="text-danger">*</span>
+							</label>
+							<div class="custom-select mt-2 rel">
+								<select name="translationExperience">
+									<option value="1">1 year</option>
+									<option value="2">2 years</option>
+									<option value="3">3 years</option>
+									<option value="4">4 years</option>
+									<option value="5">5 years</option>
+									<option value="6">6 years</option>
+									<option value="7">7 years</option>
+									<option value="8">8 years</option>
+									<option value="9">9 years</option>
+									<option value="10">10+ years</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">Choose
+								preferred industry to work for <span class="text-danger">*</span>
+							</label>
+
+							<!-- Multiselect dropdown -->
+							<div class="custom-select mt-2">
+								<select class="selectpicker w-100" title="Select Industry"
+									multiple name="translationIndustries">
+									<option th:each="tempIndustry : ${industries}"
+													th:value="${tempIndustry.industryId}"
+													th:text="${tempIndustry.industry}" />
+								</select>
+								
+								<!-- </div> -->
+								<span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="language4" class="service-content-label">Your
+								Language(s) of expertise <span class="text-danger">*</span>
+							</label>
+
+							<div class="custom-select mt-2 rel">
+								<select name="translationLanguages" id="translationLanguages">
+									<option value="select" selected>Select language</option>
+									<option value="translate5">1</option>
+									<option value="translate4">2</option>
+									<option value="translate3">3</option>
+									<option value="translate2">4</option>
+									<option value="translate1">5</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<label for="" class="service-content-label mb-3">Upload
+							samples of your languages of expertise <span class="text-danger">*</span>
+						</label>
+						<div class="row">
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="translate1 tlop">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="translationLanguage1"
+												th:field="*{translationLanguage1}" id="translationLanguages">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn"
+												onclick="imgUrl(null,'upfile','.uploadBtn')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="translationUpload1" id="upfile" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn')" />
+											</div>
+										</div>
+									</div>
+
 								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text"
-										name="translationPerWordMax" />
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="translate1 translate2 tlop">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="translationLanguage2">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Uploadqwerty
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn2"
+												onclick="imgUrl(null,'upfile2','.uploadBtn2')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="translationUpload2" id="upfile2" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn2')" />
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="translate1 translate2  translate3 tlop">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="translationLanguage3">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn3"
+												onclick="imgUrl(null,'upfile3','.uploadBtn3')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="translationUpload3" id="upfile3" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn3')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="translate1 translate2 translate3 translate4 tlop">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="translationLanguage4">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn4"
+												onclick="imgUrl(null,'upfile4','.uploadBtn4')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="translationUpload4" id="upfile4" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn4')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div
+									class="translate1 translate2 translate3 translate4 translate5 tlop">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="translationLanguage5">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn5"
+												onclick="imgUrl(null,'upfile5','.uploadBtn5')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="translationUpload5" id="upfile5" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn5')" />
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<!-- Save Button -->
-					<!-- <div>
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">Your
+								portfolio link <span class="text-danger">*</span>
+							</label> <input type="text" class="portfolio-input"
+								name="translationPortfolioLink" />
+						</div>
+
+						<div>
+							<label for="" class="service-content-label mb-3">What is
+								your rate for this service <span class="text-danger">*</span>
+							</label>
+							<div>
+								<label for="" class="custom-file-lang-label">Per word</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text"
+											name="translationPerWordMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text"
+											name="translationPerWordMax" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Save Button -->
+						<!-- <div>
 						<button class="btn-mini-trans text-dark" style="width: 150px; border-radius: 50px;" type="submit">Save</button>
 					</div> -->
-					
-				</div>
-			</div>
-
-			<div class="services">
-				<button
-					class="services-head d-flex align-items-center justify-content-between"
-					type="button">
-					<div>
-						<h2>Interpretation</h2>
-						<p>Convert Audio/ Video into Textscript (different language)</p>
-					</div>
-					<div class="services-head-info">
-						<div class="service_info-progress">0%</div>
-						<span class="pen-icon"><img
-							src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
-					</div>
-				</button>
-				<div class="service-content" style="overflow-y: scroll;">
-				
-				<input type="hidden" class="portfolio-input"
-							name="interServiceType" value="ST01"/>
-				
-					<div class="mb-4">
-						<label for="" class="service-content-label">How long have
-							you been offering this service? <span class="text-danger">*</span></label>
-						<div class="custom-select mt-2 rel">
-							<select name="iexperience">
-								<option value="1">0 -1 years</option>
-
-								<option value="2">2-5 years</option>
-								<option value="3">More than 5 years</option>
-								<option value="4">More than 10 years</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-					
-					<div class="mb-4">
-						<label for="language4" class="service-content-label">Your
-							Language(s) of expertise <span class="text-danger">*</span></label>
-
-						<div class="custom-select mt-2 rel">
-							<select name="interpretationLanguages" id="interpretationLanguages">
-								<option value="select" selected>Select language</option>
-								<option value="inter5">1</option>
-								<option value="inter4">2</option>
-								<option value="inter3">3</option>
-								<option value="inter2">4</option>
-								<option value="inter1">5</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-
-					</div>
-
-
-					<label for="" class="service-content-label mb-3">Upload
-						samples of your languages of expertise <span class="text-danger">*</span></label>
-					<div class="row">
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="inter1 inter">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="interLanguage1">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn6" onclick="imgUrl(null,'upfile6','.uploadBtn6')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="interUpload1"
-										  id="upfile6"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn6')"
-										/>
-									  </div>
-									</div>
-								  </div>
-								
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="inter1 inter2 inter">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="interLanguage2">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn7" onclick="imgUrl(null,'upfile7','.uploadBtn7')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="interUpload2"
-										  id="upfile7"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn7')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="inter1 inter2 inter3 inter">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="interLanguage3">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn8" onclick="imgUrl(null,'upfile8','.uploadBtn8')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="interUpload3"
-										  id="upfile8"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn8')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="inter1 inter2 inter3 inter4 inter">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="interLanguage4">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn9" onclick="imgUrl(null,'upfile9','.uploadBtn9')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="interUpload4"
-										  id="upfile9"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn9')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="inter1 inter2 inter3 inter4 inter5 inter">
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="interLanguage5">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn10" onclick="imgUrl(null,'upfile10','.uploadBtn10')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="interUpload5"
-										  id="upfile10"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn10')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-					</div>
-
-					<div class="mb-4">
-						<label for="" class="service-content-label">Your portfolio
-							link <span class="text-danger">*</span></label> <input type="text" class="portfolio-input"
-							name="interPortfolioLink" />
-					</div>
-					
-					<div>
-						<label for="" class="service-content-label mb-3">What is
-							your rate for this service <span class="text-danger">*</span></label>
-						<div>
-							<label for="" class="custom-file-lang-label">Per word</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text"
-										name="interPerWordMin" />
-								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text"
-										name="interPerWordMax" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- VOICE OVER (PART 3) -->
-			<div class="services">
-				<button
-					class="services-head d-flex align-items-center justify-content-between"
-					type="button">
-					<div>
-						<h2>Voiceover</h2>
-						<p>Convert Textscript to Audio recording</p>
-					</div>
-					<div class="services-head-info">
-						<div class="service_info-progress">0%</div>
-						<span class="pen-icon"><img
-							src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
-					</div>
-				</button>
-				<div class="service-content" style="overflow-y: scroll;">
-				
-				<input type="hidden" class="portfolio-input"
-							name="vcServiceType" value="ST01"/>
-				
-					<div class="mb-4">
-						<label for="" class="service-content-label">How long have
-							you been offering this service? <span class="text-danger">*</span></label>
-						<div class="custom-select mt-2 rel">
-							<select name="vcExperience">
-								<option value="1">0 -1 years</option>
-
-								<option value="2">2-5 years</option>
-								<option value="3">More than 5 years</option>
-								<option value="4">More than 10 years</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-					<div class="mb-4">
-						<label for="" class="service-content-label">Choose
-							preferred industry to work for <span class="text-danger">*</span></label>
-						<!-- Multiselect dropdown -->
-						<div class="custom-select mt-2">
-							<select class="selectpicker w-100" title="Select Industry"
-								multiple name="vcIndustries">
-								<option value="fiverr">Fiverr</option>
-								<option value="upworks">Upworks</option>
-								<option value="Selfemployed">SelfEmployed</option>
-								<option value="Melodia">Melodia Coding Academy</option>
-								<option value="UBA">UBA</option>
-							</select>
-							<!-- </div> -->
-
-							<span class="custom-select-arrow"></span>
-						</div>
-
-					</div>
-					
-					<div class="mb-4">
-						<label for="language4" class="service-content-label">Your
-							Language(s) of expertise <span class="text-danger">*</span></label>
-
-						<div class="custom-select mt-2 rel">
-							<select name="vcLanguages" id="vcLanguages">
-								<option value="select" selected>Select language</option>
-								<option value="vc5">1</option>
-								<option value="vc4">2</option>
-								<option value="vc3">3</option>
-								<option value="vc2">4</option>
-								<option value="vc1">5</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-
-					</div>
-
-
-					<label for="" class="service-content-label mb-3">Upload
-						samples of your languages of expertise</label>
-					<div class="row">
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="vc1 vc">
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="vcLanguage1">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Description of Voice <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="voiceDesc1">
-											<option value="Male/Female baby">Male/Female Baby</option>
-											<option value="Male/Female child">Male/Female Child</option>
-											<option value="Male/Female teenager">Male/Female Teenanger</option>
-											<option value="Male/Female young adult">Male/Female Young Adult</option>
-											<option value="Male/Female elderlt">Male/Female Elderly</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn11" onclick="imgUrl(null,'upfile11','.uploadBtn11')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="vcUpload1"
-										  id="upfile11"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn11')"
-										/>
-									  </div>
-									</div>
-								  </div>
-
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="vc1 vc2 vc">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="vcLanguage2">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Description of Voice <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="voiceDesc2">
-											<option value="Male/Female baby">Male/Female Baby</option>
-											<option value="Male/Female child">Male/Female Child</option>
-											<option value="Male/Female teenager">Male/Female Teenanger</option>
-											<option value="Male/Female young adult">Male/Female Young Adult</option>
-											<option value="Male/Female elderlt">Male/Female Elderly</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn12" onclick="imgUrl(null,'upfile12','.uploadBtn12')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="vcUpload2"
-										  id="upfile12"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn12')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="vc1 vc2 vc3 vc">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="vcLanguage3">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Description of Voice <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="voiceDesc3">
-											<option value="Male/Female baby">Male/Female Baby</option>
-											<option value="Male/Female child">Male/Female Child</option>
-											<option value="Male/Female teenager">Male/Female Teenanger</option>
-											<option value="Male/Female young adult">Male/Female Young Adult</option>
-											<option value="Male/Female elderlt">Male/Female Elderly</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn13" onclick="imgUrl(null,'upfile13','.uploadBtn13')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="vcUpload3"
-										  id="upfile13"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile13','.uploadBtn13')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="vc1 vc2 vc3 vc4 vc">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="vcLanguage4">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Description of Voice <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="voiceDesc4">
-											<option value="Male/Female baby">Male/Female Baby</option>
-											<option value="Male/Female child">Male/Female Child</option>
-											<option value="Male/Female teenager">Male/Female Teenanger</option>
-											<option value="Male/Female young adult">Male/Female Young Adult</option>
-											<option value="Male/Female elderlt">Male/Female Elderly</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn14" onclick="imgUrl(null,'upfile14','.uploadBtn14')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="vcUpload4"
-										  id="upfile14"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn14')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="vc1 vc2 vc3 vc4 vc5 vc">
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="vcLanguage5">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Description of Voice <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="voiceDesc5">
-											<option value="Male/Female baby">Male/Female Baby</option>
-											<option value="Male/Female child">Male/Female Child</option>
-											<option value="Male/Female teenager">Male/Female Teenanger</option>
-											<option value="Male/Female young adult">Male/Female Young Adult</option>
-											<option value="Male/Female elderlt">Male/Female Elderly</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn15" onclick="imgUrl(null,'upfile15','.uploadBtn15')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="vcUpload5"
-										  id="upfile15"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn15')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-					</div>
-
-
-
-					<div class="mb-4">
-						<label for="" class="service-content-label">Your portfolio
-							link <span class="text-danger">*</span></label> <input type="text" class="portfolio-input"
-							name="vcPortfolioLink" />
-					</div>
-
-
-					<div>
-						<label for="" class="service-content-label mb-3">What is
-							your rate for this service <span class="text-danger">*</span></label>
-
-						<div>
-							<label for="" class="custom-file-lang-label">Per Minute</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text" name="vcPerMinuteMin" />
-								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text" name="vcPerMinuteMax" />
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<label for="" class="custom-file-lang-label">Per Hour</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text" name="vcPerHourMin" />
-								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text" name="vcPerHourMax" />
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<label for="" class="custom-file-lang-label">Per Word</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text" name="vcPerWordMin" />
-								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text" name="vcPerWordMax" />
-								</div>
-							</div>
-						</div>
 
 					</div>
 				</div>
-			</div>
-			
-			
-			<!-- TRANSCRIBING (PART FOUR) -->
-			<div class="services">
-				<button
-					class="services-head d-flex align-items-center justify-content-between"
-					type="button">
-					<div>
-						<h2>Transcribing</h2>
-						<p>Convert Audio/ Video into Textscript</p>
-					</div>
-					<div class="services-head-info">
-						<div class="service_info-progress">0%</div>
-						<span class="pen-icon"><img
-							src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
-					</div>
-				</button>
-				<div class="service-content" style="overflow-y: scroll;">
-					<div class="mb-4">
-						<label for="" class="service-content-label">How long have
-							you been offering this service? <span class="text-danger">*</span></label>
-						<div class="custom-select mt-2 rel">
-							<select name="scribingExperience">
-								<option value="1">0 -1 years</option>
-								<option value="2">2-5 years</option>
-								<option value="3">More than 5 years</option>
-								<option value="4">More than 10 years</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-					<div class="mb-4">
-						<label for="" class="service-content-label">Choose
-							preferred industry to work for <span class="text-danger">*</span></label>
-						<!-- Multiselect dropdown -->
-						<div class="custom-select mt-2">
-							<select class="selectpicker w-100" title="Select Industry"
-								multiple name="scribingIndustries">
-								<option value="fiverr">Fiverr</option>
-								<option value="upworks">Upworks</option>
-								<option value="Selfemployed">SelfEmployed</option>
-								<option value="Melodia">Melodia Coding Academy</option>
-								<option value="UBA">UBA</option>
-							</select>
-							<!-- </div> -->
 
-							<span class="custom-select-arrow"></span>
-						</div>
-					</div>
-					
-					<div class="mb-4">
-						<label for="language4" class="service-content-label">Your
-							Language(s) of expertise <span class="text-danger">*</span></label>
-
-						<div class="custom-select mt-2 rel">
-							<select name="transcribeLanguages" id="transcribeLanguages">
-								<option value="select" selected>Select language</option>
-								<option value="transcribe5">1</option>
-								<option value="transcribe4">2</option>
-								<option value="transcribe3">3</option>
-								<option value="transcribe2">4</option>
-								<option value="transcribe1">5</option>
-							</select> <span class="custom-select-arrow"></span>
-						</div>
-					</div>
-
-					<label for="" class="service-content-label mb-3">Upload
-						samples of your languages of expertise</label>
-					<div class="row">
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="transcribe1 transcribe">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="transcribeLanguage1">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn16" onclick="imgUrl(null,'upfile16','.uploadBtn16')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="transcribeUpload1"
-										  id="upfile16"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn16')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="transcribe1 transcribe2 transcribe">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="transcribeLanguage2">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn17" onclick="imgUrl(null,'upfile17','.uploadBtn17')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="transcribeUpload2"
-										  id="upfile17"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn17')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="transcribe1 transcribe2 transcribe3 transcribe">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="transcribeLanguage3">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn18" onclick="imgUrl(null,'upfile18','.uploadBtn18')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="transcribeUpload3"
-										  id="upfile18"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn18')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="transcribe1 transcribe2 transcribe3 transcribe4 transcribe">
-
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="transcribeLanguage4">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn19" onclick="imgUrl(null,'upfile19','.uploadBtn19')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="transcribeUpload4"
-										  id="upfile19"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn19')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-							<div class="col-md-12 mb-2">
-							<!-- First upload -->
-							<div class="transcribe1 transcribe2 transcribe3 transcribe4 transcribe5 transcribe">
-								
-								<div class="mb-3">
-									<label for="" class="service-content-label">Add Language <span class="text-danger">*</span></label> 
-									<div class="custom-select mt-2 rel">
-										<select name="transcribeLanguage5">
-											<option value="Hausa">Hausa</option>
-											<option value="Youruba">Yoruba</option>
-											<option value="Igbo">Igbo</option>
-											<option value="Efik/Ibibio">Efik/Ibibio</option>
-										</select> <span class="custom-select-arrow"></span>
-									</div>
-								</div>
-
-								<div class="language-upload-container mb-5">
-									<div>
-									 <label for="" class="custom-file-lang-label">Upload File <span class="text-danger">*</span></label>
-									  <div class="uploadBtn20" onclick="imgUrl(null,'upfile20','.uploadBtn20')">Upload file here</div>
-									  <div style="height: 0px; width: 0px; overflow: hidden">
-										<input
-										name="transcribeUpload5"
-										  id="upfile20"
-										  type="file"
-										  value="upload"
-										  onchange="imgUrl(this,'upfile','.uploadBtn20')"
-										/>
-									  </div>
-									</div>
-								  </div>
-							</div>
-							</div>
-					</div>
-
-
-					<div class="mb-4">
-						<label for="" class="service-content-label">Your portfolio
-							link <span class="text-danger">*</span></label> <input type="text" class="portfolio-input"
-							name="scribingPortfolioLink" />
-					</div>
-					
-				
-					<div>
-						<label for="" class="service-content-label mb-3">What is
-							your rate for this service <span class="text-danger">*</span></label>
+				<div class="services">
+					<button
+						class="services-head d-flex align-items-center justify-content-between"
+						type="button">
 						<div>
-							<label for="" class="custom-file-lang-label">Per word</label>
-							<div class="rates">
-								<div class="custom-min-word mb-2">
-									<span>Min($)</span> <input type="text"
-										name="scribingPerWordMin" />
+							<h2>Interpretation</h2>
+							<p>Convert Audio/ Video into Textscript (different language)</p>
+						</div>
+						<div class="services-head-info">
+							<div class="service_info-progress">0%</div>
+							<span class="pen-icon"><img
+								src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
+						</div>
+					</button>
+					<div class="service-content" style="overflow-y: scroll;">
+
+						<input type="hidden" class="portfolio-input"
+							name="interServiceType" value="ST102" />
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">How long have
+								you been offering this service? <span class="text-danger">*</span>
+							</label>
+							<div class="custom-select mt-2 rel">
+								<select name="iexperience">
+									<option value="1">1 year</option>
+									<option value="2">2 years</option>
+									<option value="3">3 years</option>
+									<option value="4">4 years</option>
+									<option value="5">5 years</option>
+									<option value="6">6 years</option>
+									<option value="7">7 years</option>
+									<option value="8">8 years</option>
+									<option value="9">9 years</option>
+									<option value="10">10+ years</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+						
+						<div class="mb-4">
+							<label for="" class="service-content-label">Choose
+								preferred industry to work for <span class="text-danger">*</span>
+							</label>
+
+							<!-- Multiselect dropdown -->
+							<div class="custom-select mt-2">
+								<select class="selectpicker w-100" title="Select Industry"
+									multiple name="interpretationIndustries">
+									<option th:each="tempIndustry : ${industries}"
+													th:value="${tempIndustry.industryId}"
+													th:text="${tempIndustry.industry}" />
+								</select>
+								
+								<!-- </div> -->
+								<span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="language4" class="service-content-label">Your
+								Language(s) of expertise <span class="text-danger">*</span>
+							</label>
+
+							<div class="custom-select mt-2 rel">
+								<select name="interpretationLanguages"
+									id="interpretationLanguages">
+									<option value="select" selected>Select language</option>
+									<option value="inter5">1</option>
+									<option value="inter4">2</option>
+									<option value="inter3">3</option>
+									<option value="inter2">4</option>
+									<option value="inter1">5</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+
+						</div>
+
+
+						<label for="" class="service-content-label mb-3">Upload
+							samples of your languages of expertise <span class="text-danger">*</span>
+						</label>
+						<div class="row">
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="inter1 inter">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="interLanguage1">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn6"
+												onclick="imgUrl(null,'upfile6','.uploadBtn6')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="interUpload1" id="upfile6" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn6')" />
+											</div>
+										</div>
+									</div>
+
 								</div>
-								<div class="custom-min-word">
-									<span>Max($)</span> <input type="text"
-										name="scribingPerWordMax" />
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="inter1 inter2 inter">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="interLanguage2">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn7"
+												onclick="imgUrl(null,'upfile7','.uploadBtn7')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="interUpload2" id="upfile7" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn7')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="inter1 inter2 inter3 inter">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="interLanguage3">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn8"
+												onclick="imgUrl(null,'upfile8','.uploadBtn8')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="interUpload3" id="upfile8" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn8')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="inter1 inter2 inter3 inter4 inter">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="interLanguage4">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn9"
+												onclick="imgUrl(null,'upfile9','.uploadBtn9')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="interUpload4" id="upfile9" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn9')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="inter1 inter2 inter3 inter4 inter5 inter">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="interLanguage5">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload <span
+												class="text-danger">*</span></label>
+											<div class="uploadBtn10"
+												onclick="imgUrl(null,'upfile10','.uploadBtn10')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="interUpload5" id="upfile10" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn10')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">Your
+								portfolio link <span class="text-danger">*</span>
+							</label> <input type="text" class="portfolio-input"
+								name="interPortfolioLink" />
+						</div>
+
+						<div>
+							<label for="" class="service-content-label mb-3">What is
+								your rate for this service <span class="text-danger">*</span>
+							</label>
+							<div>
+								<label for="" class="custom-file-lang-label">Per word</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text" name="interPerWordMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text" name="interPerWordMax" />
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="services-offer-btn">
-				<p>Do this later</p>
-				<div class="onboarding-cta">
-					<a class="btn-mini-trans" th:href="@{/freelancer-signup}">Back</a>
-					<button class="btn-mini-black" type="submit" id="btn-next">
-						Next</button>
+
+				<!-- VOICE OVER (PART 3) -->
+				<div class="services">
+					<button
+						class="services-head d-flex align-items-center justify-content-between"
+						type="button">
+						<div>
+							<h2>Voiceover</h2>
+							<p>Convert Textscript to Audio recording</p>
+						</div>
+						<div class="services-head-info">
+							<div class="service_info-progress">0%</div>
+							<span class="pen-icon"><img
+								src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
+						</div>
+					</button>
+					<div class="service-content" style="overflow-y: scroll;">
+
+						<input type="hidden" class="portfolio-input" name="vcServiceType"
+							value="ST103" />
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">How long have
+								you been offering this service? <span class="text-danger">*</span>
+							</label>
+							<div class="custom-select mt-2 rel">
+								<select name="vcExperience">
+									<option value="1">1 year</option>
+									<option value="2">2 years</option>
+									<option value="3">3 years</option>
+									<option value="4">4 years</option>
+									<option value="5">5 years</option>
+									<option value="6">6 years</option>
+									<option value="7">7 years</option>
+									<option value="8">8 years</option>
+									<option value="9">9 years</option>
+									<option value="10">10+ years</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+						
+						<div class="mb-4">
+							<label for="" class="service-content-label">Choose
+								preferred industry to work for <span class="text-danger">*</span>
+							</label>
+
+							<!-- Multiselect dropdown -->
+							<div class="custom-select mt-2">
+								<select class="selectpicker w-100" title="Select Industry"
+									multiple name="vcIndustries">
+									<option th:each="tempIndustry : ${industries}"
+													th:value="${tempIndustry.industryId}"
+													th:text="${tempIndustry.industry}" />
+								</select>
+								
+								<!-- </div> -->
+								<span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="language4" class="service-content-label">Your
+								Language(s) of expertise <span class="text-danger">*</span>
+							</label>
+
+							<div class="custom-select mt-2 rel">
+								<select name="vcLanguages" id="vcLanguages">
+									<option value="select" selected>Select language</option>
+									<option value="vc5">1</option>
+									<option value="vc4">2</option>
+									<option value="vc3">3</option>
+									<option value="vc2">4</option>
+									<option value="vc1">5</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+
+						</div>
+
+
+						<label for="" class="service-content-label mb-3">Upload
+							samples of your languages of expertise</label>
+						<div class="row">
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="vc1 vc">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="vcLanguage1">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Description
+											of Voice <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="voiceDesc1">
+												<option value="Male/Female baby">Male/Female Baby</option>
+												<option value="Male/Female child">Male/Female Child</option>
+												<option value="Male/Female teenager">Male/Female
+													Teenanger</option>
+												<option value="Male/Female young adult">Male/Female
+													Young Adult</option>
+												<option value="Male/Female elderlt">Male/Female
+													Elderly</option>
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn11"
+												onclick="imgUrl(null,'upfile11','.uploadBtn11')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="vcUpload1" id="upfile11" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn11')" />
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="vc1 vc2 vc">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="vcLanguage2">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Description
+											of Voice <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="voiceDesc2">
+												<option value="Male/Female baby">Male/Female Baby</option>
+												<option value="Male/Female child">Male/Female Child</option>
+												<option value="Male/Female teenager">Male/Female
+													Teenanger</option>
+												<option value="Male/Female young adult">Male/Female
+													Young Adult</option>
+												<option value="Male/Female elderlt">Male/Female
+													Elderly</option>
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn12"
+												onclick="imgUrl(null,'upfile12','.uploadBtn12')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="vcUpload2" id="upfile12" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn12')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="vc1 vc2 vc3 vc">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="vcLanguage3">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Description
+											of Voice <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="voiceDesc3">
+												<option value="Male/Female baby">Male/Female Baby</option>
+												<option value="Male/Female child">Male/Female Child</option>
+												<option value="Male/Female teenager">Male/Female
+													Teenanger</option>
+												<option value="Male/Female young adult">Male/Female
+													Young Adult</option>
+												<option value="Male/Female elderlt">Male/Female
+													Elderly</option>
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn13"
+												onclick="imgUrl(null,'upfile13','.uploadBtn13')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="vcUpload3" id="upfile13" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile13','.uploadBtn13')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="vc1 vc2 vc3 vc4 vc">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="vcLanguage4">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Description
+											of Voice <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="voiceDesc4">
+												<option value="Male/Female baby">Male/Female Baby</option>
+												<option value="Male/Female child">Male/Female Child</option>
+												<option value="Male/Female teenager">Male/Female
+													Teenanger</option>
+												<option value="Male/Female young adult">Male/Female
+													Young Adult</option>
+												<option value="Male/Female elderlt">Male/Female
+													Elderly</option>
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn14"
+												onclick="imgUrl(null,'upfile14','.uploadBtn14')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="vcUpload4" id="upfile14" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn14')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="vc1 vc2 vc3 vc4 vc5 vc">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="vcLanguage5">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Description
+											of Voice <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="voiceDesc5">
+												<option value="Male/Female baby">Male/Female Baby</option>
+												<option value="Male/Female child">Male/Female Child</option>
+												<option value="Male/Female teenager">Male/Female
+													Teenanger</option>
+												<option value="Male/Female young adult">Male/Female
+													Young Adult</option>
+												<option value="Male/Female elderlt">Male/Female
+													Elderly</option>
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn15"
+												onclick="imgUrl(null,'upfile15','.uploadBtn15')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="vcUpload5" id="upfile15" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn15')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">Your
+								portfolio link <span class="text-danger">*</span>
+							</label> <input type="text" class="portfolio-input"
+								name="vcPortfolioLink" />
+						</div>
+
+
+						<div>
+							<label for="" class="service-content-label mb-3">What is
+								your rate for this service <span class="text-danger">*</span>
+							</label>
+
+							<div>
+								<label for="" class="custom-file-lang-label">Per Minute</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text" name="vcPerMinuteMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text" name="vcPerMinuteMax" />
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<label for="" class="custom-file-lang-label">Per Hour</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text" name="vcPerHourMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text" name="vcPerHourMax" />
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<label for="" class="custom-file-lang-label">Per Word</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text" name="vcPerWordMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text" name="vcPerWordMax" />
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+				<!-- TRANSCRIBING (PART FOUR) -->
+				<div class="services">
+					<button
+						class="services-head d-flex align-items-center justify-content-between"
+						type="button">
+						<div>
+							<h2>Transcribing</h2>
+							<p>Convert Audio/ Video into Textscript</p>
+						</div>
+						<div class="services-head-info">
+							<div class="service_info-progress">0%</div>
+							<span class="pen-icon"><img
+								src="../../assets/icons/edit.svg" alt="edit-icon" /></span>
+						</div>
+					</button>
+					<div class="service-content" style="overflow-y: scroll;">
+
+						<input type="hidden" class="portfolio-input"
+							name="scribingServiceType" value="ST104" />
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">How long have
+								you been offering this service? <span class="text-danger">*</span>
+							</label>
+							<div class="custom-select mt-2 rel">
+								<select name="scribingExperience">
+									<option value="1">1 year</option>
+									<option value="2">2 years</option>
+									<option value="3">3 years</option>
+									<option value="4">4 years</option>
+									<option value="5">5 years</option>
+									<option value="6">6 years</option>
+									<option value="7">7 years</option>
+									<option value="8">8 years</option>
+									<option value="9">9 years</option>
+									<option value="10">10+ years</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+						
+						<div class="mb-4">
+							<label for="" class="service-content-label">Choose
+								preferred industry to work for <span class="text-danger">*</span>
+							</label>
+
+							<!-- Multiselect dropdown -->
+							<div class="custom-select mt-2">
+								<select class="selectpicker w-100" title="Select Industry"
+									multiple name="scribingIndustries">
+									<option th:each="tempIndustry : ${industries}"
+													th:value="${tempIndustry.industryId}"
+													th:text="${tempIndustry.industry}" />
+								</select>
+								
+								<!-- </div> -->
+								<span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<label for="language4" class="service-content-label">Your
+								Language(s) of expertise <span class="text-danger">*</span>
+							</label>
+
+							<div class="custom-select mt-2 rel">
+								<select name="transcribeLanguages" id="transcribeLanguages">
+									<option value="select" selected>Select language</option>
+									<option value="transcribe5">1</option>
+									<option value="transcribe4">2</option>
+									<option value="transcribe3">3</option>
+									<option value="transcribe2">4</option>
+									<option value="transcribe1">5</option>
+								</select> <span class="custom-select-arrow"></span>
+							</div>
+						</div>
+
+						<label for="" class="service-content-label mb-3">Upload
+							samples of your languages of expertise</label>
+						<div class="row">
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="transcribe1 transcribe">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="transcribeLanguage1">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn16"
+												onclick="imgUrl(null,'upfile16','.uploadBtn16')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="transcribeUpload1" id="upfile16" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn16')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="transcribe1 transcribe2 transcribe">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="transcribeLanguage2">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn17"
+												onclick="imgUrl(null,'upfile17','.uploadBtn17')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="transcribeUpload2" id="upfile17" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn17')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div class="transcribe1 transcribe2 transcribe3 transcribe">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="transcribeLanguage3">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn18"
+												onclick="imgUrl(null,'upfile18','.uploadBtn18')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="transcribeUpload3" id="upfile18" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn18')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div
+									class="transcribe1 transcribe2 transcribe3 transcribe4 transcribe">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="transcribeLanguage4">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn19"
+												onclick="imgUrl(null,'upfile19','.uploadBtn19')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="transcribeUpload4" id="upfile19" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn19')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 mb-2">
+								<!-- First upload -->
+								<div
+									class="transcribe1 transcribe2 transcribe3 transcribe4 transcribe5 transcribe">
+
+									<div class="mb-3">
+										<label for="" class="service-content-label">Add
+											Language <span class="text-danger">*</span>
+										</label>
+										<div class="custom-select mt-2 rel">
+											<select name="transcribeLanguage5">
+												<option th:each="tempLanguage : ${languages}"
+													th:value="${tempLanguage.languageId}"
+													th:text="${tempLanguage.language}" />
+											</select> <span class="custom-select-arrow"></span>
+										</div>
+									</div>
+
+									<div class="language-upload-container mb-5">
+										<div>
+											<label for="" class="custom-file-lang-label">Upload
+												File <span class="text-danger">*</span>
+											</label>
+											<div class="uploadBtn20"
+												onclick="imgUrl(null,'upfile20','.uploadBtn20')">Upload
+												file here</div>
+											<div style="height: 0px; width: 0px; overflow: hidden">
+												<input name="transcribeUpload5" id="upfile20" type="file"
+													value="upload"
+													onchange="imgUrl(this,'upfile','.uploadBtn20')" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="mb-4">
+							<label for="" class="service-content-label">Your
+								portfolio link <span class="text-danger">*</span>
+							</label> <input type="text" class="portfolio-input"
+								name="scribingPortfolioLink" />
+						</div>
+
+
+						<div>
+							<label for="" class="service-content-label mb-3">What is
+								your rate for this service <span class="text-danger">*</span>
+							</label>
+							<div>
+								<label for="" class="custom-file-lang-label">Per word</label>
+								<div class="rates">
+									<div class="custom-min-word mb-2">
+										<span>Min($)</span> <input type="text"
+											name="scribingPerWordMin" />
+									</div>
+									<div class="custom-min-word">
+										<span>Max($)</span> <input type="text"
+											name="scribingPerWordMax" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="services-offer-btn">
+					<p>Do this later</p>
+					<div class="onboarding-cta">
+						<a class="btn-mini-trans" th:href="@{/freelancer-signup}">Back</a>
+						<button class="btn-mini-black" type="submit" id="btn-next">
+							Next</button>
+					</div>
 				</div>
 			</div>
-		</div>
 		</form>
-	
+
 	</section>
-	
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script
@@ -1240,44 +1350,44 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-		<script>
-			function createOptions(number) {
-			  var options = [],
-				_options;
-	  
-			  for (var i = 0; i < number; i++) {
-				var option = '<option value="' + i + '">Option ' + i + '</option>';
+	<script>
+		function createOptions(number) {
+			var options = [], _options;
+
+			for (var i = 0; i < number; i++) {
+				var option = '<option value="' + i + '">Option ' + i
+						+ '</option>';
 				options.push(option);
-			  }
-	  
-			  _options = options.join('');
-	  
-			  $('#number')[0].innerHTML = _options;
-			  $('#number-multiple')[0].innerHTML = _options;
-	  
-			  $('#number2')[0].innerHTML = _options;
-			  $('#number2-multiple')[0].innerHTML = _options;
 			}
-	  
-			var mySelect = $('#first-disabled2');
-	  
-			createOptions(4000);
-	  
-			$('#special').on('click', function () {
-			  mySelect.find('option:selected').prop('disabled', true);
-			  mySelect.selectpicker('refresh');
-			});
-	  
-			$('#special2').on('click', function () {
-			  mySelect.find('option:disabled').prop('disabled', false);
-			  mySelect.selectpicker('refresh');
-			});
-	  
-			$('#basic2').selectpicker({
-			  liveSearch: true,
-			  maxOptions: 1,
-			});
-		  </script>
+
+			_options = options.join('');
+
+			$('#number')[0].innerHTML = _options;
+			$('#number-multiple')[0].innerHTML = _options;
+
+			$('#number2')[0].innerHTML = _options;
+			$('#number2-multiple')[0].innerHTML = _options;
+		}
+
+		var mySelect = $('#first-disabled2');
+
+		createOptions(4000);
+
+		$('#special').on('click', function() {
+			mySelect.find('option:selected').prop('disabled', true);
+			mySelect.selectpicker('refresh');
+		});
+
+		$('#special2').on('click', function() {
+			mySelect.find('option:disabled').prop('disabled', false);
+			mySelect.selectpicker('refresh');
+		});
+
+		$('#basic2').selectpicker({
+			liveSearch : true,
+			maxOptions : 1,
+		});
+	</script>
 
 	<script>
 		$('#translationLanguages').on('change', function() {
@@ -1285,19 +1395,19 @@
 			$(".tlop").hide();
 			$("." + divClass).slideDown('medium');
 		});
-		
+
 		$('#interpretationLanguages').on('change', function() {
 			var divClass = $(this).val();
 			$(".inter").hide();
 			$("." + divClass).slideDown('medium');
 		});
-		
+
 		$('#vcLanguages').on('change', function() {
 			var divClass = $(this).val();
 			$(".vc").hide();
 			$("." + divClass).slideDown('medium');
 		});
-		
+
 		$('#transcribeLanguages').on('change', function() {
 			var divClass = $(this).val();
 			$(".transcribe").hide();
@@ -1305,6 +1415,7 @@
 		});
 	</script>
 	<script>
+		
 	</script>
 </body>
 </html>

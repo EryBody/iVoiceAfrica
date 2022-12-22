@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 
 @Entity
 @Table(name = "voice_capabilities")
@@ -26,11 +27,18 @@ public class VoiceCapability {
 	private Integer voiceId;
 	
 	@ManyToOne // Mapping the column of this table 
-    @JoinColumn(name = "render_id")
-    private ServiceRendered serviceRendered;
+    @JoinColumn(name = "user_id")
+    private User user;
 	
-	@Column(name="v_capability")
-	private String vCapability;
+	@ManyToOne // Mapping the column of this table 
+    @JoinColumn(name = "sl_id")
+    private ServiceLanguages serviceLanguage;
+	
+	@Column(name="voice_document")
+	private String voiceDocument;
+	
+	@Column(name="voice_desc")
+	private String voiceDesc;
 	
 	@OneToMany(mappedBy = "voiceCapability",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -44,11 +52,13 @@ public class VoiceCapability {
 	}
 
 
-	public VoiceCapability(Integer voiceId, ServiceRendered serviceRendered, String vCapability,
-			Set<ServiceVoiceCapability> serviceVoiceCapabilities) {
+	public VoiceCapability(Integer voiceId, User user, ServiceLanguages serviceLanguage, String voiceDocument,
+			String voiceDesc, Set<ServiceVoiceCapability> serviceVoiceCapabilities) {
 		this.voiceId = voiceId;
-		this.serviceRendered = serviceRendered;
-		this.vCapability = vCapability;
+		this.user = user;
+		this.serviceLanguage = serviceLanguage;
+		this.voiceDocument = voiceDocument;
+		this.voiceDesc = voiceDesc;
 		this.serviceVoiceCapabilities = serviceVoiceCapabilities;
 	}
 
@@ -63,23 +73,43 @@ public class VoiceCapability {
 	}
 
 
-	public ServiceRendered getServiceRendered() {
-		return serviceRendered;
+	public User getUser() {
+		return user;
 	}
 
 
-	public void setServiceRendered(ServiceRendered serviceRendered) {
-		this.serviceRendered = serviceRendered;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
-	public String getvCapability() {
-		return vCapability;
+	public ServiceLanguages getServiceLanguage() {
+		return serviceLanguage;
 	}
 
 
-	public void setvCapability(String vCapability) {
-		this.vCapability = vCapability;
+	public void setServiceLanguage(ServiceLanguages serviceLanguage) {
+		this.serviceLanguage = serviceLanguage;
+	}
+
+
+	public String getVoiceDocument() {
+		return voiceDocument;
+	}
+
+
+	public void setVoiceDocument(String voiceDocument) {
+		this.voiceDocument = voiceDocument;
+	}
+
+
+	public String getVoiceDesc() {
+		return voiceDesc;
+	}
+
+
+	public void setVoiceDesc(String voiceDesc) {
+		this.voiceDesc = voiceDesc;
 	}
 
 
@@ -91,6 +121,9 @@ public class VoiceCapability {
 	public void setServiceVoiceCapabilities(Set<ServiceVoiceCapability> serviceVoiceCapabilities) {
 		this.serviceVoiceCapabilities = serviceVoiceCapabilities;
 	}
+
+
+	
 
 
 }

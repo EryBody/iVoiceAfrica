@@ -28,6 +28,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.Portfolio;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
+import com.ivoiceafrica.ivoiceafrica.entity.VoiceCapability;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 
@@ -39,7 +40,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id")
-	private Integer user_id;
+	private Integer userId;
 
 	@Column(name = "username",nullable = false, unique = true)
 	@NotEmpty
@@ -77,7 +78,7 @@ public class User {
 	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "email_address")
+	@Column(name = "email_address",nullable = false, unique = true)
 	private String emailAddress;
 	
 	@Column(name = "summary")
@@ -98,6 +99,9 @@ public class User {
 	
 	@Column(name = "created_date")
 	private String createdDate;
+	
+	@Column(name = "postal_code")
+	private String postalCode;
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(
@@ -175,21 +179,26 @@ public class User {
 	@JsonIgnore
     private Set<WorkOrdersDelivery> workOrdersDeliveries;
 	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+    private Set<VoiceCapability> voiceCapabilities;
+	
 	public User() {
 		
 	}
-	
-	
 
-	public User(Integer user_id, @NotEmpty @Email(message = "{errors.invalid_email}") String username, String upassword,
+	public User(Integer userId, @NotEmpty @Email(message = "{errors.invalid_email}") String username, String upassword,
 			@NotEmpty String firstName, @NotEmpty String lastName, String middleName, @NotEmpty String gender,
 			@NotEmpty String country, String nationality, String address, String phone, String emailAddress,
 			String summary, String education, UserStatus userStatus, String profilePicture, String modifiedDate,
-			String createdDate, Collection<Role> roles, Set<Administrator> admin, Set<Client> clients,
-			Set<Freelancer> freelancer, Set<FreelancerServicePricing> freelancerServicePricings,
+			String createdDate, String postalCode, Collection<Role> roles, Set<Administrator> admin,
+			Set<Client> clients, Set<Freelancer> freelancer, Set<FreelancerServicePricing> freelancerServicePricings,
 			Set<Portfolio> portfolios, Set<Proposal> proposals, Set<ServiceRendered> serviceRendereds,
-			Set<WorkOrder> workOrders, Set<WorkOrdersDelivery> workOrdersDeliveries) {
-		this.user_id = user_id;
+			Set<WorkOrder> workOrders, Set<WorkOrdersDelivery> workOrdersDeliveries,
+			Set<VoiceCapability> voiceCapabilities) {
+		this.userId = userId;
 		this.username = username;
 		this.upassword = upassword;
 		this.firstName = firstName;
@@ -207,6 +216,7 @@ public class User {
 		this.profilePicture = profilePicture;
 		this.modifiedDate = modifiedDate;
 		this.createdDate = createdDate;
+		this.postalCode = postalCode;
 		this.roles = roles;
 		this.admin = admin;
 		this.clients = clients;
@@ -217,12 +227,12 @@ public class User {
 		this.serviceRendereds = serviceRendereds;
 		this.workOrders = workOrders;
 		this.workOrdersDeliveries = workOrdersDeliveries;
+		this.voiceCapabilities = voiceCapabilities;
 	}
 
 
-
 	public User(User user) {
-		this.user_id = user.getUser_id();
+		this.userId = user.getUserId();
 		this.username = user.getUsername();
 		this.upassword = user.getUpassword();
 		this.firstName = user.getFirstName();
@@ -240,15 +250,18 @@ public class User {
 		this.profilePicture = user.getProfilePicture();
 		this.modifiedDate = user.getModifiedDate();
 		this.createdDate = user.getCreatedDate();
+		this.postalCode = user.getPostalCode();
 		this.roles = user.getRoles();
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	
+
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -386,6 +399,14 @@ public class User {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
 
 	public Collection<Role> getRoles() {
 		return roles;
@@ -465,6 +486,24 @@ public class User {
 
 	public void setWorkOrdersDeliveries(Set<WorkOrdersDelivery> workOrdersDeliveries) {
 		this.workOrdersDeliveries = workOrdersDeliveries;
+	}
+
+	public Set<VoiceCapability> getVoiceCapabilities() {
+		return voiceCapabilities;
+	}
+
+	public void setVoiceCapabilities(Set<VoiceCapability> voiceCapabilities) {
+		this.voiceCapabilities = voiceCapabilities;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", upassword=" + upassword + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", middleName=" + middleName + ", gender=" + gender
+				+ ", country=" + country + ", nationality=" + nationality + ", address=" + address + ", phone=" + phone
+				+ ", emailAddress=" + emailAddress + ", summary=" + summary + ", education=" + education
+				+ ", userStatus=" + userStatus + ", profilePicture=" + profilePicture + ", modifiedDate=" + modifiedDate
+				+ ", createdDate=" + createdDate + ", postalCode=" + postalCode + "]";
 	}
 
 	

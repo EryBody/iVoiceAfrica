@@ -1,436 +1,335 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Profile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <!-- amchart css -->
-    <link
-      rel="stylesheet"
-      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
-      type="text/css"
-      media="all"
-    />
-    <!-- others css -->
-    <link rel="stylesheet" href="assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="assets/CSS/css/styles.css" />
-    <link rel="stylesheet" href="assets/CSS/css/responsive.css" />
-    <!-- modernizr css -->
-    <script src="assets/JS/js/vendor/modernizr-2.8.3.min.js" defer></script>
-    <script src="assets/JS/js/scripts.js" defer></script>
-  </head>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+	  <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+</head>
 
 <body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
 
-    <div id="preloader">
-      <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
-      <!-- Header area start -->
+		<div class="overlay"></div>
 
-      <div class="header-area">
-        <div class="headerarea-divder">
-          <div class="sidebar-header">
-            <img
-              src="assets/icons/menu-open.svg"
-              alt="menu-open"
-              class="nav-icon"
-            />
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
 
-            <a href="newrequest.html"
-              ><img src="assets/images/ivoiceafrica logo 1.png" alt="logo"
-            /></a>
-          </div>
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
 
-          <!-- Searchbar and notification start -->
-          <div class="search-box w-50">
-            <ion-icon name="search-outline"></ion-icon>
-            <input type="text" name="search" placeholder="Search" required />
-          </div>
+		<div class="main">
+			<div class="activejobs-heading profile-header main__headerbox w-100">
+				<div class="bidheader">
+					<a href="clientbids.html" style="color: inherit"
+						class="header-link">
+						<h1>Bids</h1>
+					</a>
+					<h2>Freelancer</h2>
+					<h3>Micheal Jordan</h3>
+				</div>
+			</div>
 
-          <div>
-            <div class="notification-area">
-              <a
-                href="clientnotification.html"
-                class="text-center notification-btn"
-              >
-                <span class="material-symbols-outlined"> notifications </span>
-                <p>Notifications</p>
-              </a>
+			<div class="main__contentbox profile-box">
+				<div class="arrow-back-II">
+					<a href="clientbids.html"> <img
+						src="../../assets/icons/arrow_back_link.svg" alt="arrow_back_link" />
+					</a>
+				</div>
 
-              <button
-                class="text-center ml-5"
-                type="button"
-                id="show_modal_btn"
-              >
-                <span class="material-symbols-outlined"> account_circle </span>
-                <span class="material-symbols-outlined"> arrow_drop_down </span>
-                <p>My profile</p>
-              </button>
-              <!-- Searchbar and notification end -->
+				<div class="profile-c">
+					<div class="arrow-back-II">
+						<a
+							th:href="@{/freelancer-dashboard}">
+							<img src="../../assets/icons/arrow_back_link.svg"
+							alt="arrow_back_link" />
+						</a>
+					</div>
+				</div>
+				<div class="mt-4">
+					<div class="profile-info">
+						<img src="../../assets/images/profile_bg_img.jpg" alt="profile-bg"
+							class="profile-bg" />
+						<div class="profile-details">
+							<img src="../../assets/images/profile_big.svg" alt=""
+								class="profile-pic" />
+							<p class="profilename mb-1"
+								th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael
+								Jordan</p>
+							<p class="profile-headline mb-3" th:text="${userDetails.summary}">I
+								am a voice-over artist looking for freelance opportunities</p>
+							<div class="mb-2">
+								<span class="location-icon mr-3"><img
+									src="../../assets/icons/location.svg" alt="" /></span> <span
+									class="location" th:text="${userDetails.address}">Lagos,
+									Nigeria</span>
+							</div>
+							
+							<div class="mb-2">
+								<span class="mr-3"><img
+									src="../../assets/icons/dateofentry.svg" alt="" /></span> <span
+									class="dateofentry" th:text="${userDetails.country}">Member
+									Since May, 2022</span>
+							</div>
+							
+							<div class="mb-4">
+								<span class="location-icon mr-3"> <img
+									src="../../assets/icons/completed_project.svg" alt="" />
+								</span> <span class="completedproject">Completed many successful
+									projects on IVoice Africa</span>
+							</div>
+							
+							<a th:href="@{/freelancer-dashboard}"><button type="button" class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
+								>Back</button></a>
 
-              <!-- The Freelancer's modal start -->
-              <div
-                class="row border profile-modal profile-modal_active"
-                id="profileModal"
-              >
-                <div class="col">
-                  <div class="modal-head">
-                    <div>
-                      <img src="assets/images/profile.svg" alt="profile" />
-                    </div>
-                    <p class="freelancer-name">Bukola Adesina</p>
-                    <p>Freelancer</p>
-                    <div class="freelancers-status">
-                      <div class=""><span>Available</span></div>
-                      <div class=""><span> Away</span></div>
-                      <div class=""><span> Busy</span></div>
-                    </div>
-                  </div>
-                  <div class="modal-body">
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/profile_icon.svg" alt="" />
-                      <span class="ml-2">Profile</span>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/padlock_icon.svg" alt="" />
-                      <span class="ml-2">Change Password</span>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                      <img src="assets/icons/logout_icon.svg" alt="" />
-                      <span class="ml-2">Logout</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- The Freelancer's modal end -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Header area end -->
+							<!-- <button class="uploadbtn hire-btn mt-2 mb-5 clientrequesteditBtn">
+								Hire</button> -->
+						</div>
+					</div>
 
-      <div class="main-content">
-        <div class="page-divider">
-          <div class="sidebar-menu">
-            <!-- sidebar menu area start -->
-            <div class="main-menu">
-              <div>
-                <nav>
-                  <ul class="metismenu" id="menu">
-                    <li class="active">
-                      <a href="newrequest.html" aria-expanded="true">
-                        <span class="material-symbols-outlined material-icon">
-                          add_box
-                        </span>
-                        <span class="title-medium-font">New Request</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          work </span
-                        ><span class="title-medium-font">Jobs</span></a
-                      >
-                      <ul class="collapse collapse-links">
-                        <li><a href="clientrequests.html">Request</a></li>
-                        <li>
-                          <a href="clientbids.html">Bids</a>
-                        </li>
-                        <li><a href="inprogress.html">In Progress</a></li>
-                        <li><a href="clientfinished.html">Finished</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="clientfinance.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          payments </span
-                        ><span class="title-medium-font">Finances</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientfaqs.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          quiz </span
-                        ><span class="title-medium-font">FAQs</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="clientprofile.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          account_box </span
-                        ><span class="title-medium-font">Profile</span></a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        aria-expanded="true"
-                        data-toggle="modal"
-                        data-target="#logoutModal"
-                        ><span class="material-symbols-outlined material-icon">
-                          logout
-                        </span>
-                        <span class="title-medium-font">Logout</span></a
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- sidebar menu area end -->
-          </div>
 
-          <div class="main-pagecontent">
+					<div class="profile-services">
+						<label for="" class="profile-service-label">Services</label>
 
-            <div class="job-alert-heading dashboard-heading">
-              <div class="activejobs-heading bigger-margin profile-heading ">
-                  <span>Profile</span>
-                  <a href="editprofile.html" class="edit-profile transparentBtn">Edit profile</a>
-            </div>
-          </div>
+						<div class="service-rendered"
+							th:each="service : ${servicesRendered}">
+							<div class="d-flex align-items-center mb-4 griddy">
+								<span class="service" th:text="${service.serviceType.typeName}">Translation</span>
+								<div class="grey-dot ml-4"></div>
+								<span class="experience mr-4"> <span
+									th:text=${service.experienceInYears}>4</span> years Experience
+								</span>
+								<div class="grey-dot"></div>
 
-          <div class="bigger-margin">
+								<span class="charge"
+									th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, userDetails.username)}">$
+									<span
+									th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">20</span>
+									<span>-</span> $ <span
+									th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
+								</span>
+							</div>
 
-            <div class=" mt-4 w-90">
-                <div class="profile-info">
-                    <img src="assets/images/profile_bg_img.jpg" alt="profile-bg" class="profile-bg">
-                    <div class="profile-details">
-                        <img src="assets/images/profile_big.svg" alt="" class="profile-picture">
-                        <p class="profilename mb-1">Michael Jordan</p>
-                        <p class="profile-headline mb-3">I am a voice-over artist looking for freelance opportunities</p>
-                        <div class="mb-2">
-                            <span class="location-icon mr-3"><img src="assets/icons/location.svg" alt=""></span>
-                            <span class="location">Lagos, Nigeria</span>
-                        </div>
-                        <div class="mb-2">
-                            <span class=" mr-3"><img src="assets/icons/dateofentry.svg" alt=""></span>
-                            <span class="dateofentry">Member Since May, 2022</span>
-                        </div>
-                        <div class="mb-4">
-                            <span class="location-icon mr-3">
-                                <img src="assets/icons/completed_project.svg" alt="">
-                            </span>
-                            <span class="completedproject">Completed many successful projects on ivoice Africa</span>
-                        </div>
-                        <button class="uploadbtn clientrequesteditBtn">
-                          Hire
-                        </button>
-                    </div>
-                </div>
+							<div class="d-flex align-items-center justify-content-between">
+								<div class="griddy"
+									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
+									<span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"
+										th:text="${freelancerLanguage.languageId.language}">
+										English </span>
 
-                <div class="profile-services">
-                    <label for="" class="profile-service-label">Services</label>
-                    <div class="service-rendered">
-                        <div class="d-flex align-items-center mb-4">
-                            <span class="service">Translation</span>
-                            <div class="grey-dot ml-4"></div>
-                            <span class="experience mr-4">4 years Experience</span>
-                            <div class="grey-dot"></div>
-                            <span class="charge">$20 -$70 per page</span>
-                        </div>
+								</div>
+								<span class="portfolio-link"> <a
+									th:href="${service.otherInfo}" target="_blank"
+									style="color: inherit">Portfolio</a> <img
+									src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
 
-                       <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                        <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                        </div>
-                        <span class="portfolio-link">
-                            Portfolio
-                            <img src="assets/icons/arrow_up.svg" alt="">
-                        </span>
-                       </div>
-                    </div>
-                    <div class="service-rendered">
-                        <div class="d-flex align-items-center mb-4">
-                            <span class="service">Voice-over</span>
-                            <div class="grey-dot ml-4"></div>
-                            <span class="experience mr-4">4 years Experience</span>
-                            <div class="grey-dot"></div>
-                            <span class="charge">$1000 -$1500 per hour</span>
-                        </div>
+								</span>
+							</div>
+						</div>
+					</div>
 
-                       <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                        <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                        </div>
-                        <span class="portfolio-link">
-                            Portfolio
-                            <img src="assets/icons/arrow_up.svg" alt="">
-                        </span>
-                       </div>
-                    </div>
-                    <div class="service-rendered">
-                        <div class="d-flex align-items-center mb-4">
-                            <span class="service">Interpretation</span>
-                            <div class="grey-dot ml-4"></div>
-                            <span class="experience mr-4">4 years Experience</span>
-                            <div class="grey-dot"></div>
-                            <span class="charge">$20 -$70 per word</span>
-                        </div>
 
-                       <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                            <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                            <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                            <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                        </div>
-                        <span class="portfolio-link">
-                            Portfolio
-                            <img src="assets/icons/arrow_up.svg" alt="">
-                        </span>
-                       </div>
-                    </div>
-                </div>
+					<!-- <div class="selected-project profile-services">
+						<label for="" class="profile-service-label">Selected
+							Projects</label>
+						<div class="mt-2" id="attachmentConten">
+							<div class="job-attc">
+								<img src="../../assets/icons/vscode-icons_file-type.svg"
+									alt="file-icon" />
+								<div class="ml-3">
+									<p>Physics textbook in French (01).pdf</p>
+									<p>This file is to be translated to an English version</p>
+									<p>Uploaded 3 hours ago</p>
+								</div>
+							</div>
+						</div>
+					</div> -->
 
-                <div class="selected-project profile-services">
-                    <label for="" class="profile-service-label">Selected Projects</label>
-                    <div
-                      class="mt-2"
-                      id="attachmentConten"
-                    >
-                      <div class="job-attc">
-                        <img
-                          src="assets/icons/vscode-icons_file-type.svg"
-                          alt="file-icon"
-                        />
-                        <div class="ml-3">
-                          <p>Physics textbook in French (01).pdf</p>
-                          <p>
-                            This file is to be translated to an English version
-                          </p>
-                          <p>Uploaded 3 hours ago</p>
-                        </div>
-                      </div>
-                      <div class="job-attc">
-                        <img
-                          src="assets/icons/vscode-icons_file-type.svg"
-                          alt="file-icon"
-                        />
-                        <div class="ml-3">
-                          <p>Physics textbook in French (01).pdf</p>
-                          <p>
-                            This file is to be translated to an English version
-                          </p>
-                          <p>Uploaded 3 hours ago</p>
-                        </div>
-                      </div>
-  
-                      <div class="job-attc">
-                        <img
-                          src="assets/icons/vscode-icons_file-type.svg"
-                          alt="file-icon"
-                        />
-                        <div class="ml-3">
-                          <p>Physics textbook in French (01).pdf</p>
-                          <p>
-                            This file is to be translated to an English version
-                          </p>
-                          <p>Uploaded 3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
+					<!-- 					<div class="client-review profile-services">
+						<label for="" class="profile-service-label mb-3">Client
+							Reviews</label>
+						<p class="client-totalreview">40 Reviews</p>
 
-                <div class="client-review profile-services">
-                    <label for="" class="profile-service-label mb-3">Client Reviews</label>
-                    <p class="client-totalreview">40 Reviews</p>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
 
-                    <div class="d-flex align-item-center mb-5 flex-wrap">
-                        <div class="client-profile-photo">
-                          <img src="assets/images/client-profile-img.svg" alt="client-profile">
-                        </div>
-                        <div class="ml-3">
-                            <p class="client-profile-name">Godwin Uchenna, <small class="client-reviewdate">3rd October 2022</small></p>
-                            <span class="client-ratingstar"><img src="assets/icons/rating stars.svg" alt=""></span>
-                        </div>
-                        <p class="client-review-statement my-3">
-                            Micheal is easy to talk to and very helpful in guiding writers in the steps required to get their work published. She is prompt and empathetic and was a big help in getting the summary finished. I haven't gone through all the steps as yet but would have no hesitation in recommending her
-                        </p>
-                    </div>
-                    <div class="d-flex align-item-center mb-5 flex-wrap">
-                        <div class="client-profile-photo">
-                          <img src="assets/images/client-profile-img.svg" alt="client-profile">
-                        </div>
-                        <div class="ml-3">
-                            <p class="client-profile-name">Godwin Uchenna, <small class="client-reviewdate">3rd October 2022</small></p>
-                            <span class="client-ratingstar"><img src="assets/icons/rating stars.svg" alt=""></span>
-                        </div>
-                        <p class="client-review-statement my-3">
-                            Micheal is easy to talk to and very helpful in guiding writers in the steps required to get their work published. She is prompt and empathetic and was a big help in getting the summary finished. I haven't gone through all the steps as yet but would have no hesitation in recommending her
-                        </p>
-                    </div>
-                    <div class="d-flex align-item-center mb-5 flex-wrap">
-                        <div class="client-profile-photo">
-                          <img src="assets/images/client-profile-img.svg" alt="client-profile">
-                        </div>
-                        <div class="ml-3">
-                            <p class="client-profile-name">Godwin Uchenna, <small class="client-reviewdate">3rd October 2022</small></p>
-                            <span class="client-ratingstar"><img src="assets/icons/rating stars.svg" alt=""></span>
-                        </div>
-                        <p class="client-review-statement my-3">
-                            Micheal is easy to talk to and very helpful in guiding writers in the steps required to get their work published. She is prompt and empathetic and was a big help in getting the summary finished. I haven't gone through all the steps as yet but would have no hesitation in recommending her
-                        </p>
-                    </div>
-                    <div class="d-flex align-item-center mb-5 flex-wrap">
-                        <div class="client-profile-photo">
-                          <img src="assets/images/client-profile-img.svg" alt="client-profile">
-                        </div>
-                        <div class="ml-3">
-                            <p class="client-profile-name">Godwin Uchenna, <small class="client-reviewdate">3rd October 2022</small></p>
-                            <span class="client-ratingstar"><img src="assets/icons/rating stars.svg" alt=""></span>
-                        </div>
-                        <p class="client-review-statement my-3">
-                            Micheal is easy to talk to and very helpful in guiding writers in the steps required to get their work published. She is prompt and empathetic and was a big help in getting the summary finished. I haven't gone through all the steps as yet but would have no hesitation in recommending her
-                        </p>
-                    </div>
+						<a href="#" class="more-reviews">See all
+							Reviews <span><img
+								src="../../assets/icons/arrow_right.svg" alt="" /></span>
+						</a>
+					</div>
+					 -->
 
-                    <a href="#" class="more-reviews">See all Reviews <span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
-                </div>
-          </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-          
-        </div>
-      </div>
-    </div>
+	
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
 
-    <!-- jquery latest version -->
-    <script src="assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="assets/JS/js/popper.min.js"></script>
-    <script src="assets/JS/js/bootstrap.min.js"></script>
-    <script src="assets/JS/js/owl.carousel.min.js"></script>
-    <script src="assets/JS/js/metisMenu.min.js"></script>
-    <script src="assets/JS/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/JS/js/jquery.slicknav.min.js"></script>
+	<!-- others plugins -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+	<script>
+		/* $(document).ready(function() {
 
-    <!-- others plugins -->
-    <script
-    type="module"
-    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-  ></script>
-  <script
-    nomodule
-    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-  ></script>
-    <script src="assets/JS/js/plugins.js"></script>
-    <script src="assets/JS/js/scripts.js"></script>
+			var url = window.location
 
-  </body>
+			 function submitClientAmount() {
+				var action_url = "/client/clientAmount";
+
+				console.log("action_url: "+action_url)
+			
+				$.ajax({
+					url : action_url,
+					type : 'post',
+					method : 'post',
+					async : false,
+					data : $("#clientAmountForm").serialize(),
+					success : function(data) {
+
+						alert(data);
+						console.log("===>>> data: " + data)
+					},
+					error : function(xhr, status, error) {
+						console.log("error " + error);
+					}
+				});
+
+			}
+
+			function resetField() {
+				$("clientAmount").val("");
+			}
+		});
+
+		function reloadLoanTimeOut() {
+			setTimeout(function() {
+				location.reload();
+			}, 3000);
+		}; */
+	</script>
+</body>
 </html>
-
-
-                

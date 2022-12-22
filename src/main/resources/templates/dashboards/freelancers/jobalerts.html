@@ -1,485 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Job Alerts</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <!-- amchart css -->
-    <link
-      rel="stylesheet"
-      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
-      type="text/css"
-      media="all"
-    />
-    <!-- others css -->
-    <link rel="stylesheet" href="assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="assets/CSS/css/styles.css" />
-    <link rel="stylesheet" href="assets/CSS/css/responsive.css" />
-    <!-- modernizr css -->
-    <script src="assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="assets/JS/js/scripts.js" defer></script>
-  </head>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Job Alerts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+#outer-div {
+	width: 100%;
+	text-align: center;
+}
 
-  <body>
-    <div id="preloader">
-      <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
-      <!-- Header area start -->
+#inner-div {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 3px;
+}
+</style>
+</head>
 
-      <div class="header-area">
-        <div class="headerarea-divder">
-          <div class="sidebar-header d-flex align-items-center">
-            <div class="nav-btn pull-left">
-              <img src="assets/icons/menu-open.svg" alt="menu-open" />
-            </div>
-            <div class="ml-5 logo">
-              <a href="dashboard.html"
-                ><img src="assets/images/ivoiceafrica logo 1.png" alt="logo"
-              /></a>
-            </div>
-          </div>
-          <!-- Searchbar and notification start -->
-          <div
-            class="d-flex align-items-center big-margin justify-content-between w-70"
-          >
-            <div class="search-box pull-left">
-              <form action="#">
-                <i class="ti-search"></i>
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Search..."
-                  required
-                />
-              </form>
-            </div>
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
 
-            <div>
-              <div class="notification-area">
-                <button class="text-center" type="button">
-                  <span class="material-symbols-outlined"> notifications </span>
-                  <p>Notifications</p>
-                </button>
+	<div class="page-container">
+		<!-- Header area start -->
+		<div class="overlay"></div>
 
-                <button
-                  class="text-center ml-5"
-                  type="button"
-                  id="show_modal_btn"
-                >
-                  <span class="material-symbols-outlined">
-                    account_circle
-                  </span>
-                  <span class="material-symbols-outlined">
-                    arrow_drop_down
-                  </span>
-                  <p>My profile</p>
-                </button>
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
 
-                <!-- Searchbar and notification end -->
 
-                <!-- The Freelancer's modal start -->
-                <div
-                  class="row border profile-modal profile-modal_active"
-                  id="profileModal"
-                >
-                  <div class="col">
-                    <div class="modal-head">
-                      <div>
-                        <img src="assets/images/profile.svg" alt="profile" />
-                      </div>
-                      <p class="freelancer-name">Bukola Adesina</p>
-                      <p>Freelancer</p>
-                      <div class="freelancers-status">
-                        <div class=""><span>Available</span></div>
-                        <div class=""><span> Away</span></div>
-                        <div class=""><span> Busy</span></div>
-                      </div>
-                    </div>
-                    <div class="modal-body">
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/profile_icon.svg" alt="" />
-                        <span class="ml-2">Profile</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/padlock_icon.svg" alt="" />
-                        <span class="ml-2">Change Password</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/logout_icon.svg" alt="" />
-                        <span class="ml-2">Logout</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- The Freelancer's modal end -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Header area end -->
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
 
-      <div class="main-content">
-        <div class="page-divider">
-          <div class="sidebar-menu">
-            <!-- sidebar menu area start -->
-            <div class="main-menu">
-              <div>
-                <nav>
-                  <ul class="metismenu" id="menu">
-                    <li class="active">
-                      <a href="dashboard.html" aria-expanded="true"
-                        ><span
-                          class="material-symbols-outlined material-icon orange600"
-                        >
-                          grid_view </span
-                        ><span class="title-medium-font">dashboard</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          work </span
-                        ><span class="title-medium-font">Jobs</span></a
-                      >
-                      <ul class="collapse">
-                        <li><a href="jobalerts.html">Job alerts</a></li>
-                        <li>
-                          <a href="activejobs.html">Active Jobs</a>
-                        </li>
-                        <li><a href="finishedjobs.html">Finished Jobs</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="Finances.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          payments </span
-                        ><span class="title-medium-font">Finances</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="faqs.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          quiz </span
-                        ><span class="title-medium-font">FAQs</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="profile.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          account_box </span
-                        ><span class="title-medium-font">Profile</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          logout
-                        </span>
-                        <span class="title-medium-font">Logout</span></a
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- sidebar menu area end -->
-          </div>
-          <div class="main-pagecontent">
-            <div class="job-alert-heading dashboard-heading">
-              <div class="bigger-margin d-flex justify-content-between">
-                <div class="job-alert-heading-first">
-                  <span>Job Alerts</span>
-                  <div>
-                    <a href="#" class="job-alerts-heading-btn mr-3"> All</a>
-                    <a
-                      href="#"
-                      class="job-alerts-heading-btn job-alerts-heading-btn_accent"
-                    >
-                      Applied</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
+		<div class="main">
+			<div class="main__headerbox">
+				<div class="job-alerts-header">
+					<h1>Job Alerts</h1>
+					<div>
+						<a href="jobalerts.html" class="job-alerts-heading-btn mr-3">
+							All</a> <a href="appliedjob.html"
+							class="job-alerts-heading-btn job-alerts-heading-btn_accent">
+							Applied</a>
+					</div>
+				</div>
+			</div>
 
-            <div class="bigger-margin mt-3">
-              <span>
-                <img src="assets/icons/tips_and_updates.svg" alt=""
-              /></span>
-              <span class="job-alerts-sub-heading"
-                >13 jobs currently match your profile</span
-              >
-            </div>
+			<div class="main__contentbox mt-3 finished-job-overview">
+				<span th:if="${userProposal.size() >= 1}"> <img src="../../assets/icons/tips_and_updates.svg"
+					alt="bulb" /> </span> <span class="job-alerts-sub-heading" th:if="${userProposal.size() >= 1}"> <span th:text="${userProposal.size()}">13 </span>  job(s)
+					currently match your profile</span>
+				<div>
 
-            <div class="bigger-margin">
-              <a href="jobdetail.html">
-                <div class="mt-4 w-90">
-                  <div class="job-alerts">
-                    <div class="job-alerts-card-body my-3">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <span class="mr-3 job-alerts-translation">
-                            <div
-                              class="mr-2 job-alerts-service-translation-color"
-                            ></div>
-                            Translation
-                          </span>
-                          <span class="mr-3 job-alerts-lang"> French </span>
-                          <span class="mr-3 job-alerts-lang"> English </span>
-                        </div>
-                        <span class="text-success">New</span>
-                      </div>
-                      <h2 class="job-alert-card-body-title mb-3">
-                        Translate Physics textbook from English Languague to
-                        French
-                      </h2>
-                      <p class="job-alert-card-body-text mb-3">
-                        We are looking for a UI and digital graphic designer
-                        with a minimum of 3-5 years of experience to join our
-                        team full-time. We are looking for someone with a strong
-                        leaning towards digital rather than print and analog
-                        media.
-                      </p>
-                      <div class="job-alerts-footer">
-                        <div class="d-flex align-items-center mb-3">
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >savings</span
-                            >
-                            <span>$20 - $30 <span>per page</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >attach_file</span
-                            >
-                            <span>4 <span>PDFs</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >timer</span
-                            >
-                            <span>3 days</span>
-                          </div>
-                        </div>
-                        <div class="job-alert-service-time">
-                          <p>Posted 3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
 
-              <a href="#">
-                <div class="mt-4 w-90">
-                  <div class="job-alerts">
-                    <div class="job-alerts-card-body my-3">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <span class="mr-3 job-alerts-voiceover">
-                            <div class="mr-2 job-alerts-voiceover-color"></div>
-                            Voice-over
-                          </span>
-                          <span class="mr-3 job-alerts-lang"> French </span>
-                          <span class="mr-3 job-alerts-lang"> English </span>
-                        </div>
-                        <span class="text-success">New</span>
-                      </div>
-                      <h2 class="job-alert-card-body-title mb-3">
-                        Translate Physics textbook from English Languague to
-                        French
-                      </h2>
-                      <p class="job-alert-card-body-text mb-3">
-                        We are looking for a UI and digital graphic designer
-                        with a minimum of 3-5 years of experience to join our
-                        team full-time. We are looking for someone with a strong
-                        leaning towards digital rather than print and analog
-                        media.
-                      </p>
-                      <div class="job-alerts-footer">
-                        <div class="d-flex align-items-center mb-3">
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >savings</span
-                            >
-                            <span>$20 - $30 <span>per page</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >attach_file</span
-                            >
-                            <span>4 <span>PDFs</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >timer</span
-                            >
-                            <span>3 days</span>
-                          </div>
-                        </div>
-                        <div class="job-alert-service-time">
-                          <p>Posted 3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
+					<div class="mt-4" th:if="${userProposal.size() == 0}">
+						<div class="job-alerts" id="outer-div">
+							<div class="job-alerts-card-body my-3" id="inner-div">
+								<div>
+									<div class="upload-start mr-3"
+										style="margin-left: auto; margin-right: auto">
+										<span style="font-size: 30px">Jobs Alerts</span>
+										<p style="font-size: 20px">Oops! No job alerts at this
+											time, check back later.</p>
+										<!-- <button class="uploadbtn">Upload</button> -->
+									</div>
+								</div>
 
-              <a href="#">
-                <div class="mt-4 w-90">
-                  <div class="job-alerts">
-                    <div class="job-alerts-card-body my-3">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <span class="mr-3 job-alerts-interpretation">
-                            <div
-                              class="mr-2 job-alerts-interpretation-color"
-                            ></div>
-                            Interpretation
-                          </span>
-                          <span class="mr-3 job-alerts-lang"> French </span>
-                          <span class="mr-3 job-alerts-lang"> English </span>
-                        </div>
-                        <span class="text-success">New</span>
-                      </div>
-                      <h2 class="job-alert-card-body-title mb-3">
-                        Translate Physics textbook from English Languague to
-                        French
-                      </h2>
-                      <p class="job-alert-card-body-text mb-3">
-                        We are looking for a UI and digital graphic designer
-                        with a minimum of 3-5 years of experience to join our
-                        team full-time. We are looking for someone with a strong
-                        leaning towards digital rather than print and analog
-                        media.
-                      </p>
-                      <div class="job-alerts-footer">
-                        <div class="d-flex align-items-center mb-3">
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >savings</span
-                            >
-                            <span>$20 - $30 <span>per page</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >attach_file</span
-                            >
-                            <span>4 <span>PDFs</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >timer</span
-                            >
-                            <span>3 days</span>
-                          </div>
-                        </div>
-                        <div class="job-alert-service-time">
-                          <p>Posted 3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
+							</div>
+						</div>
+					</div>
 
-              <a href="#">
-                <div class="mt-4 w-90">
-                  <div class="job-alerts">
-                    <div class="job-alerts-card-body my-3">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <span class="mr-3 job-alerts-transcribing">
-                            <div
-                              class="mr-2 job-alerts-transcribing-color"
-                            ></div>
-                            Transcribing
-                          </span>
-                          <span class="mr-3 job-alerts-lang"> French </span>
-                          <span class="mr-3 job-alerts-lang"> English </span>
-                        </div>
-                        <span class="text-success">New</span>
-                      </div>
-                      <h2 class="job-alert-card-body-title mb-3">
-                        Translate Physics textbook from English Languague to
-                        French
-                      </h2>
-                      <p class="job-alert-card-body-text mb-3">
-                        We are looking for a UI and digital graphic designer
-                        with a minimum of 3-5 years of experience to join our
-                        team full-time. We are looking for someone with a strong
-                        leaning towards digital rather than print and analog
-                        media.
-                      </p>
-                      <div class="job-alerts-footer">
-                        <div class="d-flex align-items-center mb-3">
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >savings</span
-                            >
-                            <span>$20 - $30 <span>per page</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >attach_file</span
-                            >
-                            <span>4 <span>PDFs</span></span>
-                          </div>
-                          <div class="mr-3 d-flex">
-                            <span class="material-symbols-outlined mr-2"
-                              >timer</span
-                            >
-                            <span>3 days</span>
-                          </div>
-                        </div>
-                        <div class="job-alert-service-time">
-                          <p>Posted 3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- jquery latest version -->
-    <script src="assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="assets/JS/js/popper.min.js"></script>
-    <script src="assets/JS/js/bootstrap.min.js"></script>
-    <script src="assets/JS/js/owl.carousel.min.js"></script>
-    <script src="assets/JS/js/metisMenu.min.js"></script>
-    <script src="assets/JS/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/JS/js/jquery.slicknav.min.js"></script>
+					<div th:each="proposal : ${userProposal}">
+						<a th:href="@{/freelancer-jobs-details/{workOrderId}(workOrderId=${proposal.workOrder.workId})}">
+							<div class="mt-4">
+								<div class="job-alerts">
+									<div class="job-alerts-card-body my-3">
+										<div
+											class="d-flex justify-content-between align-items-center mb-4">
+											<div class="griddy">
+												<span class="mr-3 job-alerts-translation">
+													<div class="mr-2 job-alerts-service-translation-color" ></div>
+													<span th:text="${proposal.workOrder.serviceType.typeName}">Translation</span>
+												</span> 
+												
+												<span class="mr-3 job-alerts-lang" th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(proposal.workOrder.workId).sourceLanguage}"> <span th:text="${srcLanguage}">French</span> </span>
+											
+											</div>
+											<span class="text-success">New</span>
+										</div>
+										<h2 class="job-alert-card-body-title" th:text="${proposal.workOrder.workTitle}">Translate Physics
+											textbook from English Languague to French</h2>
+											
+										<p class="job-alert-card-body-text" th:text="${proposal.workOrder.description}">We are looking for a
+											UI and digital graphic designer with a minimum of 3-5 years
+											of experience to join our team full-time. We are looking for
+											someone with a strong leaning towards digital rather than
+											print and analog media.</p>
+											
+										<div class="job-alerts-footer">
+											<div class="alerts-job-footer mb-3">
+												<div class="mr-3 d-flex">
+													<span class="material-symbols-outlined mr-2">savings</span>
+													<span>$</span><span th:text="${proposal.workOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span th:text="${proposal.workOrder.maxAmount}">30</span> <span>&nbsp; per page</span></span>
+												</div>
+												<div class="mr-3 d-flex">
+													<span class="material-symbols-outlined mr-2">attach_file</span>
+													<span th:text="@{${@ClientComponentModel.getWorkAttachments(proposal.workOrder.workId)}}">4 <span>PDFs</span></span>
+										
+												</div>
+												<div class="mr-3 d-flex">
+													<span class="material-symbols-outlined mr-2">timer</span> 
+													<span th:text="${proposal.workOrder.duration.duration}">3 &nbsp;<span>days</span></span>
+												</div>
+											</div>
+											<div class="job-alert-service-time">
+												<p>Posted on <span th:text="${proposal.workOrder.postingDate}"></span></p>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
 
-    <!-- others plugins -->
-    <script src="assets/JS/js/plugins.js"></script>
-    <script src="assets/JS/js/scripts.js"></script>
-  </body>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn" data-dismiss="modal">
+							Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
 </html>

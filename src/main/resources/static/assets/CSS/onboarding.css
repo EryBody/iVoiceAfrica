@@ -72,7 +72,8 @@ h2 {
   font-size: 4.5rem;
 }
 
-input {
+input,
+select {
   background: #f9f9f9;
   border-radius: 1rem;
   padding: 1.5rem 1.7rem;
@@ -94,7 +95,7 @@ input::placeholder {
   padding: 7.2rem 0;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
+  background: #fdfde6;
 }
 .sign-modal form {
   padding: 2rem 4rem;
@@ -102,9 +103,10 @@ input::placeholder {
 .onboard-section {
   min-height: 100vh;
   display: flex;
+
   justify-content: center;
   align-items: center;
-  background: #f5f5f5;
+  background: #fdfde6;
 }
 
 .onboard-container {
@@ -236,12 +238,34 @@ input::placeholder {
 }
 .header__navigation {
   padding: 0.8rem 3.3rem;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1),
     0 0.1rem 0.2rem rgba(0, 0, 0, 0.06);
 }
 .profile p {
   font-size: 1.4rem;
+}
+.search-flex {
+  display: flex;
+  align-items: center;
+  border-radius: 1.5rem;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1.8rem;
+  background-color: #f9f9f9;
+}
+
+.search-flex input {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.search-flex input:focus {
+  outline: none;
 }
 .progress__bar {
   transition: all 2s ease-in;
@@ -464,6 +488,7 @@ input::placeholder {
   margin-bottom: 1.6rem;
   font-size: 2.2rem;
 }
+
 .input-group-2 {
   margin: 1em 0;
   font-size: 1rem;
@@ -508,7 +533,7 @@ select {
   background: #f9f9f9;
   border-radius: 1rem !important;
   border: none !important;
-  padding: 1.2rem 1.7rem !important;
+  padding: 1.5rem 1.7rem !important;
   margin-top: 0.4em !important;
   width: 11%;
   font-family: inherit !important;
@@ -576,9 +601,11 @@ select {
   padding-left: 1.5em;
   overflow: hidden;
   max-height: 0;
-
   transition: max-height 0.7s;
 }
+/* .active-acc .service-content {
+  height: 90rem;
+} */
 .onboarding-cta {
   display: flex;
   gap: 4.8rem;
@@ -586,6 +613,7 @@ select {
 }
 .btn-mini-trans {
   color: #000;
+  background-color: #f9f9f9;
 }
 .btn-mini-trans,
 .btn-mini-black {
@@ -628,6 +656,7 @@ select {
   border-radius: 1rem;
   /* border: 0.1rem solid rgba(153, 153, 153, 0.85); */
 }
+
 .tag-btn span {
   padding: 0 0.3rem;
   background: rgba(255, 255, 255, 0.2);
@@ -649,8 +678,8 @@ select {
   background-color: #e14c29;
 }
 .btn-mini-trans:hover {
-  color: #fff;
-  background-color: rgba(153, 153, 153, 0.85);
+  color: inherit;
+  background: rgba(26, 56, 96, 0.1);
 }
 .service-content-active {
 }
@@ -681,8 +710,6 @@ select {
 
 .bootstrap-select .dropdown-toggle .filter-option-inner-inner {
   font-size: 1.8rem !important;
-  /* padding: 1rem !important; */
-  /* background-color: #f9f9f9 !important; */
   font-family: var(--body-font-family) !important;
 }
 .dropdown-item {
@@ -770,25 +797,50 @@ select {
   outline: none !important;
 }
 /*  */
-.uploadBtn, .uploadBtn2, .uploadBtn3, .uploadBtn4, .uploadBtn5, .uploadBtn6, .uploadBtn7, .uploadBtn8, .uploadBtn9
-.uploadBtn10, .uploadBtn12, .uploadBtn13, .uploadBtn14, .uploadBtn15, .uploadBtn16, .uploadBtn17, .uploadBtn18, .uploadBtn19, .uploadBtn20
-.uploadBtn21, .uploadBtn22, .uploadBtn23, .uploadBtn24, .uploadBtn25  {
+.uploadBtn,
+.uploadBtn1,
+.uploadBtn2,
+.uploadBtn3,
+.uploadBtn4,
+.uploadBtn5,
+.uploadBtn6,
+.uploadBtn7,
+.uploadBtn8,
+.uploadBtn9,
+.uploadBtn10,
+.uploadBtn11,
+.uploadBtn12,
+.uploadBtn13,
+.uploadBtn14,
+.uploadBtn15,
+.uploadBtn16,
+.uploadBtn17,
+.uploadBtn18,
+.uploadBtn19,
+.uploadBtn20,
+.uploadBtn21,
+.uploadBtn22,
+.uploadBtn23,
+.uploadBtn24,
+.uploadBtn25 {
   position: relative;
-  padding: 10px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px; 
-  border: 1px dashed #e2ebf0;
+  padding: 1.4rem 4rem;
+  color: #fff;
+  font-size: 1/8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 500;
+  border-radius: 1rem;
   text-align: center;
-  background-color: #718096;
+  background-color: #151617;
   cursor: pointer;
 }
 
 .language-upload-container {
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
 }
+
 .custom-min-word span {
   background-color: #151617;
   color: rgba(28, 52, 84, 0.26);
@@ -1091,7 +1143,7 @@ textarea {
   width: 100%;
   color: hsla(214, 50%, 22%, 0.26);
   font-size: 1.8rem;
-  padding: 1.5rem 1.7rem;
+  padding: 1.5rem 1.7rem !important;
   background-image: url(../images/Vector.svg);
   background-position: calc(100% - 2rem) calc(2.4rem + 0.2rem);
   background-repeat: no-repeat;
@@ -1111,6 +1163,7 @@ option {
 
 .client-flag-select {
   width: 40%;
+  color: inherit;
   padding: 1.5rem 1.7rem;
 }
 .client-upload {
@@ -1125,7 +1178,9 @@ option {
 
   box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.2);
 }
-
+#headline {
+  margin-bottom: 2rem;
+}
 .client-upload > label {
   position: relative;
   left: 70%;
@@ -1167,9 +1222,20 @@ option {
   gap: 4.1rem;
   width: 100%;
 }
+.freelancer__document--label-heading > img {
+  height: 1.8rem;
+  width: 1.8rem;
+}
+.freelance-language > img {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: 1rem;
+}
 .freelancer__document--label-heading {
   font-size: 2.2rem;
   display: flex;
+  margin-bottom: 2.8rem !important;
+  align-items: center;
   gap: 2rem;
   font-family: 'Open sans', sans-serif;
 }
@@ -1179,9 +1245,9 @@ option {
   padding: 1rem 1.2rem;
   border-radius: 1rem;
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(24, 39, 58, 0.94);
-  font-family: var(--body-font-family);
+  font-family: 'Inter';
 }
 .freelancer__document {
   flex: 1;
@@ -1378,6 +1444,9 @@ option {
     height: 3.5rem;
     width: 3.5rem;
   }
+  .sign-modal form {
+    padding: 2rem;
+  }
   .button {
     padding: 1.2rem 6rem;
   }
@@ -1405,7 +1474,7 @@ option {
     font-weight: 600;
   }
   .form {
-    padding: 0 2rem 2rem;
+    /* padding: 0; */
     width: 100%;
     margin: 0;
   }
@@ -1427,7 +1496,7 @@ option {
   }
   .btn-mini-trans,
   .btn-mini-black {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     padding: 1.2rem 1.7rem;
   }
   .form-header {
@@ -1445,7 +1514,6 @@ option {
   .form-footer {
     padding: 1.5rem 0;
   }
-
   .freelancer__phy {
     flex-direction: column;
     gap: 2rem;
@@ -1492,7 +1560,6 @@ option {
   }
   #cardform {
     width: 100%;
-    padding: 1em;
     margin: 0;
   }
   .form-header-title {
@@ -1507,6 +1574,9 @@ option {
     display: block;
 
     padding: 0 !important;
+  }
+  .multistep label {
+    font-size: 1.8rem;
   }
   .services button {
     padding: 1.2rem 2rem;
@@ -1564,6 +1634,13 @@ option {
     padding: 2rem 1rem;
     width: 100%;
     height: 100%;
+  }
+
+  .sign-modal form {
+    padding: 2rem;
+  }
+  .onboarding-forms {
+    padding: 2rem;
   }
   option {
     font-size: 1.4rem;

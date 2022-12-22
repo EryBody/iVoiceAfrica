@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+
+<body>
+	<div class="admin-overview">
+	
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Dashboard</h1>
+				</div>
+				
+				
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+				
+				
+			</div>
+			<div class="admin-contentbox">
+				<div class="admin-stats-box">
+					<div class="admin-stats-header">
+						<div>
+							<span class="admin-stats-heading">Jobs</span> <strong
+								class="admin-stats-number">2000</strong>
+						</div>
+						<div>
+							<span class="admin-stats-heading">Clients</span> <strong
+								class="admin-stats-number">700</strong>
+						</div>
+						<div>
+							<span class="admin-stats-heading">Freelancers</span> <strong
+								class="admin-stats-number">137</strong>
+						</div>
+						<div>
+							<span class="admin-stats-heading">Pending </span> <strong
+								class="admin-stats-number">137</strong>
+						</div>
+					</div>
+				</div>
+				<div class="jobs-stats">
+					<h1 class="jobs-heading">New Jobs</h1>
+				</div>
+				<div class="table-statistics">
+					<table id="job-statistics">
+						<thead>
+							<tr>
+								<th>Job ID</th>
+								<th>Service type</th>
+								<th>Job status</th>
+								<th>Payment status</th>
+								<th>Client ID</th>
+								<th>Freelancer ID</th>
+								<th>Amount</th>
+								<th>Start time</th>
+								<th>Deadline</th>
+								<th>Submission time</th>
+								<th>Delivery time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>-</td>
+								<td class="id">00032356679849</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>-</td>
+								<td class="id">00032356679849</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$500</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$700</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$800</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$800</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$450</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>28 September 2021, 9:32 PM</td>
+								<td>In review</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Interpretation</td>
+								<td>New</td>
+								<td>In Escrow</td>
+								<td class="id">00032356679849</td>
+								<td class="id">00032356679849</td>
+								<td>$679</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>2 March 2021, 4:16 PM</td>
+								<td>-</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

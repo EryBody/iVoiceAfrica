@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Client Finances</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    /> -->
+     <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+
+    <!-- modernizr css -->
+    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+      <div class="overlay"></div>
+      
+      	<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+      
+      <div class="main">
+        <div class="main__headerbox mini-padding">
+          <div class="clientrequests-heading">
+            <div class="bidheader">
+              <h1>Jobs</h1>
+              <h3>Requests</h3>
+            </div>
+            <a href="newrequest.html" class="newrequestBtn">
+              New Request
+              <span class="material-symbols-outlined"> add </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="arrow_back_link">
+          <a href="clientrequests.html">
+            <img
+              src="../../assets/icons/arrow_back_link.svg"
+              alt="arrow_back_link"
+            />
+          </a>
+        </div>
+
+        <!-- job alerts area start -->
+        <div class="mt-3 main__contentbox">
+          <div class="mt-4 d-flex cl-details-box align-items-start">
+            <div class="w-75">
+              <div class="job-alerts mb-3">
+                <div class="arrow-back">
+                  <a href="clientrequests.html">
+                    <img
+                      src="../../assets/icons/arrow_back_link.svg"
+                      alt="arrow_back_link"
+                    />
+                  </a>
+                </div>
+                <div class="job-alerts-card-body">
+                  <div class="my-4">
+                    <div class="griddy">
+                      <span class="mr-3 job-alerts-voiceover">
+                        <div class="mr-2 job-alerts-voiceover-color"></div>
+                        Voice-over
+                      </span>
+                      <span class="mr-3 job-alerts-lang"> French </span>
+                      <span class="mr-3 job-alerts-lang"> English </span>
+                    </div>
+                  </div>
+                  <h2 class="job-alert-card-body-title mb-3">
+                    Translate Physics textbook from English Languague to French
+                  </h2>
+                  <div class="job-alerts-footer">
+                    <div class="d-flex align-items-center griddy mb-3">
+                      <div class="mr-3 d-flex">
+                        <span class="material-symbols-outlined mr-3"
+                          >savings</span
+                        >
+                        <span>$20 -$30 <span>per page</span></span>
+                      </div>
+                      <div class="mr-5 d-flex">
+                        <span class="material-symbols-outlined mr-3"
+                          >attach_file</span
+                        >
+                        <span>4 <span>PDFs</span></span>
+                      </div>
+                      <div class="mr-5 d-flex">
+                        <span class="material-symbols-outlined mr-4"
+                          >timer</span
+                        >
+                        <span>3 days</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="job-details">
+                <span class="job-details-content-title">Job Details</span>
+
+                <div
+                  class="job-list-details mt-3 d-flex align-items-center job-list-details-border"
+                >
+                  <div>
+                    <a
+                      href="clientrequestdetails.html"
+                      class="next-btn tablinks"
+                      id="descTab"
+                      >Description</a
+                    >
+                  </div>
+                  <div>
+                    <a
+                      href="deliverables.html"
+                      class="next-btn tablinks prev-btn"
+                      id="devTab"
+                    >
+                      Deliverables
+                    </a>
+                  </div>
+                  <div class="job-list-details-active">
+                    <button class="next-btn prev-btn" id="attTab">
+                      Attachments
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mt-5" id="attachmentContent">
+                  <div class="job-attc">
+                    <img
+                      src="../../assets/icons/vscode-icons_file-type.svg"
+                      alt="file-icon"
+                    />
+                    <div class="ml-3">
+                      <p>Physics textbook in French (01).pdf</p>
+                      <p>This file is to be translated to an English version</p>
+                      <p>Uploaded 3 hours ago</p>
+                    </div>
+                  </div>
+                  <div class="job-attc">
+                    <img
+                      src="../../assets/icons/vscode-icons_file-type.svg"
+                      alt="file-icon"
+                    />
+                    <div class="ml-3">
+                      <p>Physics textbook in French (01).pdf</p>
+                      <p>This file is to be translated to an English version</p>
+                      <p>Uploaded 3 hours ago</p>
+                    </div>
+                  </div>
+
+                  <div class="job-attc">
+                    <img
+                      src="../../assets/icons/vscode-icons_file-type.svg"
+                      alt="file-icon"
+                    />
+                    <div class="ml-3">
+                      <p>Physics textbook in French (01).pdf</p>
+                      <p>This file is to be translated to an English version</p>
+                      <p>Uploaded 3 hours ago</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="job-details-footer d-flex align-items-center justify-content-end mt-5"
+                >
+                  <button class="logoutBtn">Cancel Request</button>
+                  <button class="uploadbtn ml-4 clientrequesteditBtn">
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="job-status job-progress-status ml-5">
+              <div class="job-status-heading">
+                <span>Job Status</span>
+              </div>
+
+              <div>
+                <div class="job-status-progress">
+                  <div class="circle circle-bar circle-completed">1</div>
+                  <span>Post job</span>
+                </div>
+                <div class="job-status-progress">
+                  <div class="circle circle-completed">2</div>
+                  <span>Find freelancer</span>
+                </div>
+                <div class="job-status-progress">
+                  <div class="circle">3</div>
+                  <span class="incomplete-task-color">Work in progress</span>
+                </div>
+                <div class="job-status-progress">
+                  <div class="circle">4</div>
+                  <span class="incomplete-task-color">Review submission</span>
+                </div>
+                <div class="job-status-progress">
+                  <div class="circle">5</div>
+                  <span class="incomplete-task-color">Close job</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+
+    <!-- logout Modal -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content logoutModal">
+          <div class="modal-header">
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
+          </div>
+          <div class="modal-body logoutModal-body">
+            You can log in anytime with your email and password
+          </div>
+          <div class="modal-footer logoutModal-footer">
+            <a href="../../onboarding/client/sign-in.html">
+              <button class="transparentBtn">Logout</button>
+            </a>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+  </body>
+</html>

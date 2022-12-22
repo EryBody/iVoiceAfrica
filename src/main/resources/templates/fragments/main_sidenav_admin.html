@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<nav class="admin-navigation" th:fragment="sidenav_admin">
+			<div class="admin-brand">
+				<img
+					src="../../../assets/images/admin-imgs/ivoiceafrica logo white  1@2x.svg"
+					alt="ivocie logo" />
+			</div>
+			<ul class="admin-links">
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/cubs.svg" alt="menu icon" />
+
+					<a th:href="@{/admin-dashboard}" class="admin-link-item"> Dashboard </a></li>
+					
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/case.svg" alt="case icon" />
+					<a th:href="@{/admin-job}" class="admin-link-item"> Jobs </a>
+				</li>
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/profileicon.svg"
+					alt="profile icon" /> <a th:href="@{/admin-client}"
+					class="admin-link-item"> Clients </a></li>
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/people.svg"
+					alt="people icon" /> <a
+					th:href="@{/admin-freelancer}" class="admin-link-item">
+						Freelancers </a></li>
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/money.svg" alt="money icon" />
+					<a th:href="@{/admin-finance}" class="admin-link-item"> Finances </a></li>
+
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/user.svg" alt="user icon" />
+					<a th:href="@{/admin-user}" class="admin-link-item"> User </a></li>
+				<li class="admin-link"><img
+					src="../../../assets/images/admin-imgs/logout.svg"
+					alt="logout icon" /> <a
+					th:href="@{/logout}"
+					class="admin-link-item"> Logout </a></li>
+			</ul>
+		</nav>
+</html>

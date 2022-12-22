@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+
+<body>
+	<div class="admin-overview">
+	
+	
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Users</h1>
+				</div>
+				
+				
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+				
+				
+			</div>
+			<div class="admin-contentbox">
+				<div class="newUser-overview">
+					<div class="arr-back">
+						<a th:href="@{/admin-user}"> <img
+							src="../../../../assets/images/admin-imgs/lessthan.svg"
+							alt="less than arrow" />
+						</a>
+					</div>
+					<div class="newUser-container">
+						<div class="newUser-header">
+							<span>User data form</span>
+						</div>
+						<form action="" class="newUserForm">
+							<div class="newUser-flex">
+								<div>
+									<label for="newEmail">Email</label> <input type="email" name=""
+										 id="newEmail" />
+								</div>
+								<div>
+									<label for="newEmail">Username</label> <input type="text"
+										name=""  id="newEmail" />
+								</div>
+							</div>
+							<div class="newUser-flex">
+								<div>
+									<label for="newEmail">First name</label> <input type="email"
+										name="" id="newEmail" />
+								</div>
+								<div>
+									<label for="newEmail">Last name</label> <input type="text"
+										name="" id="newEmail" />
+								</div>
+							</div>
+							<div class="newUser-flex">
+								<div>
+									<label for="middleName">Middle Name</label> <input type="text"
+										name="name" id="middleName" />
+								</div>
+								<div class="select-box">
+									<label for="gender">Sex</label> <select name="sex" id="gender">
+										<option value="">Select</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+									<div class="down-icon">
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="" />
+									</div>
+								</div>
+							</div>
+							<div class="random-Bmargin">
+								<label for="h-address">Home address</label> <input type="text"
+									name="address" id="h-address" />
+							</div>
+							<div class="newUser-flex">
+								<div class="select-box">
+									<label for="residence">Country of Residence</label> <select
+										name="" id="residence">
+										<option value="">Select</option>
+										<option value="">Select</option>
+									</select>
+									<div class="down-icon">
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="" />
+									</div>
+								</div>
+								<div class="select-box">
+									<label for="nation">Nationality</label> <select name="" id="">
+										<option value="">Select</option>
+									</select>
+									<div class="down-icon">
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="" />
+									</div>
+								</div>
+							</div>
+
+							<div class="newUser-select">
+								<div class="select-box">
+									<label for="code">Phone</label> <select name="NGN" id=""
+										class="ngn">
+										<option value="NGN">NGN</option>
+										<option value="NGN">NGN</option>
+										<option value="NGN">NGN</option>
+									</select>
+									<div class="down-icon">
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="" />
+									</div>
+								</div>
+
+								<input class="tel" type="tel" name="" id=""
+									placeholder="+234 903 919 7553" />
+							</div>
+
+							<button class="saveBtn">Save</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

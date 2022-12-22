@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -51,7 +50,7 @@ public class SecurityConfig  {
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/","/signin","/client-signup","/client-profile-setup","/client-upload-pic",
+			.antMatchers("/","/login","/landingpage","/mainpage","/signin","/client-signup","/client-profile-setup","/client-upload-pic",
 					"/freelancer-signup","/freelancer-profile-setup","/freelancer-profile-2",
 					"/freelancer-profile-3","/freelancer-profile-4","/freelancer/signup/save",
 					"/freelancer/detail/save", "/freelancer/skill/save","/freelancer/profilepicture/save",

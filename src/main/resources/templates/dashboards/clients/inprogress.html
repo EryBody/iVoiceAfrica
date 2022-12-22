@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Client Finances</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+	 <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+#outer-div {
+	width: 100%;
+	text-align: center;
+}
+
+#inner-div {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 3px;
+}
+
+</style>
+</head>
+
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+
+		<div class="overlay"></div>
+
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox">
+				<div class="clientrequests-heading justify-content-between">
+					<div>
+						<span>Jobs</span> <span>In progress</span>
+					</div>
+					<a th:href="@{/client-dashboard}" class="newrequestBtn"> New Request <span
+						class="material-symbols-outlined"> add </span>
+					</a>
+				</div>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox mt-5">
+			
+			
+			<div class="mt-3"
+					th:if="${workOrderDeliveryList.size() == 0}" id="outer-div">
+					<div class="mt-4" id="inner-div">
+						<div class="job-alerts" >
+							<div class="job-alerts-card-body my-3" >
+								<div>
+									<div class="upload-start mr-3"
+										style="margin-left: auto; margin-right: auto">
+										<span style="font-size: 30px">In Progress job(s)</span>
+										<p style="font-size: 20px">Oops! No job currently running, check back later.</p>
+										<!-- <button class="uploadbtn">Upload</button> -->
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>			
+			
+			
+				<div class="">
+					<div class="mt-3 mb-4 inprogress-boxes">
+
+						<div class="job-alerts in-progress-card justify-content-between"
+							th:each="workOrderDelivery : ${workOrderDeliveryList}">
+							<a
+								th:href="@{/client-inprogress-details/{workOrderId}/{deliveryId}(workOrderId=${workOrderDelivery.workOrder.workId}, deliveryId=${workOrderDelivery.deliveryId})}">
+								<div>
+									<div
+										class="d-flex justify-content-between align-items-center mt-3 mb-4">
+										<div>
+											<span class="mr-3 job-alerts-translation color-grey">
+												<div class="mr-2 job-alerts-service-translation-color"></div>
+												<span th:text="${workOrderDelivery.workOrder.serviceType.typeName}">Translation</span>
+											</span> <span class="mr-3 job-alerts-lang color-grey"  th:if="${orderSource != null}"  th:text="${@ClientComponentModel.translateIdToLanguage(orderSource)}"> French
+											</span> <span class="mr-3 job-alerts-lang color-grey"  th:if="${orderDestination != null}" th:text="${@ClientComponentModel.translateIdToLanguage(orderDestination)}">English
+											</span>
+										</div>
+									</div>
+									<div>
+										<div class="dashboard-activejobs-container border-0">
+											<p class="activejobs-h2"
+												th:text="${workOrderDelivery.workOrder.workTitle}">Translate
+												Physics textbook from English Language to French</p>
+
+											<div class="d-flex justify-content-between mb-2">
+												<span class="dashboard-deliverables">Deliverables</span> <span
+													class="ml-5 dashboard-deliverables-amt"> <span
+													th:text="${@ClientComponentModel.getSizeOfDeliveryAttachment(workOrderDelivery)}">4</span>
+													<span>files</span>
+												</span>
+											</div>
+
+											<div class="d-flex justify-content-between mb-2">
+												<span class="dashboard-deliverables">Attachments</span> <span
+													class="ml-5 dashboard-deliverables-amt"> <span
+													th:text="${@ClientComponentModel.getWorkAttachments(workOrderDelivery.workOrder.workId)}">4</span>
+													<span>files</span>
+												</span>
+											</div>
+
+											<div class="d-flex justify-content-between mb-2">
+												<span class="dashboard-deliverables">Status</span> <span
+													class="dashboard-deliverables-amt"
+													th:text="${opDeliveryStatus.status}">In progress</span>
+											</div>
+
+											<div class="d-flex justify-content-between mb-3">
+												<span class="dashboard-deliverables">Due in</span> <span
+													class="dashboard-deliverables-amt"
+													th:text="${workOrderDelivery.endDate}"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- logout Modal -->
+
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<!-- others plugins -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
+</html>

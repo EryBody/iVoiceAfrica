@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+<body>
+	<div class="admin-overview">
+
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Clients</h1>
+				</div>
+
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+
+			</div>
+			<div class="admin-contentbox">
+				<div class="util-header">
+					<div class="options">
+						<select name="select" id="select-client" class="select-filter">
+							<option value="Transaction ID">Transaction ID</option>
+							<option value="Client ID">Client ID</option>
+						</select> 
+						<span> 
+						<img
+							src="../../../../assets/images/admin-imgs/drpdown.svg"
+							alt="dropdown arrow" class="mt-3 mx-3"/>
+						</span>
+						
+					</div>
+					<div class="util-search">
+						<img src="../../../../assets/images/admin-imgs/bigsearch.svg"
+							alt="search icon" /> <input type="text" placeholder="Search" />
+					</div>
+					<span>
+							<button type="button" class="btn btn-outline-secondary btn-lg btn-block mt-2">Search</button>
+					</span>
+				</div>
+				<div class="client-statistics">
+					<table id="client-stats-table">
+						<thead>
+							<tr>
+								<th>Job ID</th>
+								<th>Full Name</th>
+								<th>Active jobs</th>
+								<th>Pending requests</th>
+								<th>Email Address</th>
+								<th>Phone Number</th>
+								<th>Total requests</th>
+								<th>City</th>
+								<th>State</th>
+								<th>Country</th>
+								<th>Sign up date</th>
+								<th>Last login</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="clientdetails.html" class="table-link">
+										00032356679847 </a></td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td class="id">09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+							<tr>
+								<td class="id">00032356679849</td>
+								<td>Micheal Jordan</td>
+								<td>2</td>
+								<td>0</td>
+								<td>michealjordan@gmail.com</td>
+								<td>09030197553</td>
+								<td>20</td>
+								<td>Ikeja</td>
+								<td>Lagos</td>
+								<td>Nigeria</td>
+								<td>3 October, 2020 4:27PM</td>
+								<td>10 October 2022, 11AM</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

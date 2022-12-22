@@ -9,13 +9,14 @@ public class FreelancerPersonalDetailDTO {
 	private String postalCode;
 	private String gender;
 	private String mobileNumber;
+	private String countryCode;
 	
 	public FreelancerPersonalDetailDTO() {
 		
 	}
 
 	public FreelancerPersonalDetailDTO(String country, String nationality, String streetAddress, String townVillage,
-			String postalCode, String gender, String mobileNumber) {
+			String postalCode, String gender, String mobileNumber, String countryCode) {
 		this.country = country;
 		this.nationality = nationality;
 		this.streetAddress = streetAddress;
@@ -23,11 +24,8 @@ public class FreelancerPersonalDetailDTO {
 		this.postalCode = postalCode;
 		this.gender = gender;
 		this.mobileNumber = mobileNumber;
+		this.countryCode = countryCode;
 	}
-	
-	
-
-	
 
 	public String getCountry() {
 		return country;
@@ -85,13 +83,19 @@ public class FreelancerPersonalDetailDTO {
 		this.mobileNumber = mobileNumber;
 	}
 
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 	@Override
 	public String toString() {
 		return "FreelancerPersonalDetailDTO [country=" + country + ", nationality=" + nationality + ", streetAddress="
 				+ streetAddress + ", townVillage=" + townVillage + ", postalCode=" + postalCode + ", gender=" + gender
-				+ ", mobileNumber=" + mobileNumber + "]";
+				+ ", mobileNumber=" + mobileNumber + ", countryCode=" + countryCode + "]";
 	}
-	
-	
-	
+
 }

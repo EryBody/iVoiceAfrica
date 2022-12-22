@@ -96,6 +96,11 @@ public class PricingType {
 	}
 
 
-	
+	@Override
+	public String toString() {
+		return "PricingType [pricingTypeId=" + pricingTypeId + ", pricingType=" + pricingType + ", minPrice=" + minPrice
+				+ ", maxPrice=" + maxPrice + "]";
+	}
+
 	
 }

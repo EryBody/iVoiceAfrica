@@ -31,10 +31,10 @@ public class FreelancerServicePricing {
     @JoinColumn(name = "user_id")
     private User user;
 	
-	@JoinColumn(name = "min_price")
+	@Column(name = "min_price")
 	private double minPrice;
 	
-	@JoinColumn(name = "max_price")
+	@Column(name = "max_price")
 	private double maxPrice;
 	
 	

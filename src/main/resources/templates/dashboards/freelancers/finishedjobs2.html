@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Finished Jobs details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox">
+				<!-- <div class="bigger-margin"> -->
+				<div>
+					<span class="dash-heading">Finished Jobs</span>
+				</div>
+			</div>
+			<!-- job alerts area start -->
+
+			<div class="main__contentbox finished-job-overview">
+				<div class="mt-4">
+					<div class="job-alerts mb-3">
+						<div class="arrow-back border-arr">
+							<a th:href="@{/freelancer-finished-jobs}"> <img
+								src="../../assets/icons/arrow_back_link.svg"
+								alt="arrow_back_link" />
+							</a>
+						</div>
+						<div class="job-alerts-card-body my-3">
+							<div
+								class="d-flex justify-content-between align-items-center mb-4">
+								<div class="griddy">
+									<span class="mr-3 job-alerts-translation">
+										<div class="mr-2 job-alerts-service-translation-color"></div>
+										<span th:text="${opDelivery.workOrder.serviceType.typeName}">Translation</span>
+									</span> <span class="mr-3 job-alerts-lang"
+										th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(opDelivery.workOrder.workId).sourceLanguage}">
+										<span th:text="${srcLanguage}">French</span>
+									</span>
+								</div>
+							</div>
+							<h2 class="job-alert-card-body-title mb-3"
+								th:text="${opDelivery.workOrder.workTitle}">Translate
+								Physics textbook from English Languague to French</h2>
+							<div class="job-alerts-footer">
+								<div class="d-flex align-items-center mb-3">
+
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">timer</span> <span>$</span><span
+											th:text="${opDelivery.workOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
+											th:text="${opDelivery.workOrder.maxAmount}">30</span> <span>&nbsp;
+											per page</span></span>
+									</div>
+
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">attach_file</span>
+										<span
+											th:text="@{${@ClientComponentModel.getWorkAttachments(opDelivery.workOrder.workId)}}">4
+											<span>PDFs</span>
+										</span>
+									</div>
+
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">timer</span> <span
+											th:text="${opDelivery.workOrder.duration.duration}">3
+											&nbsp;<span>days</span>
+										</span>
+									</div>
+								</div>
+
+								<!-- <div class="griddy align-items-center clientreview-heading">
+									<img src="../../assets/icons/satisfaction.svg"
+										alt="satisfaction-icon" /> <span>100%
+										Client Satisfaction</span>
+									<div class="grey-dot"></div>
+									<span>0 Review Requests</span>
+									<div class="grey-dot"></div>
+									<img src="../../assets/icons/rating stars.svg" alt="rating" />
+								</div> -->
+
+								<div class="job-alert-service-time mt-3">
+									<p>
+										Completed <span th:text="${opDelivery.completedDate}"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="job-alerts mb-3">
+						<div class="job-alerts-card-body my-2">
+							<label for="" class="finished-job-desc">Job Description</label>
+							<p class="finished-job-title mb-2">About the job</p>
+							<p class="finished-jobs-summary"
+								th:text="${opDelivery.workOrder.description}">At Pak
+								Translations, we have recently been receiving requests for
+								projects concerning African languages. We are, thus, looking to
+								expand our database of freelance translators, transcribers, and
+								subtitlers of African languages, especially the minor languages
+								spoken in this linguistically see more...</p>
+						</div>
+					</div>
+
+					<div class="job-alerts mb-3">
+						<label for="" class="finished-job-desc">Payment</label>
+						<div
+							class="job-alerts-card-body span-flex d-flex justify-content-between">
+							<p class="money-payed">
+								$ <span th:text="${opDelivery.amount}">2000</span>
+							</p>
+							<span class="confirmed-status">Confirmed</span>
+						</div>
+					</div>
+
+					<div class="finishedjob-box mb-3">
+						<div class="lang-service-offered">
+							<label class="finished-job-desc">Languages and Services
+								Offered</label>
+							<p class="service-offered">Translation</p>
+							<div class="griddy">
+
+								<span class="mr-3 job-alerts-lang"
+									th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(opDelivery.workOrder.workId).sourceLanguage}">
+									<span th:text="${srcLanguage}">French</span>
+								</span>
+
+							</div>
+						</div>
+
+						<div class="lang-service-offered">
+							<label class="finished-job-desc">Duration</label>
+							<p class="service-offered-duration"
+								th:text="${opDelivery.workOrder.duration.duration}">3 Weeks</p>
+							<p class="service-offered-date">
+								Start Date - <span th:text="${opDelivery.startDate}">7th
+									September, 2022</span>
+							</p>
+							<p class="service-offered-date">
+								End Date - <span th:text="${opDelivery.endDate}">7th
+									September, 2022</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="finished-jobs-attach mb-3">
+						<label class="finished-job-desc">Submitted Files</label>
+						<div class="mt-2">
+
+							<div class="job-attc"
+								th:each="attachment : ${workOrderAttachments}">
+								<img src="../../assets/icons/vscode-icons_file-type.svg"
+									alt="file-icon" />
+								<div class="ml-3">
+									<p th:text="${attachment.linkMediaFile}">Physics textbook
+										in French (01).pdf</p>
+									<p>
+										This file is to be translated from <span
+											th:text="@{${@ClientComponentModel.translateIdToLanguage(attachment.source)}}"></span>
+										to <span
+											th:text="@{${@ClientComponentModel.translateIdToLanguage(attachment.destination)}}"></span>
+									</p>
+									<p>
+										Uploaded <span th:text="${attachment.workOrder.postingDate}">
+											3 Hours ago</span>
+									</p>
+								</div>
+								<div class="dotting">
+									<img src="../../assets/images/dottings.svg" alt="menu dots" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="client-review">
+						<label class="finished-job-desc">Client Review</label>
+						<div class="d-flex align-item-center mb-4">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">Godwin Uchenna</p>
+								<p class="client-profile-location">Lagos, Nigeria</p>
+							</div>
+						</div>
+						<div class="client-rating-review">
+							<div class="client-rating">
+								<p class="client-rating-label mb-4">Ratings</p>
+								<img src="../../assets/icons/rating stars.svg" alt="rating"
+									class="mb-2" />
+								<p>100% Client Satisfaction</p>
+							</div>
+
+							<div class="client-comments">
+								<p class="client-rating-label">Comments</p>
+								<p>We are, thus, looking to expand our database of freelance
+									translators, transcribers, and subtitlers</p>
+							</div>
+
+							<div class="client-request">
+								<p class="client-rating-label mb-4">Revision Requests</p>
+								<p class="pro-number">0</p>
+							</div>
+						</div>
+					</div>
+				</div> -->
+					<!-- </div> -->
+
+					<div class="modal fade" id="logoutModal" data-backdrop="static"
+						data-keyboard="false" tabindex="-1"
+						aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content logoutModal">
+								<div class="modal-header">
+									<p class="modal-title" id="logoutModalLabel">Log out of
+										iVoice Africa?</p>
+								</div>
+								<div class="modal-body logoutModal-body">You can log in
+									anytime with your email and password</div>
+								<div class="modal-footer logoutModal-footer">
+									<a href="../../onboarding/client/sign-in.html">
+										<button class="transparentBtn">Logout</button>
+									</a>
+									<button class="logoutBtn" data-dismiss="modal"
+										aria-label="Close">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- jquery latest version -->
+					<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+					<!-- bootstrap 4 js -->
+					<script src="../../assets/JS/js/popper.min.js"></script>
+					<script src="../../assets/JS/js/bootstrap.min.js"></script>
+					<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+					<script src="../../assets/JS/js/metisMenu.min.js"></script>
+					<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+					<script src="assets/JS/js/jquery.slicknav.min.js"></script>
+					<script type="module"
+						src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+					<script nomodule
+						src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+					<!-- others plugins -->
+					<script src="../../assets/JS/js/plugins.js"></script>
+					<script src="../../assets/JS/js/scripts.js"></script>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

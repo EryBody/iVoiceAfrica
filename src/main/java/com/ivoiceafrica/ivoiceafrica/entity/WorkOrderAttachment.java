@@ -24,6 +24,12 @@ public class WorkOrderAttachment {
 	@ManyToOne // Mapping the column of this table
 	@JoinColumn(name = "work_id")
 	private WorkOrder workOrder;
+	
+	@Column(name = "source_language")
+	private String source;
+	
+	@Column(name = "destination_language")
+	private String destination;
 
 	@Column(name = "description")
 	private String description;
@@ -32,17 +38,17 @@ public class WorkOrderAttachment {
 	private String linkMediaFile;
 
 	public WorkOrderAttachment() {
-		
 	}
-	
-	
-	public WorkOrderAttachment(String attachId, WorkOrder workOrder, String description, String linkMediaFile) {
+
+	public WorkOrderAttachment(String attachId, WorkOrder workOrder, String source, String destination,
+			String description, String linkMediaFile) {
 		this.attachId = attachId;
 		this.workOrder = workOrder;
+		this.source = source;
+		this.destination = destination;
 		this.description = description;
 		this.linkMediaFile = linkMediaFile;
 	}
-
 
 	public String getAttachId() {
 		return attachId;
@@ -58,6 +64,22 @@ public class WorkOrderAttachment {
 
 	public void setWorkOrder(WorkOrder workOrder) {
 		this.workOrder = workOrder;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 
 	public String getDescription() {

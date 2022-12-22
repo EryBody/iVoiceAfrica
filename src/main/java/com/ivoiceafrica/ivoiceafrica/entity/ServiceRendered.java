@@ -48,17 +48,24 @@ public class ServiceRendered {
 	@JsonIgnore
     private Set<Portfolio> portfolios;
 	
-	@OneToMany(mappedBy = "serviceRendered",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.REFRESH, CascadeType.DETACH})
-	@JsonIgnore
-    private Set<VoiceCapability> capabilities;
 	
 	@OneToMany(mappedBy = "serviceRendered",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.REFRESH, CascadeType.DETACH})
 	@JsonIgnore
     private Set<ServiceVoiceCapability> serviceVoiceCapabilities;
+	
+	@OneToMany(mappedBy = "serviceRendered",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+    private Set<ServiceIndustries> serviceIndustries;
+	
+	@OneToMany(mappedBy = "serviceRendered",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+    private Set<ServiceLanguages> serviceLanguages;
 
 
 	public ServiceRendered() {
@@ -66,16 +73,17 @@ public class ServiceRendered {
 
 
 	public ServiceRendered(String renderId, User user, ServiceType serviceType, String experienceInYears,
-			String otherInfo, Set<Portfolio> portfolios, Set<VoiceCapability> capabilities,
-			Set<ServiceVoiceCapability> serviceVoiceCapabilities) {
+			String otherInfo, Set<Portfolio> portfolios, Set<ServiceVoiceCapability> serviceVoiceCapabilities,
+			Set<ServiceIndustries> serviceIndustries, Set<ServiceLanguages> serviceLanguages) {
 		this.renderId = renderId;
 		this.user = user;
 		this.serviceType = serviceType;
 		this.experienceInYears = experienceInYears;
 		this.otherInfo = otherInfo;
 		this.portfolios = portfolios;
-		this.capabilities = capabilities;
 		this.serviceVoiceCapabilities = serviceVoiceCapabilities;
+		this.serviceIndustries = serviceIndustries;
+		this.serviceLanguages = serviceLanguages;
 	}
 
 
@@ -139,16 +147,6 @@ public class ServiceRendered {
 	}
 
 
-	public Set<VoiceCapability> getCapabilities() {
-		return capabilities;
-	}
-
-
-	public void setCapabilities(Set<VoiceCapability> capabilities) {
-		this.capabilities = capabilities;
-	}
-
-
 	public Set<ServiceVoiceCapability> getServiceVoiceCapabilities() {
 		return serviceVoiceCapabilities;
 	}
@@ -158,9 +156,36 @@ public class ServiceRendered {
 		this.serviceVoiceCapabilities = serviceVoiceCapabilities;
 	}
 
-	
+
+	public Set<ServiceIndustries> getServiceIndustries() {
+		return serviceIndustries;
+	}
 
 
+	public void setServiceIndustries(Set<ServiceIndustries> serviceIndustries) {
+		this.serviceIndustries = serviceIndustries;
+	}
+
+
+	public Set<ServiceLanguages> getServiceLanguages() {
+		return serviceLanguages;
+	}
+
+
+	public void setServiceLanguages(Set<ServiceLanguages> serviceLanguages) {
+		this.serviceLanguages = serviceLanguages;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ServiceRendered [renderId=" + renderId + ", user=" + user + ", serviceType=" + serviceType
+				+ ", experienceInYears=" + experienceInYears + ", otherInfo=" + otherInfo + ", portfolios=" + portfolios
+				+ "]";
+	}
+
 	
+	
+
 	
 }

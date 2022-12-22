@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+
+
+<body>
+	<div class="admin-overview">
+
+
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Profile</h1>
+				</div>
+
+				<div th:replace="fragments/admin_status :: admin-status-header"></div>
+
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+
+
+			</div>
+
+
+			<div class="admin-contentbox">
+				<div class="admin-profile">
+					<div class="admin-profile-header">
+						<div class="admin-profile-img">
+							<img src="../../../assets/images/admin-imgs/sandra.svg"
+								alt="A woman smiling"  id="admin-profile"/>
+							 <label id="adminProfileimg" class="profile-img-overlay">
+								<img src="../../../assets/images/admin-imgs/pencil.svg"
+									alt="pencil" /> <span>Choose photo</span>
+							  <input
+                     type="file"
+                     id="adminProfileimg"
+                     accept="image/png, image/jpeg"
+                     style="display: none"
+                     onChange="uploadedImg(this);"
+                   />
+                 </label>
+						</div>
+					</div>
+
+					<form action="#" class="admin-profile-form">
+						<div>
+							<label for="email">Email</label> <input type="email" name="email"
+								id="email" value="sandra.admin@iVoice.org" />
+						</div>
+					</form>
+					<div class="profile-ctas">
+						<button id="update-btn">Update password</button>
+						<button id="close">Close</button>
+					</div>
+					<form action="#" class="changePasswordForm">
+						<div>
+							<label for="oldPassword">Current password</label> <input
+								type="password" />
+						</div>
+						<div>
+							<label for="newPassword">New Password</label> <input
+								type="password" id="newPassword" />
+						</div>
+						<div>
+							<label for="confirmPassword">Confirm Password</label> <input
+								type="password" id="confirmPassword" />
+						</div>
+						<div>
+							<button type="submit">Submit</button>
+						</div>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+</html>

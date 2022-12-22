@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+
+<body>
+	<div class="admin-overview">
+	
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Jobs</h1>
+				</div>
+				
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+				
+			</div>
+			<div class="admin-contentbox">
+				<div class="jobs-details-box">
+					<div class="arr-back">
+						<a href="adminjobs.html"> <img
+							src="../../../../assets/images/admin-imgs/lessthan.svg"
+							alt="less than arrow" />
+						</a>
+					</div>
+					<div class="jobs-details-header">
+						<div>
+							<h1>Job ID: 089456765</h1>
+							<span>Status: Unassigned</span>
+						</div>
+						<div class="jobs-details-dates">
+							<p>Posted on: 20 Oct 2022</p>
+							<p>Start Date: -</p>
+							<p>Due date: -</p>
+							<p>Finish date: -</p>
+						</div>
+					</div>
+					<div class="jobs-details-overview">
+						<p class="active-freelancer" id="details">Overview</p>
+						<p id="jobs">Activity</p>
+						<p class="in-active">Submissions and Reviews</p>
+					</div>
+					<!-- OVERVIEW  JOBS -->
+					<div class="admin-jobs-overview">
+						<!-- OVERVIEW -->
+						<div class="clientdetailsbox">
+							<div class="jobs-details-content-I">
+								<div class="details-box">
+									<p class="details-title">Project Title</p>
+									<span class="title-main">Interpretation
+										of the kite runner book</span>
+								</div>
+
+								<div class="details-box">
+									<p class="details-title">Service Type</p>
+									<span>Interpretation</span>
+								</div>
+
+								<div class="details-box">
+									<div class="details-title">Description</div>
+									<div class="desc-box">
+										<p>Pak Translations, we have recently been receiving
+											requests for projects concerning African languages. We are,
+											thus, looking to expand our database of freelance
+											translators, transcribers, and subtitlers of African
+											languages especially the minor languages spoken in this
+											linguistically richest continent.</p>
+										<div class="desc">
+											<p class="desc-lists-heading">These are the qualities we
+												are looking for in the freelancer:</p>
+											<ul class="desc-lists">
+												<li>High accuracy (in terms of meaning, punctuation,
+													grammar, formatting)</li>
+												<li>Commitment (people who always deliver on time)</li>
+												<li>Responsive (people who respond to emails/calls in
+													time)</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="details-box">
+									<p class="details-title">Attachment</p>
+									<span>4</span>
+								</div>
+							</div>
+							<div class="jobs-details-content-II">
+								<div>
+									<p class="details-title">Client ID</p>
+									<span class="green">00032356679849</span>
+								</div>
+								<div>
+									<p class="details-title">Budget</p>
+									<span>$7 - $10 per word</span>
+								</div>
+								<div>
+									<p class="details-title">Post Date</p>
+									<span>2 March 2021, 4:16 PM</span>
+								</div>
+								<div>
+									<p class="details-title">Job Duration</p>
+									<span>6 days</span>
+								</div>
+							</div>
+							<div class="jobs-details-content-II">
+								<div>
+									<p class="details-title">Freelancer ID</p>
+									<span>-</span>
+								</div>
+								<div>
+									<p class="details-title">Budget</p>
+									<span>-</span>
+								</div>
+								<div>
+									<p class="details-title">Deadline</p>
+									<span>6 days from start date</span>
+								</div>
+								<div>
+									<p class="details-title">Finish Date</p>
+									<span>-</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- ACTIVITY -->
+						<div class="clientsjobsbox">
+							<div class="info-header mt">
+								<h2>Transaction summary</h2>
+							</div>
+							<div class="info">
+								<span class="info-title">Project Title </span>
+								<p class="fw-600">Interpretation of the kite runner book</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Service Type </span>
+								<p>Interpretation</p>
+							</div>
+							<div class="info random-m">
+								<span class="info-title">Attachment</span>
+								<p>2</p>
+							</div>
+							<div class="info-header">
+								<h2>Requests and attachments</h2>
+							</div>
+							<div class="attachments">
+								<div class="attachment-heading">
+									Service type: <strong> Translation </strong>
+								</div>
+
+								<div class="attachment-form">
+									<div class="attachemnt-flex">
+										<span>
+											<p>Attached</p>
+											<p>files</p>
+										</span>
+										<div class="histology">
+											<input type="text"
+												value="Histology of Large Intestine, Appendix and Rectum - Copy" />
+											<img class="download-icon-I"
+												src="../../../../assets/images/admin-imgs/downloadico.svg"
+												alt="download-icon" /> <input
+												type="text"
+												value="Histology of Large Intestine, Appendix and Rectum - Copy" />
+
+											<img class="download-icon-II"
+												src="../../../../assets/images/admin-imgs/downloadico.svg"
+												alt="download-icon" />
+										</div>
+									</div>
+									<div class="attachemnt-flex">
+										<span>Description</span> <input type="text"
+											value="File should be downloaded fom Hausa to English" />
+									</div>
+									<div class="attachemnt-flex">
+										<span>Source</span> <input type="text" value="Hausa" />
+									</div>
+									<div class="attachemnt-flex">
+										<span><p>Word</p>
+											<p>count</p> </span> <input type="text" value="500,000 words" />
+									</div>
+									<div class="attachemnt-flex">
+										<span>
+											<p>Page</p>
+											<p>count</p>
+										</span> <input type="text" value="200 pages" />
+									</div>
+									<div class="attachemnt-flex">
+										<span>
+											<p>Bid</p>
+											<p>time</p>
+										</span> <input type="text" value="2 days" />
+									</div>
+								</div>
+							</div>
+							<div class="info-header">
+								<h2>Bids</h2>
+							</div>
+							<div class="adminUnassignedTable">
+								<table id="unassingedTable">
+									<thead>
+										<tr>
+											<th>Freelancer ID</th>
+											<th>Service Type</th>
+											<th>Bid</th>
+											<th>Amount</th>
+											<th>Active jobs</th>
+											<th>Portfolio</th>
+											<th>Last login</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="id">666-555-0126</td>
+											<td>Translator</td>
+											<td>$1 per word</td>
+											<td>$5,920</td>
+											<td>2</td>
+											<td class="green">iconlang.wix.com</td>
+											<td>28 October 2022, 8:40AM</td>
+										</tr>
+										<tr>
+											<td class="id">666-555-0126</td>
+											<td>Translator</td>
+											<td>$1 per word</td>
+											<td>$5,920</td>
+											<td>0</td>
+											<td class="green">iconlang.wix.com</td>
+											<td>28 October 2022, 8:40AM</td>
+										</tr>
+										<tr>
+											<td class="id">666-555-0126</td>
+											<td>Translator</td>
+											<td>$1 per word</td>
+											<td>$5,920</td>
+											<td>0</td>
+											<td class="green">iconlang.wix.com</td>
+											<td>28 October 2022, 8:40AM</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

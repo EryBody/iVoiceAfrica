@@ -137,6 +137,14 @@ public class ServiceType {
 	public void setWorkOrders(Set<WorkOrder> workOrders) {
 		this.workOrders = workOrders;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "ServiceType [typeId=" + typeId + ", typeName=" + typeName + ", createdDate=" + createdDate + "]";
+	}
+	
 	
 
 }

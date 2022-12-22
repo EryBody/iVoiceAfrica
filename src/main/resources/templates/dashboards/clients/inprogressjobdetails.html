@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/main_css :: css-header"></div>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox clientrequests-heading">
+				<div>
+					<span>Jobs</span> <span>In progress</span>
+				</div>
+				<a th:href="@{/client-dashboard}" class="newrequestBtn"> New Request <span
+					class="material-symbols-outlined"> add </span>
+				</a>
+			</div>
+
+			<div class="arrow_back_link">
+				<a th:href="@{/client/job/inprogress}"> <img
+					src="../../assets/icons/arrow_back_link.svg" alt="arrow_back_link" />
+				</a>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox mt-3 finished-job-overview">
+				<div>
+					<div class="inprogress-flex">
+						<div class="inprogress-view">
+							<div class="job-alerts mb-3">
+								<div class="job-alerts-card-body my-3">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="griddy">
+											<span class="mr-3 job-alerts-voiceover">
+												<div class="mr-2 job-alerts-voiceover-color"></div> <span
+												th:text="${opDeliveryDetails.workOrder.serviceType.typeName}">Voice-over</span>
+											</span>
+												<span class="mr-3 job-alerts-lang"
+												th:text="${@ClientComponentModel.translateIdToLanguage(orderSource)}">
+												French </span> <span class="mr-3 job-alerts-lang"
+												th:text="${@ClientComponentModel.translateIdToLanguage(orderSource)}">
+												English </span>
+										</div>
+									</div>
+									<h2 class="job-alert-card-body-title mb-4"
+										th:text="${opDeliveryDetails.workOrder.workTitle}">Translate
+										Physics textbook from English Languague to French</h2>
+
+									<div class="job-alerts-footer">
+										<div class="d-flex align-items-center mb-5">
+											<div class="mr-3 d-flex">
+												<span class="material-symbols-outlined mr-2">timer</span> <span
+													th:text="${opDeliveryDetails.workOrder.duration.duration}">3
+													<span>Month(s)</span>
+												</span>
+											</div>
+											<div class="mr-3 d-flex">
+												<span class="material-symbols-outlined mr-2">attach_file</span>
+												<span
+													th:text="${@ClientComponentModel.getAttachmentForDelivery(opDeliveryDetails.workOrder.workId).size()}">4
+													<span>PDFs</span>
+												</span>
+											</div>
+											<div class="mr-3 d-flex">
+												<span class="material-symbols-outlined mr-2">payments</span>
+
+												<span>$</span><span
+													th:text="${opDeliveryDetails.workOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
+													th:text="${opDeliveryDetails.workOrder.maxAmount}">30</span>
+												</span>
+											</div>
+										</div>
+
+										<div class="mt-4">
+											<span class="inprogress-select">
+												<div class="mr-2 job-alerts-transcribing-color"></div> <span
+												th:text="${opDeliveryStatus.status}">In progress</span>
+											</span> <span class="duedate">Due on</span> <span class="duedate"
+												th:text="${opDeliveryDetails.endDate}"> October 20th</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="job-alerts">
+								<label>Deliverables</label>
+								<div class="job-alerts-card-body my-1">
+									<div class="inprogress-fhead">
+										<h1>Service</h1>
+										<h1>File</h1>
+
+									</div>
+
+									<div class="inprogress-fbody"
+										th:each="deliveryData : ${deliveryAttachmentList}">
+										<h1 class="fw-600"
+											th:text="${deliveryData.workOrderDelivery.workOrder.serviceType.typeName}">Translation</h1>
+										<h1 th:text="${deliveryData.linkMediaFile}"></h1>
+									</div>
+
+
+									<div class="flex-in">
+										<div class="totalamountforjob">
+											<span th:text="${opDeliveryDetails.amount}">$1440</span> <small>Paid</small>
+										</div>
+										<div>
+											<a
+												th:href="@{/client/details/{id}(id=${opDeliveryDetails.workOrder.workId})}"
+												class="viewjobdetails">View job details</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="job-status">
+							<div class="job-progress-status">
+								<div class="job-status-heading">
+									<span>Job Status</span>
+								</div>
+
+								<div>
+									<div class="job-status-progress">
+										<div class="circle circle-bar-II circle-completed">1</div>
+										<span>Post job</span>
+									</div>
+									<div class="job-status-progress">
+										<div class="circle circle-completed">2</div>
+										<span>Find freelancer</span>
+									</div>
+									<div class="job-status-progress">
+										<div class="circle circle-completed">3</div>
+										<span>Work in progress</span>
+									</div>
+									<div class="job-status-progress">
+										<div class="circle circle-completed">4</div>
+										<span>Review submission</span>
+									</div>
+									<div class="job-status-progress">
+										<div class="circle">5</div>
+										<span>Close job</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="freelancer-chosen">
+								<div class="job-status-heading border-0">
+									<img src="../../assets/images/profile.svg"
+										alt="freelancer-chosen" />
+									<p class="mt-3"
+										th:text="|${opDeliveryDetails.user.lastName} ${opDeliveryDetails.user.firstName}|">Michael
+										Jordan</p>
+									<p
+										th:text="${opDeliveryDetails.workOrder.serviceType.typeName}">Interpreter</p>
+										
+								</div>
+
+								<div class="progress-flex">
+									<div class="job-status-progress" style="display: inline-block;">
+										<div>Languages</div> 
+										<span th:each="language : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(opDeliveryDetails.user)}"> <span th:text="${language.languageId.language}" ></span></span>
+									</div>
+									<div class="job-status-progress">
+										<span>Projects</span> <span>140</span>
+									</div>
+
+									<!-- <div class="job-status-progress">
+										<span>Ratings</span> <span>4.5 (60 people)</span>
+									</div> -->
+									<div class="text-center">
+										<a
+											th:href="@{/clientFreelancerProfile/{id}/{user}(id=${opDeliveryDetails.workOrder.workId}, user=${opDeliveryDetails.user.username})}"
+											class="transparentBtn">Portfolio</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- logout Modal -->
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<!-- others plugins -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
+</html>

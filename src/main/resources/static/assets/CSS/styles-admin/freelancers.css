@@ -1,0 +1,76 @@
+.freelancer-statistics {
+  background-color: var(--text-white);
+  overflow-x: scroll;
+  padding: 0.8rem;
+  width: 100%;
+}
+
+#freelancer-stats-table {
+  border-spacing: 3.2rem;
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 1.5rem;
+  min-width: 192rem;
+  text-align: left;
+}
+#freelancer-stats-table thead th {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 215, 6, 0.05),
+      rgba(255, 215, 6, 0.05)
+    ),
+    #ffffff;
+  padding: 1.2rem 1rem;
+  font-size: 1.4rem;
+  font-family: var(--opensans-admin);
+}
+#freelancer-stats-table tbody td {
+  padding: 1.2rem 1rem;
+  font-size: 1.4rem;
+  color: rgba(24, 39, 58, 0.94);
+}
+#freelancer-stats-table tbody tr:nth-child(even) {
+  background-color: rgba(26, 56, 96, 0.03);
+}
+/* FREELANCER */
+.freelancer-box {
+  background-color: #fff;
+  padding: 1.6rem 0;
+  position: relative;
+}
+
+.service-offered {
+  display: flex;
+  font-size: 1.4rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem;
+  font-weight: 400;
+}
+.service-offered h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.documents-name {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.service-btn {
+  background: rgba(26, 56, 96, 0.1);
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.2rem;
+}
+#details,
+#jobs {
+  /* display: none; */
+}
+/* JOBS */
+.service-off {
+  overflow-x: scroll;
+}
+.service-offered {
+  min-width: 100rem;
+}

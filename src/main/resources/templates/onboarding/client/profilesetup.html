@@ -4,11 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="../../assets/images/ivoiceafrica logo 1.png"
-      type="image/x-icon"
-    />
     <title>Setup Profile</title>
     <link
       rel="stylesheet"
@@ -65,29 +60,24 @@
           </div>
         </div>
 
-        <div class="row mb-5">
+		 <label for="" class="mb-3 profile-label">What is your Nationality?</label>
+        <div class="row justify-content-between mb-5">
           <div class="col-lg-5 col-md-12">
-            <label for="sex" class="profile-label">Choose your sex</label>
-
-            <select class="me-3 client-sex-select" name="gender" id="sex">
-              <option>Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+            <label for="" class="label-text_accent">Country</label>
+            <input
+              type="text"
+              name="country"
+              id="fname"
+              placeholder="Ex: John"
+            />
           </div>
-        </div>
-
-        <div class="row mb-5">
           <div class="col-lg-5 col-md-12">
-            <label for="location" class="profile-label"
-              >What is your nationality?</label
-            >
+            <label for="" class="label-text_accent">Nationality</label>
             <input
               type="text"
               name="nationality"
-              id="location"
-              class="nationality"
-              placeholder="Search to find your country"
+              id="lname"
+              placeholder="Ex: Doe"
             />
           </div>
         </div>
@@ -107,6 +97,18 @@
             <input type="text" id="town" name="townVillage" />
           </div>
         </div>
+        
+         <div class="row mb-5">
+          <div class="col-lg-5 col-md-12">
+            <label for="sex" class="profile-label">Choose your sex</label>
+
+            <select class="me-3 client-sex-select" name="gender" id="sex">
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
 
         <div class="row mb-5">
           <div class="col-lg-5 col-md-12">
@@ -119,15 +121,15 @@
           <div class="col-lg-5 col-md-12">
             <label for="number" class="profile-label">Phone Number</label>
             <div class="d-flex justify-content-between">
-              <select class="client-flag-select mr-2" name="mobileNumber" id="flag">
-                <option value="selected">NGN</option>
+              <select class="client-flag-select mr-2" name="countryCode" id="flag">
+                <option value="">NGN</option>
                 <option value="">USD</option>
                 <option value="">GBP</option>
               </select>
               <input
                 type="text"
-                name="number"
-                id="number"
+                name="mobileNumber"
+                id="mobileNumber"
                 placeholder="+234 903 919 7553"
               />
             </div>

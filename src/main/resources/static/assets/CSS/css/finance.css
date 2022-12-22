@@ -13,12 +13,12 @@
 
 .finance-stats .in-account {
   border-right: 1px solid hsla(214, 57%, 24%, 0.1);
-  border-left: 1px solid hsla(214, 57%, 24%, 0.1);
-  padding: 2em 2.5em;
-  width: 25%;
+  /* border-left: 1px solid hsla(214, 57%, 24%, 0.1); */
+  padding: 4.4rem 5.6rem;
+  /* width: 25%; */
 }
 
-.finance-stats > div:first-child {
+.finance-stats > div:last-child {
   border: none;
 }
 .finance-stats > div:last-child {
@@ -49,14 +49,16 @@
 }
 .flex {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .financial-history {
   background: hsla(0, 0%, 100%, 1);
   border-radius: 1rem;
   padding: 1.6rem;
-  /* margin-right: 8.6rem; */
-  overflow-x: scroll;
+  margin-right: 8.6rem;
 }
+
 .fl__finance-box {
   padding-right: 8.7rem;
 }
@@ -78,49 +80,82 @@
 }
 
 .trans-finance-filter {
-  border: 1px solid hsla(214, 53%, 23%, 0.16);
+  border: 0.1rem solid hsla(214, 53%, 23%, 0.16);
   margin-right: 1em;
+  position: relative;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  min-width: 19rem;
+  height: 3.6rem;
+}
+.custom-select-arr {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.4rem;
+}
+.custom-select-arr-II {
+  position: absolute;
+  top: 0.3rem;
+  left: 7.8rem;
+}
+.trans-finance-filter span {
+  padding: 0.8rem 1rem 0.8rem 0.8rem;
+  height: 100%;
+  font-size: 1.4rem;
   font-weight: 600;
 }
-
-.trans-finance-filter span {
-  border-right: 1px solid hsla(214, 57%, 24%, 0.1);
-  padding: 0.6rem 1rem 0.6rem 0.4rem;
-  font-size: 1.4rem;
-
-  font-weight: 600;
+.trans-finance-filter span:not(:last-child) {
+  border-right: 0.1rem solid hsla(214, 57%, 24%, 0.1);
 }
 .trans-finance-filter select {
-  /* padding: 1.6rem; */
   border: none;
   font-size: 1.4rem;
+  cursor: pointer;
   font-weight: 600;
+  appearance: none;
+  position: relative;
   background: none;
-  padding: 0.6rem 1rem;
+  color: inherit;
+  padding: 0.6rem 1.8rem 0.6rem 0.6rem;
+}
+.trans-finance-filter select option {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.trans-finance-filter select:last-child {
+  padding: 0.6rem 1.2rem 0.6rem 0.6rem;
 }
 
+.border-left {
+  border-left: 0.1rem solid hsla(214, 57%, 24%, 0.1);
+}
 .withdraw-btn {
   display: inline-block;
   padding: 0.8rem 2.4rem;
   border: none;
   border-radius: 5px;
   font-size: 1.6rem;
-  background: hsla(14, 99%, 56%, 1);
+  background: #e14c29;
   color: hsla(0, 0%, 100%, 1);
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.withdraw-btn:hover {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    #e14c29;
 }
 .finance {
-  min-width: 103rem;
-  /* margin: 4.8rem 0; */
-  /* padding-top: 6rem; */
   overflow-x: scroll;
 }
 .finance-stats-table {
   border-collapse: collapse;
-
-  /* z-index: -4; */
-  /* overflow: hidden; */
+  min-width: 102rem;
   width: 100%;
-  box-shadow: 0 0 20px hsla(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem hsla(0, 0, 0, 0.15);
 }
 
 .finance-stats-table thead tr {
@@ -133,20 +168,21 @@
 }
 .finance-stats-table th,
 .finance-stats-table td {
-  padding: 16px 15px;
+  padding: 1.6rem 1.5rem;
 }
 
 .finance-stats-table tbody tr {
-  border-bottom: 1px solid hsla(214, 57%, 24%, 0.1);
+  border-bottom: 0.1rem solid hsla(214, 57%, 24%, 0.1);
 }
 
-.finance-stats-table tbody tr > td:first-child {
+.finance-stats-table tbody tr > td {
   font-family: 'Open Sans';
   font-weight: 400;
   font-size: 1.6rem;
+  color: inherit;
 }
 
-.finance-stats-table tbody tr > td:nth-child(even) {
+.finance-stats-table tbody tr > td:nth-child(3) {
   font-family: 'Open Sans';
   font-weight: 600;
   font-size: 1.6rem;

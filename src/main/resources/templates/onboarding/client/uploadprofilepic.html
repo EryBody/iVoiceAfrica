@@ -18,38 +18,40 @@
 </head>
 <body>
 
-	 <form class="form-section" th:action="@{/client/profilePicture/save}" th:object="${ClientProfilePictureDTO}" method="post">
-	<section class="form-section">
-		<div class="form-header">
-			<img src="../../assets/images/ivoiceafrica logo 3.png" alt="logo" />
-			<h2 class="form-header-title">Add a profile picture</h2>
-			<p class="form-header-text">
-				It’ll take only 3 minutes to set up your profile. Don’t worry, your
-				progress is<br /> being saved as you go on.
-			</p>
-		</div>
-
-		<div class="form active-card">
-			<div class="client-upload">
-				<img src="../../assets/icons/client-person-icon.svg"
-					alt="profile-picture" class="profile-picture"
-					id="img_urlfreelancer" /> <input type="file"
-					name="profilePicture" id="img_fl" accept="image/png, image/jpeg"
-					style="display: none" onChange="img_pathUrl_fl(this);" />
-				<label for="img_fl"> <img
-					src="../../assets/icons/add_profile_photobtn.svg" alt="file-upload"
-					class="file-upload" />
-				</label>
+	<form class="form-section" th:action="@{/client/profilePicture/save}"
+		th:object="${ClientProfilePictureDTO}" method="post"
+		enctype="multipart/form-data">
+		<section class="form-section">
+			<div class="form-header">
+				<img src="../../assets/images/ivoiceafrica logo 3.png" alt="logo" />
+				<h2 class="form-header-title">Add a profile picture</h2>
+				<p class="form-header-text">
+					It’ll take only 3 minutes to set up your profile. Don’t worry, your
+					progress is<br /> being saved as you go on.
+				</p>
 			</div>
 
-			<div class="services-offer-btn">
-				<a id="formBtn-prev" href="profilesetup.html"
-					class="button btn-service"> Back </a>
+			<div class="form active-card">
+				<div class="client-upload">
+					<img src="../../assets/icons/client-person-icon.svg"
+						alt="profile-picture" class="profile-picture"
+						id="img_urlfreelancer" /> <input type="file"
+						name="profilePicture" id="img_fl" accept="image/png, image/jpeg"
+						style="display: none" onChange="img_pathUrl_fl(this);" /> <label
+						for="img_fl"> <img
+						src="../../assets/icons/add_profile_photobtn.svg"
+						alt="file-upload" class="file-upload" />
+					</label>
+				</div>
+
+				<div class="services-offer-btn">
+					<a id="formBtn-prev" th:href="@{/client-profile-setup}"
+						class="button btn-service"> Back </a>
 
 
-				<button class="button" type="submit">Finish</button>
+					<button class="button" type="submit">Finish</button>
 
-				<!--  <button
+					<!--  <button
             class="button"
             type="submit"
             data-bs-toggle="modal"
@@ -58,9 +60,9 @@
             Finish
           </button> -->
 
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 	</form>
 	<div class="modal fade" id="myModal-3">
 		<div class="modal-dialog modal-dialog-centered">

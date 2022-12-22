@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Applied Jobs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <!-- modernizr css -->
+    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+
+      <div class="overlay"></div>
+      
+      <!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+      <div class="main">
+        <div class="main__headerbox">
+          <div class="job-alerts-header">
+            <h1>Job Alerts</h1>
+            <div>
+              <a
+                href="jobalerts.html"
+                class="job-alerts-heading-btn_accent job-alerts-heading-btn mr-3"
+              >
+                All</a
+              >
+              <a
+                href="appliedjob.html"
+                class="job-alerts-heading-btn job-alerts-heading-btn"
+              >
+                Applied</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- job alerts area start -->
+        <div class="main__contentbox finished-job-overview">
+          <div class="job-alerts mt-5">
+            <div class="job-alerts-card-body my-3">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <div class="griddy">
+                  <span class="mr-3 job-alerts-translation">
+                    <div
+                      class="mr-2 job-alerts-service-translation-color"
+                    ></div>
+                    Translation
+                  </span>
+                  <span class="mr-3 job-alerts-lang"> French </span>
+                  <span class="mr-3 job-alerts-lang"> English </span>
+                </div>
+                <span class="text-muted">Closed</span>
+              </div>
+              <h2 class="job-alert-card-body-title mb-3">
+                Translate Physics textbook from English Languague to French
+              </h2>
+              <div class="job-alerts-footer">
+                <div class="alerts-job-footer mb-3">
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">savings</span>
+                    <span>$20 -$30 <span>per page</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2"
+                      >attach_file</span
+                    >
+                    <span>4 <span>PDFs</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">timer</span>
+                    <span>3 days</span>
+                  </div>
+                </div>
+                <div class="job-alert-service-time">
+                  <span>19th September</span>
+                  <div></div>
+                  <p>Client has found another freelancer for this job</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-alerts">
+            <div class="job-alerts-card-body my-3">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <div class="griddy">
+                  <span class="mr-3 job-alerts-voiceover">
+                    <div class="mr-2 job-alerts-voiceover-color"></div>
+                    Voice-over
+                  </span>
+                  <span class="mr-3 job-alerts-lang"> French </span>
+                  <span class="mr-3 job-alerts-lang"> English </span>
+                </div>
+                <span class="text-success">In progress</span>
+              </div>
+              <h2 class="job-alert-card-body-title mb-3">
+                Translate Physics textbook from English Languague to French
+              </h2>
+              <div class="job-alerts-footer">
+                <div class="alerts-job-footer mb-3">
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">savings</span>
+                    <span>$20 -$30 <span>per page</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2"
+                      >attach_file</span
+                    >
+                    <span>4 <span>PDFs</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">timer</span>
+                    <span>3 days</span>
+                  </div>
+                </div>
+                <div class="job-alert-service-time">
+                  <span>17th September</span>
+                  <div></div>
+                  <p>Client has found another freelancer for this job</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-alerts">
+            <div class="job-alerts-card-body my-3">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <div class="griddy">
+                  <span class="mr-3 job-alerts-voiceover">
+                    <div class="mr-2 job-alerts-voiceover-color"></div>
+                    Voice-over
+                  </span>
+                  <span class="mr-3 job-alerts-lang"> French </span>
+                  <span class="mr-3 job-alerts-lang"> English </span>
+                </div>
+                <span class="text-success">In progress</span>
+              </div>
+              <h2 class="job-alert-card-body-title mb-3">
+                Translate Physics textbook from English Languague to French
+              </h2>
+              <div class="job-alerts-footer">
+                <div class="alerts-job-footer mb-3">
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">savings</span>
+                    <span>$20 -$30 <span>per page</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2"
+                      >attach_file</span
+                    >
+                    <span>4 <span>PDFs</span></span>
+                  </div>
+                  <div class="mr-3 d-flex">
+                    <span class="material-symbols-outlined mr-2">timer</span>
+                    <span>3 days</span>
+                  </div>
+                </div>
+                <div class="job-alert-service-time">
+                  <span>17th September</span>
+                  <div></div>
+                  <p>Client is considering your application</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="job-alerts">
+              <div class="job-alerts-card-body my-3">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-4"
+                >
+                  <div class="griddy">
+                    <span class="mr-3 job-alerts-voiceover">
+                      <div class="mr-2 job-alerts-voiceover-color"></div>
+                      Voice-over
+                    </span>
+                    <span class="mr-3 job-alerts-lang"> French </span>
+                    <span class="mr-3 job-alerts-lang"> English </span>
+                  </div>
+                  <span class="text-success">Approved</span>
+                </div>
+                <h2 class="job-alert-card-body-title mb-3">
+                  Translate Physics textbook from English Languague to French
+                </h2>
+                <div class="job-alerts-footer">
+                  <div class="alerts-job-footer mb-3">
+                    <div class="mr-3 d-flex">
+                      <span class="material-symbols-outlined mr-2"
+                        >savings</span
+                      >
+                      <span>$20 -$30 <span>per page</span></span>
+                    </div>
+                    <div class="mr-3 d-flex">
+                      <span class="material-symbols-outlined mr-2"
+                        >attach_file</span
+                      >
+                      <span>4 <span>PDFs</span></span>
+                    </div>
+                    <div class="mr-3 d-flex">
+                      <span class="material-symbols-outlined mr-2">timer</span>
+                      <span>3 days</span>
+                    </div>
+                  </div>
+                  <div class="job-alert-service-time">
+                    <span>2 Weeks ago</span>
+                    <div></div>
+                    <p>Client is considering your application</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- </div> -->
+    </div>
+    <!-- </div> -->
+
+    <!-- jquery latest version -->
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- others plugins -->
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+  </body>
+</html>

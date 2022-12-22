@@ -1,20 +1,36 @@
 package com.ivoiceafrica.ivoiceafrica.controller;
 
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientSignupDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerSignupDTO;
 
 @Controller
 public class AuthenticationController {
-
+	
 	
 	@GetMapping({"/", "/index"})
 	public String root() {
 		return "index";
+	}
+
+	@GetMapping("/signin")
+	public String signin(Model model) {
+		return "onboarding/client/sign-in";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/landing-page")
+	public String landingPage() {
+		return "landingpage";
 	}
 	
 	@GetMapping("/logout")
@@ -22,9 +38,9 @@ public class AuthenticationController {
 		return "logout";
 	}
 	
-	@GetMapping("/signin")
-	public String signin() {
-		return "onboarding/client/sign-in";
+	@GetMapping("/mainpage")
+	public String mainpage() {
+		return "onboarding/mainpage";
 	}
 	
 	//Clients

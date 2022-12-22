@@ -87,6 +87,14 @@ public class ServiceTypePricing {
 	public void setFreelancerServicePricings(Set<FreelancerServicePricing> freelancerServicePricings) {
 		this.freelancerServicePricings = freelancerServicePricings;
 	}
+
+	@Override
+	public String toString() {
+		return "ServiceTypePricing [pricingId=" + pricingId + ", pricingType=" + pricingType + ", serviceType="
+				+ serviceType + "]";
+	}
+
 	
 	
+
 }

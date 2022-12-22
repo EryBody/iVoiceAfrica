@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+<body>
+	<div class="admin-overview">
+	
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Freelancer</h1>
+				</div>
+				
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+				
+			</div>
+			<div class="admin-contentbox">
+				<div class="freelancer-box">
+					<div class="arr-back">
+						<a href="freelancers.html"> <img
+							src="../../../../assets/images/admin-imgs/lessthan.svg"
+							alt="less than arrow" />
+						</a>
+					</div>
+					<div class="adminUtil-user-header">
+						<img src="../../../../assets/images/admin-imgs/femi.svg"
+							alt="A picture of femi" />
+
+						<div class="adminUtil-user-details">
+							<h1>Freelancer ID: 089456765</h1>
+							<span>Micheal Jordan</span>
+							<p>Last Login: Today, 2:37 PM</p>
+						</div>
+
+						<div class="adminUtil-user-cta">
+							<button>
+								<span> Block</span> <img
+									src="../../../../assets/images/admin-imgs/cancel.svg"
+									alt="
+                cancel" />
+							</button>
+							<button>
+								<span> Suspend</span> <img
+									src="../../../../assets/images/admin-imgs/halt.svg"
+									alt="Suspend" />
+							</button>
+						</div>
+					</div>
+					<div class="adminUtil-user-menu">
+						<span class="active-freelancer" id="details">Details</span> <span
+							id="jobs">Jobs</span> <span id="transactions">Transactions</span>
+					</div>
+					<!--  -->
+					<div class="adminUtil-info">
+						<div class="details-box clientdetailsbox" id="details">
+							<div class="info-header">
+								<h2>Basic Information</h2>
+							</div>
+							<div class="info">
+								<span class="info-title">Name</span>
+								<p>Micheal Jordan</p>
+							</div>
+							<div class="info">
+								<span class="info-title">ID</span>
+								<p class="id">089456765</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Sex</span>
+								<p>Female</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Phone Number</span>
+								<p class="id green">+234 903 918 7653</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Email</span>
+								<p class="green">michealdjordan@gmail.com</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Postal code</span>
+								<p>004875</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Street address</span>
+								<p>2,Oge Street</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Town</span>
+								<p>Ikeja</p>
+							</div>
+							<div class="info">
+								<span class="info-title">State</span>
+								<p>Lagos</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Country of
+									<br /> residence
+								</span>
+								<p>Nigeria</p>
+							</div>
+							<div class="info-header">
+								<h2>Services</h2>
+							</div>
+							<div class="service-off">
+								<div class="service-offered">
+									<h1>Translation</h1>
+									<p>$2 per word</p>
+
+									<div class="services-languages">
+										<button class="service-btn">Yoruba</button>
+										<button class="service-btn">French</button>
+										<button class="service-btn">Hausa</button>
+									</div>
+									<div class="documents-name">
+										<p>Relevant Documents</p>
+										<img src="../../../../assets/images/admin-imgs/dankarrow.svg"
+											alt="dark arrow" />
+									</div>
+									<span class="green"> Portfolio <img
+										src="../../../../assets/images/greenarr.svg" alt="green arrow" />
+									</span>
+								</div>
+								<div class="service-offered">
+									<h1>Translation</h1>
+									<p>$2 per word</p>
+
+									<div class="services-languages">
+										<button class="service-btn">Yoruba</button>
+										<button class="service-btn">French</button>
+										<button class="service-btn">Hausa</button>
+									</div>
+									<div class="documents-name">
+										<p>Relevant Documents</p>
+										<img src="../../../../assets/images/admin-imgs/dankarrow.svg"
+											alt="dark arrow" />
+									</div>
+									<span class="green"> Portfolio <img
+										src="../../../../assets/images/greenarr.svg" alt="green arrow" />
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- JOBS SECTION -->
+						<div class="jobs clientsjobsbox">
+							<div class="info-header">
+								<h2>Job summary</h2>
+							</div>
+
+							<div class="info">
+								<span class="info-title">In Account</span>
+								<p>$230</p>
+							</div>
+							<div class="info">
+								<span class="info-title">In Escrow</span>
+								<p>$350</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Total</span>
+								<p>$580</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Withdrawals</span>
+								<p>$12,000</p>
+							</div>
+							<div class="info random-m">
+								<span class="info-title">Total Earnings</span>
+								<p>$13,160</p>
+							</div>
+							<div class="info-header">
+								<h2>Activity</h2>
+							</div>
+							<div class="jobs-cta">
+								<div class="jobs-cta-header">
+									<p class="light-text">Filter by:</p>
+									<div class="job-cta-option">
+										<p>Service type</p>
+										<div>
+											<p>All</p>
+											<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+												alt="drop down icon" />
+										</div>
+									</div>
+									<div class="job-cta-option">
+										<p>Job Status</p>
+										<div>
+											<p>All</p>
+											<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+												alt="drop down icon" />
+										</div>
+									</div>
+								</div>
+								<div class="job-search">
+									<label class="light-text" id="job-search">Search:</label>
+									<div class="search">
+										<img src="../../../../assets/images/admin-imgs/li.svg"
+											alt="search icon" /> <input
+											type="text" name="Id" id="job-search"
+											placeholder="Search Job ID" />
+									</div>
+								</div>
+								<div class="util-cta-table">
+									<table id="cta-table">
+										<thead>
+											<tr>
+												<th>Job ID</th>
+												<th>Service type</th>
+												<th>Job status</th>
+												<th>Payment status</th>
+												<th>Client ID</th>
+												<th>Amount</th>
+												<th>Start time</th>
+												<th>Deadline</th>
+												<th>Submission time</th>
+												<th>Delivery Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="id">00032356679849</td>
+												<td>Translation</td>
+												<td>In progress</td>
+												<td>In Escrow</td>
+												<td class="id green">00032356679849</td>
+												<td>$700</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>28 September 2021, 9:23PM</td>
+												<td>In Review</td>
+											</tr>
+											<tr>
+												<td class="id">00032356679849</td>
+												<td>Translation</td>
+												<td>In progress</td>
+												<td>In Escrow</td>
+												<td class="id green">00032356679849</td>
+												<td>$700</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>28 September 2021, 9:23PM</td>
+												<td>In Review</td>
+											</tr>
+											<tr>
+												<td class="id">00032356679849</td>
+												<td>Translation</td>
+												<td>In progress</td>
+												<td>In Escrow</td>
+												<td class="id green">00032356679849</td>
+												<td>$700</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>2 March 2021, 4:18pm</td>
+												<td>28 September 2021, 9:23PM</td>
+												<td>In Review</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<!-- ///// -->
+
+						<!-- TRANSACTIONS -->
+						<div id="transactions" class="client-transaction-box">
+							<div class="info-header">
+								<h2>Transaction summary</h2>
+							</div>
+							<div class="info">
+								<span class="info-title">Active Jobs</span>
+								<p>2</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Completed Jobs</span>
+								<p>30</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Pending <br />
+									proposals
+								</span>
+								<p>2</p>
+							</div>
+							<div class="info random-m">
+								<span class="info-title">Sent proposals</span>
+								<p>40</p>
+							</div>
+
+							<div class="info-header">
+								<h2>Activity</h2>
+							</div>
+							<div class="jobs-cta-header">
+								<p class="light-text">Filter by:</p>
+								<div class="job-cta-option">
+									<p>Service type</p>
+									<div>
+										<p>All</p>
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="drop down icon" />
+									</div>
+								</div>
+								<div class="job-cta-option">
+									<p>Job Status</p>
+									<div>
+										<p>All</p>
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="drop down icon" />
+									</div>
+								</div>
+							</div>
+							<div class="job-search">
+								<label class="light-text" id="job-search">Search:</label>
+								<div class="search">
+									<img src="../../../../assets/images/admin-imgs/li.svg"
+										alt="search icon" /> <input type="text"
+										name="Id" id="job-search" placeholder="Search Job ID" />
+								</div>
+							</div>
+							<div class="util-cta-table">
+								<table id="cta-table">
+									<thead>
+										<tr>
+											<th>Job ID</th>
+											<th>Service type</th>
+											<th>Job status</th>
+											<th>Payment status</th>
+											<th>Client ID</th>
+											<th>Amount</th>
+											<th>Start time</th>
+											<th>Deadline</th>
+											<th>Submission time</th>
+											<th>Delivery Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="id">00032356679849</td>
+											<td>Translation</td>
+											<td>In progress</td>
+											<td>In Escrow</td>
+											<td class="green" class="id">00032356679849</td>
+											<td>$700</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>28 September 2021, 9:23PM</td>
+											<td>In Review</td>
+										</tr>
+										<tr>
+											<td class="id">00032356679849</td>
+											<td>Translation</td>
+											<td>In progress</td>
+											<td>In Escrow</td>
+											<td class="green" class="id">00032356679849</td>
+											<td>$700</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>28 September 2021, 9:23PM</td>
+											<td>In Review</td>
+										</tr>
+										<tr>
+											<td class="id">00032356679849</td>
+											<td>Translation</td>
+											<td>In progress</td>
+											<td>In Escrow</td>
+											<td class="green" class="id">00032356679849</td>
+											<td>$700</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>2 March 2021, 4:18pm</td>
+											<td>28 September 2021, 9:23PM</td>
+											<td>In Review</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -83,16 +83,16 @@
               <label for="street" class="label-text_accent"
                 >Street address</label
               >
-              <input type="text" name="address" id="address" />
+              <input type="text" name=streetAddress id="address" />
             </div>
 
             <div class="col-lg-5 mb-3 mb-sm-5">
               <label for="town" class="label-text_accent">Town/ Village</label>
-              <input type="text" name="town" id="town" />
+              <input type="text" name="townVillage" id="town" />
             </div>
             <div class="col-lg-5 mb-5">
               <label for="postal" class="label-text_accent">Postal code</label>
-              <input type="text" name="town" id="postal" required />
+              <input type="text" name="postalCode" id="postal" required />
             </div>
           </div>
           <div class="freelancer-details">
@@ -110,16 +110,16 @@
             <div class="col-sm-12 col-lg-5">
               <label for="number">Phone Number</label>
               <div class="d-flex justify-content-between">
-                <select class="me-3 client-flag-select" name="phoneNumber" id="flag">
-                  <option value="selected">NGN</option>
-                  <option value="">USD</option>
-                  <option value="">GBP</option>
+                <select class="me-3 client-flag-select" name="countryCode" id="flag">
+                  <option value="NGN">NGN</option>
+                  <option value="USD">USD</option>
+                  <option value="GBP">GBP</option>
                 </select>
                 <input
                   type="text"
-                  name="number"
+                  name="mobileNumber"
                   id="number"
-                  placeholder="+234 903 919 7553"
+                  placeholder="Mobile Number"
                 />
               </div>
             </div>

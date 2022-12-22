@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+	  <link
+       rel="shortcut icon"
+       href="../../assets/icons/fav.png"
+       type="image/x-icon"
+     />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="activejobs-heading profile-header main__headerbox w-100">
+				<div class="bidheader">
+					<a href="clientbids.html" style="color: inherit"
+						class="header-link">
+						<h1>Bids</h1>
+					</a>
+					<h2>Freelancer</h2>
+					<h3>Micheal Jordan</h3>
+				</div>
+			</div>
+
+			<div class="main__contentbox profile-box">
+				<div class="arrow-back-II">
+					<a href="clientbids.html"> <img
+						src="../../assets/icons/arrow_back_link.svg" alt="arrow_back_link" />
+					</a>
+				</div>
+
+				<div class="profile-c">
+					<div class="arrow-back-II">
+						<a
+							th:href="@{/client/bidsdetails/{id}(id=${workOrderDetails?.workId})}">
+							<img src="../../assets/icons/arrow_back_link.svg"
+							alt="arrow_back_link" />
+						</a>
+					</div>
+				</div>
+				<div class="mt-4">
+					<div class="profile-info">
+						<img src="../../assets/images/profile_bg_img.jpg" alt="profile-bg"
+							class="profile-bg" />
+						<div class="profile-details">
+							<img src="../../assets/images/profile_big.svg" alt=""
+								class="profile-pic" />
+							<p class="profilename mb-1"
+								th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael
+								Jordan</p>
+							<p class="profile-headline mb-3" th:text="${userDetails.summary}">I
+								am a voice-over artist looking for freelance opportunities</p>
+							<div class="mb-2">
+								<span class="location-icon mr-3"><img
+									src="../../assets/icons/location.svg" alt="" /></span> <span
+									class="location" th:text="${userDetails.address}">Lagos,
+									Nigeria</span>
+							</div>
+							<div class="mb-2">
+								<span class="mr-3"><img
+									src="../../assets/icons/dateofentry.svg" alt="" /></span> <span
+									class="dateofentry" th:text="${userDetails.country}">Member
+									Since May, 2022</span>
+							</div>
+							<div class="mb-4">
+								<span class="location-icon mr-3"> <img
+									src="../../assets/icons/completed_project.svg" alt="" />
+								</span> <span class="completedproject">Completed many successful
+									projects on IVoice Africa</span>
+							</div>
+							<button class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
+								data-toggle="modal" data-target="#hireFreelancer">Hire</button>
+
+							<!-- <button class="uploadbtn hire-btn mt-2 mb-5 clientrequesteditBtn">
+								Hire</button> -->
+						</div>
+					</div>
+
+
+					<div class="profile-services">
+						<label for="" class="profile-service-label">Services</label>
+
+						<div class="service-rendered"
+							th:each="service : ${servicesRendered}">
+							<div class="d-flex align-items-center mb-4 griddy">
+								<span class="service" th:text="${service.serviceType.typeName}">Translation</span>
+								<div class="grey-dot ml-4"></div>
+								<span class="experience mr-4"> <span
+									th:text=${service.experienceInYears}>4</span> years Experience
+								</span>
+								<div class="grey-dot"></div>
+
+								<span class="charge"
+									th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, userDetails.username)}">$
+									<span
+									th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">20</span>
+									<span>-</span> $ <span
+									th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
+								</span>
+							</div>
+
+							<div class="d-flex align-items-center justify-content-between">
+								<div class="griddy"
+									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
+									<span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"
+										th:text="${freelancerLanguage.languageId.language}">
+										English </span>
+
+								</div>
+								<span class="portfolio-link"> <a
+									th:href="${service.otherInfo}" target="_blank"
+									style="color: inherit">Portfolio</a> <img
+									src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
+
+								</span>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- <div class="selected-project profile-services">
+						<label for="" class="profile-service-label">Selected
+							Projects</label>
+						<div class="mt-2" id="attachmentConten">
+							<div class="job-attc">
+								<img src="../../assets/icons/vscode-icons_file-type.svg"
+									alt="file-icon" />
+								<div class="ml-3">
+									<p>Physics textbook in French (01).pdf</p>
+									<p>This file is to be translated to an English version</p>
+									<p>Uploaded 3 hours ago</p>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+					<!-- 					<div class="client-review profile-services">
+						<label for="" class="profile-service-label mb-3">Client
+							Reviews</label>
+						<p class="client-totalreview">40 Reviews</p>
+
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+
+						<a href="#" class="more-reviews">See all
+							Reviews <span><img
+								src="../../assets/icons/arrow_right.svg" alt="" /></span>
+						</a>
+					</div>
+					 -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- logout Modal -->
+	<div class="modal fade" id="hireFreelancer" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+
+			<form th:action="@{/client/amount/set-job-amount}"
+				th:object="${clientAmountDTO}" method="post">
+
+				<div class="modal-content logoutModal">
+					<div class="modal-header">
+
+						<p class="modal-title" id="logoutModalLabel">Are you sure you
+							want to hire a freelancer?</p>
+					</div>
+
+					<div class="modal-body">
+						<div class="input-group mb-4">
+							<input type="hidden" name="workOrderID"
+								th:value="${workOrderDetails?.workId}" /> <input
+								type="hidden" name="userID" th:value="${userDetails.username}" />
+							<input type="text" placeholder="Fix in amount for job"
+								name="clientAmount" id="clientAmount" style="font-size: 25px;" />
+						</div>
+					</div>
+
+					<div class="modal-footer logoutModal-footer">
+						<button type="submit" class="transparentBtn">Hire</button>
+						<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+							Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<!-- others plugins -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+	<script>
+		/* $(document).ready(function() {
+
+			var url = window.location
+
+			 function submitClientAmount() {
+				var action_url = "/client/clientAmount";
+
+				console.log("action_url: "+action_url)
+			
+				$.ajax({
+					url : action_url,
+					type : 'post',
+					method : 'post',
+					async : false,
+					data : $("#clientAmountForm").serialize(),
+					success : function(data) {
+
+						alert(data);
+						console.log("===>>> data: " + data)
+					},
+					error : function(xhr, status, error) {
+						console.log("error " + error);
+					}
+				});
+
+			}
+
+			function resetField() {
+				$("clientAmount").val("");
+			}
+		});
+
+		function reloadLoanTimeOut() {
+			setTimeout(function() {
+				location.reload();
+			}, 3000);
+		}; */
+	</script>
+</body>
+</html>

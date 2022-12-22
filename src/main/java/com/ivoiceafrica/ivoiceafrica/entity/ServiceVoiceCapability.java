@@ -29,19 +29,19 @@ public class ServiceVoiceCapability {
     @JoinColumn(name = "render_id")
     private ServiceRendered serviceRendered;
 	
-    @Column(name = "v_capability")
-    private String vCapability;
+    @Column(name = "other_info")
+    private String otherInfo;
 	
 	public ServiceVoiceCapability() {
 		
 	}
 
 	public ServiceVoiceCapability(String vcId, VoiceCapability voiceCapability, ServiceRendered serviceRendered,
-			String vCapability) {
+			String otherInfo) {
 		this.vcId = vcId;
 		this.voiceCapability = voiceCapability;
 		this.serviceRendered = serviceRendered;
-		this.vCapability = vCapability;
+		this.otherInfo = otherInfo;
 	}
 
 	public String getVcId() {
@@ -68,12 +68,12 @@ public class ServiceVoiceCapability {
 		this.serviceRendered = serviceRendered;
 	}
 
-	public String getvCapability() {
-		return vCapability;
+	public String getOtherInfo() {
+		return otherInfo;
 	}
 
-	public void setvCapability(String vCapability) {
-		this.vCapability = vCapability;
+	public void setOtherInfo(String otherInfo) {
+		this.otherInfo = otherInfo;
 	}
 
 	

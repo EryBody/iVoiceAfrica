@@ -1,0 +1,10 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<a th:href="@{/admin-profile}" class="admin__header-details"
+	th:fragment="admin-user-header"> 
+	<img
+	src="../../../../assets/images/admin-imgs/sandra.svg"
+	alt="A woman smiling" />
+	<p th:text="${session.userId}">sandra.admin@iVoice.org</p>
+</a>
+</html>

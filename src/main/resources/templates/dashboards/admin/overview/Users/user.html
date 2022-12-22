@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+
+<body>
+	<div class="admin-overview">
+	
+	
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">User</h1>
+				</div>
+				
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+				
+			</div>
+			<div class="admin-contentbox">
+				<div class="client-box">
+					<a href="users.html" class="arr-back"> <img
+						src="../../../../assets/images/admin-imgs/lessthan.svg"
+						alt="less than arrow" />
+					</a>
+					<div class="adminUtil-user-header random-m">
+						<img src="../../../../assets/images/admin-imgs/femi.svg"
+							alt="A picture of femi" />
+
+						<div class="adminUtil-user-details">
+							<h1>User ID: 089456765</h1>
+							<span>Micheal Jordan</span>
+							<p>Last Login: Today, 2:37 PM</p>
+						</div>
+
+						<div class="adminUtil-user-cta">
+							<button>
+								<span> Block</span> <img
+									src="../../../../assets/images/admin-imgs/cancel.svg"
+									alt="
+                cancel" />
+							</button>
+							<button>
+								<span> Suspend</span> <img
+									src="../../../../assets/images/admin-imgs/halt.svg"
+									alt="Suspend" />
+							</button>
+						</div>
+					</div>
+
+					<!-- DETAILS CLIENTS -->
+					<div class="clientdetailsbox mt-4">
+						<div class="adminUtil-info">
+							<div class="info-header">
+								<h2>Basic Information</h2>
+							</div>
+
+							<div class="info">
+								<span class="info-title">Name</span>
+								<p>Micheal Jordan</p>
+							</div>
+
+							<div class="info">
+								<span class="info-title">ID</span>
+								<p class="id">006456725</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Sex</span>
+								<p>Male</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Phone number</span>
+								<p class="id green">+233 903 918 7653</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Email</span>
+								<p class="green">michealdjordan@gmail.com</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Postal code</span>
+								<p>004875</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Street address</span>
+								<p>2,Oge Street</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Town</span>
+								<p>Ikeja</p>
+							</div>
+							<div class="info">
+								<span class="info-title">State</span>
+								<p>Lagos</p>
+							</div>
+							<div class="info random-m">
+								<span class="info-title">Country of
+									<br /> residence
+								</span>
+								<p>Nigeria</p>
+							</div>
+						</div>
+
+						<div class="info-header">
+							<h2>Basic Information</h2>
+						</div>
+						<div class="activity">
+							<span class="S-date">Today </span>
+							<div class="info">
+								<span class="info-title">8:12 AM</span>
+								<p>
+									Blocked <span class="green"> F-ID-89456765</span>
+								</p>
+							</div>
+							<div class="info">
+								<span class="info-title">8:12 AM</span>
+								<p>
+									Blocked <span class="green"> F-ID-89456765</span>
+								</p>
+							</div>
+						</div>
+						<div class="activity">
+							<span class="S-date">October 13 2022,</span>
+							<div class="info">
+								<span class="info-title">4:00 PM</span>
+								<p>Logged out of account</p>
+							</div>
+							<div class="info">
+								<span class="info-title">3:42 PM</span>
+								<p>
+									Blocked Forwarded <span class="green"> JD-94356765</span> to <span
+										class="green"> F-ID-89456765 </span> , <span class="green">
+										F-ID-89786769 </span> , <span class="green"> F-ID-89456765 </span> ,
+									<span class="green"> F-ID-89786769 </span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

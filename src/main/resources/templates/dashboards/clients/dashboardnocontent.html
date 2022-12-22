@@ -5,9 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Job Alerts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/CSS/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/CSS/css/metisMenu.css" />
-    <link rel="stylesheet" href="assets/CSS/css/slicknav.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/icons/fav.png"
+      type="image/x-icon"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
@@ -20,13 +25,13 @@
       media="all"
     />
     <!-- others css -->
-    <link rel="stylesheet" href="assets/CSS/css/typography.css" />
-    <link rel="stylesheet" href="assets/CSS/css/default-css.css" />
-    <link rel="stylesheet" href="assets/CSS/css/styles.css" />
-    <link rel="stylesheet" href="assets/CSS/css/responsive.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
     <!-- modernizr css -->
-    <script src="assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="assets/JS/js/scripts.js" defer></script>
+    <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
   </head>
 
   <body>
@@ -38,332 +43,374 @@
     <div class="page-container">
       <!-- Header area start -->
 
-      <div class="header-area">
-        <div class="row">
-          <div
-            class="sidebar-header col-md-2 col-lg-2 col-sm-4 d-flex align-items-center"
-          >
-            <div class="nav-btn pull-left">
-              <img src="assets/icons/menu-open.svg" alt="menu-open" />
-            </div>
-            <div class="ml-5 logo">
-              <a href="dashboard.html"
-                ><img src="assets/images/ivoiceafrica logo 1.png" alt="logo"
-              /></a>
+      <div class="overlay"></div>
+      <div class="header d-flex justify-content-between">
+        <div class="header__sidenav">
+          <div class="menu-icon" id="icon-menu">
+            <img src="../../assets/images/options.svg" alt="options-icon" />
+          </div>
+          <img
+            src="../../assets/images/ivoiceafrica logo 1.png"
+            alt="ivoice logo"
+            class="ivoice-logo"
+          />
+        </div>
+
+        <div class="header__icons">
+          <a href="clientnotification.html">
+            <img
+              src="../../assets/images/notif.svg"
+              alt="bell icon"
+              class="bell-icon"
+            />
+          </a>
+          <div class="profile">
+            <img
+              src="../../assets/images/pro.svg"
+              class="profile-circle"
+              alt="profile circle"
+            />
+
+            <div class="profile__modal">
+              <img src="../../assets/images/propic.png" alt="profile picture" />
+              <div class="profile__header">
+                <h1>Bukola Adesina</h1>
+                <p>Freelancer</p>
+              </div>
+              <div class="profile__statuses">
+                <p class="active-stat">Available</p>
+                <p class="away-status">Away</p>
+                <p class="busy-status">Busy</p>
+              </div>
+              <div class="profile__settings">
+                <span>
+                  <img
+                    src="../../assets/images/pro1.svg"
+                    alt="profile card icon"
+                  />
+                  Profile
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro2.svg"
+                    alt="profile card icon"
+                  />
+                  Change Password
+                </span>
+                <span>
+                  <img
+                    src="../../assets/images/pro3.svg"
+                    alt="profile card icon"
+                  />
+                  Logout
+                </span>
+              </div>
             </div>
           </div>
-          <!-- Searchbar and notification start -->
-          <div
-            class="col-md-8 col-sm-4 col-lg-10 clearfix d-flex align-items-center justify-content-between"
-          >
-            <div class="search-box pull-left col-lg-6">
-              <form action="#">
-                <i class="ti-search"></i>
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Search..."
-                  required
-                />
-              </form>
-            </div>
+        </div>
+      </div>
 
-            <div class="clearfix col-lg-4">
-              <div
-                class="notification-area pull-right d-flex align-items-center"
-              >
-                <button class="text-center" type="button">
-                  <span class="material-symbols-outlined"> notifications </span>
-                  <p>Notifications</p>
-                </button>
-
-                <button
-                  class="text-center ml-5"
-                  type="button"
-                  id="show_modal_btn"
+      <div class="sidebar">
+        <img
+          src="../../assets/images/ivoiceafrica logo 1.png"
+          alt="ivoice logo"
+          class="smallnav-logo"
+        />
+        <ul class="metismenu sidebar__links" id="menu">
+          <li class="sidebar__link--item">
+            <a href="newrequest.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box1.png" alt="add icon" />
+              New request</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a
+              href="javascript:void(0)"
+              aria-expanded="true"
+              class="active-link nav-link"
+            >
+              <img src="../../assets/images/box2.svg" alt="add icon" />
+              Jobs</a
+            >
+            <ul class="collapse">
+              <li>
+                <a href="clientrequests.html" class="collapse-link nav-link"
+                  >Request</a
                 >
-                  <span class="material-symbols-outlined">
-                    account_circle
-                  </span>
-                  <span class="material-symbols-outlined">
-                    arrow_drop_down
-                  </span>
-                  <p>My profile</p>
-                </button>
-
-                <!-- Searchbar and notification end -->
-
-                <!-- The Freelancer's modal start -->
-                <div
-                  class="row border profile-modal profile-modal_active"
-                  id="profileModal"
+              </li>
+              <li>
+                <a href="clientbids.html" class="collapse-link">Bids</a>
+              </li>
+              <li>
+                <a href="inprogress.html" class="collapse-link nav-link"
+                  >In Progress</a
                 >
-                  <div class="col">
-                    <div class="modal-head">
-                      <div>
-                        <img src="assets/images/profile.svg" alt="profile" />
-                      </div>
-                      <p class="freelancer-name">Bukola Adesina</p>
-                      <p>Freelancer</p>
-                      <div class="freelancers-status">
-                        <div class=""><span>Available</span></div>
-                        <div class=""><span> Away</span></div>
-                        <div class=""><span> Busy</span></div>
-                      </div>
+              </li>
+              <li>
+                <a href="clientfinished.html" class="collapse-link nav-link"
+                  >Finished</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar__link--item" aria-expanded="true">
+            <a href="clientfinance.html" class="nav-link">
+              <img src="../../assets/images/box4.svg" alt="add icon" />
+              Finances</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientfaqs.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box5.svg" alt="add icon" />
+              FAQS</a
+            >
+          </li>
+          <li class="sidebar__link--item">
+            <a href="clientprofile.html" aria-expanded="true" class="nav-link">
+              <img src="../../assets/images/box6.svg" alt="profile card icon" />
+              Profile</a
+            >
+          </li>
+
+          <li class="sidebar__link--item">
+            <a
+              href="#"
+              aria-expanded="true"
+              aria-expanded="true"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              <img src="../../assets/images/box7.svg" alt="logout icon" />
+              Logout</a
+            >
+          </li>
+        </ul>
+
+        <!-- sidebar menu area end -->
+      </div>
+      <!-- </div> -->
+
+      <div class="main">
+        <div class="main__headerbox">
+          <h1>Dashboard</h1>
+        </div>
+
+        <div class="main__contentbox">
+          <div class="main__contentbox">
+            <div class="dashboard-content-one">
+              <div class="freelancer-dashboard-info">
+                <div>
+                  <img
+                    src="../../assets/images/freelancer-dashboard.svg"
+                    alt="freelancer-img"
+                  />
+                </div>
+                <div class="freelancer-dashboard-info-content pl-3">
+                  <span class="freelancers-name">Michael Jordan</span>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="status mr-2"></div>
+                    <span>Available</span>
+                  </div>
+                  <div class="freelancer-dashboard-otherinfo">
+                    <div class="mr-4">
+                      <span>0</span>
+                      <small class="mr-1">Projects</small>
                     </div>
-                    <div class="modal-body">
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/profile_icon.svg" alt="" />
-                        <span class="ml-2">Profile</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/padlock_icon.svg" alt="" />
-                        <span class="ml-2">Change Password</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <img src="assets/icons/logout_icon.svg" alt="" />
-                        <span class="ml-2">Logout</span>
-                      </div>
+                    <div class="mr-4">
+                      <span>0<img src="" alt="" /></span>
+                      <small class="mr-1">Rating</small>
+                    </div>
+                    <div>
+                      <span>$ 0</span>
+                      <small class="mr-2">Total Earnings</small>
                     </div>
                   </div>
                 </div>
-                <!-- The Freelancer's modal end -->
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Header area end -->
 
-      <div class="main-content container-fluid">
-        <div class="row">
-          <div class="sidebar-menu col-lg-2 col-xl-2">
-            <!-- sidebar menu area start -->
-            <div class="main-menu">
-              <div class="menu-inner">
-                <nav>
-                  <ul class="metismenu" id="menu">
-                    <li class="active">
-                      <a href="dashboard.html" aria-expanded="true"
-                        ><span
-                          class="material-symbols-outlined material-icon orange600"
-                        >
-                          grid_view </span
-                        ><span>dashboard</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          work </span
-                        ><span>Jobs</span></a
-                      >
-                      <ul class="collapse">
-                        <li><a href="jobalerts.html">Job alerts</a></li>
-                        <li>
-                          <a href="activejobs.html">Active Jobs</a>
-                        </li>
-                        <li><a href="finishedjobs.html">Finished Jobs</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="Finances.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          payments </span
-                        ><span>Finances</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="faqs.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          quiz </span
-                        ><span>FAQs</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="profile.html" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          account_box </span
-                        ><span>Profile</span></a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" aria-expanded="true"
-                        ><span class="material-symbols-outlined material-icon">
-                          logout
-                        </span>
-                        <span>Logout</span></a
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- sidebar menu area end -->
-          </div>
-
-          <div class="col-lg-10">
-            <div class="row job-alert-heading dashboard-heading">
-              <div
-                class="col-xl-10 col-lg-12 px-5 d-flex justify-content-between"
-              >
-                <div class="job-alert-heading-first ">
-                  <span>Dashboard</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col d-flex">
-                <div class="dashboard-content-one">
-                    <div class="freelancer-dashboard-info">
-                        <div>
-                            <img src="assets/images/freelancer-dashboard.svg" alt="freelancer-img">
-                        </div>
-                        <div class="freelancer-dashboard-info-content pl-3">
-                            <span class="freelancers-name">Michael Jordan</span>
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="status mr-2"></div>
-                            <span>Available</span>
-                        </div>
-                        <div class="freelancer-dashboard-otherinfo">
-                            <div class="mr-4">
-                            <span>0</span>
-                            <small class="mr-1">Projects</small>
-                            </div>
-                            <div class="mr-4">
-                                <span>0<img src="" alt=""></span>
-                                <small class="mr-1">Rating</small>
-                            </div>
-                            <div>
-                                <span>$ 0</span>
-                                <small class="mr-2">Total Earnings</small>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-        
-        
-                    <div class="freelancer-dashboard-no-active-jobs">
-                        <div class="freelancers-dashboard-active-jobs-heading">
-                            <label for="">Active Jobs</label>
-                        <div class="dashboard-no-active">
-                            <button class="mr-5">All</button>
-                            <button class="mr-5">Overdue</button>
-                            <button class="">Upcoming deadlines</button>
-                        </div>
-                        </div>
-        
-                        <div class="dashboard-active-jobs-info">
-                            <div class="dashboard-no-content">
-                                <img src="assets/icons/dashboard-no-data.svg" alt="no-data-dashboard">
-                                <p>You have no active jobs at this time.</p>
-                                <p>Update your profile to get matched with jobs and start earning</p>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
+              <div class="freelancer-dashboard-no-active-jobs">
+                <div class="freelancers-dashboard-active-jobs-heading">
+                  <label for="">Active Jobs</label>
+                  <div class="dashboard-no-active">
+                    <button class="mr-5">All</button>
+                    <button class="mr-5">Overdue</button>
+                    <button class="">Upcoming deadlines</button>
                   </div>
-        
-        
+                </div>
+
+                <div class="dashboard-active-jobs-info">
+                  <div class="dashboard-no-content">
+                    <img
+                      src="assets/icons/dashboard-no-data.svg"
+                      alt="no-data-dashboard"
+                    />
+                    <p>You have no active jobs at this time.</p>
+                    <p>
+                      Update your profile to get matched with jobs and start
+                      earning
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="dashboard-earning">
+                <div class="mb-3">
+                  <span>Earnings</span>
+                  <select name="" id="">
+                    <option value="">This week</option>
+                    <option value="">This month</option>
+                  </select>
+                </div>
+
+                <div class="dashboard-earning-stats mb-3">
                   <div>
-                    <div class="dashboard-earning">
-                        <div class=" mb-3">
-                            <span>Earnings</span>
-                            <select name="" id="">
-                                <option value="">This week</option>
-                                <option value="">This month</option>
-                            </select>
-                        </div>
-        
-                        <div class="dashboard-earning-stats mb-3">
-                            <div>
-                                <p class="withdrawn-amt">$50</p>
-                                <p>Withdrawn</p>
-                            </div>
-                            <div>
-                                <p class="escrow-amt">$50</p>
-                                <p>In Escrow</p>
-                            </div>
-                            <div>
-                                <p class="credited-amt">$50</p>
-                                <p>Credited</p>
-                            </div>
-                        </div>
-        
-                        <a href="Finances.html"> View details</a>
-                    </div>
-
-                    <div class="dashboard-jobalerts">
-                        <label for="" class="mb-4">Job Alerts</label>
-                        <div class="dashboard-activejobs-container mb-3">
-                            <div class="mb-3">
-                                <span class="mr-3 job-alerts-voiceover">Voice-over</span>
-                                <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                                <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                            </div>
-                            <div class=" mb-3">
-                                <p class="dashboard-activejobs-h2">Translate Physics textbook from English language to french</p>
-                                <span class="dashbaord-activejobs-time">Posted 3 hours ago</span>
-                            </div>
-                        </div>
-                        <div class="dashboard-activejobs-container mb-3">
-                            <div class="mb-3">
-                                <span class="mr-3 job-alerts-voiceover">Voice-over</span>
-                                <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                                <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                            </div>
-                            <div class="mb-3">
-                                <p class="dashboard-activejobs-h2">Translate Physics textbook from English language to french</p>
-                                <span class="dashbaord-activejobs-time">Posted 3 hours ago</span>
-                            </div>
-                        </div>
-                        <div class="dashboard-activejobs-container mb-3">
-                            <div class="mb-3">
-                                <span class="mr-3 job-alerts-voiceover">Voice-over</span>
-                                <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                                <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                            </div>
-                            <div class="mb-3">
-                                <p class="dashboard-activejobs-h2">Translate Physics textbook from English language to french</p>
-                                <span class="dashbaord-activejobs-time">Posted 3 hours ago</span>
-                            </div>
-                        </div>
-                        <div class="dashboard-activejobs-container mb-3">
-                            <div class="mb-3">
-                                <span class="mr-3 job-alerts-voiceover">Voice-over</span>
-                                <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"> English </span>
-                                <span class="job-alerts-lang dashboard-jobalerts-lang"> French </span>
-                            </div>
-                            <div class="mb-3">
-                                <p class="dashboard-activejobs-h2">Translate Physics textbook from English language to french</p>
-                                <span class="dashbaord-activejobs-time">Posted 3 hours ago</span>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="withdrawn-amt">$50</p>
+                    <p>Withdrawn</p>
                   </div>
+                  <div>
+                    <p class="escrow-amt">$50</p>
+                    <p>In Escrow</p>
+                  </div>
+                  <div>
+                    <p class="credited-amt">$50</p>
+                    <p>Credited</p>
+                  </div>
+                </div>
+
+                <a href="Finances.html"> View details</a>
+              </div>
+
+              <div class="dashboard-jobalerts">
+                <label for="" class="mb-4">Job Alerts</label>
+                <div class="dashboard-activejobs-container mb-3">
+                  <div class="mb-3">
+                    <span class="mr-3 job-alerts-voiceover">Voice-over</span>
+                    <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang">
+                      English
+                    </span>
+                    <span class="job-alerts-lang dashboard-jobalerts-lang">
+                      French
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <p class="dashboard-activejobs-h2">
+                      Translate Physics textbook from English language to french
+                    </p>
+                    <span class="dashbaord-activejobs-time"
+                      >Posted 3 hours ago</span
+                    >
+                  </div>
+                </div>
+                <div class="dashboard-activejobs-container mb-3">
+                  <div class="mb-3">
+                    <span class="mr-3 job-alerts-voiceover">Voice-over</span>
+                    <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang">
+                      English
+                    </span>
+                    <span class="job-alerts-lang dashboard-jobalerts-lang">
+                      French
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <p class="dashboard-activejobs-h2">
+                      Translate Physics textbook from English language to french
+                    </p>
+                    <span class="dashbaord-activejobs-time"
+                      >Posted 3 hours ago</span
+                    >
+                  </div>
+                </div>
+                <div class="dashboard-activejobs-container mb-3">
+                  <div class="mb-3">
+                    <span class="mr-3 job-alerts-voiceover">Voice-over</span>
+                    <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang">
+                      English
+                    </span>
+                    <span class="job-alerts-lang dashboard-jobalerts-lang">
+                      French
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <p class="dashboard-activejobs-h2">
+                      Translate Physics textbook from English language to french
+                    </p>
+                    <span class="dashbaord-activejobs-time"
+                      >Posted 3 hours ago</span
+                    >
+                  </div>
+                </div>
+                <div class="dashboard-activejobs-container mb-3">
+                  <div class="mb-3">
+                    <span class="mr-3 job-alerts-voiceover">Voice-over</span>
+                    <span class="mr-3 job-alerts-lang dashboard-jobalerts-lang">
+                      English
+                    </span>
+                    <span class="job-alerts-lang dashboard-jobalerts-lang">
+                      French
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <p class="dashboard-activejobs-h2">
+                      Translate Physics textbook from English language to french
+                    </p>
+                    <span class="dashbaord-activejobs-time"
+                      >Posted 3 hours ago</span
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
-
           </div>
-
-          
         </div>
       </div>
     </div>
-
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- logout Modal -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content logoutModal">
+          <div class="modal-header">
+            <p class="modal-title" id="logoutModalLabel">
+              Log out of iVoice Africa?
+            </p>
+          </div>
+          <div class="modal-body logoutModal-body">
+            You can log in anytime with your email and password
+          </div>
+          <div class="modal-footer logoutModal-footer">
+            <a href="../../onboarding/client/sign-in.html">
+              <button class="transparentBtn">Logout</button>
+            </a>
+            <button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- jquery latest version -->
-    <script src="assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
-    <script src="assets/JS/js/popper.min.js"></script>
-    <script src="assets/JS/js/bootstrap.min.js"></script>
-    <script src="assets/JS/js/owl.carousel.min.js"></script>
-    <script src="assets/JS/js/metisMenu.min.js"></script>
-    <script src="assets/JS/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/JS/js/jquery.slicknav.min.js"></script>
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
 
     <!-- others plugins -->
-    <script src="assets/JS/js/plugins.js"></script>
-    <script src="assets/JS/js/scripts.js"></script>
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
   </body>
 </html>

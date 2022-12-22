@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Active Jobs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js" defer></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+#outer-div {
+	width: 90%;
+	text-align: center;
+}
+
+#inner-div {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 3px;
+}
+</style>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox d-flex align-items-center">
+				<h1>Active Jobs</h1>
+				<div class="activejobs-filter ml-4">
+					<a th:href="@{/freelancer-active-jobs}"
+						class="mr-3 job-alerts-heading-btn">All</a> <a
+						th:href="@{/freelancer-activedetails-inprogress}"
+						class="mr-3 transparentBtn">In Progress</a> <a
+						th:href="@{/freelancer-activedetails-overdue}"
+						class="transparentBtn">Overdue</a>
+				</div>
+			</div>
+
+			<div class="main__contentbox">
+				<div class="mt-2 d-flex align-items-center"
+					th:if="${inprogressDeliveries.size() >= 1}">
+					<span> <img src="../../assets/icons/tips_and_updates.svg"
+						alt="" /></span>
+
+					<p class="job-alerts-sub-heading">
+						You have <span th:text="${inprogressDeliveries.size()}">7</span> active
+						jobs
+					</p>
+				</div>
+				
+				
+				
+				<div class="mt-3"
+					th:if="${allDeliveries.size() == 0}" id="outer-div">
+					<div class="mt-4" id="inner-div">
+						<div class="job-alerts" >
+							<div class="job-alerts-card-body my-3" >
+								<div>
+									<div class="upload-start mr-3"
+										style="margin-left: auto; margin-right: auto">
+										<span style="font-size: 30px">Active Job(s)</span>
+										<p style="font-size: 20px">Oops! No job(s) currently running.</p>
+										<!-- <button class="uploadbtn">Upload</button> -->
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="mt-3 accordion-section">
+
+					<div class="jobs-card" th:each="delivery : ${inprogressDeliveries}">
+						<a th:href="@{/freelancer-active-details}">
+
+							<div
+								class="d-flex justify-content-between align-items-center mb-4">
+								<div class="griddy">
+									<span class="mr-3 job-alerts-translation color-grey">
+										<div class="mr-2 job-alerts-service-translation-color"></div>
+										<span th:text="${delivery.workOrder.serviceType.typeName}">Translation</span>
+									</span> <span class="mr-3 job-alerts-lang"
+										th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(delivery.workOrder.workId).sourceLanguage}">
+										<span th:text="${srcLanguage}">French</span>
+									</span>
+
+								</div>
+								<div>
+									<button class="red-jobs-btn"
+										th:if="${delivery.deliveryStatus.status == 5}">
+										<span>Overdue</span>
+									</button>
+									<button class="red-jobs-btn yel-jobs-btn"
+										th:unless="${delivery.deliveryStatus.status == 9}">
+										<span>Duesoon</span>
+									</button>
+								</div>
+							</div>
+
+							<div>
+								<div class="dashboard-activejobs-container">
+									<p class="activejobs-h2" th:text="${delivery.workOrder.workTitle}">Translate Physics textbook from
+										English Language to French</p>
+
+									<div class="d-flex justify-content-between w-75 mb-2">
+										<span class="dashboard-deliverables">Attachments</span> <span
+											class="ml-5 dashboard-deliverables-amt"> <span th:text="@{${@ClientComponentModel.getSizeOfDeliveryAttachment(delivery)}}">4</span> file(s)</span>
+									</div>
+
+									<div class="d-flex justify-content-between w-75 mb-2">
+										<span class="dashboard-deliverables">Deliverables</span> <span
+											class="ml-5 dashboard-deliverables-amt"> <span th:text="@{${@ClientComponentModel.getWorkAttachments(delivery.workOrder.workId)}}">0</span> file(s)</span>
+									</div>
+
+									<div class="d-flex justify-content-between w-75 mb-3">
+										<span class="dashboard-deliverables">Deadline</span> <span
+											class="dashboard-deliverables-amt"> on <span th:text="${delivery.workOrder.postingDate}"></span></span>
+									</div>
+								</div>
+							</div>
+							<div class="progressbar">
+								<div class="progress" style="height: 6px">
+									<div class="progress-bar progressbar-duesoon"
+										role="progressbar" aria-valuenow="75" aria-valuemin="0"
+										aria-valuemax="100"></div>
+								</div>
+								<span>Deadline</span>
+							</div>
+						</a>
+					</div>
+
+					<!-- <div class="jobs-card">
+						<div
+							class="d-flex justify-content-between align-items-center mb-4">
+							<div class="griddy">
+								<span class="mr-3 job-alerts-translation color-grey">
+									<div class="mr-2 job-alerts-service-translation-color"></div>
+									Translation
+								</span> <span class="mr-3 job-alerts-lang color-grey"> French </span> <span
+									class="mr-3 job-alerts-lang color-grey"> ... </span>
+							</div>
+							<div>
+								<button class="red-jobs-btn">Overdue</button>
+							</div>
+						</div>
+
+						<div>
+							<div class="dashboard-activejobs-container">
+								<p class="activejobs-h2">Translate Physics textbook from
+									English Language to French</p>
+								<div class="d-flex justify-content-between w-75 mb-2">
+									<span class="dashboard-deliverables">Deliverables</span> <span
+										class="ml-5 dashboard-deliverables-amt">4 files</span>
+								</div>
+								<div class="d-flex justify-content-between w-75 mb-2">
+									<span class="dashboard-deliverables">Uploads</span> <span
+										class="ml-5 dashboard-deliverables-amt">0 files</span>
+								</div>
+								<div class="d-flex justify-content-between w-75 mb-3">
+									<span class="dashboard-deliverables">Deadline</span> <span
+										class="ml-5 dashboard-deliverables-amt">8th November</span>
+								</div>
+							</div>
+						</div>
+						<div class="progressbar">
+							<div class="progress" style="height: 6px">
+								<div class="progress-bar progressbar-overdue" role="progressbar"
+									aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<span>Deadline</span>
+						</div>
+					</div>
+ -->
+
+
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- logout Modal -->
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
+</html>

@@ -10,14 +10,17 @@ public class ClientPersonalDetailDTO {
 	private String townVillage;
 	private String postalCode;
 	private String mobileNumber;
+	private String country;
+	private String countryCode;
 	
 	
 	public ClientPersonalDetailDTO() {
 		
 	}
-	
+
 	public ClientPersonalDetailDTO(String firstName, String lastName, String gender, String nationality,
-			String streetAddress, String townVillage, String postalCode, String mobileNumber) {
+			String streetAddress, String townVillage, String postalCode, String mobileNumber, String country,
+			String countryCode) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -26,8 +29,10 @@ public class ClientPersonalDetailDTO {
 		this.townVillage = townVillage;
 		this.postalCode = postalCode;
 		this.mobileNumber = mobileNumber;
+		this.country = country;
+		this.countryCode = countryCode;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -92,11 +97,28 @@ public class ClientPersonalDetailDTO {
 		this.mobileNumber = mobileNumber;
 	}
 
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 	@Override
 	public String toString() {
 		return "ClientPersonalDetailDTO [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
 				+ ", nationality=" + nationality + ", streetAddress=" + streetAddress + ", townVillage=" + townVillage
-				+ ", postalCode=" + postalCode + ", mobileNumber=" + mobileNumber + "]";
+				+ ", postalCode=" + postalCode + ", mobileNumber=" + mobileNumber + ", country=" + country
+				+ ", countryCode=" + countryCode + "]";
 	}
-	
+
 }

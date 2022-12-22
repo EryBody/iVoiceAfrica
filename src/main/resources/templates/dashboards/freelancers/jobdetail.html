@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Job Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js" defer></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+.wrap-file-container {
+	width: 100px;
+	padding: 10px;
+}
+</style>
+</head>
+
+<body>
+	<!-- preloader area start -->
+
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<div class="page-container">
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox dashboard-heading">
+				<div class="">
+					<div class="job-detail-heading-first">
+						<span class="job-alerts-title-2"> 
+						<!-- <a
+							href="javascript:goBack()" style="color: inherit"> Job alerts
+						</a> -->
+						<a
+							th:href="@{/freelancer-jobs-alerts}" style="color: inherit"> Job alerts
+						</a>
+						</span> <span class="job-details-title">Job details</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox finished-job-overview mt-4">
+
+				<div>
+					<div class="job-alerts mb-2">
+
+						<div class="arrow-back border-arr">
+							<!-- <a href="javascript:goBack()"> <img
+								src="../../assets/icons/arrow_back_link.svg"
+								alt="arrow_back_link" />
+							</a> -->
+							<a 	th:href="@{/freelancer-jobs-alerts}"> <img
+								src="../../assets/icons/arrow_back_link.svg"
+								alt="arrow_back_link"/>
+							</a>
+						</div>
+						<div class="job-alerts-card-body my-3">
+
+							<!-- display details of controller -->
+							<p th:text="${message}" th:if="${message ne null}"
+								class="alert alert-primary mt-3"></p>
+								
+							<div
+								class="d-flex justify-content-between align-items-center mb-4">
+								<div class="griddy">
+									<span class="mr-3 job-alerts-voiceover">
+										<div class="mr-2 job-alerts-voiceover-color"></div> <span
+										th:text="${opWorkOrder.serviceType.typeName}">Voice-over</span>
+									</span> 
+									<span class="mr-3 job-alerts-lang"
+										th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(opWorkOrder.workId).sourceLanguage}">
+										<span th:text="${srcLanguage}">French</span>
+									</span>
+								</div>
+							</div>
+
+							<h2 class="job-alert-card-body-title mb-3"
+								th:text="${opWorkOrder.workTitle}">Translate Physics
+								textbook from English Languague to French</h2>
+
+							<div class="job-alerts-footer">
+								<div class="d-flex griddy align-items-center mb-5">
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
+											th:text="${opWorkOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
+											th:text="${opWorkOrder.maxAmount}">30</span> <span>&nbsp;
+											per page</span>
+
+									</div>
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">attach_file</span>
+										<span
+											th:text="@{${@ClientComponentModel.getWorkAttachments(opWorkOrder.workId)}}">4
+
+										</span>&nbsp; <span>PDFs</span>
+
+									</div>
+									<div class="mr-3 d-flex">
+										<span class="material-symbols-outlined mr-2">timer</span>
+										<p>
+											Posted on <span th:text="${opWorkOrder.postingDate}"></span>
+										</p>
+									</div>
+								</div>
+								<div class="job-alerts-btns">
+									<a href="#" class="decline-btn mr-4" data-toggle="modal" data-target="#offerDeclineModal">Decline</a> 
+									
+									
+									<a href="#"
+										class="job-accept job-btn" data-toggle="modal"
+										data-target="#exampleModalCenter">Accept</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-2">
+						<div class="job-alerts job-alerts-client-info">
+							<span class="job-alerts-client-title d-block mb-1">The
+								Client</span> <span class="job-alerts-client-name d-block"
+								th:text="|${opWorkOrder.user.firstName} ${opWorkOrder.user.lastName}|">Godwin
+								Uchenna</span> <span class="job-alerts-client-location d-block fs-6" th:text="${opWorkOrder.user.country}">Lagos,
+								Nigeria</span>
+						</div>
+					</div>
+
+					<div>
+						<div class="job-details desc-list">
+							<span class="job-details-content-title">Job Details</span>
+							<div
+								class="job-list-details mt-3 d-flex align-items-center job-list-details-border">
+								<div class="job-list-details-active active-d" id="descTab">
+									<button class="next-btn">Description</button>
+								</div>
+								<div class="active-d" id="deliTab">
+									<button class="next-btn">Deliverables</button>
+								</div>
+								<div class="active-d" id="attTab">
+									<button class="next-btn">Attachments</button>
+								</div>
+							</div>
+
+							<div class="job-desc-details my-3" id="descriptionContent">
+								<span class="abt">About the job</span>
+								<p class="mb-3 desc-text" th:text="${opWorkOrder.description}">At Pak Translations, we have
+									recently been receiving requests for projects concerning
+									African languages. We are, thus, looking to expand our database
+									of freelance translators, transcribers, and subtitlers of
+									African languages, especially the minor languages spoken in
+									this linguistically richest continent.</p>
+									
+								<!-- <span class="qwt">These are the qualities we are looking
+									for in the freelancer: </span>
+								<ul>
+									<li>High accuracy (in terms of meaning, punctuation,
+										grammar, formatting)</li>
+									<li>Commitment (people who always deliver on time)</li>
+									<li>Responsive (people who respond to emails/calls in
+										time)</li>
+								</ul>
+								<p class="mt-3">If you have relevant experience and are
+									interested in joining our pool of freelancers, please share
+									your profile.</p> -->
+							</div>
+
+							<div id="deliverablesContent">
+								<div>
+									<div class="inprogress-fhead-II">
+										<h1>Service</h1>
+										<h1>Native</h1>
+										<h1>Target</h1>
+										<h1>File</h1>
+										
+									</div>
+									<div class="inprogress-fbody-II" th:each="tempAttachment, iStat : ${workOrderAttachmentList}">
+									
+										<h1 class="fw-600" th:text=${tempAttachment.workOrder.serviceType.typeName}>Translation</h1>
+										<h1  th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.source)}}">French</h1>
+										<h1  th:text=@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.destination)}}>English</h1>
+										<h1  th:text="${tempAttachment.linkMediaFile}" class="wrap-file-container">1</h1>
+									</div>
+								</div>
+							</div>
+
+							<div id="attachmentContent">
+								<div class="job-attc" th:each="tempAttach, iStat : ${workOrderAttachmentList}">
+									<img src="../../assets/icons/vscode-icons_file-type.svg"
+										alt="file-icon" />
+									<div class="ml-3">
+										<p  th:text="${tempAttach.linkMediaFile}">Physics textbook in French (01).pdf</p>
+										<p>This file is to be translated from <span
+												th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttach.source)}}"></span>
+												 to <span
+												th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttach.destination)}}"></span>
+												</p>
+										<p>Uploaded <span th:text="${tempAttach.workOrder.postingDate}">
+											3 Hours ago</span>
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div
+								class="job-details-footer d-flex align-items-center justify-content-end mt-5">
+								
+								<!-- <a href="newrequest.html" class="editBtn">Edit</a> -->
+								<!-- <button class="uploadbtn clientrequesteditBtn"
+									data-toggle="modal" data-target="#jobPostedModal">
+									Post Job</button> -->
+									
+							
+									
+									 <a th:href="@{/freelancer-jobs-alerts}"><button type="button"
+										class="uploadbtn clientrequesteditBtn">Back</button></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalCenterTitle"
+			aria-hidden="true">
+			<div class="modal-dialog-centered modal-dialog" role="document">
+				<div class="modal-content payment-modal">
+					<form th:action=@{/freelancer-job-acceptance}
+						th:object=${freelancerAcceptanceDTO} method="post">
+
+						<div class="modal-header payment-modal-header border-0">
+							<h5 class="modal-title" id="exampleModalLongTitle">State
+								your price</h5>
+
+							<span>Let <span
+								th:text="|${opWorkOrder.user.firstName} ${opWorkOrder.user.lastName}|">Godwin
+									Uchenna</span> Know how much you would like to be paid for this
+								service
+							</span>
+						</div>
+						<div class="modal-body payment-modal-body">
+							<div class="payment-modal-input">
+								<div class="payment-money-sign">
+									<img src="../../assets/images/dollar-sign.svg"
+										alt="dollar-sign" />
+								</div>
+
+								<input type="text" name="freelancerAmount" id="freelancerAmount"
+									style="font-size: 20px;" class="pl-2" />
+							</div>
+
+							<input type="hidden" name="workOrderId"
+								th:value=${opWorkOrder.workId}> <input type="hidden"
+								name="userId" th:value=${userDetails.username}> 
+								
+								<small>This
+								must be within the range of $ <span
+								th:text="${opWorkOrder.minAmount}">20</span> - $ <span
+								th:text="${opWorkOrder.maxAmount}">30</span> per page
+							</small>
+						</div>
+						<div class="modal-footer border-0">
+							<button type="button" class="btn payment-modal-cancel-btn"
+								data-dismiss="modal">Cancel</button>
+
+
+							<button type="submit" class="btn payment-modal-done-btn">Done</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="offerDeclineModal" data-backdrop="static"
+			data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<form th:action=@{/freelancer-offer-decline}
+						th:object=${freelancerOfferDeclineDTO} method="post">
+					<div class="modal-header">
+						<p class="modal-title" id="logoutModalLabel">Are you sure you want to decline this offer?</p>
+					</div>
+					<!-- <div class="modal-body logoutModal-body">You can log in
+						anytime with your email and password</div> -->
+						
+					<div class="modal-footer logoutModal-footer">
+					
+					<input type="hidden" name="workOrderId"
+								th:value=${opWorkOrder.workId}> <input type="hidden"
+								name="userId" th:value=${userDetails.username}> 
+					
+						<a href="../../onboarding/client/sign-in.html">
+							<button class="transparentBtn" data-dismiss="modal">
+								No</button>
+						</a>
+						
+						<button type="submit" class="logoutBtn" aria-label="Close">
+							Yes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+		<!-- jquery latest version -->
+		<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+		<!-- bootstrap 4 js -->
+		<script src="../../assets/JS/js/popper.min.js"></script>
+		<script src="../../assets/JS/js/bootstrap.min.js"></script>
+		<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+		<script src="../../assets/JS/js/metisMenu.min.js"></script>
+		<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+		<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+		<script type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		<!-- others plugins -->
+		<script src="../../assets/JS/js/plugins.js"></script>
+		<script src="../../assets/JS/js/scripts.js"></script>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+			
+			function goBackByTwoSteps() {
+				window.history.back(2);
+			}
+		</script>
+	</div>
+</body>
+</html>

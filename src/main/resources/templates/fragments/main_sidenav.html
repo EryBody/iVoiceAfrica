@@ -1,0 +1,53 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="sidebar" th:fragment="sidenav">
+	<img src="../../assets/images/ivoiceafrica logo 1.png"
+		alt="ivoice logo" class="smallnav-logo" />
+
+	<ul class="metismenu sidebar__links" id="menu">
+
+		<li class="sidebar__link--item"><a th:href="@{/client-dashboard}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box1.png" alt="add icon" /> New request
+		</a></li>
+		<li class="sidebar__link--item"><a href="javascript:void(0)"
+			aria-expanded="true" class="active-link nav-link"> <img
+				src="../../assets/images/box2.svg" alt="add icon" /> Jobs
+		</a>
+			<ul class="collapse">
+				<li><a th:href="@{/client/requests/all}"
+					class="collapse-link nav-link">Request</a></li>
+				<li><a th:href="@{/client/job/bids}" class="collapse-link">Bids</a>
+				</li>
+				<li><a th:href="@{/client/job/inprogress}"
+					class="collapse-link nav-link">In Progress</a></li>
+				<li><a th:href="@{/client/job/finished}"
+					class="collapse-link nav-link">Finished</a></li>
+			</ul></li>
+		<li class="sidebar__link--item" aria-expanded="true"><a
+			th:href="@{/client/finance/all}" class="nav-link"> <img
+				src="../../assets/images/box4.svg" alt="add icon" /> Finances
+		</a></li>
+		<li class="sidebar__link--item"><a th:href="@{/faq}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box5.svg" alt="add icon" /> FAQS
+		</a></li>
+		<li class="sidebar__link--item"><a th:href="@{/profile}"
+			aria-expanded="true" class="nav-link"> <img
+				src="../../assets/images/box6.svg" alt="profile card icon" />
+				Profile
+		</a></li>
+
+		<li class="sidebar__link--item"><a th:href="@{/logout}"> <img
+				src="../../assets/images/box7.svg" alt="logout icon" /> Logout
+		</a></li>
+
+
+		<!-- <li class="sidebar__link--item"><a href="#" aria-expanded="true"
+			data-toggle="modal" data-target="#logoutModal"> <img
+				src="../../assets/images/box7.svg" alt="logout icon" /> Logout
+		</a></li> -->
+	</ul>
+
+	<!-- sidebar menu area end -->
+</div>
+</html>

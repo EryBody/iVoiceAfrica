@@ -19,6 +19,19 @@
             </p>
           </div>
           <div class="form-container">
+           <div class="mb-5">
+              <label for="first-name" class="form-label">Username</label>
+              <input
+                type="text"
+                id="first-name"
+                name="userName"
+                th:field="*{userName}"
+                placeholder="Ex: John"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
             <div class="mb-5">
               <label for="first-name" class="form-label">First name</label>
               <input

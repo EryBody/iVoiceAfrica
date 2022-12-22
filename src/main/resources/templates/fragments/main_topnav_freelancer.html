@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="header justify-content-between"
+	th:fragment="topnavfreelancer">
+	<div class="header__sidenav">
+		<div class="menu-icon">
+			<img src="../../assets/images/options.svg" alt="options-icon" />
+		</div>
+		<img src="../../assets/images/ivoiceafrica logo 1.png"
+			alt="ivoice logo" class="ivoice-logo" />
+	</div>
+
+	<div class="header__icons">
+		<a th:href="@{/freelancer-notification}"> <img
+			src="../../assets/images/notif.svg" alt="bell icon" class="bell-icon" />
+		</a>
+		<div class="profile">
+			<img src="../../assets/images/pro.svg" class="profile-circle"
+				alt="profile circle" />
+
+			<div class="profile__modal">
+				<img src="../../assets/images/propic.png" alt="profile picture" />
+				<div class="profile__header">
+					<h1 th:text="${session.userId}">Bukola Adesina</h1>
+					<p th:text="${@ClientComponentModel.checkProfile()}">Freelancer</p>
+				</div>
+				<div class="profile__statuses">
+				
+					<a th:href="@{freelancer-status/{statusId}(statusId=active)}"><p
+							th:attr="class=${session.userStatus.userStatusId == 2 ? 'bg-success' : ''}">Available</p></a>
+					<a th:href="@{freelancer-status/{statusId}(statusId=busy)}"><p
+							th:attr="class=${session.userStatus.userStatusId == 6 ? 'bg-warning' : ''}">Busy</p></a>
+					<a th:href="@{freelancer-status/{statusId}(statusId=away)}"><p
+							th:attr="class=${session.userStatus.userStatusId == 7 ? 'bg-danger' : ''}">Away</p></a>
+
+				</div>
+				<div class="profile__settings">
+					<span> <img src="../../assets/images/pro1.svg"
+						alt="profile card icon" /> 
+						<a th:href="@{/profile}"
+						style="color: inherit">Profile</a>
+					</span> <span> <img src="../../assets/images/pro2.svg"
+						alt="profile card icon" /> <a th:href="@{/updatepassword}"
+						style="color: inherit"> Change Password </a>
+					</span> <span> <img src="../../assets/images/pro3.svg"
+						alt="profile card icon" /> <a th:href="@{/logout}"
+						style="color: inherit">Logout</a>
+					</span>
+					<!-- 							 <span> <img src="../../assets/images/pro3.svg"
+								alt="profile card icon" /> <a href="#" aria-expanded="true"
+								data-toggle="modal" data-target="#logoutModal"
+								style="color: inherit">Logout</a>
+							</span> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <!-- amchart css -->
+    <link
+      rel="stylesheet"
+      href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+      type="text/css"
+      media="all"
+    />
+    <!-- others css -->
+    <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+    <!-- modernizr css -->
+    <script
+      src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"
+      defer
+    ></script>
+    <script src="../../assets/JS/js/scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+      <!-- Header area start -->
+      <div class="overlay"></div>
+      
+      
+      	<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+      
+      <div class="main">
+        <div class="main__headerbox">
+          <h1>Profile</h1>
+        </div>
+        <div class="main__contentbox">
+          <div class="edit__profilebox">
+            <div>
+              <a href="#">Basic Information</a>
+              <a href="#">Skills </a>
+            </div>
+
+            <form action="#" class="editprofile-form">
+              <div class="edit-profile-header">
+                <!-- <div> -->
+                <div class="edit-profile-box">
+                  <label for="Fname">First name</label>
+                  <input type="text" placeholder="Ex: John" id="Fname" />
+                </div>
+                <div class="edit-profile-box">
+                  <label for="Lname">last name</label>
+                  <input type="text" placeholder="Ex: John" id="Lname" />
+                  <!-- </div> -->
+                </div>
+              </div>
+              <div class="edit-profile-box">
+                <label for="sex">Sex</label>
+                <select name="sex" id="sex">
+                  <option value="Male">Male</option>
+                  <option value="Male">Female</option>
+                </select>
+              </div>
+              <div class="edit-profile-box">
+                <label for="headline">Headline</label>
+                <input type="text" />
+              </div>
+              <div class="edit-profile-box">
+                <label for="address">Address</label>
+                <input type="text" id="address" />
+              </div>
+              <button type="submit">update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jquery latest version -->
+    <script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../../assets/JS/js/popper.min.js"></script>
+    <script src="../../assets/JS/js/bootstrap.min.js"></script>
+    <script src="../../assets/JS/js/owl.carousel.min.js"></script>
+    <script src="../../assets/JS/js/metisMenu.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../../assets/JS/js/plugins.js"></script>
+    <script src="../../assets/JS/js/scripts.js"></script>
+  </body>
+</html>

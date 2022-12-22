@@ -27,7 +27,13 @@
 			</p>
 		</div>
 
-		<form th:action="@{/freelancer/profilepicture/save}" th:object="${FreelancerProfilePictureDetailDTO}" method="post">
+		<form th:action="@{/freelancer/profilepicture/save}"
+			th:object="${FreelancerProfilePictureDetailDTO}"
+			method="post"
+			enctype="multipart/form-data">
+			
+			
+
 			<div class="form multistep" id="client-form">
 				<div class="profile__overview">
 					<h2 class="profile__overview--heading">Let your clients meet
@@ -36,11 +42,13 @@
 						<div class="profile__sbox">
 							<p>Profile Picture</p>
 							<img src="../../assets/images/profiledemo.svg"
-								alt="default profile picture" id="img_pro" /> <label
-								for="img_profile"> Add+ <input type="file"
-								name="profilePicture" id="img_profile" style="display: none"
-								accept="image/png, image/jpeg" onchange="img_pathUrl(this)" />
-							</label>
+								alt="default profile picture" id="img_pro" /> 
+								
+								<label for="img_profile"> Add+ </label>
+								
+								<input type="file" name="profilePicture" th:field="*{profilePicture}"
+								id="img_profile" style="display: none" accept="image/png, image/jpeg" onchange="img_pathUrl(this)"/>
+								
 						</div>
 						<div class="row text-center">
 							<div class="w-100">
@@ -57,8 +65,7 @@
 					<div class="onboarding-cta">
 						<a class="btn-mini-trans" th:href="@{/freelancer-profile-2}">Back</a>
 
-						<button class="btn-mini-black" type="submit">
-							Finish</button>
+						<button class="btn-mini-black" type="submit">Finish</button>
 
 						<!-- <button
 					class="btn-mini-black"

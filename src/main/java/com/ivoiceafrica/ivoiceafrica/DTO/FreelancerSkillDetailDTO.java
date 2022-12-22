@@ -1,5 +1,7 @@
 package com.ivoiceafrica.ivoiceafrica.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FreelancerSkillDetailDTO {
 
 	private String translationServiceType;
@@ -7,36 +9,38 @@ public class FreelancerSkillDetailDTO {
 	private String translationIndustries;
 	private String translationLanguages;
 	private String translationLanguage1;
-	private String translationUpload1;
+	private MultipartFile translationUpload1;
 	private String translationLanguage2;
-	private String translationUpload2;
+	private MultipartFile translationUpload2;
 	private String translationLanguage3;
-	private String translationUpload3;
+	private MultipartFile translationUpload3;
 	private String translationLanguage4;
-	private String translationUpload4;
+	private MultipartFile translationUpload4;
 	private String translationLanguage5;
-	private String translationUpload5;
+	private MultipartFile translationUpload5;
 	private String translationPortfolioLink;
 	private String translationPerWordMin;
 	private String translationPerWordMax;
+	
+	
 	private String interServiceType;
 	private String iexperience;
+	private String interpretationIndustries;
 	private String interpretationLanguages;
-	
 	private String interLanguage1;
-	private String interUpload1;
+	private MultipartFile interUpload1;
 	
 	private String interLanguage2;
-	private String interUpload2;
+	private MultipartFile interUpload2;
 	
 	private String interLanguage3;
-	private String interUpload3;
+	private MultipartFile interUpload3;
 	
 	private String interLanguage4;
-	private String interUpload4;
+	private MultipartFile interUpload4;
 	
 	private String interLanguage5;
-	private String interUpload5;
+	private MultipartFile interUpload5;
 	private String interPortfolioLink;
 	private String interPerWordMin;
 	private String interPerWordMax;
@@ -49,23 +53,23 @@ public class FreelancerSkillDetailDTO {
 	
 	private String vcLanguage1;
 	private String voiceDesc1;
-	private String vcUpload1;
+	private MultipartFile vcUpload1;
 	
 	private String vcLanguage2;
 	private String voiceDesc2;
-	private String vcUpload2;
+	private MultipartFile vcUpload2;
 	
 	private String vcLanguage3;
 	private String voiceDesc3;
-	private String vcUpload3;
+	private MultipartFile vcUpload3;
 	
 	private String vcLanguage4;
 	private String voiceDesc4;
-	private String vcUpload4;
+	private MultipartFile vcUpload4;
 	
 	private String vcLanguage5;
 	private String voiceDesc5;
-	private String vcUpload5;
+	private MultipartFile vcUpload5;
 	
 	private String vcPortfolioLink;
 	
@@ -79,24 +83,25 @@ public class FreelancerSkillDetailDTO {
 	private String vcPerWordMax;
 	
 	
-	
-	
 	private String scribingServiceType;
 	private String scribingExperience;
 	private String scribingIndustries;
 	private String transcribeLanguages;
 	
 	private String transcribeLanguage1;
-	private String transcribeUpload1;
+	private MultipartFile transcribeUpload1;
 	
 	private String transcribeLanguage2;
-	private String transcribeUpload2;
+	private MultipartFile transcribeUpload2;
 	
 	private String transcribeLanguage3;
-	private String transcribeUpload3;
+	private MultipartFile transcribeUpload3;
 	
 	private String transcribeLanguage4;
-	private String transcribeUpload4;
+	private MultipartFile transcribeUpload4;
+	
+	private String transcribeLanguage5;
+	private MultipartFile transcribeUpload5;
 	
 	private String scribingPortfolioLink;
 	private String scribingPerWordMin;
@@ -143,11 +148,11 @@ public class FreelancerSkillDetailDTO {
 		this.translationLanguage1 = translationLanguage1;
 	}
 
-	public String getTranslationUpload1() {
+	public MultipartFile getTranslationUpload1() {
 		return translationUpload1;
 	}
 
-	public void setTranslationUpload1(String translationUpload1) {
+	public void setTranslationUpload1(MultipartFile translationUpload1) {
 		this.translationUpload1 = translationUpload1;
 	}
 
@@ -159,11 +164,11 @@ public class FreelancerSkillDetailDTO {
 		this.translationLanguage2 = translationLanguage2;
 	}
 
-	public String getTranslationUpload2() {
+	public MultipartFile getTranslationUpload2() {
 		return translationUpload2;
 	}
 
-	public void setTranslationUpload2(String translationUpload2) {
+	public void setTranslationUpload2(MultipartFile translationUpload2) {
 		this.translationUpload2 = translationUpload2;
 	}
 
@@ -175,11 +180,11 @@ public class FreelancerSkillDetailDTO {
 		this.translationLanguage3 = translationLanguage3;
 	}
 
-	public String getTranslationUpload3() {
+	public MultipartFile getTranslationUpload3() {
 		return translationUpload3;
 	}
 
-	public void setTranslationUpload3(String translationUpload3) {
+	public void setTranslationUpload3(MultipartFile translationUpload3) {
 		this.translationUpload3 = translationUpload3;
 	}
 
@@ -191,11 +196,11 @@ public class FreelancerSkillDetailDTO {
 		this.translationLanguage4 = translationLanguage4;
 	}
 
-	public String getTranslationUpload4() {
+	public MultipartFile getTranslationUpload4() {
 		return translationUpload4;
 	}
 
-	public void setTranslationUpload4(String translationUpload4) {
+	public void setTranslationUpload4(MultipartFile translationUpload4) {
 		this.translationUpload4 = translationUpload4;
 	}
 
@@ -207,11 +212,11 @@ public class FreelancerSkillDetailDTO {
 		this.translationLanguage5 = translationLanguage5;
 	}
 
-	public String getTranslationUpload5() {
+	public MultipartFile getTranslationUpload5() {
 		return translationUpload5;
 	}
 
-	public void setTranslationUpload5(String translationUpload5) {
+	public void setTranslationUpload5(MultipartFile translationUpload5) {
 		this.translationUpload5 = translationUpload5;
 	}
 
@@ -254,6 +259,14 @@ public class FreelancerSkillDetailDTO {
 	public void setIexperience(String iexperience) {
 		this.iexperience = iexperience;
 	}
+	
+	public String getInterpretationIndustries() {
+		return interpretationIndustries;
+	}
+
+	public void setInterpretationIndustries(String interpretationIndustries) {
+		this.interpretationIndustries = interpretationIndustries;
+	}
 
 	public String getInterpretationLanguages() {
 		return interpretationLanguages;
@@ -271,11 +284,11 @@ public class FreelancerSkillDetailDTO {
 		this.interLanguage1 = interLanguage1;
 	}
 
-	public String getInterUpload1() {
+	public MultipartFile getInterUpload1() {
 		return interUpload1;
 	}
 
-	public void setInterUpload1(String interUpload1) {
+	public void setInterUpload1(MultipartFile interUpload1) {
 		this.interUpload1 = interUpload1;
 	}
 
@@ -287,11 +300,11 @@ public class FreelancerSkillDetailDTO {
 		this.interLanguage2 = interLanguage2;
 	}
 
-	public String getInterUpload2() {
+	public MultipartFile getInterUpload2() {
 		return interUpload2;
 	}
 
-	public void setInterUpload2(String interUpload2) {
+	public void setInterUpload2(MultipartFile interUpload2) {
 		this.interUpload2 = interUpload2;
 	}
 
@@ -303,11 +316,11 @@ public class FreelancerSkillDetailDTO {
 		this.interLanguage3 = interLanguage3;
 	}
 
-	public String getInterUpload3() {
+	public MultipartFile getInterUpload3() {
 		return interUpload3;
 	}
 
-	public void setInterUpload3(String interUpload3) {
+	public void setInterUpload3(MultipartFile interUpload3) {
 		this.interUpload3 = interUpload3;
 	}
 
@@ -319,11 +332,11 @@ public class FreelancerSkillDetailDTO {
 		this.interLanguage4 = interLanguage4;
 	}
 
-	public String getInterUpload4() {
+	public MultipartFile getInterUpload4() {
 		return interUpload4;
 	}
 
-	public void setInterUpload4(String interUpload4) {
+	public void setInterUpload4(MultipartFile interUpload4) {
 		this.interUpload4 = interUpload4;
 	}
 
@@ -335,11 +348,11 @@ public class FreelancerSkillDetailDTO {
 		this.interLanguage5 = interLanguage5;
 	}
 
-	public String getInterUpload5() {
+	public MultipartFile getInterUpload5() {
 		return interUpload5;
 	}
 
-	public void setInterUpload5(String interUpload5) {
+	public void setInterUpload5(MultipartFile interUpload5) {
 		this.interUpload5 = interUpload5;
 	}
 
@@ -415,11 +428,11 @@ public class FreelancerSkillDetailDTO {
 		this.voiceDesc1 = voiceDesc1;
 	}
 
-	public String getVcUpload1() {
+	public MultipartFile getVcUpload1() {
 		return vcUpload1;
 	}
 
-	public void setVcUpload1(String vcUpload1) {
+	public void setVcUpload1(MultipartFile vcUpload1) {
 		this.vcUpload1 = vcUpload1;
 	}
 
@@ -439,11 +452,11 @@ public class FreelancerSkillDetailDTO {
 		this.voiceDesc2 = voiceDesc2;
 	}
 
-	public String getVcUpload2() {
+	public MultipartFile getVcUpload2() {
 		return vcUpload2;
 	}
 
-	public void setVcUpload2(String vcUpload2) {
+	public void setVcUpload2(MultipartFile vcUpload2) {
 		this.vcUpload2 = vcUpload2;
 	}
 
@@ -463,11 +476,11 @@ public class FreelancerSkillDetailDTO {
 		this.voiceDesc3 = voiceDesc3;
 	}
 
-	public String getVcUpload3() {
+	public MultipartFile getVcUpload3() {
 		return vcUpload3;
 	}
 
-	public void setVcUpload3(String vcUpload3) {
+	public void setVcUpload3(MultipartFile vcUpload3) {
 		this.vcUpload3 = vcUpload3;
 	}
 
@@ -487,11 +500,11 @@ public class FreelancerSkillDetailDTO {
 		this.voiceDesc4 = voiceDesc4;
 	}
 
-	public String getVcUpload4() {
+	public MultipartFile getVcUpload4() {
 		return vcUpload4;
 	}
 
-	public void setVcUpload4(String vcUpload4) {
+	public void setVcUpload4(MultipartFile vcUpload4) {
 		this.vcUpload4 = vcUpload4;
 	}
 
@@ -511,11 +524,11 @@ public class FreelancerSkillDetailDTO {
 		this.voiceDesc5 = voiceDesc5;
 	}
 
-	public String getVcUpload5() {
+	public MultipartFile getVcUpload5() {
 		return vcUpload5;
 	}
 
-	public void setVcUpload5(String vcUpload5) {
+	public void setVcUpload5(MultipartFile vcUpload5) {
 		this.vcUpload5 = vcUpload5;
 	}
 
@@ -615,11 +628,11 @@ public class FreelancerSkillDetailDTO {
 		this.transcribeLanguage1 = transcribeLanguage1;
 	}
 
-	public String getTranscribeUpload1() {
+	public MultipartFile getTranscribeUpload1() {
 		return transcribeUpload1;
 	}
 
-	public void setTranscribeUpload1(String transcribeUpload1) {
+	public void setTranscribeUpload1(MultipartFile transcribeUpload1) {
 		this.transcribeUpload1 = transcribeUpload1;
 	}
 
@@ -631,11 +644,11 @@ public class FreelancerSkillDetailDTO {
 		this.transcribeLanguage2 = transcribeLanguage2;
 	}
 
-	public String getTranscribeUpload2() {
+	public MultipartFile getTranscribeUpload2() {
 		return transcribeUpload2;
 	}
 
-	public void setTranscribeUpload2(String transcribeUpload2) {
+	public void setTranscribeUpload2(MultipartFile transcribeUpload2) {
 		this.transcribeUpload2 = transcribeUpload2;
 	}
 
@@ -647,11 +660,11 @@ public class FreelancerSkillDetailDTO {
 		this.transcribeLanguage3 = transcribeLanguage3;
 	}
 
-	public String getTranscribeUpload3() {
+	public MultipartFile getTranscribeUpload3() {
 		return transcribeUpload3;
 	}
 
-	public void setTranscribeUpload3(String transcribeUpload3) {
+	public void setTranscribeUpload3(MultipartFile transcribeUpload3) {
 		this.transcribeUpload3 = transcribeUpload3;
 	}
 
@@ -663,12 +676,28 @@ public class FreelancerSkillDetailDTO {
 		this.transcribeLanguage4 = transcribeLanguage4;
 	}
 
-	public String getTranscribeUpload4() {
+	public MultipartFile getTranscribeUpload4() {
 		return transcribeUpload4;
 	}
 
-	public void setTranscribeUpload4(String transcribeUpload4) {
+	public void setTranscribeUpload4(MultipartFile transcribeUpload4) {
 		this.transcribeUpload4 = transcribeUpload4;
+	}
+
+	public String getTranscribeLanguage5() {
+		return transcribeLanguage5;
+	}
+
+	public void setTranscribeLanguage5(String transcribeLanguage5) {
+		this.transcribeLanguage5 = transcribeLanguage5;
+	}
+
+	public MultipartFile getTranscribeUpload5() {
+		return transcribeUpload5;
+	}
+
+	public void setTranscribeUpload5(MultipartFile transcribeUpload5) {
+		this.transcribeUpload5 = transcribeUpload5;
 	}
 
 	public String getScribingPortfolioLink() {
@@ -707,28 +736,30 @@ public class FreelancerSkillDetailDTO {
 				+ translationUpload5 + ", translationPortfolioLink=" + translationPortfolioLink
 				+ ", translationPerWordMin=" + translationPerWordMin + ", translationPerWordMax="
 				+ translationPerWordMax + ", interServiceType=" + interServiceType + ", iexperience=" + iexperience
-				+ ", interpretationLanguages=" + interpretationLanguages + ", interLanguage1=" + interLanguage1
-				+ ", interUpload1=" + interUpload1 + ", interLanguage2=" + interLanguage2 + ", interUpload2="
-				+ interUpload2 + ", interLanguage3=" + interLanguage3 + ", interUpload3=" + interUpload3
-				+ ", interLanguage4=" + interLanguage4 + ", interUpload4=" + interUpload4 + ", interLanguage5="
-				+ interLanguage5 + ", interUpload5=" + interUpload5 + ", interPortfolioLink=" + interPortfolioLink
-				+ ", interPerWordMin=" + interPerWordMin + ", interPerWordMax=" + interPerWordMax + ", vcServiceType="
-				+ vcServiceType + ", vcExperience=" + vcExperience + ", vcIndustries=" + vcIndustries + ", vcLanguages="
-				+ vcLanguages + ", vcLanguage1=" + vcLanguage1 + ", voiceDesc1=" + voiceDesc1 + ", vcUpload1="
-				+ vcUpload1 + ", vcLanguage2=" + vcLanguage2 + ", voiceDesc2=" + voiceDesc2 + ", vcUpload2=" + vcUpload2
-				+ ", vcLanguage3=" + vcLanguage3 + ", voiceDesc3=" + voiceDesc3 + ", vcUpload3=" + vcUpload3
-				+ ", vcLanguage4=" + vcLanguage4 + ", voiceDesc4=" + voiceDesc4 + ", vcUpload4=" + vcUpload4
-				+ ", vcLanguage5=" + vcLanguage5 + ", voiceDesc5=" + voiceDesc5 + ", vcUpload5=" + vcUpload5
-				+ ", vcPortfolioLink=" + vcPortfolioLink + ", vcPerMinuteMin=" + vcPerMinuteMin + ", vcPerMinuteMax="
-				+ vcPerMinuteMax + ", vcPerHourMin=" + vcPerHourMin + ", vcPerHourMax=" + vcPerHourMax
-				+ ", vcPerWordMin=" + vcPerWordMin + ", vcPerWordMax=" + vcPerWordMax + ", scribingServiceType="
-				+ scribingServiceType + ", scribingExperience=" + scribingExperience + ", scribingIndustries="
-				+ scribingIndustries + ", transcribeLanguages=" + transcribeLanguages + ", transcribeLanguage1="
-				+ transcribeLanguage1 + ", transcribeUpload1=" + transcribeUpload1 + ", transcribeLanguage2="
-				+ transcribeLanguage2 + ", transcribeUpload2=" + transcribeUpload2 + ", transcribeLanguage3="
-				+ transcribeLanguage3 + ", transcribeUpload3=" + transcribeUpload3 + ", transcribeLanguage4="
-				+ transcribeLanguage4 + ", transcribeUpload4=" + transcribeUpload4 + ", scribingPortfolioLink="
-				+ scribingPortfolioLink + ", scribingPerWordMin=" + scribingPerWordMin + ", scribingPerWordMax="
-				+ scribingPerWordMax + "]";
+				+ ", interpretationIndustries=" + interpretationIndustries + ", interpretationLanguages="
+				+ interpretationLanguages + ", interLanguage1=" + interLanguage1 + ", interUpload1=" + interUpload1
+				+ ", interLanguage2=" + interLanguage2 + ", interUpload2=" + interUpload2 + ", interLanguage3="
+				+ interLanguage3 + ", interUpload3=" + interUpload3 + ", interLanguage4=" + interLanguage4
+				+ ", interUpload4=" + interUpload4 + ", interLanguage5=" + interLanguage5 + ", interUpload5="
+				+ interUpload5 + ", interPortfolioLink=" + interPortfolioLink + ", interPerWordMin=" + interPerWordMin
+				+ ", interPerWordMax=" + interPerWordMax + ", vcServiceType=" + vcServiceType + ", vcExperience="
+				+ vcExperience + ", vcIndustries=" + vcIndustries + ", vcLanguages=" + vcLanguages + ", vcLanguage1="
+				+ vcLanguage1 + ", voiceDesc1=" + voiceDesc1 + ", vcUpload1=" + vcUpload1 + ", vcLanguage2="
+				+ vcLanguage2 + ", voiceDesc2=" + voiceDesc2 + ", vcUpload2=" + vcUpload2 + ", vcLanguage3="
+				+ vcLanguage3 + ", voiceDesc3=" + voiceDesc3 + ", vcUpload3=" + vcUpload3 + ", vcLanguage4="
+				+ vcLanguage4 + ", voiceDesc4=" + voiceDesc4 + ", vcUpload4=" + vcUpload4 + ", vcLanguage5="
+				+ vcLanguage5 + ", voiceDesc5=" + voiceDesc5 + ", vcUpload5=" + vcUpload5 + ", vcPortfolioLink="
+				+ vcPortfolioLink + ", vcPerMinuteMin=" + vcPerMinuteMin + ", vcPerMinuteMax=" + vcPerMinuteMax
+				+ ", vcPerHourMin=" + vcPerHourMin + ", vcPerHourMax=" + vcPerHourMax + ", vcPerWordMin=" + vcPerWordMin
+				+ ", vcPerWordMax=" + vcPerWordMax + ", scribingServiceType=" + scribingServiceType
+				+ ", scribingExperience=" + scribingExperience + ", scribingIndustries=" + scribingIndustries
+				+ ", transcribeLanguages=" + transcribeLanguages + ", transcribeLanguage1=" + transcribeLanguage1
+				+ ", transcribeUpload1=" + transcribeUpload1 + ", transcribeLanguage2=" + transcribeLanguage2
+				+ ", transcribeUpload2=" + transcribeUpload2 + ", transcribeLanguage3=" + transcribeLanguage3
+				+ ", transcribeUpload3=" + transcribeUpload3 + ", transcribeLanguage4=" + transcribeLanguage4
+				+ ", transcribeUpload4=" + transcribeUpload4 + ", transcribeLanguage5=" + transcribeLanguage5
+				+ ", transcribeUpload5=" + transcribeUpload5 + ", scribingPortfolioLink=" + scribingPortfolioLink
+				+ ", scribingPerWordMin=" + scribingPerWordMin + ", scribingPerWordMax=" + scribingPerWordMax + "]";
 	}
+
 }
