@@ -41,7 +41,7 @@ import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 
 @SpringBootApplication
-@ComponentScan({ "com.ivoiceafrica.ivoiceafrica" })
+@ComponentScan({ "com.ivoiceafrica.ivoiceafrica"})
 public class IVoiceApplication implements CommandLineRunner {
 
 	@Autowired
@@ -201,8 +201,8 @@ public class IVoiceApplication implements CommandLineRunner {
 //		
 //		System.out.println("===>>> workOrderDelivery: "+workOrderDelivery);
 		
-		List<User> users = userRepository.findUserByRoleAndUsername(3, "chima@gmail.com");
-		System.out.println("====>>> users: "+users);
+//		List<User> users = userRepository.findUserByRoleAndUsername(3, "chima@gmail.com");
+//		System.out.println("====>>> users: "+users);
 
 	}
 
