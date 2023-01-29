@@ -49,7 +49,6 @@ public class DeliveryAttachmentServiceImpl implements DeliveryAttachmentService 
 	public List<DeliveryAttachment> findDeliveryAttachmentByWorkOrderDelivery(WorkOrdersDelivery workOrderDelivery) {
 		return deliveryAttachmentRepository.findDeliveryAttachmentByWorkOrderDelivery(workOrderDelivery);
 	}
-	
-	
 
+	
 }

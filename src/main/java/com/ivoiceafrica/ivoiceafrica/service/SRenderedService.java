@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 
 
 public interface SRenderedService {
@@ -22,4 +23,6 @@ public interface SRenderedService {
 	Optional<ServiceRendered> findFirstServiceRenderedByUser(User user);
 	
 	List<ServiceRendered> findServiceRenderedListByUser(User user);
+	
+	List<ServiceRendered> findServiceRenderedListByServiceType(ServiceType serviceType);
 }

@@ -186,8 +186,9 @@
 
 							<div class="job-attc"
 								th:each="attachment : ${workOrderAttachments}">
-								<img src="../../assets/icons/vscode-icons_file-type.svg"
-									alt="file-icon" />
+								<span class="material-symbols-outlined draft-icon">
+									draft </span>
+									
 								<div class="ml-3">
 									<p th:text="${attachment.linkMediaFile}">Physics textbook
 										in French (01).pdf</p>
@@ -202,8 +203,9 @@
 											3 Hours ago</span>
 									</p>
 								</div>
+								
 								<div class="dotting">
-									<img src="../../assets/images/dottings.svg" alt="menu dots" />
+									<a th:href="@{|/files/download?id=${attachment.linkMediaFile}|}"><img src="../../assets/images/downloadicon.svg" alt="menu dots" /></a>
 								</div>
 							</div>
 						</div>

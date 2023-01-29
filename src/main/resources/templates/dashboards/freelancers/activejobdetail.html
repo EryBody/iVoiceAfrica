@@ -82,6 +82,7 @@
 
 							<!-- display details of controller -->
 							<p th:text="${message}" th:if="${message ne null}"
+							
 								class="alert alert-primary mt-3"></p>
 
 							<div
@@ -124,7 +125,7 @@
 								</div>
 
 								<div class="mt-4 flexS">
-									<div class="inprogress-dropdown">
+									<div class="inprogress-dropdown" style="width: 18%">
 										<input type="text" th:value="${@FreelancerComponentModel.getWorkOrderStatusId(opWorkOrder.workId).workOrderStatus.status}" readonly
 											class="dd-input" />
 											
@@ -195,8 +196,9 @@
 							<div class="job-attachments mt-5" id="attachmentContent">
 								<div class="job-attc"
 									th:each="tempAttachment : ${workOrderAttachmentList}">
-									<img src="../../assets/icons/vscode-icons_file-type.svg"
-										alt="file-icon" />
+									<span class="material-symbols-outlined draft-icon">
+												draft </span>
+									
 									<div class="ml-3">
 										<p th:text="${tempAttachment.linkMediaFile}">Physics
 											textbook in French (01).pdf</p>
@@ -213,8 +215,8 @@
 										</p>
 									</div>
 									<div class="dotting">
-										<img src="../../assets/images/downloadicon.svg"
-											alt="menu dots" />
+										<a th:href="@{|/files/download?id=${tempAttachment.linkMediaFile}|}"><img src="../../assets/images/downloadicon.svg"
+											alt="menu dots" /></a>
 									</div>
 								</div>
 							</div>
@@ -273,16 +275,22 @@
 						th:object="${saveClientJobsDTO}" method="post"
 						enctype="multipart/form-data">
 
-
 						<div class="activejob-uploads-area">
 							<div class="job-attc"
 								th:each="delivery, iStat : ${deliveryAttachments}">
 								<img src="../../assets/icons/vscode-icons_file-type.svg"
-									alt="file-icon" /> <input type="hidden" name="deliveryId"
+									alt="file-icon" /> 
+									<input type="hidden" name="deliveryId"
 									id="deliveryId"
-									th:value="${delivery.workOrderDelivery.deliveryId}"> <input
+									th:value="${delivery.workOrderDelivery.deliveryId}"> 
+									
+									<input
 									type="hidden" name="workOrderId" id="workOrderId"
 									th:value="${delivery.workOrderDelivery.workOrder.workId}">
+									
+									<input type="hidden" name="deliveryAttachment"
+									id="deliveryAttachment"
+									th:value="${delivery.deliveryAttachId}"> 
 
 								<div class="ml-3">
 								<span th:text="${workOrderStatus.workOrderStatus.status}">Start uploading your work</span>

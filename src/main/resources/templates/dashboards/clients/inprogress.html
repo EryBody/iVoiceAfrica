@@ -104,7 +104,7 @@
 			
 			
 				<div class="">
-					<div class="mt-3 mb-4 inprogress-boxes">
+					<div class="mt-3 mb-4 inprogress-boxes" th:if="${workOrderDeliveryList.size() > 0}">
 
 						<div class="job-alerts in-progress-card justify-content-between"
 							th:each="workOrderDelivery : ${workOrderDeliveryList}">

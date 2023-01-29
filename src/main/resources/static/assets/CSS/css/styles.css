@@ -1297,7 +1297,7 @@ tbody tr {
   align-items: center;
 
   justify-content: center;
-  width: 5rem;
+  min-width: 5.3rem;
   border-radius: 1rem 0 0 1rem;
 }
 
@@ -1309,6 +1309,9 @@ tbody tr {
   font-weight: 500;
   font-family: inherit;
   padding-right: 0.5em;
+  height: 100%;
+  max-width: 16rem;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .payment-modal-cancel-btn {
@@ -2943,7 +2946,7 @@ tbody tr {
   height: 1rem;
   position: absolute;
   top: 1.8rem;
-  left: 1.9rem;
+  left: 0.9rem;
   width: 1rem;
   border-radius: 50%;
   background-color: #00a344;
@@ -2952,6 +2955,7 @@ tbody tr {
   padding: 1rem 1rem;
   max-width: 16.7rem;
   font-size: 1.6rem;
+  cursor: pointer;
   width: 100%;
   border-radius: 3rem;
   border: 0.1rem solid rgba(28, 55, 90, 0.16);
@@ -3063,11 +3067,8 @@ tbody tr {
 }
 
 .view-pdf {
-  position: absolute;
-  left: -31rem;
-  top: -9rem;
   z-index: 2;
-  display: none;
+  height: 50rem;
 }
 
 #view-option:hover + .view-pdf {

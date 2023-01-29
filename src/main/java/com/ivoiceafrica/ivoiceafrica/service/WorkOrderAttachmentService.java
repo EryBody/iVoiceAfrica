@@ -23,4 +23,8 @@ public interface WorkOrderAttachmentService {
 	Optional<WorkOrderAttachment> findFirstWorkOrderAttachmentByWorkOrder(WorkOrder workOrder);
 	
 	List<WorkOrderAttachment> findWorkOrderAttachmentByWorkOrderWithLimit(String workOrderId, int limitOfAttachment);
+	
+	public int updateJobCounts(int wordCount,int pageCount,String workDeliveryId);
+
+	
 }

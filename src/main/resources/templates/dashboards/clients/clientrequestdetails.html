@@ -238,29 +238,15 @@
 						<div class="job-status-heading">
 							<span>Job Status</span>
 						</div>
-
-						<div>
+						
+						<div th:each="jobStatusOb, iStat : ${jobStatuses}">
 							<div class="job-status-progress">
-								<div class="circle circle-bar circle-completed">1</div>
-								<span>Post job</span>
+								<div th:attr="class=${@ClientComponentModel.checkCurrentJobStatus(workOrderDetails.workId).equals(jobStatusOb.jobStatusName) ? 'circle circle-completed' : 'circle'}" th:text="${iStat.index+1}">1</div>
+								<span th:text="${jobStatusOb.jobStatusName}">Post job</span>
 							</div>
-							<div class="job-status-progress">
-								<div class="circle circle-completed">2</div>
-								<span>Find freelancer</span>
-							</div>
-							<div class="job-status-progress">
-								<div class="circle">3</div>
-								<span class="incomplete-task-color">Work in progress</span>
-							</div>
-							<div class="job-status-progress">
-								<div class="circle">4</div>
-								<span class="incomplete-task-color">Review submission</span>
-							</div>
-							<div class="job-status-progress">
-								<div class="circle">5</div>
-								<span class="incomplete-task-color">Close job</span>
-							</div>
+							
 						</div>
+						
 					</div>
 				</div>
 			</div>

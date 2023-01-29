@@ -1,5 +1,11 @@
 package com.ivoiceafrica.ivoiceafrica.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,18 +16,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,6 +42,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientPersonalDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientSignupDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.JobStatusDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.NewClientRequestDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
@@ -164,40 +178,38 @@ public class ClientController {
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> user = userService.findFirstUserByUsername(userId);
 
-	
 		// Delivery Status, Work Delivery and Delivery Attachment
 		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(5);// 5 means in Progress
 
-		
 		List<WorkOrdersDelivery> workOrderDelivery = deliveryService
-				.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(user.get(), opDeliveryStatus.get());
+				.findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(user.get().getUserId(),
+						opDeliveryStatus.get());
 
 		try {
-			
+
 			Optional<WorkOrderStatus> workOrderStatus = workOrderStatusService.findById(5);// 5 means in Progress
-			
+
 			List<WorkOrder> workOrders = workOrderService
 					.findWorkOrderByUserAndWorkOrderStatusOrderByPostingDate(user.get(), workOrderStatus.get());
-			
-			if(workOrders.size() > 1) {
-				
+
+			if (workOrders.size() > 1) {
+
 				Optional<WorkOrderAttachment> opWorkOrderAttachment = workOrderAttachmentService
 						.findFirstWorkOrderAttachmentByWorkOrder(workOrders.get(0));
-				
+
 				model.addAttribute("workOrdersList", workOrders);
 				model.addAttribute("workOrderStatus", workOrderStatus.get());
 				model.addAttribute("orderSource", opWorkOrderAttachment.get().getSource());
 				model.addAttribute("orderDestination", opWorkOrderAttachment.get().getDestination());
 			}
-			
+
 		} catch (Exception ex) {
 			System.out.println("====>>>> Error: " + ex.getMessage());
 		}
-	
-		
+
 		model.addAttribute("workOrderDeliveryList", workOrderDelivery);
 		model.addAttribute("opDeliveryStatus", opDeliveryStatus.get());
-		
+
 		return "dashboards/clients/inprogress";
 	}
 
@@ -206,8 +218,13 @@ public class ClientController {
 			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
 
 		try {
+
+			String userId = (String) session.getAttribute("userId");
+			Optional<User> clientUserId = userService.findFirstUserByUsername(userId);
+
 			Optional<User> user = userService.findFirstUserByUsername(clientAmountDTO.getUserID());
 			Optional<WorkOrder> workOrder = workOrderService.findById(clientAmountDTO.getWorkOrderID());
+
 			Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(5);// 5 means inprogress status
 
 			WorkOrdersDelivery workDelivery = new WorkOrdersDelivery();
@@ -226,6 +243,7 @@ public class ClientController {
 
 //				workDelivery.setDeliveryId("");
 				workDelivery.setWorkOrder(workOrder.get());
+				workDelivery.setClientUserId(clientUserId.get().getUserId());
 				workDelivery.setUser(user.get());
 				workDelivery.setAmount(String.valueOf(clientAmountDTO.getClientAmount()));
 				workDelivery.setDeliveryStatus(deliveryStatus.get());
@@ -254,8 +272,12 @@ public class ClientController {
 					deliveryAttachmentService.save(deliveryAttachment);
 				}
 
+				int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(5, clientAmountDTO.getWorkOrderID());
+				System.out.println("===>>> updateWorkOrderStatus Inprogess: " + updateWorkOrderStatus);
+
 				attributes.addFlashAttribute("message", "Great, your job has been sent successfully");
 				return "redirect:/client-dashboard";
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 				System.out.println("Exception in date: " + e.getMessage());
@@ -301,6 +323,12 @@ public class ClientController {
 		model.addAttribute("orderSource", opWorkOrderAttachment.get().getSource());
 		model.addAttribute("orderDestination", opWorkOrderAttachment.get().getDestination());
 
+		List<JobStatusDTO> jobStatuses = getJobStatuses();
+
+		System.out.println("===>>> jobStatuses: " + jobStatuses);
+
+		model.addAttribute("jobStatuses", jobStatuses);
+
 		return "dashboards/clients/inprogressjobdetails";
 	}
 
@@ -310,26 +338,36 @@ public class ClientController {
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> user = userService.findFirstUserByUsername(userId);
 
-		Optional<WorkOrderStatus> workOrderStatus = workOrderStatusService.findById(5);// 5 means in Progress
+		Optional<WorkOrderStatus> workOrderStatus = workOrderStatusService.findById(9);// 9 means finished
 
 		List<WorkOrder> workOrders = workOrderService
 				.findWorkOrderByUserAndWorkOrderStatusOrderByPostingDate(user.get(), workOrderStatus.get());
 
+		System.out.println("===>>> workOrders: " + workOrders);
+
 		// Delivery Status, Work Delivery and Delivery Attachment
-		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(9);// 5 means in Progress
+		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(9);// 9 means finished
 
 		List<WorkOrdersDelivery> workOrderDelivery = deliveryService
-				.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(user.get(), opDeliveryStatus.get());
+				.findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(user.get().getUserId(),
+						opDeliveryStatus.get());
+
+		System.out.println("===>>> workOrderDelivery: " + workOrderDelivery.size());
 
 		try {
-			
-			Optional<WorkOrderAttachment> opWorkOrderAttachment = workOrderAttachmentService
-					.findFirstWorkOrderAttachmentByWorkOrder(workOrders.get(0));
-			model.addAttribute("orderSource", opWorkOrderAttachment.get().getSource());
-			model.addAttribute("orderDestination", opWorkOrderAttachment.get().getDestination());
+
+			if (!workOrders.isEmpty()) {
+				Optional<WorkOrderAttachment> opWorkOrderAttachment = workOrderAttachmentService
+						.findFirstWorkOrderAttachmentByWorkOrder(workOrders.get(0));
+
+				model.addAttribute("orderSource", opWorkOrderAttachment.get().getSource());
+				model.addAttribute("orderDestination", opWorkOrderAttachment.get().getDestination());
+			}
+
 		} catch (Exception ex) {
 			System.out.println("====>>>> Error: " + ex.getMessage());
 		}
+
 		model.addAttribute("workOrdersList", workOrders);
 		model.addAttribute("workOrderStatus", workOrderStatus.get());
 		model.addAttribute("workOrderDeliveryList", workOrderDelivery);
@@ -342,15 +380,17 @@ public class ClientController {
 	public String clientFinishedDetails(@PathVariable(value = "workOrderId") String workOrderId,
 			@PathVariable(value = "deliveryId") String deliveryId, Model model) {
 
-		Optional<WorkOrderStatus> workOrderStatus = workOrderStatusService.findById(5);// 5 means in Progress
+		Optional<WorkOrderStatus> workOrderStatus = workOrderStatusService.findById(9);// 9 means in Progress
 
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(workOrderId);
 
 		// Delivery Status, Work Delivery and Delivery Attachment
 
-		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(5);// 5 means in Progress
+		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(9);// 9 means in Progress
 
 		Optional<WorkOrdersDelivery> opDeliveryDetails = deliveryService.findById(deliveryId);
+
+		System.out.println("===>>> opDeliveryDetails: " + opDeliveryDetails);
 
 		List<WorkOrdersDelivery> workOrderDelivery = deliveryService
 				.findWorkOrdersDeliveryByDeliveryStatusOrderByCreatedDateDesc(opDeliveryStatus.get());
@@ -361,6 +401,8 @@ public class ClientController {
 		List<DeliveryAttachment> deliveryAttachment = deliveryAttachmentService
 				.findDeliveryAttachmentByWorkOrderDelivery(opDeliveryDetails.get());
 
+		System.out.println("===>>>> deliveryAttachment: " + deliveryAttachment);
+
 		model.addAttribute("deliveryAttachmentList", deliveryAttachment);
 		model.addAttribute("opDeliveryDetails", opDeliveryDetails.get());
 		model.addAttribute("workOrderStatus", workOrderStatus.get());
@@ -368,6 +410,12 @@ public class ClientController {
 		model.addAttribute("opDeliveryStatus", opDeliveryStatus.get());
 		model.addAttribute("orderSource", opWorkOrderAttachment.get().getSource());
 		model.addAttribute("orderDestination", opWorkOrderAttachment.get().getDestination());
+
+		List<JobStatusDTO> jobStatuses = getJobStatuses();
+
+		System.out.println("===>>> jobStatuses: " + jobStatuses);
+
+		model.addAttribute("jobStatuses", jobStatuses);
 
 		return "dashboards/clients/clientfinishedDetails";
 	}
@@ -380,35 +428,33 @@ public class ClientController {
 
 	@GetMapping("/profile")
 	public String clientProfile(Model model) {
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
-		
+
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("ProfileDTO", new ProfileDTO());
-		
+
 		return "dashboards/clients/clientprofile";
 	}
-	
+
 	@PostMapping("/profile/save")
 	public String saveProfile(@ModelAttribute("ProfileDTO") ProfileDTO profileDTO, Model model) {
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
-		
-		System.out.println("===>>> ProfileDTO: "+profileDTO);
-		
+
+		System.out.println("===>>> ProfileDTO: " + profileDTO);
+
 		profileDTO.setUserId(userDetails.get().getUserId());
 		int updateUserInfoStatus = userService.updateUserInfo(profileDTO);
-		
-		System.out.println("Update Status: "+updateUserInfoStatus);
-		
+
+		System.out.println("Update Status: " + updateUserInfoStatus);
+
 		model.addAttribute("userDetails", userDetails.get());
 
 		return "redirect:/profile";
 	}
-	
-	
 
 	@GetMapping("/clientFreelancerProfile/{id}/{user}")
 	public String freelancerPortfolio(@PathVariable(value = "id") String id, @PathVariable(value = "user") String user,
@@ -451,6 +497,12 @@ public class ClientController {
 			model.addAttribute("workOrderFirstAttachment", workOrderAttachment.get());
 			model.addAttribute("workOrderDetails", workOrder.get());
 
+			List<JobStatusDTO> jobStatuses = getJobStatuses();
+
+			System.out.println("===>>> jobStatuses: " + jobStatuses);
+
+			model.addAttribute("jobStatuses", jobStatuses);
+
 		} catch (Exception ex) {
 			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
 		}
@@ -473,7 +525,6 @@ public class ClientController {
 
 			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// 9 Means Freelancer Request
 																						// Sent Status
-
 			List<Proposal> clientProposals = proposalService
 					.findProposalByWorkOrderAndProposalStatusOrderByCreatedDate(workOrder.get(), proposalStatus.get());
 
@@ -488,24 +539,30 @@ public class ClientController {
 		return "dashboards/clients/clientbidsdetails";
 	}
 
-	@GetMapping("/clientProfileOverview/{id}/{user}")
-	public String profileOverview(@PathVariable(value = "id") String id, @PathVariable(value = "user") String user,
-			Model model) {
+	@GetMapping("/clientProfileOverview/{id}/{proposalId}")
+	public String profileOverview(@PathVariable(value = "id") String id,
+			@PathVariable(value = "proposalId") String proposalId, Model model) {
 
 		try {
+
+			System.out.println("===>>> proposalId: " + proposalId);
+
+			Optional<Proposal> proposalOp = proposalService.findById(proposalId);
+			System.out.println("===>>> proposalOp: " + proposalOp);
 
 			Optional<WorkOrder> workOrder = workOrderService.findById(id);
 
 			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-			Optional<User> opUser = userService.findFirstUserByUsername(user);
+			Optional<User> opUser = userService.findFirstUserByUsername(proposalOp.get().getUser().getUsername());
 
 			List<ServiceRendered> servicesRendered = serviceRenderedService.findServiceRenderedListByUser(opUser.get());
 
 			model.addAttribute("workOrderDetails", workOrder.get());
 			model.addAttribute("userDetails", opUser.get());
 			model.addAttribute("servicesRendered", servicesRendered);
+			model.addAttribute("proposalDetails", proposalOp.get());
 			model.addAttribute("clientAmountDTO", new ClientAmountDTO());
 
 		} catch (Exception ex) {
@@ -755,6 +812,120 @@ public class ClientController {
 		}
 
 		return filename;
+	}
+
+	@GetMapping("/files/download")
+	public void downloadFile(@Param(value = "id") String id, Model model, HttpServletResponse response)
+			throws IOException {
+
+		String fileName = id;
+		String fileUrl = uploadDir.concat("/").concat(fileName);
+
+		File file = new File(fileUrl);
+		if (file.exists()) {
+
+			// get the mimetype
+			String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+			if (mimeType == null) {
+				// unknown mimetype so set the mimetype to application/octet-stream
+				mimeType = "application/octet-stream";
+			}
+
+			response.setContentType(mimeType);
+
+			/**
+			 * In a regular HTTP response, the Content-Disposition response header is a
+			 * header indicating if the content is expected to be displayed inline in the
+			 * browser, that is, as a Web page or as part of a Web page, or as an
+			 * attachment, that is downloaded and saved locally.
+			 * 
+			 */
+
+			/**
+			 * Here we have mentioned it to show inline
+			 */
+//			response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
+
+			// Here we have mentioned it to show as attachment
+			response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() + "\""));
+
+			response.setContentLength((int) file.length());
+
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+			FileCopyUtils.copy(inputStream, response.getOutputStream());
+
+			System.out.println("=====>>>>> downloaded File: " + fileUrl);
+
+		} else {
+			model.addAttribute("message", "File does not exist, if issues persist contact admin");
+		}
+	}
+
+	@GetMapping("/files/load")
+	@ResponseBody
+	public String showImage(@Param("id") String id, Model model, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		System.out.println("===>>> ID: " + id);
+		String filePath = "/profilepictures";
+
+		String fileName = id;
+		String fileUrl = filePath.concat("/").concat(fileName);
+
+		System.out.println("===>>> fileUrl: " + fileUrl);
+
+		return fileUrl;
+
+	}
+
+	public List<JobStatusDTO> getJobStatuses() {
+		List<JobStatusDTO> jobStatusList = new ArrayList<>();
+
+		List<WorkOrderStatus> workOrderStatus = workOrderStatusService.findAll();
+
+		for (WorkOrderStatus wo : workOrderStatus) {
+			JobStatusDTO jobStatusDto = new JobStatusDTO();
+
+			if (wo.getWoStatusId() == 1) {// Pending
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+			if (wo.getWoStatusId() == 7) {// Freelancer Searching
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+			if (wo.getWoStatusId() == 5) {// In progress
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+			if (wo.getWoStatusId() == 4) {// Reviewing
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+			if (wo.getWoStatusId() == 2) {// Completed
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+			if (wo.getWoStatusId() == 9) {// Finished
+				jobStatusDto.setJobStatusId(wo.getWoStatusId());
+				jobStatusDto.setJobStatusName(wo.getStatus());
+				jobStatusList.add(jobStatusDto);
+			}
+
+		}
+
+		return jobStatusList;
 	}
 
 }

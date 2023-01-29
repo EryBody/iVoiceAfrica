@@ -72,11 +72,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 		
 		Optional<WorkOrdersDelivery> result = deliveryRepository.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(workOrder);
 
-		if (result.isPresent()) {
-			return result;
-		} else {
-			throw new RuntimeException("Did not find Record - " + result);
-		}
+		return result;
 	}
 
 	
@@ -111,6 +107,38 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return deliveryRepository.updateWorkDeliveryStatus(deliveryStatusId, deliveryId);
 	}
 
-	
+	@Override
+	public Optional<WorkOrdersDelivery> findFirstWorkOrdersDeliveryByWorkOrderAndDeliveryStatus(WorkOrder workOrder,
+			DeliveryStatus deliveryStatus) {
+		return deliveryRepository.findFirstWorkOrdersDeliveryByWorkOrderAndDeliveryStatus(workOrder, deliveryStatus);
+	}
+
+	@Override
+	public List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(
+			int clientUserId, DeliveryStatus deliveryStatus) {
+		return deliveryRepository.findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(clientUserId, deliveryStatus);
+	}
+
+	@Override
+	public List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(int clientUserId) {
+		return deliveryRepository.findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(clientUserId);
+	}
+
+	@Override
+	public List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(int user,
+			WorkOrder workOrder) {
+		return deliveryRepository.findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(user, workOrder);
+	}
+
+	@Override
+	public List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(User user,
+			WorkOrder workOrder) {
+		return deliveryRepository.findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(user, workOrder);
+	}
+
+	@Override
+	public int updateworkDeliveryAmount(double amount, String deliveryId) {
+		return deliveryRepository.updateworkDeliveryAmount(amount, deliveryId);
+	}
 
 }

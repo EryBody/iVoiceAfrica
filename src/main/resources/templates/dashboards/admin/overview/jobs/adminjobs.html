@@ -24,6 +24,8 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script defer src="../../../../assets/JS/js/admin.js"></script>
+<link rel="stylesheet" href="../../../../assets/CSS/css/bootstrap.min.css" />
+
 <title>Admin - jobs</title>
 </head>
 
@@ -45,13 +47,17 @@
 					<h1 class="admin-heading">Jobs</h1>
 				</div>
 
-				<div th:replace="fragments/admin_status :: admin-status-header"></div>
+				<!-- <div th:replace="fragments/admin_status :: admin-status-header"></div> -->
 
 				<div th:replace="fragments/admin_user :: admin-user-header"></div>
 
 			</div>
 			<div class="admin-contentbox">
 				<div class="jobs-box">
+				
+					<p th:text="${message}" th:if="${message ne null}"
+							class="alert alert-primary mt-3"></p>
+				
 					<div class="jobs-filter-options">
 						<div class="filter-select">
 							<div class="filter-optionI">
@@ -59,480 +65,92 @@
 
 								<div class="filter-option">
 									<span>Service type</span> <select name="select" id="job"
-										class="option-all">
-										<option value="all">Translation</option>
-										<option value="all">Interpretation</option>
-										<option value="all">Voice Over</option>
-										<option value="all">Transcribing</option>
+										class="option-all"
+										onchange="javascript:handleServiceSelect(this)">
+										<option value="">Please select service type</option>
+										<option th:each="serviceType : ${serviceTypes}"
+											th:value="${serviceType.typeId}"
+											th:text="${serviceType.typeName}" />
+
 									</select> <img src="../../../../assets/images/admin-imgs/drpdown.svg"
 										alt="dropdown" />
 								</div>
 							</div>
 							<div class="filter-option">
 								<span>Job Status</span> <select name="select" id="job"
-									class="option-all">
-									<option value="all">All</option>
-									<option value="all">All</option>
-									<option value="all">All</option>
+									class="option-all"
+									onchange="javascript:handleStatusSelect(this)">
+									<option value="">Please select status</option>
+									<option th:each="orderStatus : ${workOrdersStatus}"
+										th:value="${orderStatus.woStatusId}"
+										th:text="${orderStatus.status}" />
+
 								</select> <img src="../../../../assets/images/admin-imgs/drpdown.svg"
 									class="dropdown-icon" alt="dropdown" />
 							</div>
 						</div>
-						<div class="filter-search">
-							<p>Search:</p>
-							<span class="search-inputs">
-								<div>
-									<img src="../../../../assets/images/admin-imgs/maginfier.svg"
-										alt="Search icon" /> <input type="text" placeholder="Job ID" />
-								</div>
-								<div>
-									<img src="../../../../assets/images/admin-imgs/maginfier.svg"
-										alt="Search icon" /> <input type="text"
-										placeholder="Freelancer ID" />
-								</div>
-								<div>
-									<img src="../../../../assets/images/admin-imgs/maginfier.svg"
-										alt="Search icon" /> <input type="text"
-										placeholder="Client ID" />
-								</div>
-							</span>
-						</div>
+						
+						<form th:action="@{/get-jobs-info}"
+						th:object="${GetJobsInfoDTO}" method="post">
+							<div class="filter-search">
+
+								<p>Search:</p>
+								<span class="search-inputs">
+									<div style="max-width: 60rem !important">
+										<img src="../../../../assets/images/admin-imgs/maginfier.svg"
+											alt="Search icon" /> <input type="text" placeholder="Enter job id" name="jobId" />
+									</div>
+									<div>or</div>
+									<div style="max-width: 60rem !important">
+										<img src="../../../../assets/images/admin-imgs/maginfier.svg"
+											alt="Search icon" /> <input type="text"
+											placeholder="Enter client email" name="clientId" />
+									</div>
+								</span>
+							
+								<button type="submit" class="btn btn-outline-secondary">Search</button>
+								
+							</div>
+						</form>
 					</div>
+
 					<div class="table-statistics">
 						<table id="job-statistics">
 							<thead>
 								<tr>
+									<th>S/N</th>
 									<th>Job ID</th>
+									<th>Work Title</th>
 									<th>Service type</th>
+									<th>User</th>
+									<th>Min amount</th>
+									<th>Max amount</th>
 									<th>Job status</th>
-									<th>Payment status</th>
-									<th>Client ID</th>
-									<th>Freelancer ID</th>
-									<th>Amount</th>
-									<th>Start time</th>
-									<th>Deadline</th>
-									<th>Submission time</th>
-									<th>Delivery time</th>
+									<th>Payment Status</th>
+									<th>Details</th>
+									<th>Modified date</th>
+									<th>Posting date</th>
 								</tr>
 							</thead>
 							<tbody id="paginated-list" data-current-page="1"
 								aria-live="polite">
-								<tr>
-									<td><a th:href="@{/job-details}" class="tablelink">
-											00032356679859 </a></td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>-</td>
-									<td class="id">00032356679849</td>
-									<td>-</td>
-									<td>-</td>
-									<td>-</td>
-									<td>-</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>-</td>
-									<td class="id">00032356679849</td>
-									<td>-</td>
-									<td>-</td>
-									<td>-</td>
-									<td>-</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$500</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$700</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$800</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$800</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$450</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>28 September 2021, 9:32 PM</td>
-									<td>In review</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
-								</tr>
-								<tr>
-									<td class="id">00032356679849</td>
-									<td>Interpretation</td>
-									<td>New</td>
-									<td>In Escrow</td>
-									<td class="id">00032356679849</td>
-									<td class="id">00032356679849</td>
-									<td>$679</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>2 March 2021, 4:16 PM</td>
-									<td>-</td>
-									<td>-</td>
+
+								<tr th:each="temp, iStat : ${workOrderList}">
+									<td th:text="${iStat.index+1}">1</td>
+									<td><a
+										th:href="@{/job-details/{workId}/{workOrderStatus}(workId=${temp.workId}, workOrderStatus=${temp.workOrderStatus.woStatusId})}"
+										class="table-link"> <span th:text="${temp.workId}">temi.admin</span>
+									</a></td>
+									<td th:text="${temp.workTitle}">Interpretation</td>
+									<td th:text="${temp.serviceType.typeName}">New</td>
+									<td th:text="${temp.user.username}">-</td>
+									<td th:text="${temp.minAmount}">00032356679849</td>
+									<td th:text="${temp.maxAmount}">-</td>
+									<td th:text="${temp.workOrderStatus.status}">-</td>
+									<td th:text="${temp.workOrderStatus.status}">-</td>
+									<td th:text="${temp.description}">-</td>
+									<td th:text="${temp.modifiedDate}">-</td>
+									<td th:text="${temp.postingDate}">-</td>
 								</tr>
 							</tbody>
 						</table>
@@ -554,5 +172,46 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- jquery latest version -->
+	<script src="../../../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="../../../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<script type="text/javascript">
+		function handleServiceSelect(elm) {
+
+			var action = "/admin-job-by-serviceType";
+
+			$.ajax({
+				url : action,
+				type : "GET",
+				data : {
+					serviceTypeId : elm.value
+				},
+				success : function(data) {
+					window.location.href = data;
+				}
+			});
+
+		}
+
+		function handleStatusSelect(elm) {
+
+			var action = "/admin-job-by-statusType";
+
+			$.ajax({
+				url : action,
+				type : "GET",
+				data : {
+					statusId : elm.value
+				},
+				success : function(data) {
+					window.location.href = data;
+				}
+			});
+		}
+	</script>
+
 </body>
 </html>

@@ -36,6 +36,9 @@ public class WorkOrdersDelivery {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@Column(name = "client_user_id")
+	private Integer clientUserId;
+
 	@Column(name = "amount")
 	private String amount;
 
@@ -59,7 +62,7 @@ public class WorkOrdersDelivery {
 			CascadeType.DETACH })
 	@JsonIgnore
 	private Set<DeliveryAttachment> deliveryAttachment;
-	
+
 	@OneToMany(mappedBy = "workOrderDelivery", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH })
 	@JsonIgnore
@@ -69,13 +72,14 @@ public class WorkOrdersDelivery {
 
 	}
 
-	public WorkOrdersDelivery(String deliveryId, WorkOrder workOrder, User user, String amount,
+	public WorkOrdersDelivery(String deliveryId, WorkOrder workOrder, User user, Integer clientUserId, String amount,
 			DeliveryStatus deliveryStatus, String startDate, String endDate, String createdDate, String completedDate,
 			Set<DeliveryAttachment> deliveryAttachment,
 			Set<FreelancerDeliveryAttachment> freelancerDeliveryAttachment) {
 		this.deliveryId = deliveryId;
 		this.workOrder = workOrder;
 		this.user = user;
+		this.clientUserId = clientUserId;
 		this.amount = amount;
 		this.deliveryStatus = deliveryStatus;
 		this.startDate = startDate;
@@ -108,6 +112,14 @@ public class WorkOrdersDelivery {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Integer getClientUserId() {
+		return clientUserId;
+	}
+
+	public void setClientUserId(Integer clientUserId) {
+		this.clientUserId = clientUserId;
 	}
 
 	public String getAmount() {
@@ -177,10 +189,9 @@ public class WorkOrdersDelivery {
 	@Override
 	public String toString() {
 		return "WorkOrdersDelivery [deliveryId=" + deliveryId + ", workOrder=" + workOrder + ", user=" + user
-				+ ", amount=" + amount + ", deliveryStatus=" + deliveryStatus + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", createdDate=" + createdDate + ", completedDate=" + completedDate
-				+ ", deliveryAttachment=" + deliveryAttachment + ", freelancerDeliveryAttachment="
-				+ freelancerDeliveryAttachment + "]";
+				+ ", clientUserId=" + clientUserId + ", amount=" + amount + ", deliveryStatus=" + deliveryStatus
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", createdDate=" + createdDate
+				+ ", completedDate=" + completedDate + "]";
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.repository.ServiceRenderedRepository;
 
 
@@ -74,6 +75,11 @@ public class SRenderedServiceImpl implements SRenderedService {
 	@Override
 	public List<ServiceRendered> findServiceRenderedListByUser(User user) {
 		return serviceRenderedRepository.findServiceRenderedListByUser(user);
+	}
+
+	@Override
+	public List<ServiceRendered> findServiceRenderedListByServiceType(ServiceType serviceType) {
+		return serviceRenderedRepository.findServiceRenderedListByServiceType(serviceType);
 	}
 	
 	

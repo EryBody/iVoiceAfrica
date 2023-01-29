@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/main_css :: css-header"></div>
+
+<style>
+.profile-details-admin {
+	margin-left: 3em;
+	/* padding: 2rem 0; */
+	margin-top: 2rem;
+	color: hsla(215, 41%, 18%, 0.72);
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+}
+</style>
+
+
+<body>
+	<div class="admin-overview">
+
+
+		<!-- ADMIN SIDE NAVIGATION -->
+		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
+		<!-- ///// -->
+
+		<!-- ADMIN MAIN SECTION -->
+		<div class="admin-main">
+			<div class="admin-overlay"></div>
+			<div class="admin-header">
+				<div class="admin-cta">
+					<button class="menu-btn">
+						<span class="material-symbols-outlined"> menu </span>
+					</button>
+					<h1 class="admin-heading">Profile</h1>
+				</div>
+
+				<!-- <div th:replace="fragments/admin_status :: admin-status-header"></div> -->
+
+				<div th:replace="fragments/admin_user :: admin-user-header"></div>
+			</div>
+
+			<div class="admin-contentbox">
+				<div class="admin-profile">
+
+					<div class="arrow-back-II">
+						<a href="clientbids.html"> <img
+							src="../../assets/icons/arrow_back_link.svg"
+							alt="arrow_back_link" />
+						</a>
+					</div>
+
+					<div class="profile-c">
+						<div class="arrow-back-II">
+							<a
+								th:href="@{/client/bidsdetails/{id}(id=${workOrderDetails?.workId})}">
+								<img src="../../assets/icons/arrow_back_link.svg"
+								alt="arrow_back_link" />
+							</a>
+						</div>
+					</div>
+					<div class="">
+						<div class="profile-info">
+							<img src="../../assets/images/profile_bg_img.jpg"
+								alt="profile-bg" class="profile-bg" />
+							<div class="profile-details-admin">
+								<div class="mb-3">
+									<img src="../../assets/images/profile_big.svg" alt="" class="" />
+
+								</div>
+
+								<p class="profilename mb-1"
+									th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael
+									Jordan</p>
+								<p class="profile-headline mb-3"
+									th:text="${userDetails.summary}">I am a voice-over artist
+									looking for freelance opportunities</p>
+								<div class="mb-2">
+									<span class="location-icon mr-3"><img
+										src="../../assets/icons/location.svg" alt="" /></span> <span
+										class="location" th:text="${userDetails.address}">Lagos,
+										Nigeria</span>
+								</div>
+								<div class="mb-2">
+									<span class="mr-3"><img
+										src="../../assets/icons/dateofentry.svg" alt="" /></span> <span
+										class="dateofentry" th:text="${userDetails.country}">Member
+										Since May, 2022</span>
+								</div>
+								<div class="mb-4">
+									<span class="location-icon mr-3"> <img
+										src="../../assets/icons/completed_project.svg" alt="" />
+									</span> <span class="completedproject">Completed many
+										successful projects on IVoice Africa</span>
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="profile-services">
+							<label for="" class="profile-service-label">Services</label>
+
+							<div class="service-rendered"
+								th:each="service : ${servicesRendered}">
+								<div class="d-flex align-items-center mb-4 griddy">
+									<span class="service" th:text="${service.serviceType.typeName}">Translation</span>
+									<div class="grey-dot ml-4"></div>
+									<span class="experience mr-4"> <span
+										th:text=${service.experienceInYears}>4</span> years Experience
+									</span>
+									<div class="grey-dot"></div>
+
+									<span class="charge"
+										th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, userDetails.username)}">$
+										<span
+										th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">20</span>
+										<span>-</span> $ <span
+										th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
+									</span>
+								</div>
+
+								<div class="d-flex align-items-center justify-content-between">
+									<div class="griddy"
+										th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
+										<span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"
+											th:text="${freelancerLanguage.languageId.language}">
+											English </span>
+
+									</div>
+									<span class="portfolio-link"> <a
+										th:href="${service.otherInfo}" target="_blank"
+										style="color: inherit">Portfolio</a> <img
+										src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
+
+									</span>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- <div class="selected-project profile-services">
+						<label for="" class="profile-service-label">Selected
+							Projects</label>
+						<div class="mt-2" id="attachmentConten">
+							<div class="job-attc">
+								<img src="../../assets/icons/vscode-icons_file-type.svg"
+									alt="file-icon" />
+								<div class="ml-3">
+									<p>Physics textbook in French (01).pdf</p>
+									<p>This file is to be translated to an English version</p>
+									<p>Uploaded 3 hours ago</p>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+						<!-- 					<div class="client-review profile-services">
+						<label for="" class="profile-service-label mb-3">Client
+							Reviews</label>
+						<p class="client-totalreview">40 Reviews</p>
+
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+						<div class="d-flex align-item-center mb-5 flex-wrap">
+							<div class="client-profile-photo">
+								<img src="../../assets/images/client-profile-img.svg"
+									alt="client-profile" />
+							</div>
+							<div class="ml-3">
+								<p class="client-profile-name">
+									Godwin Uchenna, <small class="client-reviewdate">3rd
+										October 2022</small>
+								</p>
+								<span class="client-ratingstar"><img
+									src="../../assets/icons/rating stars.svg" alt="" /></span>
+							</div>
+							<p class="client-review-statement my-3">Micheal is easy to
+								talk to and very helpful in guiding writers in the steps
+								required to get their work published. She is prompt and
+								empathetic and was a big help in getting the summary finished. I
+								haven't gone through all the steps as yet but would have no
+								hesitation in recommending her</p>
+						</div>
+
+						<a href="#" class="more-reviews">See all
+							Reviews <span><img
+								src="../../assets/icons/arrow_right.svg" alt="" /></span>
+						</a>
+					</div>
+					 -->
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+</html>

@@ -61,7 +61,8 @@
 		</div>
 
 		<form th:action="@{/freelancer/skill/save}"
-			th:object="${FreelancerSkillDetailDTO}" method="post" enctype="multipart/form-data">
+			th:object="${FreelancerSkillDetailDTO}" method="post"
+			enctype="multipart/form-data">
 			<div class="form multistep">
 				<h2 class="freelancer__document-heading">Select the services
 					you can offer</h2>
@@ -80,7 +81,6 @@
 						</div>
 					</button>
 					<div class="service-content" style="overflow-y: scroll;">
-
 
 						<input type="hidden" class="portfolio-input"
 							name="translationServiceType" value="ST101" />
@@ -115,10 +115,10 @@
 								<select class="selectpicker w-100" title="Select Industry"
 									multiple name="translationIndustries">
 									<option th:each="tempIndustry : ${industries}"
-													th:value="${tempIndustry.industryId}"
-													th:text="${tempIndustry.industry}" />
+										th:value="${tempIndustry.industryId}"
+										th:text="${tempIndustry.industry}" />
 								</select>
-								
+
 								<!-- </div> -->
 								<span class="custom-select-arrow"></span>
 							</div>
@@ -156,6 +156,7 @@
 										<div class="custom-select mt-2 rel">
 											<select name="translationLanguage1"
 												th:field="*{translationLanguage1}" id="translationLanguages">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -191,6 +192,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="translationLanguage2">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -200,7 +202,7 @@
 
 									<div class="language-upload-container mb-5">
 										<div>
-											<label for="" class="custom-file-lang-label">Uploadqwerty
+											<label for="" class="custom-file-lang-label">Upload
 												File <span class="text-danger">*</span>
 											</label>
 											<div class="uploadBtn2"
@@ -226,6 +228,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="translationLanguage3">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -261,6 +264,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="translationLanguage4">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -297,6 +301,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="translationLanguage5">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -396,7 +401,7 @@
 								</select> <span class="custom-select-arrow"></span>
 							</div>
 						</div>
-						
+
 						<div class="mb-4">
 							<label for="" class="service-content-label">Choose
 								preferred industry to work for <span class="text-danger">*</span>
@@ -407,10 +412,10 @@
 								<select class="selectpicker w-100" title="Select Industry"
 									multiple name="interpretationIndustries">
 									<option th:each="tempIndustry : ${industries}"
-													th:value="${tempIndustry.industryId}"
-													th:text="${tempIndustry.industry}" />
+										th:value="${tempIndustry.industryId}"
+										th:text="${tempIndustry.industry}" />
 								</select>
-								
+
 								<!-- </div> -->
 								<span class="custom-select-arrow"></span>
 							</div>
@@ -450,6 +455,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="interLanguage1">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -485,6 +491,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="interLanguage2">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -520,6 +527,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="interLanguage3">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -555,6 +563,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="interLanguage4">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -589,6 +598,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="interLanguage5">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -680,7 +690,7 @@
 								</select> <span class="custom-select-arrow"></span>
 							</div>
 						</div>
-						
+
 						<div class="mb-4">
 							<label for="" class="service-content-label">Choose
 								preferred industry to work for <span class="text-danger">*</span>
@@ -691,10 +701,10 @@
 								<select class="selectpicker w-100" title="Select Industry"
 									multiple name="vcIndustries">
 									<option th:each="tempIndustry : ${industries}"
-													th:value="${tempIndustry.industryId}"
-													th:text="${tempIndustry.industry}" />
+										th:value="${tempIndustry.industryId}"
+										th:text="${tempIndustry.industry}" />
 								</select>
-								
+
 								<!-- </div> -->
 								<span class="custom-select-arrow"></span>
 							</div>
@@ -732,6 +742,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="vcLanguage1">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -785,6 +796,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="vcLanguage2">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -838,6 +850,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="vcLanguage3">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -891,6 +904,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="vcLanguage4">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -944,6 +958,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="vcLanguage5">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1084,7 +1099,7 @@
 								</select> <span class="custom-select-arrow"></span>
 							</div>
 						</div>
-						
+
 						<div class="mb-4">
 							<label for="" class="service-content-label">Choose
 								preferred industry to work for <span class="text-danger">*</span>
@@ -1095,10 +1110,10 @@
 								<select class="selectpicker w-100" title="Select Industry"
 									multiple name="scribingIndustries">
 									<option th:each="tempIndustry : ${industries}"
-													th:value="${tempIndustry.industryId}"
-													th:text="${tempIndustry.industry}" />
+										th:value="${tempIndustry.industryId}"
+										th:text="${tempIndustry.industry}" />
 								</select>
-								
+
 								<!-- </div> -->
 								<span class="custom-select-arrow"></span>
 							</div>
@@ -1134,6 +1149,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="transcribeLanguage1">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1168,6 +1184,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="transcribeLanguage2">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1203,6 +1220,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="transcribeLanguage3">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1238,6 +1256,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="transcribeLanguage4">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1274,6 +1293,7 @@
 										</label>
 										<div class="custom-select mt-2 rel">
 											<select name="transcribeLanguage5">
+												<option value="">Please select language</option>
 												<option th:each="tempLanguage : ${languages}"
 													th:value="${tempLanguage.languageId}"
 													th:text="${tempLanguage.language}" />
@@ -1330,7 +1350,7 @@
 					</div>
 				</div>
 				<div class="services-offer-btn">
-					<p>Do this later</p>
+					<p><a th:href="@{/index}">Do this later</a></p>
 					<div class="onboarding-cta">
 						<a class="btn-mini-trans" th:href="@{/freelancer-signup}">Back</a>
 						<button class="btn-mini-black" type="submit" id="btn-next">

@@ -114,6 +114,7 @@
 @media (max-width: 1458px) {
   .job__amt {
     padding: 0.8rem;
+    width: auto;
   }
 }
 @media (min-width: 1259px) and (max-width: 1423px) {
@@ -181,6 +182,9 @@
   .fl__jobs {
     margin-top: 0;
   }
+  .job__amt {
+     width: 100%;
+   }
   .w-75 {
     width: 70% !important;
   }
@@ -741,6 +745,9 @@
     font-size: 1.4rem;
     padding: 0.5rem 1.8rem;
   }
+  .uploadBtn {
+     padding: 1.2rem 2rem;
+   }
   .job-alerts-client-name {
     font-size: 1.6rem;
   }
@@ -1039,6 +1046,25 @@
   .freelancer-bidding {
     margin-top: 1.5rem;
   }
+  
+  .payment-modal {
+     margin: 0 1rem;
+     padding: 1.2rem 2rem;
+   }
+   .payment-modal-header h5 {
+     margin-bottom: 0;
+   }
+   .payment-modal-cancel-btn,
+   .payment-modal-header span,
+   .payment-modal-done-btn {
+     font-size: 1.4rem;
+   }
+ }
+ 
+ @media (max-width: 376px) {
+   .payment-modal {
+     margin: 0;
+   }
 }
 
 @media (max-width: 340px) {

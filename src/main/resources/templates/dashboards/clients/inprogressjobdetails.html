@@ -26,8 +26,8 @@
 				<div>
 					<span>Jobs</span> <span>In progress</span>
 				</div>
-				<a th:href="@{/client-dashboard}" class="newrequestBtn"> New Request <span
-					class="material-symbols-outlined"> add </span>
+				<a th:href="@{/client-dashboard}" class="newrequestBtn"> New
+					Request <span class="material-symbols-outlined"> add </span>
 				</a>
 			</div>
 
@@ -49,8 +49,7 @@
 											<span class="mr-3 job-alerts-voiceover">
 												<div class="mr-2 job-alerts-voiceover-color"></div> <span
 												th:text="${opDeliveryDetails.workOrder.serviceType.typeName}">Voice-over</span>
-											</span>
-												<span class="mr-3 job-alerts-lang"
+											</span> <span class="mr-3 job-alerts-lang"
 												th:text="${@ClientComponentModel.translateIdToLanguage(orderSource)}">
 												French </span> <span class="mr-3 job-alerts-lang"
 												th:text="${@ClientComponentModel.translateIdToLanguage(orderSource)}">
@@ -102,7 +101,6 @@
 									<div class="inprogress-fhead">
 										<h1>Service</h1>
 										<h1>File</h1>
-
 									</div>
 
 									<div class="inprogress-fbody"
@@ -128,34 +126,23 @@
 						</div>
 
 						<div class="job-status">
+
 							<div class="job-progress-status">
 								<div class="job-status-heading">
 									<span>Job Status</span>
 								</div>
 
-								<div>
+								<div th:each="jobStatusOb, iStat : ${jobStatuses}">
 									<div class="job-status-progress">
-										<div class="circle circle-bar-II circle-completed">1</div>
-										<span>Post job</span>
+										<div
+											th:attr="class=${@ClientComponentModel.checkCurrentJobStatus(opDeliveryDetails.workOrder.workId).equals(jobStatusOb.jobStatusName) ? 'circle circle-completed' : 'circle'}"
+											th:text="${iStat.index+1}">1</div>
+										<span th:text="${jobStatusOb.jobStatusName}">Post job</span>
 									</div>
-									<div class="job-status-progress">
-										<div class="circle circle-completed">2</div>
-										<span>Find freelancer</span>
-									</div>
-									<div class="job-status-progress">
-										<div class="circle circle-completed">3</div>
-										<span>Work in progress</span>
-									</div>
-									<div class="job-status-progress">
-										<div class="circle circle-completed">4</div>
-										<span>Review submission</span>
-									</div>
-									<div class="job-status-progress">
-										<div class="circle">5</div>
-										<span>Close job</span>
-									</div>
+
 								</div>
 							</div>
+
 
 							<div class="freelancer-chosen">
 								<div class="job-status-heading border-0">
@@ -166,13 +153,16 @@
 										Jordan</p>
 									<p
 										th:text="${opDeliveryDetails.workOrder.serviceType.typeName}">Interpreter</p>
-										
+
 								</div>
 
 								<div class="progress-flex">
 									<div class="job-status-progress" style="display: inline-block;">
-										<div>Languages</div> 
-										<span th:each="language : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(opDeliveryDetails.user)}"> <span th:text="${language.languageId.language}" ></span></span>
+										<div>Languages</div>
+										<span
+											th:each="language : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(opDeliveryDetails.user)}">
+											<span th:text="${language.languageId.language}"></span>
+										</span>
 									</div>
 									<div class="job-status-progress">
 										<span>Projects</span> <span>140</span>

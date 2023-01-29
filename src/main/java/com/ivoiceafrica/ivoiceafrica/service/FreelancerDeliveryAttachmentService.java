@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
+import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerDeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
@@ -20,5 +21,8 @@ public interface FreelancerDeliveryAttachmentService {
 
 	public void deleteById(String theId);
 	
+	List<FreelancerDeliveryAttachment> findFreelancerDeliveryAttachmentByDeliveryAttachmentOrderByEntryDateDesc(DeliveryAttachment deliveryAttachment);
+	
+	List<FreelancerDeliveryAttachment> findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(WorkOrdersDelivery workOrderDelivery);
 	
 }

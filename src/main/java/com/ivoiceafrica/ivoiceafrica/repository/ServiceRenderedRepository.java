@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 
 
 public interface ServiceRenderedRepository extends JpaRepository<ServiceRendered, String> {
@@ -17,5 +18,5 @@ public interface ServiceRenderedRepository extends JpaRepository<ServiceRendered
 	
 	List<ServiceRendered> findServiceRenderedListByUser(User user);
 	
-	
+	List<ServiceRendered> findServiceRenderedListByServiceType(ServiceType serviceType);
 }

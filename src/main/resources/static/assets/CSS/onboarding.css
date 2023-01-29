@@ -696,6 +696,7 @@ select {
 .custom-select {
   position: relative;
   width: 46%;
+  color: #000;
 }
 
 .custom-select select {
@@ -1141,7 +1142,7 @@ textarea {
 .client-sex-select {
   display: block;
   width: 100%;
-  color: hsla(214, 50%, 22%, 0.26);
+  color: #000;
   font-size: 1.8rem;
   padding: 1.5rem 1.7rem !important;
   background-image: url(../images/Vector.svg);

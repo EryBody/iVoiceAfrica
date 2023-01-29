@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
+import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerDeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
@@ -47,6 +48,19 @@ public class FreelancerDeliveryAttachmentServiceImpl implements FreelancerDelive
 			// we didn't find the Role
 			throw new RuntimeException("Did not find Record id - " + theId);
 		}
+	}
+
+	
+	@Override
+	public List<FreelancerDeliveryAttachment> findFreelancerDeliveryAttachmentByDeliveryAttachmentOrderByEntryDateDesc(
+			DeliveryAttachment deliveryAttachment) {
+		return attachmentRepository.findFreelancerDeliveryAttachmentByDeliveryAttachmentOrderByEntryDateDesc(deliveryAttachment);
+	}
+
+	@Override
+	public List<FreelancerDeliveryAttachment> findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(
+			WorkOrdersDelivery workOrderDelivery) {
+		return attachmentRepository.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(workOrderDelivery);
 	}
 
 

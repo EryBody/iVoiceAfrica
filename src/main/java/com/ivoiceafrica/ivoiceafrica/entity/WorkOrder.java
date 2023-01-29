@@ -56,10 +56,10 @@ public class WorkOrder {
 	@Column(name = "max_amount")
 	private double maxAmount;
 
-	@Column(name = "modifiedDate")
+	@Column(name = "modified_date")
 	private String modifiedDate;
 
-	@Column(name = "postingDate")
+	@Column(name = "posting_date")
 	private String postingDate;
 
 	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
@@ -77,6 +77,25 @@ public class WorkOrder {
 	@JsonIgnore
 	private Set<WorkOrdersDelivery> workOrdersDeliveries;
 
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<WorkPayments> workPayments;
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<WorkEscrowTransaction> escrowTransactions;
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<WorkFreelancerPayment> freelancerPayments;
+
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<WorkTransactions> workTransaction;
 
 	public WorkOrder() {
 
@@ -85,7 +104,9 @@ public class WorkOrder {
 	public WorkOrder(String workId, String workTitle, User user, ServiceType serviceType, DurationType duration,
 			WorkOrderStatus workOrderStatus, String description, double minAmount, double maxAmount,
 			String modifiedDate, String postingDate, Set<Proposal> proposals,
-			Set<WorkOrderAttachment> workOrderAttachments, Set<WorkOrdersDelivery> workOrdersDeliveries) {
+			Set<WorkOrderAttachment> workOrderAttachments, Set<WorkOrdersDelivery> workOrdersDeliveries,
+			Set<WorkPayments> workPayments, Set<WorkEscrowTransaction> escrowTransactions,
+			Set<WorkFreelancerPayment> freelancerPayments, Set<WorkTransactions> workTransaction) {
 		this.workId = workId;
 		this.workTitle = workTitle;
 		this.user = user;
@@ -100,6 +121,10 @@ public class WorkOrder {
 		this.proposals = proposals;
 		this.workOrderAttachments = workOrderAttachments;
 		this.workOrdersDeliveries = workOrdersDeliveries;
+		this.workPayments = workPayments;
+		this.escrowTransactions = escrowTransactions;
+		this.freelancerPayments = freelancerPayments;
+		this.workTransaction = workTransaction;
 	}
 
 	public String getWorkId() {
@@ -212,6 +237,38 @@ public class WorkOrder {
 
 	public void setWorkOrdersDeliveries(Set<WorkOrdersDelivery> workOrdersDeliveries) {
 		this.workOrdersDeliveries = workOrdersDeliveries;
+	}
+
+	public Set<WorkPayments> getWorkPayments() {
+		return workPayments;
+	}
+
+	public void setWorkPayments(Set<WorkPayments> workPayments) {
+		this.workPayments = workPayments;
+	}
+
+	public Set<WorkEscrowTransaction> getEscrowTransactions() {
+		return escrowTransactions;
+	}
+
+	public void setEscrowTransactions(Set<WorkEscrowTransaction> escrowTransactions) {
+		this.escrowTransactions = escrowTransactions;
+	}
+
+	public Set<WorkFreelancerPayment> getFreelancerPayments() {
+		return freelancerPayments;
+	}
+
+	public void setFreelancerPayments(Set<WorkFreelancerPayment> freelancerPayments) {
+		this.freelancerPayments = freelancerPayments;
+	}
+
+	public Set<WorkTransactions> getWorkTransaction() {
+		return workTransaction;
+	}
+
+	public void setWorkTransaction(Set<WorkTransactions> workTransaction) {
+		this.workTransaction = workTransaction;
 	}
 
 	@Override

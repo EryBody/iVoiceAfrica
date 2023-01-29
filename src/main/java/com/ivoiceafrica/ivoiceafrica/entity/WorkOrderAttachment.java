@@ -36,18 +36,26 @@ public class WorkOrderAttachment {
 
 	@Column(name = "link_media_file")
 	private String linkMediaFile;
+	
+	@Column(name = "word_count")
+	private String wordCount;
+	
+	@Column(name = "page_count")
+	private String pageCount;
 
 	public WorkOrderAttachment() {
 	}
 
 	public WorkOrderAttachment(String attachId, WorkOrder workOrder, String source, String destination,
-			String description, String linkMediaFile) {
+			String description, String linkMediaFile, String wordCount, String pageCount) {
 		this.attachId = attachId;
 		this.workOrder = workOrder;
 		this.source = source;
 		this.destination = destination;
 		this.description = description;
 		this.linkMediaFile = linkMediaFile;
+		this.wordCount = wordCount;
+		this.pageCount = pageCount;
 	}
 
 	public String getAttachId() {
@@ -98,6 +106,27 @@ public class WorkOrderAttachment {
 		this.linkMediaFile = linkMediaFile;
 	}
 	
-	
-	
+	public String getWordCount() {
+		return wordCount;
+	}
+
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
+	}
+
+	public String getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(String pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	@Override
+	public String toString() {
+		return "WorkOrderAttachment [attachId=" + attachId + ", workOrder=" + workOrder + ", source=" + source
+				+ ", destination=" + destination + ", description=" + description + ", linkMediaFile=" + linkMediaFile
+				+ ", wordCount=" + wordCount + ", pageCount=" + pageCount + "]";
+	}
+
 }

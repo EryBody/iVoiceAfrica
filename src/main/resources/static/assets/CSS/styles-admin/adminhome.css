@@ -74,19 +74,25 @@
 #job-statistics td:nth-child(5),
 #job-statistics td:nth-child(6),
 .job-statistics td:nth-child(5),
-.job-statistics td:nth-child(6) {
-  color: var(--color-success);
-}
+
+
+ .job-statistics td:nth-child(6) {
+  color: var( --color-success);
+} 
 
 #job-statistics tr:nth-child(even),
-.job-statistics tr:nth-child(even) {
+
+ .job-statistics tr:nth-child(even) {
   background-color: rgba(26, 56, 96, 0.03);
 }
 
 #job-statistics tr:hover,
+
 .job-statistics tr:hover {
   background-color: rgba(255, 215, 6, 0.05);
 }
+
+
 #job-statistics td,
 .job-statistics td {
   text-align: left;

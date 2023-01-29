@@ -26,191 +26,99 @@
 				
 			</div>
 			<div class="admin-contentbox">
-				<div class="util-header">
-					<div class="options">
-						<select name="select" id="select-client" class="select-filter">
-							<option value="Transaction ID">Transaction ID</option>
-							<option value="Client ID">Client ID</option>
-						</select> 
-						<span> 
-						<img
-							src="../../../../assets/images/admin-imgs/drpdown.svg"
-							alt="dropdown arrow" class="mt-3 mx-3"/>
+			
+				<form th:action="@{/admin-freelancer-search}"
+						th:object="${adminSearchDTO}" method="post">
+					<div class="util-header">
+						<div class="options">
+							<select id="select-client" class="select-filter" name="searchOption">
+								<option value="ClientID">Email</option>
+								<option value="FirstName">First Name</option>
+								<option value="LastName">Last Name</option>
+								<option value="Phone">Phone</option>
+							</select> <span> <img
+								src="../../../../assets/images/admin-imgs/drpdown.svg"
+								alt="dropdown arrow" class="mt-3 mx-3" />
+							</span>
+
+						</div>
+						<div class="util-search">
+							<img src="../../../../assets/images/admin-imgs/bigsearch.svg"
+								alt="search icon" /> <input type="text" placeholder="Search" name="searchValue"/>
+						</div>
+						<span>
+							<button type="submit"
+								class="btn btn-outline-secondary btn-lg btn-block mt-2">Search</button>
 						</span>
-						
 					</div>
-					<div class="util-search">
-						<img src="../../../../assets/images/admin-imgs/bigsearch.svg"
-							alt="search icon" /> <input type="text" placeholder="Search" />
-					</div>
-					<span>
-							<button type="button" class="btn btn-outline-secondary btn-lg btn-block mt-2">Search</button>
-					</span>
-				</div>
+				</form>
+				
 				<div class="freelancer-statistics">
-					<table id="freelancer-stats-table">
-						<thead>
-							<tr>
-								<th>Freelancer ID</th>
-								<th>Full Name</th>
-								<th>Active jobs</th>
-								<th>Email Address</th>
-								<th>Phone Number</th>
-								<th>Total requests</th>
-								<th>City</th>
-								<th>State</th>
-								<th>Country</th>
-								<th>Sign up date</th>
-								<th>Last login</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><a href="./freelancer.html" class="table-link">
-										00032356679846 </a></td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Micheal Jordan</td>
-								<td>2</td>
-								<td>michealjordan@gmail.com</td>
-								<td class="id">09030197553</td>
-								<td>20</td>
-								<td>Ikeja</td>
-								<td>Lagos</td>
-								<td>Nigeria</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>10 October 2022, 11AM</td>
-							</tr>
-						</tbody>
-					</table>
+				
+					<div class="table-statistics">
+						<table id="freelancer-stats-table">
+							<thead>
+								<tr>
+									<th>S/N</th>
+									<th>User ID</th>
+									<th style="width: 250px;">Username</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Middle Name</th>
+									<th>Gender</th>
+									<th>Country</th>
+									<th>Nationality</th>
+									<th>Address</th>
+									<th>Phone</th>
+									<th style="width: 250px;">Email</th>
+									<th>Summary</th>
+									<!-- <th nowrap>Profile Picture</th> -->
+									<th>User status</th>
+									<th>Postal Code</th>
+									<th>Modified date</th>
+									<th>Created date</th>
+								</tr>
+							</thead>
+							<tbody id="paginated-list" data-current-page="1"
+								aria-live="polite">
+								<tr th:each="temp, iStat : ${freelancers}">
+									<td th:text="${iStat.index+1}">1</td>
+									<td th:text="${temp.userId}">Interpretation</td>
+									<td><a th:href="@{/get-freelancer/{user}(user=${temp.username})}" class="table-link">
+											<span th:text="${temp.username}">temi.admin</span>
+									</a></td>
+									<td th:text="${temp.firstName}">New</td>
+									<td th:text="${temp.lastName}">-</td>
+									<td th:text="${temp.middleName}">00032356679849</td>
+									<td th:text="${temp.gender}">-</td>
+									<td th:text="${temp.country}">-</td>
+									<td th:text="${temp.nationality}">-</td>
+									<td th:text="${temp.address}">-</td>
+									<td th:text="${temp.phone}">-</td>
+									<td th:text="${temp.emailAddress}">-</td>
+									<td th:text="${temp.summary}">-</td>
+									<td th:text="${temp.userStatus.userStatus}">-</td>
+									<td th:text="${temp.postalCode}">-</td>
+									<td th:text="${temp.modifiedDate}">-</td>
+									<td th:text="${temp.createdDate}">-</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="accordion-select">
+						<button class="accordion-cirlce" id="prev-button"
+							aria-label="Previous page" title="Previous page">
+							<img src="../../../../assets/images/admin-imgs/lessthan.svg"
+								alt="less than" />
+						</button>
+						<div class="numbers" id="pagination-numbers"></div>
+						<button class="accordion-cirlce" id="next-button"
+							aria-label="Next page" title="Next page">
+							<img src="../../../../assets/images/admin-imgs/greaterthan.svg"
+								alt="greater than" />
+						</button>
+					</div>
+				
 				</div>
 			</div>
 		</div>

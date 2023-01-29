@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -91,6 +92,42 @@ public class CustomUserDetailService implements UserDetailsService {
 	
 	public Optional<User> findFirstUserByUsernameAndUpassword(String userName, String password){
 		return userRepository.findFirstUserByUsernameAndUpassword(userName, password);
+	}
+	
+	public List<User> findUserByRole(int roleId) {
+		return userRepository.findUserByRole(roleId);
+	}
+	
+	public List<User> findUserByRoleAndUsername(int roleId, String username){
+    	return userRepository.findUserByRoleAndUsername(roleId, username);
+    }
+	
+	public List<User> findUserByRoleAndFirstname(int roleId, String firstname){
+    	return userRepository.findUserByRoleAndFirstname(roleId, firstname);
+    }
+	
+	public List<User> findUserByRoleAndLastname(int roleId,String lastname){
+    	return userRepository.findUserByRoleAndLastname(roleId, lastname);
+    }
+	
+	public List<User> findUserByRoleAndPhone(int roleId, String phone){
+    	return userRepository.findUserByRoleAndPhone(roleId, phone);
+    }
+	
+	public List<User> findUsersByUsername(String username){
+		return userRepository.findUsersByUsername(username);
+	}
+	
+	public List<User> findUsersByFirstName(String firstName){
+		return userRepository.findUsersByFirstName(firstName);
+	}
+	
+	public List<User> findUsersByLastName(String lastName){
+		return userRepository.findUsersByLastName(lastName);
+	}
+	
+	public List<User> findUsersByPhone(String phone){
+		return userRepository.findUsersByPhone(phone);
 	}
 	
 }

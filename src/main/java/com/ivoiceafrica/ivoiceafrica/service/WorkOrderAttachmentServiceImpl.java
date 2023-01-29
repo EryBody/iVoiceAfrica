@@ -69,5 +69,10 @@ public class WorkOrderAttachmentServiceImpl implements WorkOrderAttachmentServic
 		return workOrderAttachmentRepository.findWorkOrderAttachmentByWorkOrderWithLimit(workOrderId , limitOfAttachment);
 	}
 	
+	@Override
+	public int updateJobCounts(int wordCount, int pageCount, String workDeliveryId) {
+		return workOrderAttachmentRepository.updateJobCounts(wordCount, pageCount, workDeliveryId);
+	}
+	
 
 }

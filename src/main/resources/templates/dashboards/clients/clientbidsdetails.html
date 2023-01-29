@@ -132,7 +132,7 @@
 							<div class="bidding-freelancer"
 								th:each="clientProposal, index : ${clientProposalList}">
 								<a
-									th:href="@{/clientProfileOverview/{id}/{user}(id=${workOrderDetails.workId}, user=${clientProposal.user.username})}">
+									th:href="@{/clientProfileOverview/{id}/{proposalId}(id=${workOrderDetails.workId}, proposalId=${clientProposal.proposalId})}">
 									<div class="d-flex align-items-start p-4 griddy pb-0">
 										<img
 											th:src="@{${'/profilepictures/' + clientProposal.user.profilePicture}}"

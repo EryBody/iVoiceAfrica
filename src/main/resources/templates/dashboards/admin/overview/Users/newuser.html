@@ -5,8 +5,8 @@
 
 <body>
 	<div class="admin-overview">
-	
-	
+
+
 		<!-- ADMIN SIDE NAVIGATION -->
 		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
 		<!-- ///// -->
@@ -21,11 +21,11 @@
 					</button>
 					<h1 class="admin-heading">Users</h1>
 				</div>
-				
-				
+
+
 				<div th:replace="fragments/admin_user :: admin-user-header"></div>
-				
-				
+
+
 			</div>
 			<div class="admin-contentbox">
 				<div class="newUser-overview">
@@ -39,35 +39,37 @@
 						<div class="newUser-header">
 							<span>User data form</span>
 						</div>
-						<form action="" class="newUserForm">
+						<form th:action="@{/add-new-user}" th:object="${AddUserDTO}"
+							method="post" class="newUserForm">
 							<div class="newUser-flex">
 								<div>
-									<label for="newEmail">Email</label> <input type="email" name=""
-										 id="newEmail" />
+									<label for="newEmail">Username</label> <input type="email"
+										name="username" id="newEmail" />
 								</div>
 								<div>
-									<label for="newEmail">Username</label> <input type="text"
-										name=""  id="newEmail" />
+									<label for="newEmail">Password</label> <input type="text"
+										name="password" id="newEmail" />
 								</div>
 							</div>
 							<div class="newUser-flex">
 								<div>
-									<label for="newEmail">First name</label> <input type="email"
-										name="" id="newEmail" />
+									<label for="newEmail">First name</label> <input type="text"
+										name="firstName" id="newEmail" />
 								</div>
 								<div>
 									<label for="newEmail">Last name</label> <input type="text"
-										name="" id="newEmail" />
+										name="lastName" id="lastName" />
 								</div>
 							</div>
 							<div class="newUser-flex">
 								<div>
 									<label for="middleName">Middle Name</label> <input type="text"
-										name="name" id="middleName" />
+										name="middleName" id="middleName" />
 								</div>
 								<div class="select-box">
-									<label for="gender">Sex</label> <select name="sex" id="gender">
-										<option value="">Select</option>
+									<label for="gender">Sex</label> <select name="gender"
+										id="gender">
+										<option value="">Select gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
 									</select>
@@ -78,36 +80,35 @@
 								</div>
 							</div>
 							<div class="random-Bmargin">
-								<label for="h-address">Home address</label> <input type="text"
+								<label for="h-address">Address</label> <input type="text"
 									name="address" id="h-address" />
 							</div>
 							<div class="newUser-flex">
-								<div class="select-box">
-									<label for="residence">Country of Residence</label> <select
-										name="" id="residence">
-										<option value="">Select</option>
-										<option value="">Select</option>
-									</select>
-									<div class="down-icon">
-										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
-											alt="" />
-									</div>
+								<div>
+									<label for="newEmail">Country</label> <input type="text"
+										name="country" id="country" />
 								</div>
-								<div class="select-box">
-									<label for="nation">Nationality</label> <select name="" id="">
-										<option value="">Select</option>
-									</select>
-									<div class="down-icon">
-										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
-											alt="" />
-									</div>
+								<div>
+									<label for="newEmail">Nationality</label> <input type="text"
+										name="nationality" id="nationality" />
+								</div>
+							</div>
+							<div class="newUser-flex">
+								<div>
+									<label for="newEmail">Postal Code</label> <input type="text"
+										name="postalCode" id="postalCode" />
+								</div>
+								<div>
+									<label for="newEmail">Email</label> <input type="text"
+										name="email" id="email" />
 								</div>
 							</div>
 
 							<div class="newUser-select">
-								<div class="select-box">
-									<label for="code">Phone</label> <select name="NGN" id=""
-										class="ngn">
+								<div class="select-box" style="width: 100px;">
+									<label for="code">Phone</label> 
+									<select name="NGN" id=""
+										class="ngn" >
 										<option value="NGN">NGN</option>
 										<option value="NGN">NGN</option>
 										<option value="NGN">NGN</option>
@@ -118,11 +119,18 @@
 									</div>
 								</div>
 
-								<input class="tel" type="tel" name="" id=""
-									placeholder="+234 903 919 7553" />
+								<input class="tel" type="tel" name="phone" id=""
+									placeholder="Mobile Number" />
 							</div>
 
-							<button class="saveBtn">Save</button>
+							<div class="newUser-flex mt-5">
+								<div class="random-Bmargin">
+									<label for="h-address">Summary</label> <input type="text"
+										name="summary" id="h-address" />
+								</div>
+							</div>
+
+							<button type="submit" class="saveBtn">Save</button>
 						</form>
 					</div>
 				</div>

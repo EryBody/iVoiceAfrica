@@ -25,6 +25,10 @@ public class FreelancerDeliveryAttachment {
 	@JoinColumn(name = "delivery_id")
 	private WorkOrdersDelivery workOrderDelivery;
 
+	@ManyToOne // Mapping the column of this table
+	@JoinColumn(name = "delivery_attach_id")
+	private DeliveryAttachment deliveryAttachment;
+
 	@Column(name = "link_media_file")
 	private String linkMediaFile;
 
@@ -38,10 +42,11 @@ public class FreelancerDeliveryAttachment {
 
 	}
 
-	public FreelancerDeliveryAttachment(String attachmentId, WorkOrdersDelivery workOrderDelivery, String linkMediaFile, String modifiedDate, String entryDate) {
+	public FreelancerDeliveryAttachment(String attachmentId, WorkOrdersDelivery workOrderDelivery,
+			DeliveryAttachment deliveryAttachment, String linkMediaFile, String modifiedDate, String entryDate) {
 		this.attachmentId = attachmentId;
 		this.workOrderDelivery = workOrderDelivery;
-		
+		this.deliveryAttachment = deliveryAttachment;
 		this.linkMediaFile = linkMediaFile;
 		this.modifiedDate = modifiedDate;
 		this.entryDate = entryDate;
@@ -61,6 +66,14 @@ public class FreelancerDeliveryAttachment {
 
 	public void setWorkOrderDelivery(WorkOrdersDelivery workOrderDelivery) {
 		this.workOrderDelivery = workOrderDelivery;
+	}
+
+	public DeliveryAttachment getDeliveryAttachment() {
+		return deliveryAttachment;
+	}
+
+	public void setDeliveryAttachment(DeliveryAttachment deliveryAttachment) {
+		this.deliveryAttachment = deliveryAttachment;
 	}
 
 	public String getLinkMediaFile() {
@@ -89,10 +102,9 @@ public class FreelancerDeliveryAttachment {
 
 	@Override
 	public String toString() {
-		return "FreelancerDeliveryAttachment [attachmentId=" + attachmentId + ", linkMediaFile=" + linkMediaFile
-				+ ", modifiedDate=" + modifiedDate + ", entryDate=" + entryDate + "]";
+		return "FreelancerDeliveryAttachment [attachmentId=" + attachmentId + ", workOrderDelivery=" + workOrderDelivery
+				+ ", deliveryAttachment=" + deliveryAttachment + ", linkMediaFile=" + linkMediaFile + ", modifiedDate="
+				+ modifiedDate + ", entryDate=" + entryDate + "]";
 	}
-
-	
 
 }

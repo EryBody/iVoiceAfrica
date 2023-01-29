@@ -9,14 +9,17 @@ public class SaveClientJobsDTO {
 	private String[] workOrderId;
 	private String[] deliveryId;
 	private MultipartFile[] multipartList;
+	private String[] deliveryAttachment;
 
 	public SaveClientJobsDTO() {
 	}
 
-	public SaveClientJobsDTO(String[] workOrderId, String[] deliveryId, MultipartFile[] multipartList) {
+	public SaveClientJobsDTO(String[] workOrderId, String[] deliveryId, MultipartFile[] multipartList,
+			String[] deliveryAttachment) {
 		this.workOrderId = workOrderId;
 		this.deliveryId = deliveryId;
 		this.multipartList = multipartList;
+		this.deliveryAttachment = deliveryAttachment;
 	}
 
 	public String[] getWorkOrderId() {
@@ -43,10 +46,19 @@ public class SaveClientJobsDTO {
 		this.multipartList = multipartList;
 	}
 
+	public String[] getDeliveryAttachment() {
+		return deliveryAttachment;
+	}
+
+	public void setDeliveryAttachment(String[] deliveryAttachment) {
+		this.deliveryAttachment = deliveryAttachment;
+	}
+
 	@Override
 	public String toString() {
-		return "SaveClientJobsDTO [workOrderId=" + workOrderId + ", deliveryId=" + deliveryId + ", multipartList="
-				+ Arrays.toString(multipartList) + "]";
+		return "SaveClientJobsDTO [workOrderId=" + Arrays.toString(workOrderId) + ", deliveryId="
+				+ Arrays.toString(deliveryId) + ", multipartList=" + Arrays.toString(multipartList)
+				+ ", deliveryAttachment=" + Arrays.toString(deliveryAttachment) + "]";
 	}
 
 }

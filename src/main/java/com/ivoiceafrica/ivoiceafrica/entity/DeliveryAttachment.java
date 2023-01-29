@@ -1,5 +1,8 @@
 package com.ivoiceafrica.ivoiceafrica.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "delivery_attachments")
@@ -36,17 +42,26 @@ public class DeliveryAttachment {
 
 	@Column(name = "link_media_file")
 	private String linkMediaFile;
-
+	
+	@OneToMany(mappedBy = "deliveryAttachment", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<FreelancerDeliveryAttachment> freelancerDeliveryAttachment;
+	
 	public DeliveryAttachment() {
 
 	}
 
-	public DeliveryAttachment(String deliveryAttachId, WorkOrdersDelivery workOrderDelivery, String description,
-			String linkMediaFile) {
+	public DeliveryAttachment(String deliveryAttachId, WorkOrdersDelivery workOrderDelivery, String source,
+			String destination, String description, String linkMediaFile,
+			Set<FreelancerDeliveryAttachment> freelancerDeliveryAttachment) {
 		this.deliveryAttachId = deliveryAttachId;
 		this.workOrderDelivery = workOrderDelivery;
+		this.source = source;
+		this.destination = destination;
 		this.description = description;
 		this.linkMediaFile = linkMediaFile;
+		this.freelancerDeliveryAttachment = freelancerDeliveryAttachment;
 	}
 
 	public String getDeliveryAttachId() {
@@ -65,22 +80,6 @@ public class DeliveryAttachment {
 		this.workOrderDelivery = workOrderDelivery;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getLinkMediaFile() {
-		return linkMediaFile;
-	}
-
-	public void setLinkMediaFile(String linkMediaFile) {
-		this.linkMediaFile = linkMediaFile;
-	}
-
 	public String getSource() {
 		return source;
 	}
@@ -97,14 +96,34 @@ public class DeliveryAttachment {
 		this.destination = destination;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLinkMediaFile() {
+		return linkMediaFile;
+	}
+
+	public void setLinkMediaFile(String linkMediaFile) {
+		this.linkMediaFile = linkMediaFile;
+	}
+
+	public Set<FreelancerDeliveryAttachment> getFreelancerDeliveryAttachment() {
+		return freelancerDeliveryAttachment;
+	}
+
+	public void setFreelancerDeliveryAttachment(Set<FreelancerDeliveryAttachment> freelancerDeliveryAttachment) {
+		this.freelancerDeliveryAttachment = freelancerDeliveryAttachment;
+	}
+
 	@Override
 	public String toString() {
 		return "DeliveryAttachment [deliveryAttachId=" + deliveryAttachId + ", source=" + source + ", destination="
 				+ destination + ", description=" + description + ", linkMediaFile=" + linkMediaFile + "]";
 	}
-	
-	
-	
-	
 
 }

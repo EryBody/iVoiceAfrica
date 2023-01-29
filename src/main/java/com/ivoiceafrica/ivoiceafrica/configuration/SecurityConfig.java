@@ -80,7 +80,10 @@ public class SecurityConfig  {
 			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.disable();
+			.disable()
+			.headers()
+			.frameOptions()
+			.sameOrigin();
 
 	    return http.build();
 	}

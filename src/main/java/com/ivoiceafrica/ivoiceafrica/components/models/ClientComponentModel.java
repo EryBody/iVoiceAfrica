@@ -1,6 +1,7 @@
 package com.ivoiceafrica.ivoiceafrica.components.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -226,6 +227,40 @@ public class ClientComponentModel {
 		}
 		
 		return String.valueOf(userRoleName);
+	}
+	
+	public String checkCurrentJobStatus(String workOrderId) {
+		
+		Optional<WorkOrder> workOrder = orderService.findById(workOrderId);
+		
+		return workOrder.get().getWorkOrderStatus().getStatus();
+		
+	}
+	
+	
+	public String checkExtention(String fileName) {
+		
+		String[] name = fileName.split(".",2);
+		String extension = name[1];
+		
+		System.out.println("===>>> fileName: "+fileName);
+		String fileType = "";
+		
+		String[] extensions = {"png","jpg","jpeg","pdf","tiff","tif","doc","docx","html","htm","xls","xlsx","txt","ppt","pptx"};
+		
+		// check if the specified element
+        // is present in the array or not
+        // using contains() method
+        boolean test
+            = Arrays.asList(extensions)
+                  .contains(extension);
+		
+		if(test == true) {
+			fileType = "image";
+		}else {
+			fileType = "other-file";
+		}
+		return fileType;
 	}
 
 	

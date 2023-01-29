@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/main_css :: css-header"></div>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<link rel="stylesheet"
+	href="../../../assets/CSS/styles-admin/admingeneral.css" />
+<link rel="stylesheet"
+	href="../../../assets/CSS/styles-admin/adminhome.css" />
+<link rel="shortcut icon" sizes="32x32"
+	href="../../../assets/icons/fav.png" type="image/x-icon" />
+<meta name="description"
+	content="We are a translation and localization company that provides expertise in brand identity and language solutions for businesses worldwide." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Open+Sans:wght@500;600;700&display=swap"
+	rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Open+Sans:wght@500;600;700&display=swap"
+	rel="stylesheet" />
+<script defer src="../../../assets/JS/js/admin.js"></script>
+<title>Admin- ivoiceafrica</title>
+</head>
 
 <body>
 	<div class="admin-overview">
-	
+
 		<!-- ADMIN SIDE NAVIGATION -->
 		<div th:replace="fragments/main_sidenav_admin :: sidenav_admin"></div>
 		<!-- ///// -->
@@ -20,157 +45,85 @@
 					</button>
 					<h1 class="admin-heading">Dashboard</h1>
 				</div>
-				
-				
+
+
 				<div th:replace="fragments/admin_user :: admin-user-header"></div>
-				
-				
+
+
 			</div>
 			<div class="admin-contentbox">
 				<div class="admin-stats-box">
 					<div class="admin-stats-header">
 						<div>
 							<span class="admin-stats-heading">Jobs</span> <strong
-								class="admin-stats-number">2000</strong>
+								class="admin-stats-number" th:if="${workOrderSize > 0}">
+								<span th:text="${workOrderSize}">20000</span>
+							</strong> <strong class="admin-stats-number" th:if="${workOrderSize == 0}">
+								<span th:text="${workOrderSize}">20000</span>
+							</strong>
 						</div>
 						<div>
 							<span class="admin-stats-heading">Clients</span> <strong
-								class="admin-stats-number">700</strong>
+								class="admin-stats-number" th:if="${clientSize > 0}"><span
+								th:text="${clientSize}">77</span></strong> <strong
+								class="admin-stats-number" th:if="${clientSize == 0}"><span
+								th:text="${clientSize}">77</span></strong>
 						</div>
 						<div>
 							<span class="admin-stats-heading">Freelancers</span> <strong
-								class="admin-stats-number">137</strong>
+								class="admin-stats-number" th:if="${freelancerSize > 0}"><span
+								th:text="${freelancerSize}">137</span></strong> <strong
+								class="admin-stats-number" th:if="${freelancerSize == 0}"><span
+								th:text="${freelancerSize}">137</span></strong>
 						</div>
 						<div>
 							<span class="admin-stats-heading">Pending </span> <strong
-								class="admin-stats-number">137</strong>
+								class="admin-stats-number" th:if="${pendingJobSize > 0}"><span
+								th:text="${}">120</span></strong> <strong class="admin-stats-number"
+								th:if="${pendingJobSize == 0}"><span
+								th:text="${clientSize}">120</span></strong>
 						</div>
 					</div>
 				</div>
+				
 				<div class="jobs-stats">
 					<h1 class="jobs-heading">New Jobs</h1>
 				</div>
+
 				<div class="table-statistics">
 					<table id="job-statistics">
 						<thead>
 							<tr>
+								<th>S/N</th>
 								<th>Job ID</th>
+								<th>Work Title</th>
 								<th>Service type</th>
+								<th>User</th>
+								<th>Min amount</th>
+								<th>Max amount></th>
 								<th>Job status</th>
-								<th>Payment status</th>
-								<th>Client ID</th>
-								<th>Freelancer ID</th>
-								<th>Amount</th>
-								<th>Start time</th>
-								<th>Deadline</th>
-								<th>Submission time</th>
-								<th>Delivery time</th>
+								<th>Payment Status</th>
+								<th>Details</th>
+								<th>Modified date</th>
+								<th>Posting date</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>-</td>
-								<td class="id">00032356679849</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>-</td>
-								<td class="id">00032356679849</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$500</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$700</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$800</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$800</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$450</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>28 September 2021, 9:32 PM</td>
-								<td>In review</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679849</td>
-								<td>Interpretation</td>
-								<td>New</td>
-								<td>In Escrow</td>
-								<td class="id">00032356679849</td>
-								<td class="id">00032356679849</td>
-								<td>$679</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>2 March 2021, 4:16 PM</td>
-								<td>-</td>
-								<td>-</td>
+							<tr th:each="temp, iStat : ${workOrderList}">
+								<td th:text="${iStat.index+1}">1</td>
+								<td><a  th:href="@{/job-details/{workId}/{workOrderStatus}(workId=${temp.workId}, workOrderStatus=${temp.workOrderStatus.woStatusId})}" class="table-link"> <span
+											th:text="${temp.workId}">temi.admin</span>
+								</a></td>
+								<td th:text="${temp.workTitle}">Interpretation</td>
+								<td th:text="${temp.serviceType.typeName}">New</td>
+								<td th:text="${temp.user.username}">-</td>
+								<td th:text="${temp.minAmount}">00032356679849</td>
+								<td th:text="${temp.maxAmount}">-</td>
+								<td th:text="${temp.workOrderStatus.status}">-</td>
+								<td th:text="${temp.workOrderStatus.status}">-</td>
+								<td th:text="${temp.description}">-</td>
+								<td th:text="${temp.modifiedDate}">-</td>
+								<td th:text="${temp.postingDate}">-</td>
 							</tr>
 						</tbody>
 					</table>

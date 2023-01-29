@@ -28,5 +28,11 @@ public interface ProposalService {
 	public List<Proposal> findProposalByLimitAndStatusAndCurrentDate(int userId, int proposalStatusId, String currentDate, int limitNumber);
 
 	public List<Proposal> findProposalByUserAndStatusOrderByCreatedDesc(int userId, int propsalStatusId);
+	
+	public List<Proposal> findProposalByUserAndWorkOrderOrderByCreatedDateDesc(User user, WorkOrder workOrder);
+	
+	public int updateProposalAmount(double proposedAmount, String proposalId);
+	
+	public List<Proposal> findProposalByUserOrderByCreatedDate(User user);
 
 }

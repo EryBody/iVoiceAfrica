@@ -269,6 +269,7 @@
 				</div>
 			</div>
 		</div>
+	
 	</div>
 
 	<!-- logout Modal -->
@@ -290,10 +291,13 @@
 					<div class="modal-body">
 						<div class="input-group mb-4">
 							<input type="hidden" name="workOrderID"
-								th:value="${workOrderDetails?.workId}" /> <input
+								th:value="${workOrderDetails?.workId}" /> 
+								
+								<input
 								type="hidden" name="userID" th:value="${userDetails.username}" />
+								
 							<input type="text" placeholder="Fix in amount for job"
-								name="clientAmount" id="clientAmount" style="font-size: 25px;" />
+								name="clientAmount" id="clientAmount" th:value=${proposalDetails.amount} readonly style="font-size: 25px;" />
 						</div>
 					</div>
 

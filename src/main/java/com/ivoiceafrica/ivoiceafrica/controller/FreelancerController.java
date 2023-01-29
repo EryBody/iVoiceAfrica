@@ -210,14 +210,14 @@ public class FreelancerController {
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
 		List<Proposal> userProposal = proposalService.findProposalByUserAndStatusOrderByCreatedDesc(
-				userDetails.get().getUserId(), proposalStatusService.findById(11).get().getProposalStatusId());
+				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); //Freelancer Request Sent
 
 		model.addAttribute("userProposal", userProposal);
 		return "dashboards/freelancers/jobalerts";
 	}
 
-	@GetMapping("/freelancer-jobs-details/{workOrderId}")
-	public String freelancerJobDetails(@PathVariable(value = "workOrderId") String workOrderId, Model model) {
+	@GetMapping("/freelancer-jobs-details/{workOrderId}/{proposalId}")
+	public String freelancerJobDetails(@PathVariable(value = "workOrderId") String workOrderId, @PathVariable(value = "proposalId") String proposalId, Model model) {
 
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(workOrderId);
 
@@ -226,10 +226,12 @@ public class FreelancerController {
 
 		List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 				.findWorkOrderAttachmentByWorkOrder(opWorkOrder.get());
-
+		
+		
 		model.addAttribute("workOrderAttachmentList", workOrderAttachments);
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("opWorkOrder", opWorkOrder.get());
+		model.addAttribute("proposalId", proposalId);
 		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
 		model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
 		return "dashboards/freelancers/jobdetail";
@@ -245,10 +247,17 @@ public class FreelancerController {
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerAcceptanceDTO.getUserId());
 
+		int updateProposalAmount =  proposalService.updateProposalAmount(freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
+		
+//		WorkOrdersDelivery
+		
+		System.out.println("===>>> updateProposalAmount: "+updateProposalAmount);
+
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("opWorkOrder", opWorkOrder.get());
 		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
 		model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+		
 		model.addAttribute("message", "Great, Job has been accepted successfully.");
 
 		return "dashboards/freelancers/jobdetail";
@@ -595,23 +604,28 @@ public class FreelancerController {
 
 		String modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		String entryDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-		for (MultipartFile attachment : saveClientJobsDTO.getMultipartList()) {
-
+		
+		int attachmentSize = saveClientJobsDTO.getDeliveryId().length;
+		
+		for (int i = 0; i < attachmentSize; i++) {
+		
+			MultipartFile[] attachment = saveClientJobsDTO.getMultipartList();
+			
 			FreelancerDeliveryAttachment delivery = new FreelancerDeliveryAttachment();
 
 			Optional<WorkOrdersDelivery> workOrderDelivery = deliveryService
 					.findById(saveClientJobsDTO.getDeliveryId()[0]);
 
-			String fileSize = FreelancerController.getDynamicSpace(attachment.getSize());
+			String fileSize = FreelancerController.getDynamicSpace(attachment[i].getSize());
+			
 			System.out.println("File Size: "+fileSize);
 			
 			String imageUUID;
-			if (!attachment.isEmpty()) {
-				imageUUID = attachment.getOriginalFilename();
+			if (!attachment[i].isEmpty()) {
+				imageUUID = attachment[i].getOriginalFilename();
 				Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
 				try {
-					Files.write(fileNameAndPath, attachment.getBytes());
+					Files.write(fileNameAndPath, attachment[i].getBytes());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -620,9 +634,13 @@ public class FreelancerController {
 			} else {
 				imageUUID = "";
 			}
+			
+			String[] deliveryAttachmentId = saveClientJobsDTO.getDeliveryAttachment();
+			Optional<DeliveryAttachment> opDeliveryAttachment = deliveryAttachmentService.findById(deliveryAttachmentId[i]);
 
 //			delivery.setAttachmentId("");
 			delivery.setWorkOrderDelivery(workOrderDelivery.get());
+			delivery.setDeliveryAttachment(opDeliveryAttachment.get());
 			delivery.setLinkMediaFile(imageUUID);
 			delivery.setModifiedDate(modifiedDate);
 			delivery.setEntryDate(entryDate);
@@ -820,6 +838,8 @@ public class FreelancerController {
 
 		return "onboarding/freelancer/profilesetup4";
 	}
+	
+	
 
 	@PostMapping("/freelancer/profilepicture/save")
 	public String saveFreelancerProfile(
@@ -842,7 +862,7 @@ public class FreelancerController {
 					Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
 					Files.write(fileNameAndPath, file.getBytes());
 				} else {
-					imageUUID = "tom@gmail.com";
+					imageUUID = "";
 				}
 
 				System.out.println(
@@ -935,7 +955,7 @@ public class FreelancerController {
 					String industryData = freelancerSkillData.getInterpretationIndustries();
 
 					if (industryData != null) {
-						saveTranslationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveInterpretationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
 					}
 				}
 
@@ -946,7 +966,7 @@ public class FreelancerController {
 					String industryData = freelancerSkillData.getVcIndustries();
 
 					if (industryData != null) {
-						saveTranslationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveVcInfo(signupData, freelancerSkillData, profilePictureData, industryData);
 					}
 				}
 
@@ -956,7 +976,7 @@ public class FreelancerController {
 					// insert into service industries;
 					String industryData = freelancerSkillData.getScribingIndustries();
 					if (industryData != null) {
-						saveTranslationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveTranscribinginfo(signupData, freelancerSkillData, profilePictureData, industryData);
 					}
 
 				}
@@ -984,6 +1004,8 @@ public class FreelancerController {
 
 		System.out.println("====>>> userDetails: " + userDetails.get());
 		System.out.println("====>>> serviceTypeDetail: " + serviceTypeDetail);
+		
+		System.out.println("===>>>> freelancerSkillData Translation: "+freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1083,6 +1105,8 @@ public class FreelancerController {
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
+			
+			System.out.println("===>>> serviceLanguageObj Translation: "+serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
@@ -1110,6 +1134,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
+			
+			System.out.println("===>>> freelancerPricingData Translation: "+freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1127,6 +1153,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> Inter userDetails: " + userDetails.get());
 		System.out.println("====>>> Inter serviceTypeDetail: " + serviceTypeDetail);
+		System.out.println("===>>>> freelancerSkillData Interpretation: "+freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1226,6 +1253,8 @@ public class FreelancerController {
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
+			
+			System.out.println("===>>>> serviceLanguageObj Inter: "+serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
@@ -1254,6 +1283,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
+			
+			System.out.println("===>>>> freelancerPricingData Inter: "+freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1271,6 +1302,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> VC userDetails: " + userDetails);
 		System.out.println("====>>> VC serviceTypeDetail: " + serviceTypeDetail);
+		System.out.println("===>>>> freelancerSkillData VC: "+freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1371,6 +1403,8 @@ public class FreelancerController {
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
+			
+			System.out.println("===>>>> serviceLanguageObj VC : "+serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
@@ -1393,11 +1427,15 @@ public class FreelancerController {
 					new FreelancerPricingModel("stm106", Double.parseDouble(freelancerSkillData.getVcPerMinuteMin()),
 							Double.parseDouble(freelancerSkillData.getVcPerMinuteMax())));
 		}
+		
 		if (!freelancerSkillData.getVcPerWordMin().isEmpty()) {
 			fPricingModels
 					.add(new FreelancerPricingModel("stm104", Double.parseDouble(freelancerSkillData.getVcPerWordMin()),
 							Double.parseDouble(freelancerSkillData.getVcPerWordMax())));
 		}
+		
+		System.out.println("===>>> fPricingModels: "+fPricingModels);
+		
 
 		for (FreelancerPricingModel freelancerPricingModel : fPricingModels) {
 
@@ -1412,6 +1450,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
+			
+			System.out.println("===>>>> freelancerPricingData VC: "+freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1430,6 +1470,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> SC userDetails: " + userDetails);
 		System.out.println("====>>> SC serviceTypeDetail: " + serviceTypeDetail);
+		System.out.println("===>>>> freelancerSkillData Transcribing: "+freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1529,6 +1570,8 @@ public class FreelancerController {
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
+			
+			System.out.println("===>>>> serviceLanguageObj Transcribing: "+serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 			System.out.println("====>>> SC Service Language Saved");
@@ -1556,6 +1599,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
+			
+			System.out.println("===>>>> freelancerPricingData Transcribing: "+freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 			System.out.println("====>>> SC Freelancer Saved");

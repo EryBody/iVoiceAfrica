@@ -22,7 +22,10 @@ import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceTypePricing;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
@@ -33,6 +36,8 @@ import com.ivoiceafrica.ivoiceafrica.service.ProposalStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.STypePricingService;
 import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 
 @SpringBootApplication
@@ -71,6 +76,15 @@ public class IVoiceApplication implements CommandLineRunner {
 
 	@Autowired
 	CustomUserDetailService userService;
+	
+	@Autowired
+	WorkOrderService workOrderService;
+	
+	@Autowired
+	WorkOrderAttachmentService workOrderAttachmentService;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(IVoiceApplication.class, args);
@@ -152,14 +166,43 @@ public class IVoiceApplication implements CommandLineRunner {
 //		System.out.println("===>>> proposalByLimits: "+proposalByLimit);
 		
 		
-		Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(9); //9 means finished
-		String userId = "donpre@gmail.com";
-		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+//		Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(9); //9 means finished
+//		String userId = "donpre@gmail.com";
+//		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+//		
+//		List<WorkOrdersDelivery> finishedDelivery = deliveryService.findWorkOrdersDeliveryByDeliveryStatusAndUserOrderByCreatedDateDesc(deliveryStatus.get(),
+//				userDetails.get());
+//		
+//		System.out.println("===>>> finishedDelivery: "+finishedDelivery.toString());
 		
-		List<WorkOrdersDelivery> finishedDelivery = deliveryService.findWorkOrdersDeliveryByDeliveryStatusAndUserOrderByCreatedDateDesc(deliveryStatus.get(),
-				userDetails.get());
 		
-		System.out.println("===>>> finishedDelivery: "+finishedDelivery.toString());
+		
+//		Optional<WorkOrder> workOrderInfo = workOrderService.findFirstWorkOrderByWorkId("j1u102");
+//		System.out.println("===>>> workOrderInfo: "+workOrderInfo);
+//		
+//		List<WorkOrderAttachment> workAttachments = workOrderAttachmentService
+//				.findWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
+//		
+//		System.out.println("===>>> workAttachments: "+workAttachments);
+//
+//		Optional<WorkOrderAttachment> workAttachmentDetails = workOrderAttachmentService
+//				.findFirstWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
+//		
+//		System.out.println("===>>> workAttachmentDetails: "+workAttachmentDetails);
+		
+//		String userId = "donpre@gmail.com";
+//		Optional<User> user = userService.findFirstUserByUsername(userId);
+//
+//	
+//		// Delivery Status, Work Delivery and Delivery Attachment
+//		Optional<DeliveryStatus> opDeliveryStatus = deliveryStatusService.findById(5);// 5 means in Progress
+//		List<WorkOrdersDelivery> workOrderDelivery = deliveryService
+//				.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(user.get(), opDeliveryStatus.get());
+//		
+//		System.out.println("===>>> workOrderDelivery: "+workOrderDelivery);
+		
+		List<User> users = userRepository.findUserByRoleAndUsername(3, "chima@gmail.com");
+		System.out.println("====>>> users: "+users);
 
 	}
 

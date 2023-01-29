@@ -214,8 +214,8 @@
 
 							<div id="attachmentContent">
 								<div class="job-attc" th:each="tempAttach, iStat : ${workOrderAttachmentList}">
-									<img src="../../assets/icons/vscode-icons_file-type.svg"
-										alt="file-icon" />
+									<span class="material-symbols-outlined draft-icon">
+												draft </span>
 									<div class="ml-3">
 										<p  th:text="${tempAttach.linkMediaFile}">Physics textbook in French (01).pdf</p>
 										<p>This file is to be translated from <span
@@ -279,7 +279,12 @@
 							</div>
 
 							<input type="hidden" name="workOrderId"
-								th:value=${opWorkOrder.workId}> <input type="hidden"
+								th:value=${opWorkOrder.workId}> 
+								
+							<input type="hidden" name="proposalId"
+								th:value=${proposalId}> 
+								
+								<input type="hidden"
 								name="userId" th:value=${userDetails.username}> 
 								
 								<small>This

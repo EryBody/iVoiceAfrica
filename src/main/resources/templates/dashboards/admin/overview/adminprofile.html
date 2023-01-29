@@ -23,7 +23,7 @@
 					<h1 class="admin-heading">Profile</h1>
 				</div>
 
-				<div th:replace="fragments/admin_status :: admin-status-header"></div>
+				<!-- <div th:replace="fragments/admin_status :: admin-status-header"></div> -->
 
 				<div th:replace="fragments/admin_user :: admin-user-header"></div>
 
@@ -36,55 +36,109 @@
 					<div class="admin-profile-header">
 						<div class="admin-profile-img">
 							<img src="../../../assets/images/admin-imgs/sandra.svg"
-								alt="A woman smiling"  id="admin-profile"/>
-							 <label id="adminProfileimg" class="profile-img-overlay">
-								<img src="../../../assets/images/admin-imgs/pencil.svg"
-									alt="pencil" /> <span>Choose photo</span>
-							  <input
-                     type="file"
-                     id="adminProfileimg"
-                     accept="image/png, image/jpeg"
-                     style="display: none"
-                     onChange="uploadedImg(this);"
-                   />
-                 </label>
+								alt="A woman smiling" id="admin-profile" /> <label
+								id="adminProfileimg" class="profile-img-overlay"> <img
+								src="../../../assets/images/admin-imgs/pencil.svg" alt="pencil" />
+								<span>Choose photo</span> <input type="file"
+								id="adminProfileimg" accept="image/png, image/jpeg"
+								style="display: none" onChange="uploadedImg(this);" />
+							</label>
 						</div>
 					</div>
 
 					<form action="#" class="admin-profile-form">
 						<div>
 							<label for="email">Email</label> <input type="email" name="email"
-								id="email" value="sandra.admin@iVoice.org" />
+								id="email" th:value="${session.userId}" />
 						</div>
 					</form>
 					<div class="profile-ctas">
 						<button id="update-btn">Update password</button>
 						<button id="close">Close</button>
 					</div>
-					<form action="#" class="changePasswordForm">
+
+					<form id="update-password-form" class="changePasswordForm"
+						th:action="@{/updatepassword/save}"
+						th:object="${UpdatePasswordDTO}" method="post">
 						<div>
 							<label for="oldPassword">Current password</label> <input
-								type="password" />
+								type="password" name="oldPassword" id="currentPassword" />
 						</div>
 						<div>
 							<label for="newPassword">New Password</label> <input
-								type="password" id="newPassword" />
+								type="password" name="newPassword" id="newPassword" />
 						</div>
 						<div>
 							<label for="confirmPassword">Confirm Password</label> <input
-								type="password" id="confirmPassword" />
+								type="password" name="confirmPassword" id="currentPassword" />
 						</div>
 						<div>
-							<button type="submit">Submit</button>
+							<button type="button" class="update" id="update-password-btn"
+								value="Submit">Update</button>
 						</div>
-
-
 					</form>
 				</div>
 			</div>
 		</div>
+
+
+		<div class="modal fade" id="successModal" data-backdrop="static"
+			data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content logoutModal">
+					<div class="modal-header">
+						<h1>Password Update!</h1>
+					</div>
+					<div class="modal-body logoutModal-body">Password has
+						successfully been updated! you are about to be logged out now.</div>
+					<div class="modal-footer logoutModal-footer">
+						<a th:href="@{/logout}">
+							<button class="transparentBtn">Okay</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script>
+		$('#update-password-btn').on('click', function() {
+			var form = $('#update-password-form');
+
+			$.ajax({
+				url : form.attr('action'),
+				data : form.serialize(),
+				type : "post",
+				success : function(result) {
+
+					if (result === "Password Change Successfully") {
+						$("#successModal").modal('show');
+					} else {
+						alert(result);
+					}
+
+				},
+				error : function(error) {
+					console.log("error: " + error);
+				}
+			});
+		});
+
+		function showDeleteSuccessful() {
+			Swal.fire('Operation successful!', '', 'success')
+		}
+
+		function refresh() {
+			location.reload();
+		}
+
+		function myStopFunction() {
+			const myTimeout = setTimeout(refresh, 1050);
+		}
+	</script>
 </body>
 </html>

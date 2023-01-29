@@ -67,5 +67,20 @@ public class ProposalServiceImpl implements ProposalService {
 	public List<Proposal> findProposalByUserAndStatusOrderByCreatedDesc(int userId, int propsalStatusId) {
 		return proposalRepository.findProposalByUserAndStatusOrderByCreatedDesc(userId, propsalStatusId);
 	}
+
+	@Override
+	public int updateProposalAmount(double proposedAmount, String proposalId) {
+		return proposalRepository.updateProposalAmount(proposedAmount, proposalId);
+	}
+
+	@Override
+	public List<Proposal> findProposalByUserOrderByCreatedDate(User user) {
+		return proposalRepository.findProposalByUserOrderByCreatedDate(user);
+	}
+
+	@Override
+	public List<Proposal> findProposalByUserAndWorkOrderOrderByCreatedDateDesc(User user, WorkOrder workOrder) {
+		return proposalRepository.findProposalByUserAndWorkOrderOrderByCreatedDateDesc(user, workOrder);
+	}
 	
 }

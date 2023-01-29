@@ -136,6 +136,7 @@ function img_pathUrl(input) {
   );
   profilePicOnboarding.style.width = '30rem';
   profilePicOnboarding.style.maxHeight = '30rem';
+profilePicOnboarding.style.objectFit = 'cover';
   profilePicOnboarding.style.top = 0;
   profilePicOnboarding.style.left = 0;
   profilePicOnboarding.style.borderRadius = '50%';

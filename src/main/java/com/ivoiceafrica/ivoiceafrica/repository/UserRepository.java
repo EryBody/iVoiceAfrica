@@ -22,6 +22,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	Optional<User> findFirstUserByUsername(String username);
 	
+	List<User> findUsersByUsername(String username);
+	
+	List<User> findUsersByFirstName(String firstName);
+	
+	List<User> findUsersByLastName(String lastName);
+	
+	List<User> findUsersByPhone(String phone);
+	
 	@Transactional
 	@Modifying(clearAutomatically = true,flushAutomatically = true)
 	@Query(value = "UPDATE users u set u.user_status_id = :userStatus where u.user_id = :userId", nativeQuery = true)
@@ -41,5 +49,20 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "UPDATE users u set u.upassword = :uPassword where u.user_id = :userId", nativeQuery = true)
 	public int updatePassword(@Param("uPassword")String uPassword, @Param("userId")int userId);
 	
+	
+	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId")
+    List<User> findUserByRole(@Param("roleId")int roleId);
+	
+	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId AND user.username = :username")
+    List<User> findUserByRoleAndUsername(@Param("roleId")int roleId, @Param("username")String username);
+	
+	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId AND user.firstName = :firstname")
+    List<User> findUserByRoleAndFirstname(@Param("roleId")int roleId, @Param("firstname")String firstname);
+	
+	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId AND user.lastName = :lastname")
+    List<User> findUserByRoleAndLastname(@Param("roleId")int roleId, @Param("lastname")String lastname);
+	
+	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId AND user.phone = :phone")
+    List<User> findUserByRoleAndPhone(@Param("roleId")int roleId, @Param("phone")String phone);
 
 }

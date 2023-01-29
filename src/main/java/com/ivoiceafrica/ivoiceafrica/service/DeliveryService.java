@@ -28,6 +28,9 @@ public interface DeliveryService {
 	public Optional<WorkOrdersDelivery> findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
 			WorkOrder workOrder);
 	
+	public Optional<WorkOrdersDelivery> findFirstWorkOrdersDeliveryByWorkOrderAndDeliveryStatus(
+			WorkOrder workOrder, DeliveryStatus deliveryStatus);
+	
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserOrderByCreatedDateDesc(User user);
 	
 	List<WorkOrdersDelivery> findOverdueWorkOrdersDelivery(String currentDate, int userId);
@@ -35,6 +38,18 @@ public interface DeliveryService {
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByDeliveryStatusAndUserOrderByCreatedDateDesc(DeliveryStatus deliveryStatus, User user);
 	
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(User user, DeliveryStatus deliveryStatus);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(int user, WorkOrder workOrder);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(User user, WorkOrder workOrder);
+	
 
 	public int updateWorkDeliveryStatus(int deliveryStatusId, String deliveryId);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(int clientUserId, DeliveryStatus deliveryStatus);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(int clientUserId);
+	
+	public int updateworkDeliveryAmount(double amount,String deliveryId);
+
 }

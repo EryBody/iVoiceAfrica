@@ -29,8 +29,12 @@ import com.ivoiceafrica.ivoiceafrica.entity.Portfolio;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.VoiceCapability;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkEscrowTransaction;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
 
 
 @Entity
@@ -185,6 +189,36 @@ public class User {
 	@JsonIgnore
     private Set<VoiceCapability> voiceCapabilities;
 	
+	@OneToMany(mappedBy = "clientId",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+    private Set<WorkPayments> workPayments;
+	
+	@OneToMany(mappedBy = "clientId",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<WorkEscrowTransaction> workEscrowClientTransaction;
+	
+	@OneToMany(mappedBy = "freelancerId",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<WorkEscrowTransaction> workEscrowFreelancerTransaction;
+	
+	@OneToMany(mappedBy = "freelancerId",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<WorkFreelancerPayment> freelancerPayments;
+	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<WorkTransactions> workTransaction;
+	
 	public User() {
 		
 	}
@@ -197,7 +231,10 @@ public class User {
 			Set<Client> clients, Set<Freelancer> freelancer, Set<FreelancerServicePricing> freelancerServicePricings,
 			Set<Portfolio> portfolios, Set<Proposal> proposals, Set<ServiceRendered> serviceRendereds,
 			Set<WorkOrder> workOrders, Set<WorkOrdersDelivery> workOrdersDeliveries,
-			Set<VoiceCapability> voiceCapabilities) {
+			Set<VoiceCapability> voiceCapabilities, Set<WorkPayments> workPayments,
+			Set<WorkEscrowTransaction> workEscrowClientTransaction,
+			Set<WorkEscrowTransaction> workEscrowFreelancerTransaction, Set<WorkFreelancerPayment> freelancerPayments,
+			Set<WorkTransactions> workTransaction) {
 		this.userId = userId;
 		this.username = username;
 		this.upassword = upassword;
@@ -228,6 +265,11 @@ public class User {
 		this.workOrders = workOrders;
 		this.workOrdersDeliveries = workOrdersDeliveries;
 		this.voiceCapabilities = voiceCapabilities;
+		this.workPayments = workPayments;
+		this.workEscrowClientTransaction = workEscrowClientTransaction;
+		this.workEscrowFreelancerTransaction = workEscrowFreelancerTransaction;
+		this.freelancerPayments = freelancerPayments;
+		this.workTransaction = workTransaction;
 	}
 
 
@@ -494,6 +536,46 @@ public class User {
 
 	public void setVoiceCapabilities(Set<VoiceCapability> voiceCapabilities) {
 		this.voiceCapabilities = voiceCapabilities;
+	}
+	
+	public Set<WorkPayments> getWorkPayments() {
+		return workPayments;
+	}
+
+	public void setWorkPayments(Set<WorkPayments> workPayments) {
+		this.workPayments = workPayments;
+	}
+
+	public Set<WorkEscrowTransaction> getWorkEscrowClientTransaction() {
+		return workEscrowClientTransaction;
+	}
+
+	public void setWorkEscrowClientTransaction(Set<WorkEscrowTransaction> workEscrowClientTransaction) {
+		this.workEscrowClientTransaction = workEscrowClientTransaction;
+	}
+
+	public Set<WorkEscrowTransaction> getWorkEscrowFreelancerTransaction() {
+		return workEscrowFreelancerTransaction;
+	}
+
+	public void setWorkEscrowFreelancerTransaction(Set<WorkEscrowTransaction> workEscrowFreelancerTransaction) {
+		this.workEscrowFreelancerTransaction = workEscrowFreelancerTransaction;
+	}
+
+	public Set<WorkFreelancerPayment> getFreelancerPayments() {
+		return freelancerPayments;
+	}
+
+	public void setFreelancerPayments(Set<WorkFreelancerPayment> freelancerPayments) {
+		this.freelancerPayments = freelancerPayments;
+	}
+
+	public Set<WorkTransactions> getWorkTransaction() {
+		return workTransaction;
+	}
+
+	public void setWorkTransaction(Set<WorkTransactions> workTransaction) {
+		this.workTransaction = workTransaction;
 	}
 
 	@Override

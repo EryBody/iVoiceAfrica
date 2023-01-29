@@ -6,6 +6,12 @@
 .language1, .language2, .language3, .language4, .language5, .language6 {
 	display: none;
 }
+
+.upload-flex{
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
 </style>
 <body>
 	<div id="preloader">
@@ -36,7 +42,7 @@
 					<div class="contentbox">
 					
 					 <!-- display details of controller -->
-          			<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary mt-3"></p>
+          			 <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary mt-3"></p>
 
 						<form th:action="@{/client/new/request/save}"
 							th:object="${NewClientRequestDTO}" method="post"
@@ -179,7 +185,7 @@
 											</div>
 										</div>
 
-										<div class="language-upload-container mb-4">
+										<div class="language-upload-container mb-4 upload-flex">
 											<div>
 												<label for="" class="custom-file-lang-label">Upload
 													File </label>
@@ -362,7 +368,7 @@
 										</div>
 
 										<div class="language-upload-container mb-4">
-											<div>
+											<div class="upload-flex">
 												<label for="" class="custom-file-lang-label">Upload
 													File </label>
 												<div class="uploadBtn6"
@@ -403,10 +409,10 @@
 										</div>
 
 										<div class="language-upload-container mb-4">
-											<div>
-												<label for="" class="custom-file-lang-label">Upload
+											<div class="upload-flex">
+												<label for="" class="custom-file-lang-label m-0">Upload
 													File </label>
-												<div class="uploadBtn7"
+												<div class="uploadBtn7 m-0"
 													onclick="imgUrl(null,'upfile7','.uploadBtn7')">Upload
 													file here</div>
 												<div style="height: 0px; width: 0px; overflow: hidden">

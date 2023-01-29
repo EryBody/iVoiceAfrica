@@ -27,32 +27,47 @@
 			</div>
 			<div class="admin-contentbox">
 				<div class="client-box">
-					<a href="users.html" class="arr-back"> <img
+					<a th:href="@{/admin-user}" class="arr-back"> <img
 						src="../../../../assets/images/admin-imgs/lessthan.svg"
 						alt="less than arrow" />
 					</a>
+					
+					<div>
+						<!-- display details of controller -->
+						<p th:text="${message}" th:if="${message ne null}"
+							class="alert alert-primary m-3"></p>
+					</div>
+					
 					<div class="adminUtil-user-header random-m">
 						<img src="../../../../assets/images/admin-imgs/femi.svg"
 							alt="A picture of femi" />
 
 						<div class="adminUtil-user-details">
-							<h1>User ID: 089456765</h1>
-							<span>Micheal Jordan</span>
-							<p>Last Login: Today, 2:37 PM</p>
+							<h1>
+								User ID: <span th:text="${opUser.userId}"></span>
+							</h1>
+							<span th:text="|${opUser.firstName} ${opUser.lastName}|">Remi
+							Martin</span>
+							<p>
+								Account Status: <span
+									th:text="${opUser.userStatus.userStatus} ?: '-'"></span>
 						</div>
 
 						<div class="adminUtil-user-cta">
-							<button>
-								<span> Block</span> <img
-									src="../../../../assets/images/admin-imgs/cancel.svg"
-									alt="
-                cancel" />
-							</button>
-							<button>
-								<span> Suspend</span> <img
-									src="../../../../assets/images/admin-imgs/halt.svg"
-									alt="Suspend" />
-							</button>
+							<a th:href="@{/block-user/{user}(user=${opUser.username})}"><button
+									type="button">
+									<span> Block</span> <img
+										src="../../../../assets/images/admin-imgs/cancel.svg"
+										alt="
+               						 cancel" />
+								</button></a> 
+								
+								<a th:href="@{/activate-user/{user}(user=${opUser.username})}"><button
+									type="button">
+									<span> Activate</span> <img
+										src="../../../../assets/images/admin-imgs/halt.svg"
+										alt="Activate" />
+								</button></a>
 						</div>
 					</div>
 
@@ -64,51 +79,65 @@
 							</div>
 
 							<div class="info">
-								<span class="info-title">Name</span>
-								<p>Micheal Jordan</p>
-							</div>
-
-							<div class="info">
 								<span class="info-title">ID</span>
-								<p class="id">006456725</p>
+								<p th:text="${opUser.userId} ?: '-'">006456725</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Username</span>
+								<p th:text="${opUser.username} ?: '-'">Remi</p>
+							</div>
+							<div class="info">
+								<span class="info-title">First name</span>
+								<p th:text="${opUser.firstName} ?: '-'">Remi</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Last name</span>
+								<p th:text="${opUser.firstName} ?: '-'">Martin</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Middle name</span>
+								<p
+									th:text="${opUser.middleName.isEmpty()} ? '-' : ${opUser.middleName}">Martin</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Nationality</span>
+								<p th:text="${opUser.nationality} ?: '-'">Nigeria</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Sex</span>
-								<p>Male</p>
+								<p th:text="${opUser.gender} ?: '-'">Male</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Phone number</span>
-								<p class="id green">+233 903 918 7653</p>
+								<p class="green" th:text="${opUser.phone} ?: '-'">+233 903
+									918 7653</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Email</span>
-								<p class="green">michealdjordan@gmail.com</p>
+								<p class="green" th:text="${opUser.emailAddress} ?: '-'">remimartin@gmail.com</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Postal code</span>
-								<p>004875</p>
+								<p th:text="${opUser.postalCode} ?: '-'">004875</p>
 							</div>
+
 							<div class="info">
-								<span class="info-title">Street address</span>
-								<p>2,Oge Street</p>
+								<span class="info-title">User Status</span>
+								<p th:text="${opUser.userStatus.userStatus} ?: '-'">Pending</p>
 							</div>
+
 							<div class="info">
-								<span class="info-title">Town</span>
-								<p>Ikeja</p>
-							</div>
-							<div class="info">
-								<span class="info-title">State</span>
-								<p>Lagos</p>
-							</div>
-							<div class="info random-m">
-								<span class="info-title">Country of
-									<br /> residence
+								<span class="info-title">Country of <br /> residence
 								</span>
-								<p>Nigeria</p>
+								<p th:text="${opUser.country} ?: '-'">Nigeria</p>
+							</div>
+							<div class="info">
+								<span class="info-title">Created Date</span>
+								<p th:text="${opUser.createdDate} ?: '-'">created date</p>
 							</div>
 						</div>
 
-						<div class="info-header">
+						<!-- <div class="info-header">
 							<h2>Basic Information</h2>
 						</div>
 						<div class="activity">
@@ -142,6 +171,9 @@
 								</p>
 							</div>
 						</div>
+						
+						 -->
+						
 					</div>
 				</div>
 			</div>

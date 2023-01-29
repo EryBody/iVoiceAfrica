@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.repository.WorkOrderRepository;
@@ -72,5 +73,47 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	public int updateWorkOrderStatus(int workOrderStatusId, String workId) {
 		return workOrderRepository.updateWorkOrderStatus(workOrderStatusId, workId);
 	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByWorkOrderStatusOrderByPostingDate(WorkOrderStatus workOrderStatus) {
+		return workOrderRepository.findWorkOrderByWorkOrderStatusOrderByPostingDate(workOrderStatus);
+	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByLimit(int limit) {
+		return workOrderRepository.findWorkOrderByLimit(limit);
+	}
+
+	@Override
+	public Optional<WorkOrder> findFirstWorkOrderByWorkIdAndWorkOrderStatus(String workId,
+			WorkOrderStatus workOrderStatus) {
+		return workOrderRepository.findFirstWorkOrderByWorkIdAndWorkOrderStatus(workId, workOrderStatus);
+	}
+
+	@Override
+	public Optional<WorkOrder> findFirstWorkOrderByWorkId(String workId) {
+		return workOrderRepository.findFirstWorkOrderByWorkId(workId);
+	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByServiceTypeOrderByPostingDate(ServiceType serviceType) {
+		return workOrderRepository.findWorkOrderByServiceTypeOrderByPostingDate(serviceType);
+	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByWorkIdOrderByPostingDate(String workId) {
+		return workOrderRepository.findWorkOrderByWorkIdOrderByPostingDate(workId);
+	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByUserAndWorkIdOrderByPostingDate(User user, String workId) {
+		return workOrderRepository.findWorkOrderByUserAndWorkIdOrderByPostingDate(user, workId);
+	}
+
+	@Override
+	public List<WorkOrder> findWorkOrderByServiceTypeAndUserOrderByPostingDate(ServiceType serviceType, User user) {
+		return workOrderRepository.findWorkOrderByServiceTypeAndUserOrderByPostingDate(serviceType, user);
+	}
+	
 
 }

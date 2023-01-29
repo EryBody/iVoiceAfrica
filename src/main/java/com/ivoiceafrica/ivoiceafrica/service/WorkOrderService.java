@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.repository.query.Param;
 
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 
@@ -28,4 +29,20 @@ public interface WorkOrderService {
 	
 	public int updateWorkOrderStatus(int workOrderStatusId,String workId);
 
+	List<WorkOrder> findWorkOrderByWorkOrderStatusOrderByPostingDate(WorkOrderStatus workOrderStatus);
+	
+	List<WorkOrder> findWorkOrderByLimit(int limit);
+	
+	Optional<WorkOrder> findFirstWorkOrderByWorkIdAndWorkOrderStatus(String workId, WorkOrderStatus workOrderStatus);
+	
+	Optional<WorkOrder> findFirstWorkOrderByWorkId(String workId);
+	
+	List<WorkOrder> findWorkOrderByServiceTypeOrderByPostingDate(ServiceType serviceType);
+	
+	List<WorkOrder> findWorkOrderByWorkIdOrderByPostingDate(String workId);
+	
+	List<WorkOrder> findWorkOrderByUserAndWorkIdOrderByPostingDate(User user, String workId);
+	
+	List<WorkOrder> findWorkOrderByServiceTypeAndUserOrderByPostingDate(ServiceType serviceType, User user);
+	
 }

@@ -63,10 +63,11 @@
 				<div class="job-alerts-header">
 					<h1>Job Alerts</h1>
 					<div>
-						<a href="jobalerts.html" class="job-alerts-heading-btn mr-3">
-							All</a> <a href="appliedjob.html"
+						<!-- <a th:href="@{/freelancer-jobs-alerts}" class="job-alerts-heading-btn mr-3">
+							All</a>  -->
+							<!-- <a href="appliedjob.html"
 							class="job-alerts-heading-btn job-alerts-heading-btn_accent">
-							Applied</a>
+							Applied</a> -->
 					</div>
 				</div>
 			</div>
@@ -97,7 +98,7 @@
 
 
 					<div th:each="proposal : ${userProposal}">
-						<a th:href="@{/freelancer-jobs-details/{workOrderId}(workOrderId=${proposal.workOrder.workId})}">
+						<a th:href="@{/freelancer-jobs-details/{workOrderId}/{proposalId}(workOrderId=${proposal.workOrder.workId}, proposalId=${proposal.proposalId})}">
 							<div class="mt-4">
 								<div class="job-alerts">
 									<div class="job-alerts-card-body my-3">

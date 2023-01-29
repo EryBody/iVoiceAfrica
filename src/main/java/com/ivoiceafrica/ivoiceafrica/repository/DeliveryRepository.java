@@ -31,10 +31,25 @@ public interface DeliveryRepository extends JpaRepository<WorkOrdersDelivery, St
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByDeliveryStatusAndUserOrderByCreatedDateDesc(DeliveryStatus deliveryStatus, User user);
 	
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(User user, DeliveryStatus deliveryStatus);
-
+	
 	@Transactional
 	@Modifying(clearAutomatically = true,flushAutomatically = true)
 	@Query(value = "UPDATE wo_delivery w set w.delivery_status_id = :deliveryStatusId where w.delivery_id = :deliveryId", nativeQuery = true)
 	public int updateWorkDeliveryStatus(@Param("deliveryStatusId")int deliveryStatusId, @Param("deliveryId")String deliveryId);
+	
+	public Optional<WorkOrdersDelivery> findFirstWorkOrdersDeliveryByWorkOrderAndDeliveryStatus(
+			WorkOrder workOrder, DeliveryStatus deliveryStatus);
 
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(int clientUserId, DeliveryStatus deliveryStatus);
+
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(int clientUserId);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(int user, WorkOrder workOrder);
+	
+	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(User user, WorkOrder workOrder);
+
+	@Transactional
+	@Modifying(clearAutomatically = true,flushAutomatically = true)
+	@Query(value = "UPDATE wo_delivery w set w.amount = :amount where w.delivery_id = :deliveryId", nativeQuery = true)
+	public int updateworkDeliveryAmount(@Param("amount")double amount, @Param("deliveryId")String deliveryId);
 }
