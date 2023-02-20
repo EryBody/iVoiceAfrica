@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Client Finances</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600"
+	rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="../../payments/payment.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<link rel="shortcut icon" href="../../assets/icons/fav.png"
+	type="image/x-icon" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<link rel="stylesheet" type="text/css"
+	href="../../assets/sweetalert/sweetalert2.css">
+<link rel="stylesheet" type="text/css"
+	href="../../assets/sweetalert/sweetalert2.min.css">
+<style>
+#rcorners2 {
+	border-radius: 25px;
+	border: 2px solid grey;
+	padding: 20px;
+	width: 300px;
+	height: 200px;
+	position: relative;
+}
+
+.center-align {
+	margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+
+		<!-- Header area start -->
+
+		<div class="overlay"></div>
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<!-- top-nav end -->
+
+		<!-- side-nav start -->
+		<div th:replace="fragments/main_sidenav :: sidenav"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox">
+				<h1>Client Payment</h1>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox mt-5">
+
+				<div class="mt-3" id="outer-div">
+					<div class="mt-4 mr-5" id="inner-div">
+						<div class="job-alerts">
+							<div class="job-alerts-card-body my-3">
+
+								<!-- display details of controller -->
+								<p th:text="${message}" th:if="${message ne null}"
+									class="alert alert-primary mt-3"></p>
+
+								<div class="">
+
+									<div class="text-center">
+										<h2>Select Payment Option</h2>
+									</div>
+
+									<div class="d-flex justify-content-center mt-5">
+										<div class="row">
+
+											<div class="col-12">
+
+												<div class="row">
+													<div class="col-md-6 mt-2 mb-2">
+														<button
+															style="border-radius: 25px; border: none; background: none;"
+															type="button" data-toggle="modal"
+															data-target="#flutterwave">
+
+															<div id="rcorners2">
+																<div class="center-align">
+																	<img src="../../assets/images/flutterwave.png"
+																		class="text-center" />
+																	<h4 class="mt-3 text-center text-dark">Pay with
+																		Flutter wave</h4>
+																</div>
+
+															</div>
+														</button>
+													</div>
+
+
+													<div class="col-md-6 mt-2 mb-2">
+														<button
+															style="border-radius: 25px; border: none; background: none;"
+															type="button" data-toggle="modal" data-target="#notice">
+															<div id="rcorners2">
+																<div class="center-align">
+																	<img src="../../assets/images/paystack-2.png"
+																		class="text-center" />
+																	<h4 class="mt-3 text-center text-dark">Pay with
+																		Paystack</h4>
+																</div>
+
+															</div>
+														</button>
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="notice" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Notice</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+
+				<div class="modal-body">
+					<div class="input-group mb-4">
+						<h3>This payment option is currently not available, please
+							try other options.</h3>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-lg"
+						data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="flutterwave" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Enter
+						payment amount</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<small class="text-muted mt-2 ml-3 ">kindly note you'll be
+					redirected to a new page to complete your payment</small>
+				<div class="modal-body">
+					<div class="input-group mb-4">
+
+						<input type="hidden" id="idKey"
+							value="FLWPUBK_TEST-c080d8aa9590b4bdac7ab337dcb84f8f-X">
+						<input type="hidden" id="fullName"
+							th:value="|${session.user.firstName} ${session.user.lastName}|">
+						<input type="hidden" id="email"
+							th:value="${session.user.username}"> <input type="hidden"
+							id="userId" th:value="${session.user.userId}"> <input
+							type="hidden" id="phone" th:value="${session.user.phone}">
+
+						<input type="hidden" id="freelancerId" th:value="${freelancerId}">
+
+						<input type="hidden" id="workId"
+							th:value="${proposalOp.workOrder.workId}">
+
+						<div class="mb-2">
+							<input type="number" placeholder="Enter payment amount"
+								name="paymentAmount" id="paymentAmount"
+								th:value="${proposalOp.amount}" style="font-size: 18px" readonly />
+						</div>
+
+
+						<div class="mt-2">
+							<textarea placeholder="Enter payment description"
+								name="paymentDesc" id="paymentDesc" style="font-size: 18px"></textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-lg"
+						data-dismiss="modal">Close</button>
+
+					<button type="button" class="btn btn-primary btn-lg"
+						id="start-payment-button" onclick="makePayment()">Proceed
+						to pay</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script
+		src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script>
+	<script src="./script.js"></script>
+	<script src="../../payments/payment.js"></script>
+	<script src="https://checkout.flutterwave.com/v3.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.all.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.min.js"></script>
+	<script>
+		function makePayment() {
+
+			var paymentAmount = document.getElementById('paymentAmount').value;
+			var paymentDesc = document.getElementById('paymentDesc').value;
+			var flkpub = document.getElementById('idKey').value;
+			var txRef = "ivoice-" + Math.random().toString(16).slice(2);
+			var redirectUrl = "http://localhost:8080/client-dashboard"
+			var mac = genMAC();
+
+			var fullName = document.getElementById('fullName').value;
+			var phone = document.getElementById('phone').value;
+			var email = document.getElementById('email').value;
+			var customerId = document.getElementById('userId').value;
+			var freelancerId = document.getElementById('freelancerId').value;
+			var workId = document.getElementById('workId').value;
+
+			var currency = "NGN";
+			var paymentOption = "card, " + "banktransfer, " + "ussd";
+			var title = "IVoice Africa Payment";
+			var logo = "https://files.fm/thumb_show.php?i=n6rqp3k7y";
+
+			$('#flutterwave').modal('hide');
+
+			FlutterwaveCheckout({
+				public_key : flkpub,
+				tx_ref : txRef,
+				amount : paymentAmount,
+				currency : currency,
+				payment_options : paymentOption,
+				/* redirect_url : redirectUrl, */
+				callback : function(payment) {
+					// Send AJAX verification request to backend to verify payment of the trasaction, send payment.id to verify the payment
+
+					var jsonString = JSON.stringify(payment);
+					console.log("payment " + JSON.stringify(payment));
+					var action = "/get-client-payment-details";
+
+					$
+							.ajax({
+								url : action,
+								type : "GET",
+								data : {
+									inputParameter : jsonString,
+									freelancerId : freelancerId,
+									workId : workId
+								},
+								success : function(data) {
+									 emptyFields();
+									alert('Your Payment data has been saved!!!, Please continue.');
+								}
+							});
+
+				},
+				onclose : function(incomplete) {
+
+					emptyFields();
+					
+					console.log("incomplete: " + incomplete);
+
+					if (incomplete || window.verified === false) {
+						Swal.fire({
+							icon : 'error',
+							title : 'Oops...',
+							text : 'Payment Failed!',
+							footer : ''
+						})
+					} else {
+						if (window.verified == true) {
+							Swal.fire('Good job!', 'Payment Successful!',
+									'success')
+						} else {
+							Swal.fire('Your payment is under processing!!!')
+						}
+					}
+				},
+				meta : {
+					consumer_id : customerId,
+					consumer_mac : mac,
+				},
+				customer : {
+					email : email,
+					phone_number : phone,
+					name : fullName,
+				},
+				customizations : {
+					title : title,
+					description : paymentDesc,
+					logo : logo,
+				},
+			});
+
+		}
+
+		function genMAC() {
+			var hexDigits = "0123456789ABCDEF";
+			var macAddress = "";
+			for (var i = 0; i < 6; i++) {
+				macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
+				macAddress += hexDigits.charAt(Math.round(Math.random() * 15));
+				if (i != 5)
+					macAddress += ":";
+			}
+
+			return macAddress;
+		}
+
+		function emptyFields() {
+			document.getElementById('paymentAmount').value = "";
+			document.getElementById('paymentDesc').value = "";
+		}
+	</script>
+</body>
+</html>

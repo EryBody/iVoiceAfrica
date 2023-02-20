@@ -38,7 +38,7 @@ public class WorkEscrowTransaction {
 	@Column(name = "currency")
 	private String currency;
 
-	@Column(name = "isReleased")
+	@Column(name = "is_released")
 	private Boolean isReleased;
 
 	@Column(name = "released_date")

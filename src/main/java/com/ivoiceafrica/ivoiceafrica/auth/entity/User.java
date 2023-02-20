@@ -22,6 +22,7 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivoiceafrica.ivoiceafrica.entity.Administrator;
+import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
 import com.ivoiceafrica.ivoiceafrica.entity.Client;
 import com.ivoiceafrica.ivoiceafrica.entity.Freelancer;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
@@ -218,6 +219,13 @@ public class User {
 					CascadeType.REFRESH, CascadeType.DETACH})
 	@JsonIgnore
 	private Set<WorkTransactions> workTransaction;
+	
+	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<BankDetail> bankDetail;
 	
 	public User() {
 		
@@ -576,6 +584,14 @@ public class User {
 
 	public void setWorkTransaction(Set<WorkTransactions> workTransaction) {
 		this.workTransaction = workTransaction;
+	}
+
+	public Set<BankDetail> getBankDetail() {
+		return bankDetail;
+	}
+
+	public void setBankDetail(Set<BankDetail> bankDetail) {
+		this.bankDetail = bankDetail;
 	}
 
 	@Override

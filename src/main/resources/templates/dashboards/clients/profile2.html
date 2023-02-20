@@ -291,10 +291,13 @@
 					<div class="modal-body">
 						<div class="input-group mb-4">
 							<input type="hidden" name="workOrderID"
-								th:value="${workOrderDetails?.workId}" /> 
+								th:value="${workOrderDetails?.workId}" />
 								
 								<input
 								type="hidden" name="userID" th:value="${userDetails.username}" />
+								
+								<input
+								type="hidden" name="proposalId" th:value="${proposalDetails.proposalId}" />
 								
 							<input type="text" placeholder="Fix in amount for job"
 								name="clientAmount" id="clientAmount" th:value=${proposalDetails.amount} readonly style="font-size: 25px;" />

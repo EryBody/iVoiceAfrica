@@ -63,11 +63,11 @@
 						<div class="clientFinance">
 							<span class="finance-hist-label">Transaction History</span>
 							<div class="clienttotal">
-								Total Released <span class="clientspent-total">$ 2400</span>
+								Total Released <span class="clientspent-total">$ <span th:text="${totalAmount}"></span></span>
 							</div>
 						</div>
 
-						<div class="finance-filter">
+						<!-- <div class="finance-filter">
 							<div class="flex">
 								<div class="trans-finance-filter">
 									<span>Transaction type</span> <select name="" id="">
@@ -83,47 +83,35 @@
 									</select> <span>September 20 - September 27</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
-					<div class="finance">
+					<div class="finance mt-3">
 						<table class="finance-stats-table">
 							<thead>
 								<tr>
-									<th>Date</th>
-									<th>Transaction ID</th>
-									<th>Description</th>
+									<th>S/N</th>
+									<th>Trans ID</th>
+									<th>WorkOrder ID</th>
+									<th>Currency</th>
+									<th>Payment Status</th>
+									<th>Payment Gateway</th>
+									<th>Entry Date</th>
 									<th>Amount</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>26th September, 2022</td>
-									<td>008-445-786</td>
-									<td>Account credited for Translate Physics Textbook From
+								<tr th:each="temp, iStat : ${workPayments}">
+									<td th:text="${iStat.index+1}">1</td>
+									<td th:text="${temp.transId}">008-445-786</td>
+									<td th:text="${temp.workOrder.workId}">Account credited for Translate Physics Textbook From
 										English To French</td>
-									<td>$200</td>
+									<td th:text="${temp.currency}">$200</td>
+									<td th:text="${temp.paymentStatus.status}">$200</td>
+									<td th:text="${temp.paymentGateway}">$200</td>
+									<td th:text="${temp.entryDate}">$200</td>
+									<td th:text="${temp.amount}">$200</td>
 								</tr>
-								<tr>
-									<td>26th September, 2022</td>
-									<td>008-445-786</td>
-									<td>Account credited for Translate Physics Textbook From
-										English To French</td>
-									<td>$200</td>
-								</tr>
-								<tr>
-									<td>26th September, 2022</td>
-									<td>008-445-786</td>
-									<td>Account credited for Translate Physics Textbook From
-										English To French</td>
-									<td>$200</td>
-								</tr>
-								<tr>
-									<td>26th September, 2022</td>
-									<td>008-445-786</td>
-									<td>Account credited for Translate Physics Textbook From
-										English To French</td>
-									<td>$200</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>

@@ -386,7 +386,9 @@
 
 									<div class="works-cta">
 
-										<a href="#"><button type="button" class="review-btn">Review</button></a>
+										<a th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail.deliveryId})}"><button type="button" class="review-btn">Review</button></a>
+										
+										
 										<button type="submit" class="fward-btn">Send Finished Job</button>
 									</div>
 

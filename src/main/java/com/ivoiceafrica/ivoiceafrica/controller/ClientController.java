@@ -60,6 +60,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
 import com.ivoiceafrica.ivoiceafrica.models.ClientUploadModel;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
@@ -73,9 +74,12 @@ import com.ivoiceafrica.ivoiceafrica.service.RoleService;
 import com.ivoiceafrica.ivoiceafrica.service.SRenderedService;
 import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentStatusService;
 import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 
 @Controller
@@ -134,6 +138,15 @@ public class ClientController {
 
 	@Autowired
 	DeliveryAttachmentService deliveryAttachmentService;
+	
+	@Autowired
+	WorkPaymentStatusService workPaymentStatusService;
+
+	@Autowired
+	WorkPaymentService workPaymentService;
+
+	@Autowired
+	WorkFreelancerPaymentService workFreelancerPaymentService;
 
 	@GetMapping("/client-dashboard")
 	public String clientDashboard(Model model) {
@@ -275,8 +288,8 @@ public class ClientController {
 				int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(5, clientAmountDTO.getWorkOrderID());
 				System.out.println("===>>> updateWorkOrderStatus Inprogess: " + updateWorkOrderStatus);
 
-				attributes.addFlashAttribute("message", "Great, your job has been sent successfully");
-				return "redirect:/client-dashboard";
+//				attributes.addFlashAttribute("message", "Great, your job has been sent successfully");
+				return "redirect:/select-payment-option/"+user.get().getUsername()+"/"+clientAmountDTO.getProposalId();
 
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -422,6 +435,19 @@ public class ClientController {
 
 	@GetMapping("/client/finance/all")
 	public String clientAllFinance(Model model) {
+		
+		String userId = (String) session.getAttribute("userId");
+		Optional<User> user = userService.findFirstUserByUsername(userId);
+		
+		List<WorkPayments> workPayments = workPaymentService.findWorkPaymentsByClientIdOrderByEntryDateDesc(user.get());
+		
+		double totalAmount = 0.0;
+		for(WorkPayments payment : workPayments) {
+			totalAmount += payment.getAmount();
+		}
+		
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("workPayments",workPayments);
 
 		return "dashboards/clients/clientfinance";
 	}

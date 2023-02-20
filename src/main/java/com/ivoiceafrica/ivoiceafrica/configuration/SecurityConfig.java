@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,6 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ivoiceafrica.ivoiceafrica.models.LoginSuccessHandler;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
@@ -109,6 +114,29 @@ public class SecurityConfig  {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
+	
+	//Using webflux
+	@Bean
+    public WebClient webclient() {
+        final int size = 32 * 1024 * 1024;
+        final ExchangeStrategies strategies = ExchangeStrategies.builder()
+                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(size))
+                .build();
+
+        WebClient webClient = WebClient
+                .builder()
+                .baseUrl("https://api.flutterwave.com/v3")
+                .defaultCookie("cookieKey", "cookieValue")
+                .exchangeStrategies(strategies)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+        return webClient;
+    }
+	
+	 @Bean
+	 public RestTemplate getRestTemplate(){
+		 return  new RestTemplate();
+	 }
 	
 	
 //	web.ignoring() means that Spring Security cannot provide any security headers or other protective

@@ -26,86 +26,58 @@
 
 			</div>
 			<div class="admin-contentbox">
-				<div class="util-header">
-					<div class="options">
-						<select name="select" id="select-client" class="select-filter">
-							<option value="Transaction ID">Transaction ID</option>
-							<option value="Client ID">Client ID</option>
-						</select> 
-						<span> 
-						<img
-							src="../../../../assets/images/admin-imgs/drpdown.svg"
-							alt="dropdown arrow" class="mt-3 mx-3"/>
+				<form th:action="@{/admin-finance-search}"
+						th:object="${adminSearchDTO}" method="post">
+					<div class="util-header">
+						<div class="options">
+							<select id="select-client" class="select-filter" name="searchOption">
+								<option value="freelancerId">Freelancer ID</option>
+								<option value="workOrderId">Work Order ID</option>
+							</select> <span> <img
+								src="../../../../assets/images/admin-imgs/drpdown.svg"
+								alt="dropdown arrow" class="mt-3 mx-3" />
+							</span>
+
+						</div>
+						<div class="util-search">
+							<img src="../../../../assets/images/admin-imgs/bigsearch.svg"
+								alt="search icon" /> <input type="text" placeholder="Search" name="searchValue"/>
+						</div>
+						<span>
+							<button type="submit"
+								class="btn btn-outline-secondary btn-lg btn-block mt-2">Search</button>
 						</span>
-						
 					</div>
-					<div class="util-search">
-						<img src="../../../../assets/images/admin-imgs/bigsearch.svg"
-							alt="search icon" /> <input type="text" placeholder="Search" />
-					</div>
-					<span>
-							<button type="button" class="btn btn-outline-secondary btn-lg btn-block mt-2">Search</button>
-					</span>
-				</div>
+				</form>
+				
+				
+				
 				<div class="finance-statistics">
 					<table id="finance-stats-table">
 						<thead>
 							<tr>
-								<th>Transaction ID</th>
-								<th>Transaction type</th>
+								<th>S/N</th>
+								<th>Trans ID</th>
+								<th>Freelancer</th>
+								<th>WorkOrder ID</th>
 								<th>Amount</th>
-								<th>Job ID</th>
-								<th>Freelancer ID</th>
-								<th>Date</th>
-								<th>Freelancer ID</th>
+								<th>Currency</th>
+								<th>Is in flow</th>
+								<th>Entry Date</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="id">00032356679</td>
-								<td>Escrow deposit</td>
-								<td>$1000</td>
-								<td class="id">00032356679849</td>
-								<td>0003235660987</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>Pending</td>
+							<tr th:each="temp, iStat : ${transactions}">
+								<td th:text="${iStat.index+1}" class="id">00032356679</td>
+								<td th:text="${temp.transId}">Escrow deposit</td>
+								<td th:text="${temp.user.username}" >Escrow deposit</td>
+								<td th:text="${temp.workOrder.workId}">$1000</td>
+								<td th:text="${temp.amount}">$1000</td>
+								<td th:text="${temp.currency}" class="id">00032356679849</td>
+								<td th:text="${temp.isInFlow}">0003235660987</td>
+								<td th:text="${temp.entryDate}">3 October, 2020 4:27PM</td>
 							</tr>
-							<tr>
-								<td class="id">00032356679</td>
-								<td>Escrow deposit</td>
-								<td>$1000</td>
-								<td class="id">00032356679849</td>
-								<td>0003235660987</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>Pending</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679</td>
-								<td>Escrow deposit</td>
-								<td>$1000</td>
-								<td class="id">00032356679849</td>
-								<td>0003235660987</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>Pending</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679</td>
-								<td>Escrow deposit</td>
-								<td>$1000</td>
-								<td class="id">00032356679849</td>
-								<td>0003235660987</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>Pending</td>
-							</tr>
-							<tr>
-								<td class="id">00032356679</td>
-								<td>Escrow deposit</td>
-								<td>$1000</td>
-								<td class="id">00032356679849</td>
-								<td>0003235660987</td>
-								<td>3 October, 2020 4:27PM</td>
-								<td>Pending</td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>

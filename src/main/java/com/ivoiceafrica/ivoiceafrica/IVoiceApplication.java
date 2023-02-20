@@ -1,35 +1,30 @@
 package com.ivoiceafrica.ivoiceafrica;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerServiceTypePricingDTO;
-import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
-import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
-import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
-import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
-import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
-import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
-import com.ivoiceafrica.ivoiceafrica.entity.ServiceTypePricing;
-import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
-import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
-import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.entity.Bank;
+import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.BankBranchResponse;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponse;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.BankTransferResponse;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.NgnBankTransferRequest;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
+import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.FlutterwaveService;
 import com.ivoiceafrica.ivoiceafrica.service.FreelancerPricingService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalStatusService;
@@ -38,7 +33,9 @@ import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
-import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @ComponentScan({ "com.ivoiceafrica.ivoiceafrica"})
@@ -85,6 +82,13 @@ public class IVoiceApplication implements CommandLineRunner {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	FlutterwaveService flwService;
+	
+	@Autowired
+	BankDetailService bankDetailService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(IVoiceApplication.class, args);
@@ -203,6 +207,46 @@ public class IVoiceApplication implements CommandLineRunner {
 		
 //		List<User> users = userRepository.findUserByRoleAndUsername(3, "chima@gmail.com");
 //		System.out.println("====>>> users: "+users);
+		
+		
+//		BankResponse response = flwService.getBank("NG");
+//		System.out.println("===>>>RES: "+response);
+		
+//		BankBranchResponse bankBranch= flwService.getBankBranch("280");
+//		System.out.println("===>>> bankBranch: "+bankBranch);
+		
+//		NgnBankTransferRequest req = new NgnBankTransferRequest();
+//		req.setAccount_bank("044");
+//		req.setAccount_number("0690000040");
+//		req.setAmount(200);
+//		req.setNarration("Payment for things");
+//		req.setCurrency("NGN");
+//		req.setReference("jh678b3kolfs");
+//		req.setCallback_url("https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d");
+//		req.setDebit_currency("NGN");
+//		
+//		BankTransferResponse res = flwService.ngnBankTransfer(req);
+//		System.out.println("===>>> res: "+res);
+		
+//		BankResponse res = flwService.getBank("NG");
+//		
+//		//Add Banks from flutterwave
+//		Bank bank = new Bank();
+//		bank.setBankId(0);
+//		bank.setBankCode("");
+//		bank.setBankName("");
+		
+		BankDetail detail = bankDetailService.findBankDetailsWithUserId(41);
+		boolean isBankDetailsExist = false;
+		
+		if(!detail.getBankId().isEmpty()) {
+			isBankDetailsExist = true;
+		}else {
+			isBankDetailsExist = false;
+		}
+		
+		System.out.println("===>>> details: "+detail);
+		System.out.println("===>>> isBankDetailsExist: "+isBankDetailsExist);
 
 	}
 

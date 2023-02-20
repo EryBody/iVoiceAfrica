@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>FAQs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+<link rel="stylesheet" type="text/css"
+	href="../../assets/sweetalert/sweetalert2.css">
+<link rel="stylesheet" type="text/css"
+	href="../../assets/sweetalert/sweetalert2.min.css">
+
+<!-- modernizr css -->
+<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js" defer></script>
+<script src="../../assets/JS/js/scripts.js" defer></script>
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css" />
+<style>
+.custom-select-arrow-payment {
+	position: absolute;
+	top: 25%;
+	right: 0;
+	transform: translate(-50%, -50%);
+	display: block;
+	width: 1.2em;
+	height: 50%;
+	pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
+	<div class="page-container">
+		<!-- Header area start -->
+
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<div class="main">
+			<div class="main__headerbox">
+				<h1>Withdrawal</h1>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox mt-5">
+
+				<div class="mt-3" id="outer-div">
+					<div class="mt-4 mr-5" id="inner-div">
+						<div class="job-alerts">
+							<div class="job-alerts-card-body my-3">
+							
+								<!-- display details of controller -->
+								  <p th:text="${message}" th:if="${message ne null}"
+										class="alert alert-primary m-3"></p>
+							
+								<div onload="yesnoCheck();">
+
+									<div class="payment-title">
+										<h1>Enter Payment Details</h1>
+									</div>
+
+
+									<div class="mt-4">
+
+										<div class="clientform-section2 mb-4 mt-4 ">
+
+											<select id="selector" style="appearance: none" name="sex"
+												onchange="yesnoCheck();">
+												<option value="">Select Country</option>
+												<option value="NGN">Nigeria(Naria Only)</option>
+												<option value="NGN_USD">Nigeria(Domiliciary)</option>
+												<option value="FCMB_NGN_USD">Nigeria(FCMB
+													Domiliciary)</option>
+												<option value="UNFI_NGN_USD">Nigeria(Union/Fidelity
+													Domiliciary)</option>
+												<option value="GHS">Ghana</option>
+												<option value="UGX">Uganda</option>
+												<option value="ZMN">Zambia</option>
+												<option value="TZS">Tanzania</option>
+												<option value="KES">Kenya</option>
+												<option value="ZAR">South Africa</option>
+
+
+												<!-- <option
+															th:each="tempGender : ${T(com.ivoiceafrica.ivoiceafrica.utility.IVoiceConstant.Gender).values()}"
+															th:value="${tempGender}" th:text="${tempGender}"></option> -->
+
+											</select> <span class="custom-select-arrow-payment mb-4"></span>
+										</div>
+									</div>
+
+
+									<div id="nariaOnly" style="display: none;">
+									<h2>Transfer to your Nigerian Bank Account</h2>
+										<!-- Naria account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryNaria" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+										</form>
+									</div>
+
+
+									<div id="nariaDom" style="display: none;">
+									<h2>Transfer to your Nigerian Domiliciary Bank Account</h2>
+										<!-- Naria DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryNariaDom" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Merchant Name</label> <input type="text"
+															placeholder="merchantName" name="merchantName" id="merchantName" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+									
+									
+									<div id="fcmbDom" style="display: none;">
+									<h2>Transfer to your Nigerian FCMB Bank Account</h2>
+									
+									
+										<!-- FCMB DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryNariaFcmb" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-6">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+													<div class="input-group mb-4">
+														<label for="">Occupation</label> <input type="text"
+															placeholder="Narration" name="occupation" id="occupation" />
+													</div>
+												</div>
+
+
+												<div class="col-md-6">
+													
+													
+													<div class="input-group mb-4">
+														<label for="">Identification Type</label> <input type="text"
+															placeholder="Narration" name="identificationType" id="identificationType" />
+													</div>
+													
+													<div class="input-group mb-4">
+														<label for="">Identification Number</label> <input type="text"
+															placeholder="Narration" name="identificationNumber" id="identificationNumber" />
+													</div>
+													
+													<div class="input-group mb-4">
+														<label for="">Identification Expiry</label> <input type="text"
+															placeholder="Narration" name="identificationExpiry" id="identificationExpiry" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+									
+									
+									<div id="unfiDom" style="display: none;">
+										<h2>Transfer to your Nigerian (Unity/Fidelity) Bank Account</h2>
+									
+										<!-- FCMB DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryNariaUNFI" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+													
+													<div class="input-group mb-4">
+														<label for="">City</label> <input type="text"
+															placeholder="City" name="city" id="city" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+									
+									
+									<div id="commonCountry" style="display: none;">
+										<h2>Transfer to your <span id="countryName">Ghanian</span> Bank Account</h2>
+									
+										<!-- FCMB DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryGhs" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+									
+									
+									<div id="kesCountry" style="display: none;">
+									<h2>Transfer to your Kenyan Bank Account</h2>
+										<!-- FCMB DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryKenya" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+									
+									
+									<div id="zarCountry" style="display: none;">
+										<h2>Transfer to your South African Bank Account</h2>
+									
+										<!-- FCMB DOM account -->
+										<form th:action="@{/freelancer-withdrawal-money}"
+											th:object="${FreelancerMoneyWithdrawal}" method="post">
+											
+											<input type="hidden" id="countryRand" name="countryCode"/>
+
+											<div class="row mt-2">
+												<div class="col-md-12">
+
+													<div class="input-group mb-4">
+														<label for="">Amount</label> <input type="text"
+															placeholder="Amount" name="amount" id="amount" />
+													</div>
+
+													<div class="input-group mb-4">
+														<label for="">Narration</label> <input type="text"
+															placeholder="Narration" name="narration" id="narration" />
+													</div>
+												</div>
+											</div>
+
+											<div class="mt-5">
+												<a th:href="@{/client-dashboard}"><button type="button"
+														name="Go Back" class="btn btn-danger btn-lg">Cancel</button></a>
+
+
+												<button type="submit" name="Submit" value="Proceed to pay"
+													class="btn btn-success btn-lg">Proceed to pay</button>
+											</div>
+
+										</form>
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+	<!-- logout modal -->
+
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.all.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.js"></script>
+	<script src="../../assets/sweetalert/sweetalert2.min.js"></script>
+	<script>
+		function yesnoCheck() {
+
+			var e = document.getElementById("selector");
+			var that = e.options[e.selectedIndex];
+
+			if (that.value == "NGN") {
+				document.getElementById("countryNaria").value = that.value;
+				document.getElementById("nariaOnly").style.display = "block";
+			} else {
+				document.getElementById("nariaOnly").style.display = "none";
+			}
+
+			if (that.value == "NGN_USD") {
+				document.getElementById("countryNariaDom").value = that.value;
+				document.getElementById("nariaDom").style.display = "block";
+			} else {
+				document.getElementById("nariaDom").style.display = "none";
+			}
+
+			if (that.value == "FCMB_NGN_USD") {
+				document.getElementById("countryNariaFcmb").value = that.value;
+				document.getElementById("fcmbDom").style.display = "block";
+			} else {
+				document.getElementById("fcmbDom").style.display = "none";
+			}
+			
+			if (that.value == "UNFI_NGN_USD") {
+				document.getElementById("countryNariaUNFI").value = that.value;
+				document.getElementById("unfiDom").style.display = "block";
+			} else {
+				document.getElementById("unfiDom").style.display = "none";
+			}
+			
+			
+			if (that.value == "KES") {
+				document.getElementById("countryKenya").value = that.value;
+				document.getElementById("kesCountry").style.display = "block";
+			} else {
+				document.getElementById("kesCountry").style.display = "none";
+			}
+			
+			if (that.value == "ZAR") {
+				document.getElementById("countryRand").value = that.value;
+				document.getElementById("zarCountry").style.display = "block";
+			} else {
+				document.getElementById("zarCountry").style.display = "none";
+			}
+			
+			
+			if (that.value == "GHS" || that.value == "UGX" || that.value == "ZMN" || that.value == "TZS") {
+				
+				if(that.value == "GHS"){
+					document.getElementById("countryName").textContent = "Ghanian";
+				}else if(that.value == "UGX"){
+					document.getElementById("countryName").textContent = "Ugandan";
+				}else if(that.value == "ZMN"){
+					document.getElementById("countryName").textContent = "Zambian";
+				}else if(that.value == "TZS"){
+					document.getElementById("countryName").textContent = "Tanzanian";
+				}
+				
+				
+				document.getElementById("countryGhs").value = that.value;
+				document.getElementById("commonCountry").style.display = "block";
+			} else {
+				document.getElementById("commonCountry").style.display = "none";
+			}
+		}
+	</script>
+</body>
+</html>

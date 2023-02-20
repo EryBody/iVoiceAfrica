@@ -34,7 +34,7 @@ public class WorkTransactions {
 	@Column(name = "currency")
 	private String currency;
 
-	@Column(name = "isInFlow")
+	@Column(name = "is_in_Flow")
 	private Boolean isInFlow;
 
 	@Column(name = "entry_date")

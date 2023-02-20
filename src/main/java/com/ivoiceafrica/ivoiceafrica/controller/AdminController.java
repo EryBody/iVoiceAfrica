@@ -44,6 +44,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
@@ -57,9 +58,13 @@ import com.ivoiceafrica.ivoiceafrica.service.RoleService;
 import com.ivoiceafrica.ivoiceafrica.service.SRenderedService;
 import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkEscrowTransactionService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkTransactionService;
 
 @Controller
 public class AdminController {
@@ -120,6 +125,18 @@ public class AdminController {
 
 	@Autowired
 	FreelancerDeliveryAttachmentService freelancerDeliveryAttachmentService;
+	
+	@Autowired
+	WorkTransactionService workTransactionService;
+	
+	@Autowired
+	WorkFreelancerPaymentService workFreelancerPaymentService;
+	
+	@Autowired
+	WorkPaymentService workPaymentService;
+	
+	@Autowired
+	WorkEscrowTransactionService workEscrowTransactionService;
 
 	@GetMapping("/admin-dashboard")
 	public String adminDashboard(Model model) {
@@ -852,13 +869,30 @@ public class AdminController {
 			Model model, RedirectAttributes attributes) {
 
 		System.out.println("===>>> adminPageWordCountDTO: " + sendJobDTO);
+		
+		String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
 		// update work and delivery status
 		int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(9, sendJobDTO.getWorkId());// 9 means //
 																										// sending to
 																										// finished job
 		int updateWorkDeliveryStatus = deliveryService.updateWorkDeliveryStatus(9, sendJobDTO.getDeliveryId());
-
+		
+		//update transactions from escrow to inAccount
+		int updateWorkFreelancerPaymentStatus = workFreelancerPaymentService.updateWorkFreelancerPaymentStatus(6, sendJobDTO.getWorkId()); //6 means money is in account
+		System.out.println("===>>> updateWorkFreelancerPaymentStatus: "+updateWorkFreelancerPaymentStatus);
+		
+		
+		//update isRelesead and release date from work escrow 
+		int updateIsReleasedStatusAndDate = workEscrowTransactionService.updateWorkEscrowIsReleasedAndDate(true, currentDate, sendJobDTO.getWorkId());
+		System.out.println("===>>> updateIsReleasedStatusAndDate: "+updateIsReleasedStatusAndDate);
+		
+		
+		//update workPayments status
+		int updateWorkPaymentStatus = workPaymentService.updateWorkPaymentStatus(6, sendJobDTO.getWorkId()); //6 means money is in account
+		System.out.println("===>>> updateWorkPaymentStatus: "+updateWorkPaymentStatus);
+		
+		
 		System.out.println("===>>> updateWorkOrderStatus: " + updateWorkOrderStatus);
 		System.out.println("===>>> updateWorkDeliveryStatus: " + updateWorkDeliveryStatus);
 
@@ -928,6 +962,23 @@ public class AdminController {
 		return "dashboards/admin/overview/users/freelancerdetails";
 	}
 	
+	@GetMapping("/review-job/{workId}/{deliveryId}")
+	public String reviewingJobs(@PathVariable(value = "workId") String workId, @PathVariable(value = "deliveryId") String deliveryId, RedirectAttributes attributes, Model model) {
+		
+		//reviewing jobs
+		int uopdateStatus = 4;
+		
+		int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, workId);//4 means reviewing
+		System.out.println("===>>>>> updateWorkOrdertoReviewing: "+updateWorkOrdertoReviewing);
+		
+		int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, deliveryId); //4 means reviewing 
+		System.out.println("===>>>>> updateDeliveryToReviewing: "+updateDeliveryToReviewing);
+		
+		attributes.addFlashAttribute("message", "Reviewing application.");
+		
+		return "redirect:/job-details/" + workId + "/" + uopdateStatus + "";
+	}
+	
 	@PostMapping("/add-new-user")
 	public String addNewUser(@ModelAttribute("AddUserDTO") AddUserDTO addUserDTO,
 			 Model model, RedirectAttributes attributes) {
@@ -980,8 +1031,40 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin-finance")
-	public String adminFinance() {
+	public String adminFinance(Model model) {
+		
+		List<WorkTransactions> transactions = workTransactionService.findAll();
+		
+		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
+		model.addAttribute("transactions", transactions);
 
+		return "dashboards/admin/overview/finances";
+	}
+	
+	@PostMapping("/admin-finance-search")
+	public String searchAdminFinance(@ModelAttribute("adminSearchDTO") AdminSearchDTO adminSearchDTO, Model model) {
+
+		System.out.println("===>>> AdminSearchDTO: "+adminSearchDTO);
+		
+		List<WorkTransactions> transactions = new ArrayList<>();
+		
+		if(adminSearchDTO.getSearchOption().equals("freelancerId")) {
+			Optional<User> opUser = userService.findFirstUserByUsername(adminSearchDTO.getSearchValue());
+			transactions = workTransactionService.findWorkTransactionsByUserOrderByEntryDateDesc(opUser.get());
+		}
+		else if(adminSearchDTO.getSearchOption().equals("workOrderId")) {
+			Optional<WorkOrder> workOrder = workOrderService.findById(adminSearchDTO.getSearchValue());
+			transactions = workTransactionService.findWorkTransactionsByWorkOrderOrderByEntryDateDesc(workOrder.get());
+			
+		}else {
+			transactions = workTransactionService.findAll();
+		}
+		
+		System.out.println("===>>> transactions: "+transactions);
+		System.out.println("===>>> transactions Size : "+transactions.size());
+		
+		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
+		model.addAttribute("transactions", transactions);
 		return "dashboards/admin/overview/finances";
 	}
 

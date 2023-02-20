@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerAcceptanceDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerOfferDeclineDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerPersonalDetailDTO;
@@ -38,13 +37,13 @@ import com.ivoiceafrica.ivoiceafrica.DTO.SaveClientJobsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
+import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerDeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.Industry;
 import com.ivoiceafrica.ivoiceafrica.entity.Language;
-import com.ivoiceafrica.ivoiceafrica.entity.PricingType;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceIndustries;
@@ -52,12 +51,13 @@ import com.ivoiceafrica.ivoiceafrica.entity.ServiceLanguages;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceTypePricing;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
-import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.models.FreelancerPricingModel;
 import com.ivoiceafrica.ivoiceafrica.models.SkillUploadModel;
+import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
@@ -76,9 +76,12 @@ import com.ivoiceafrica.ivoiceafrica.service.SRenderedService;
 import com.ivoiceafrica.ivoiceafrica.service.STypePricingService;
 import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentStatusService;
 
 @Controller
 public class FreelancerController {
@@ -157,6 +160,19 @@ public class FreelancerController {
 
 	@Autowired
 	FreelancerDeliveryAttachmentService attachmentService;
+	
+	@Autowired
+	BankDetailService bankDetailService;
+	
+	@Autowired
+	WorkPaymentStatusService workPaymentStatusService;
+
+	@Autowired
+	WorkPaymentService workPaymentService;
+
+	@Autowired
+	WorkFreelancerPaymentService workFreelancerPaymentService;
+
 
 	@GetMapping("/freelancer-dashboard")
 	public String freelancerDashboard(Model model) {
@@ -668,7 +684,68 @@ public class FreelancerController {
 	}
 
 	@GetMapping("/freelancer-finances")
-	public String freelancerFinances() {
+	public String freelancerFinances(Model model) {
+		
+		String userId = (String) session.getAttribute("userId");
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+		System.out.println("===>>> User Details Freelancer: "+userDetails.get());
+		
+		//get Payments
+		List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
+		
+		double inAccount = 0.0;
+		double inEscrow = 0.0;
+		double Withdrawn = 10.0;
+		double totalEarnings = 0.0;
+		
+		for (WorkFreelancerPayment payment : workfreelancerPayments) {
+			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 4) { //4 means excrow status
+				inEscrow += payment.getAmount();
+			}
+			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 5) { //5 means withdrwal status
+				Withdrawn += payment.getAmount();
+			}
+			
+			totalEarnings += payment.getAmount();
+			
+		}
+		
+		if(Withdrawn == 0.0) {
+			inAccount = 0.0;
+		}else {
+			inAccount = totalEarnings - Withdrawn;
+		}
+		
+		//TODO: Validate the amount the freelancer is sending
+		session.setAttribute("inAccountBalance", inAccount);
+		session.setAttribute("totalEarnings", totalEarnings);
+		
+		boolean isBankDetailsExist = false;
+
+		System.out.println("===>>>User ID Freelancer: " + userId);
+
+		BankDetail detail = bankDetailService.findBankDetailsWithUserId(userDetails.get().getUserId());
+
+		if (!detail.getBankId().isEmpty()) {
+			isBankDetailsExist = true;
+		} else {
+			isBankDetailsExist = false;
+		}
+		
+		if (!isBankDetailsExist) {
+			model.addAttribute("message", "Please add your Bank Detail.");
+		}else {
+			model.addAttribute("message", "Bank Details Exist.");
+		}
+		
+		model.addAttribute("workfreelancerPayments",workfreelancerPayments);
+		model.addAttribute("totalEscrow",inEscrow);
+		model.addAttribute("totalWithdrawn",Withdrawn);
+		model.addAttribute("inAccount",inAccount);
+		model.addAttribute("totalEarning",totalEarnings);
+		
 		return "dashboards/freelancers/Finances";
 	}
 
@@ -1064,32 +1141,38 @@ public class FreelancerController {
 		// insert into service languages;
 		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
+		
+		MultipartFile tu1 = freelancerSkillData.getTranslationUpload1();
+		MultipartFile tu2 = freelancerSkillData.getTranslationUpload2();
+		MultipartFile tu3 = freelancerSkillData.getTranslationUpload3();
+		MultipartFile tu4 = freelancerSkillData.getTranslationUpload4();
+		MultipartFile tu5 = freelancerSkillData.getTranslationUpload5();
 
 		if (!freelancerSkillData.getTranslationLanguage1().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage1()),
-					getUploadFileName(freelancerSkillData.getTranslationUpload1())));
+					getUploadFileName(tu1)));
 		}
 		if (!freelancerSkillData.getTranslationLanguage2().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage2()),
-					getUploadFileName(freelancerSkillData.getTranslationUpload2())));
+					getUploadFileName(tu2)));
 		}
 		if (!freelancerSkillData.getTranslationLanguage3().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage3()),
-					getUploadFileName(freelancerSkillData.getTranslationUpload3())));
+					getUploadFileName(tu3)));
 		}
 		if (!freelancerSkillData.getTranslationLanguage4().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage4()),
-					getUploadFileName(freelancerSkillData.getTranslationUpload4())));
+					getUploadFileName(tu4)));
 		}
 		if (!freelancerSkillData.getTranslationLanguage5().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage5()),
-					getUploadFileName(freelancerSkillData.getTranslationUpload5())));
+					getUploadFileName(tu5)));
 		}
 
 		System.out.println("===>>> Translation List of Languages: " + skillModels);
 
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("===>>> Translation SkillModel: "+skillModel);
+			System.out.println("\n===>>> freelancer SkillModel Translation: "+skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1213,31 +1296,37 @@ public class FreelancerController {
 		// insert into service languages;
 		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
+		
+		MultipartFile inter1 = freelancerSkillData.getInterUpload1();
+		MultipartFile inter2 = freelancerSkillData.getInterUpload2();
+		MultipartFile inter3 = freelancerSkillData.getInterUpload3();
+		MultipartFile inter4 = freelancerSkillData.getInterUpload4();
+		MultipartFile inter5 = freelancerSkillData.getInterUpload5();
 
 		if (!freelancerSkillData.getInterLanguage1().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage1()),
-					getUploadFileName(freelancerSkillData.getInterUpload1())));
+					getUploadFileName(inter1)));
 		}
 		if (!freelancerSkillData.getInterLanguage2().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage2()),
-					getUploadFileName(freelancerSkillData.getInterUpload2())));
+					getUploadFileName(inter2)));
 		}
 		if (!freelancerSkillData.getInterLanguage3().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage3()),
-					getUploadFileName(freelancerSkillData.getInterUpload3())));
+					getUploadFileName(inter3)));
 		}
 		if (!freelancerSkillData.getInterLanguage4().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage4()),
-					getUploadFileName(freelancerSkillData.getInterUpload4())));
+					getUploadFileName(inter4)));
 		}
 		if (!freelancerSkillData.getInterLanguage5().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage5()),
-					getUploadFileName(freelancerSkillData.getInterUpload5())));
+					getUploadFileName(inter5)));
 		}
 
 		System.out.println("===>>> Inter List of Languages: " + skillModels);
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("===>>> Inter SkillModel");
+			System.out.println("\n===>>> freelancer SkillModel Interpretation: "+skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1362,32 +1451,39 @@ public class FreelancerController {
 		}
 
 		List<SkillUploadModel> skillModels = new ArrayList<>();
+		
+		MultipartFile vc1 = freelancerSkillData.getVcUpload1();
+		MultipartFile vc2 = freelancerSkillData.getVcUpload2();
+		MultipartFile vc3 = freelancerSkillData.getVcUpload3();
+		MultipartFile vc4 = freelancerSkillData.getVcUpload4();
+		MultipartFile vc5 = freelancerSkillData.getVcUpload5();
+		
 		// insert into service languages;
 		// TODO: Upload document file goes as null to db, Check why!!!
 		if (!freelancerSkillData.getVcLanguage1().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage1()),
-					freelancerSkillData.getVoiceDesc1(), getUploadFileName(freelancerSkillData.getVcUpload1())));
+					freelancerSkillData.getVoiceDesc1(), getUploadFileName(vc1)));
 		}
 		if (!freelancerSkillData.getVcLanguage2().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage2()),
-					freelancerSkillData.getVoiceDesc2(), getUploadFileName(freelancerSkillData.getVcUpload2())));
+					freelancerSkillData.getVoiceDesc2(), getUploadFileName(vc2)));
 		}
 		if (!freelancerSkillData.getVcLanguage3().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage3()),
-					freelancerSkillData.getVoiceDesc3(), getUploadFileName(freelancerSkillData.getVcUpload3())));
+					freelancerSkillData.getVoiceDesc3(), getUploadFileName(vc3)));
 		}
 		if (!freelancerSkillData.getVcLanguage4().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage4()),
-					freelancerSkillData.getVoiceDesc4(), getUploadFileName(freelancerSkillData.getVcUpload4())));
+					freelancerSkillData.getVoiceDesc4(), getUploadFileName(vc4)));
 		}
 		if (!freelancerSkillData.getVcLanguage5().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage5()),
-					freelancerSkillData.getVoiceDesc5(), getUploadFileName(freelancerSkillData.getVcUpload5())));
+					freelancerSkillData.getVoiceDesc5(), getUploadFileName(vc5)));
 		}
 
 		System.out.println("===>>> VC List of Languages: " + skillModels);
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("===>>> VC SkillModel");
+			System.out.println("\n===>>> freelancer SkillModel VC: "+skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1438,7 +1534,7 @@ public class FreelancerController {
 		
 
 		for (FreelancerPricingModel freelancerPricingModel : fPricingModels) {
-
+			
 			Optional<ServiceTypePricing> serviceTypePricingData = serviceTypePricing
 					.findById(freelancerPricingModel.getPricingType());
 
@@ -1530,31 +1626,38 @@ public class FreelancerController {
 		// insert into service languages;
 		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
+		
+		MultipartFile trans1 = freelancerSkillData.getTranscribeUpload1();
+		MultipartFile trans2 = freelancerSkillData.getTranscribeUpload2();
+		MultipartFile trans3 = freelancerSkillData.getTranscribeUpload3();
+		MultipartFile trans4 = freelancerSkillData.getTranscribeUpload4();
+		MultipartFile trans5 = freelancerSkillData.getTranscribeUpload5();
 
 		if (!freelancerSkillData.getTranscribeLanguage1().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage1()),
-					getUploadFileName(freelancerSkillData.getTranscribeUpload1())));
+					getUploadFileName(trans1)));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage2().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage2()),
-					getUploadFileName(freelancerSkillData.getTranscribeUpload2())));
+					getUploadFileName(trans2)));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage3().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage3()),
-					getUploadFileName(freelancerSkillData.getTranscribeUpload3())));
+					getUploadFileName(trans3)));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage4().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage4()),
-					getUploadFileName(freelancerSkillData.getTranscribeUpload4())));
+					getUploadFileName(trans4)));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage5().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage5()),
-					getUploadFileName(freelancerSkillData.getTranscribeUpload5())));
+					getUploadFileName(trans5)));
 		}
 
 		System.out.println("===>>> SC List of Languages: " + skillModels);
+		
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("===>>> SC SkillModel");
+			System.out.println("\n===>>> freelancer SkillModel Transcribing: "+skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
