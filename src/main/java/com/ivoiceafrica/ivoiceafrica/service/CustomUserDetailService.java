@@ -130,4 +130,8 @@ public class CustomUserDetailService implements UserDetailsService {
 		return userRepository.findUsersByPhone(phone);
 	}
 	
+	public int updateProfilePicture(String profilePicture, int userId) {
+		return userRepository.updateProfilePicture(profilePicture, userId);
+	}
+	
 }

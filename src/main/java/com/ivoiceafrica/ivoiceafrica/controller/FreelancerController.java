@@ -695,7 +695,7 @@ public class FreelancerController {
 		
 		double inAccount = 0.0;
 		double inEscrow = 0.0;
-		double Withdrawn = 10.0;
+		double Withdrawn = 0.0;
 		double totalEarnings = 0.0;
 		
 		for (WorkFreelancerPayment payment : workfreelancerPayments) {
@@ -728,17 +728,22 @@ public class FreelancerController {
 
 		BankDetail detail = bankDetailService.findBankDetailsWithUserId(userDetails.get().getUserId());
 
-		if (!detail.getBankId().isEmpty()) {
-			isBankDetailsExist = true;
-		} else {
-			isBankDetailsExist = false;
+		if(detail != null) {
+			if (!detail.getBankId().isEmpty()) {
+				isBankDetailsExist = true;
+			} else {
+				isBankDetailsExist = false;
+			}
+			
+			if (!isBankDetailsExist) {
+				model.addAttribute("message", "Please add your Bank Detail.");
+			}else {
+				model.addAttribute("message", "Bank Details Exist.");
+			}
+		}else {
+			model.addAttribute("message", "Please add your Bank Detail.");
 		}
 		
-		if (!isBankDetailsExist) {
-			model.addAttribute("message", "Please add your Bank Detail.");
-		}else {
-			model.addAttribute("message", "Bank Details Exist.");
-		}
 		
 		model.addAttribute("workfreelancerPayments",workfreelancerPayments);
 		model.addAttribute("totalEscrow",inEscrow);

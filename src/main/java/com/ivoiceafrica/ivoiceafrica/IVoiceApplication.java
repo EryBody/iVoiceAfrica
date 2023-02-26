@@ -236,17 +236,8 @@ public class IVoiceApplication implements CommandLineRunner {
 //		bank.setBankCode("");
 //		bank.setBankName("");
 		
-		BankDetail detail = bankDetailService.findBankDetailsWithUserId(41);
-		boolean isBankDetailsExist = false;
-		
-		if(!detail.getBankId().isEmpty()) {
-			isBankDetailsExist = true;
-		}else {
-			isBankDetailsExist = false;
-		}
-		
-		System.out.println("===>>> details: "+detail);
-		System.out.println("===>>> isBankDetailsExist: "+isBankDetailsExist);
+		String language = clientComponentModel.translateIdToLanguage(2);
+		System.out.println("===>>> Language: "+language);
 
 	}
 

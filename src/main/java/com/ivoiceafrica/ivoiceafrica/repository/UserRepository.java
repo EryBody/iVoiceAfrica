@@ -49,6 +49,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "UPDATE users u set u.upassword = :uPassword where u.user_id = :userId", nativeQuery = true)
 	public int updatePassword(@Param("uPassword")String uPassword, @Param("userId")int userId);
 	
+	@Transactional
+	@Modifying(clearAutomatically = true,flushAutomatically = true)
+	@Query(value = "UPDATE users u set u.profile_picture = :profilePicture where u.user_id = :userId", nativeQuery = true)
+	public int updateProfilePicture(@Param("profilePicture")String profilePicture, @Param("userId")int userId);
+	
 	
 	@Query("SELECT user FROM User user LEFT JOIN user.roles role WHERE role.id = :roleId")
     List<User> findUserByRole(@Param("roleId")int roleId);

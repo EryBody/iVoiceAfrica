@@ -61,19 +61,35 @@
 			<!-- job alerts area start -->
 			<div class="main__contentbox">
 				<div>
+
+					<!-- display details of controller -->
+					<p th:text="${message}" th:if="${message ne null}"
+						class="alert alert-primary m-3"></p>
+
 					<div class="clientprofile">
-						<div class="clientphoto">
-							<p>Profile Picture</p>
-							<div class="picture-area">
-								<img src="../../assets/images/client_profile-2.svg"
-									alt="client-profile" id="client-profile" />
+						<form th:action="@{/replace-profile-picture}"
+							th:object="${UpdateProfilePictureDTO}" method="post"
+							enctype="multipart/form-data">
+							<div class="clientphoto">
+								<p>Profile Picture</p>
+								<div class="picture-area">
+									<img
+										th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+										style="width: 75px; height: 75px; border-radius: 60%;"
+										alt="client-profile" id="client-profile" />
+								</div>
+								<input type="hidden" th:value="${userDetails.username}"
+									name="userId" /> <input type="file" name="profilePicture"
+									id="clientProfileBtn" hidden /> <label for="clientProfileBtn"
+									class="clientProfileBtn"> Replace <span
+									class="material-symbols-outlined ml-2"> find_replace </span>
+
+								</label> <input type="submit" class="text-success btn btn-link"
+									value="Update" />
 							</div>
-							<input type="file" name="clientProfileBtn" id="clientProfileBtn"
-								hidden /> <label for="clientProfileBtn"
-								class="clientProfileBtn"> Replace <span
-								class="material-symbols-outlined ml-2"> find_replace </span>
-							</label>
-						</div>
+
+
+						</form>
 
 						<form th:action="@{/profile/save}" th:object="${ProfileDTO}"
 							method="post" class="clientprofileupdate">
@@ -114,8 +130,7 @@
 									</div>
 									<div>
 										<label for="coutry">Country of Residence</label> <input
-											type="text" name="country"
-											th:value="${userDetails.country}" />
+											type="text" name="country" th:value="${userDetails.country}" />
 									</div>
 								</div>
 							</div>
@@ -126,7 +141,7 @@
 									<select name="flag" style="width: auto" id="flag" title="NGN"
 										class="mr-4">
 										<option value="NGN">NGN</option>
-										
+
 									</select> <input type="text" class="w-100" id="phone-number"
 										placeholder="Mobile Number" name="mobileNumber"
 										th:value="${userDetails.phone}" />
@@ -178,5 +193,14 @@
 	<!-- others plugins -->
 	<script src="../../assets/JS/js/plugins.js"></script>
 	<script src="../../assets/JS/js/scripts.js"></script>
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+
+		function goBackByTwoSteps() {
+			window.history.back(2);
+		}
+	</script>
 </body>
 </html>

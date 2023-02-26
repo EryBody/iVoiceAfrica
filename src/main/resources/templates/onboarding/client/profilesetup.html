@@ -47,6 +47,7 @@
               name="firstName"
               id="fname"
               placeholder="Ex: John"
+              required
             />
           </div>
           <div class="col-lg-5 col-md-12">
@@ -56,6 +57,7 @@
               name="lastName"
               id="lname"
               placeholder="Ex: Doe"
+              required
             />
           </div>
         </div>
@@ -68,8 +70,10 @@
               type="text"
               name="country"
               id="fname"
-              placeholder="Ex: John"
+              placeholder="Ex: Nigeria"
+              required
             />
+            
           </div>
           <div class="col-lg-5 col-md-12">
             <label for="" class="label-text_accent">Nationality</label>
@@ -77,7 +81,8 @@
               type="text"
               name="nationality"
               id="lname"
-              placeholder="Ex: Doe"
+              placeholder="Ex: Nigerian"
+              required
             />
           </div>
         </div>
@@ -86,15 +91,15 @@
         <div class="row justify-content-between mb-4">
           <div class="col-lg-5 col-md-12">
             <label for="location" class="label-text_accent"
-              >Street address</label
+              >Address</label
             >
-            <input type="text" name="streetAddress" id="street" />
+            <input type="text" name="streetAddress" id="street" required/>
           </div>
           <div class="col-lg-5 col-md-12">
             <label for="location" class="label-text_accent"
-              >Town/ Village</label
+              >State</label
             >
-            <input type="text" id="town" name="townVillage" />
+            <input type="text" id="town" name="townVillage" required/>
           </div>
         </div>
         
@@ -102,7 +107,7 @@
           <div class="col-lg-5 col-md-12">
             <label for="sex" class="profile-label">Choose your sex</label>
 
-            <select class="me-3 client-sex-select" name="gender" id="sex">
+            <select class="me-3 client-sex-select" name="gender" id="sex" required>
               <option value="">Select</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -113,7 +118,7 @@
         <div class="row mb-5">
           <div class="col-lg-5 col-md-12">
             <label for="location" class="label-text_accent">Postal code</label>
-            <input type="text" name="postalCode" id="postal" />
+            <input type="text" name="postalCode" id="postal" required/>
           </div>
         </div>
 
@@ -121,19 +126,25 @@
           <div class="col-lg-5 col-md-12">
             <label for="number" class="profile-label">Phone Number</label>
             <div class="d-flex justify-content-between">
-              <select class="client-flag-select mr-2" name="countryCode" id="flag">
-                <option value="">NGN</option>
-                <option value="">USD</option>
-                <option value="">GBP</option>
+              <select class="client-flag-select mr-2" name="countryCode" id="flag" required>
+				<option value="NGN">NGN</option>
+				<option value="GHS">GHS</option>
+				<option value="UGX">UGX</option>
+				<option value="ZMN">ZMN</option>
+				<option value="TZS">TZS</option>
+				<option value="KES">KES</option>
+				<option value="ZAR">ZAR</option>
               </select>
               <input
                 type="text"
                 name="mobileNumber"
                 id="mobileNumber"
-                placeholder="Mobile Number"
+                placeholder="Ex: 234810257XXXX"
+                required
               />
             </div>
           </div>
+          <small class="text-muted" style="font-size: 10px;">Please add country code when adding phone number</small>
         </div>
         <div class="submit-btn">
           <button id="formBtn-next" class="button" type="submit">

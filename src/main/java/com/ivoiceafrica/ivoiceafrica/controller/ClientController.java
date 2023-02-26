@@ -17,12 +17,10 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -45,6 +43,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.ClientSignupDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.JobStatusDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.NewClientRequestDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.UpdateProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
@@ -513,11 +512,16 @@ public class ClientController {
 
 		try {
 			Optional<WorkOrder> workOrder = workOrderService.findById(id);
+			System.out.println("===>>> workOrderDetails: "+workOrder.get());
+			
 			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
+			System.out.println("===>>> workOrderFirstAttachment: "+workOrderAttachment.get());
 
 			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
+			System.out.println("===>>> workOrderAttachmentList: "+workOrderAttachments);
+			
 
 			model.addAttribute("workOrderAttachmentList", workOrderAttachments);
 			model.addAttribute("workOrderFirstAttachment", workOrderAttachment.get());
@@ -526,10 +530,10 @@ public class ClientController {
 			List<JobStatusDTO> jobStatuses = getJobStatuses();
 
 			System.out.println("===>>> jobStatuses: " + jobStatuses);
-
 			model.addAttribute("jobStatuses", jobStatuses);
 
 		} catch (Exception ex) {
+			System.out.println("===>>> workOrderFirstAttachment: "+new WorkOrderAttachment());
 			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
 		}
 
@@ -589,6 +593,33 @@ public class ClientController {
 			model.addAttribute("userDetails", opUser.get());
 			model.addAttribute("servicesRendered", servicesRendered);
 			model.addAttribute("proposalDetails", proposalOp.get());
+			model.addAttribute("clientAmountDTO", new ClientAmountDTO());
+
+		} catch (Exception ex) {
+			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
+		}
+
+		return "dashboards/clients/profile2";
+	}
+	
+	@GetMapping("/clientFreelancerOverview/{id}/{user}")
+	public String clientFreelancerOverview(@PathVariable(value = "id") String id,
+			@PathVariable(value = "user") String userId, Model model) {
+
+		try {
+
+			Optional<WorkOrder> workOrder = workOrderService.findById(id);
+
+			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
+					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
+
+			Optional<User> opUser = userService.findFirstUserByUsername(userId);
+
+			List<ServiceRendered> servicesRendered = serviceRenderedService.findServiceRenderedListByUser(opUser.get());
+
+			model.addAttribute("workOrderDetails", workOrder.get());
+			model.addAttribute("userDetails", opUser.get());
+			model.addAttribute("servicesRendered", servicesRendered);
 			model.addAttribute("clientAmountDTO", new ClientAmountDTO());
 
 		} catch (Exception ex) {
@@ -953,5 +984,44 @@ public class ClientController {
 
 		return jobStatusList;
 	}
+	
+	
+	@PostMapping("/replace-profile-picture")
+	public String replaceProfilePicture(@ModelAttribute("UpdateProfilePictureDTO") UpdateProfilePictureDTO updateProfilePictureDTO, @RequestParam("profilePicture") MultipartFile profilePicture,
+			 RedirectAttributes attributes,HttpSession session, Model model) {
+
+		System.out.println("===>>> update profile picture Detail: " + updateProfilePictureDTO);
+		String imageUUID= "";
+
+		try {
+			
+			String fileSize = FreelancerController.getDynamicSpace(profilePicture.getSize());
+
+			if (!fileSize.equals("2 MiB")) {
+				System.out.println("fileSize: " + fileSize);
+				if (!profilePicture.isEmpty()) {
+					imageUUID = profilePicture.getOriginalFilename();
+					Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+					Files.write(fileNameAndPath, profilePicture.getBytes());
+				} else {
+					imageUUID = updateProfilePictureDTO.getUserId();
+				}
+			}
+			
+			//update db;
+			Optional<User> userDetails = userService.findFirstUserByUsername(updateProfilePictureDTO.getUserId());
+			int updateProfilePicture = userService.updateProfilePicture(imageUUID, userDetails.get().getUserId());
+			System.out.println("===>>> updateProfilePicture: "+updateProfilePicture);
+			
+			attributes.addFlashAttribute("message", "Profile picture change successfully.");
+
+		}catch(Exception ex) {
+			
+			attributes.addFlashAttribute("message", "File does not exist, if issues persist contact admin.");
+		}
+		
+		return "redirect:/profile";
+	}
+
 
 }

@@ -54,13 +54,14 @@
 
           <div class="row justify-content-between mb-4 freelancer-details">
             <div class="col-sm-12 mb-5">
-              <label for="fname">Where are you based?</label>
+              <label for="fname">What's your country?</label>
               <input
                 type="text"
                 name="country"
                 id="fname"
                 class="nationality px-4"
-                placeholder="Search to find your country"
+                placeholder="Ex: Nigeria"
+                required
               />
             </div>
             <div class="col-sm-12 mb-5">
@@ -70,7 +71,8 @@
                 name="nationality"
                 id="lname"
                 class="nationality"
-                placeholder="Search to find your country"
+                placeholder="Ex: Nigerian"
+                required
               />
             </div>
           </div>
@@ -81,25 +83,25 @@
           >
             <div class="col-lg-5 mb-3">
               <label for="street" class="label-text_accent"
-                >Street address</label
+                >Address</label
               >
-              <input type="text" name=streetAddress id="address" />
+              <input type="text" name=streetAddress id="address" required/>
             </div>
 
             <div class="col-lg-5 mb-3 mb-sm-5">
-              <label for="town" class="label-text_accent">Town/ Village</label>
-              <input type="text" name="townVillage" id="town" />
+              <label for="town" class="label-text_accent">State</label>
+              <input type="text" name="townVillage" id="town" required/>
             </div>
             <div class="col-lg-5 mb-5">
               <label for="postal" class="label-text_accent">Postal code</label>
-              <input type="text" name="postalCode" id="postal" required />
+              <input type="text" name="postalCode" id="postal" required/>
             </div>
           </div>
           <div class="freelancer-details">
             <div class="mb-5">
               <div class="col-lg-5 col-sm-12">
                 <label for="sex">Choose your sex</label>
-                <select class="me-3 client-sex-select" name="gender" id="sex">
+                <select class="me-3 client-sex-select" name="gender" id="sex" required>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
@@ -109,20 +111,27 @@
           <div class="row">
             <div class="col-sm-12 col-lg-5">
               <label for="number">Phone Number</label>
+             
               <div class="d-flex justify-content-between">
-                <select class="me-3 client-flag-select" name="countryCode" id="flag">
-                  <option value="NGN">NGN</option>
-                  <option value="USD">USD</option>
-                  <option value="GBP">GBP</option>
+                <select class="me-3 client-flag-select" name="countryCode" id="flag" required>
+                    <option value="NGN">NGN</option>
+					<option value="GHS">GHS</option>
+					<option value="UGX">UGX</option>
+					<option value="ZMN">ZMN</option>
+					<option value="TZS">TZS</option>
+					<option value="KES">KES</option>
+					<option value="ZAR">ZAR</option>
                 </select>
                 <input
                   type="text"
                   name="mobileNumber"
                   id="number"
-                  placeholder="Mobile Number"
+                  placeholder="Ex: 234810257XXXX"
+                 required
                 />
               </div>
             </div>
+             <small class="text-muted" style="font-size: 10px;">Please add country code when adding phone number</small>
           </div>
           <div class="submit-btn">
             <div class="onboarding-cta">

@@ -805,7 +805,13 @@ public class AdminController {
 				Optional<WorkOrdersDelivery> workDeliveryDetail = deliveryService
 						.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
 								workOrderService.findById(workId).get());
-
+				
+				if(workDeliveryDetail.isPresent()) {
+					model.addAttribute("workDeliveryDetail", workDeliveryDetail.get());
+				}else {
+					model.addAttribute("workDeliveryDetail", "NoData");
+				}
+				
 				List<DeliveryAttachment> deliveryAttachments = deliveryAttachmentService
 						.findDeliveryAttachmentByWorkOrderDelivery(workDeliveryDetail.get());
 
@@ -814,7 +820,6 @@ public class AdminController {
 								workDeliveryDetail.get());
 
 				model.addAttribute("fDeliveryAttachments", fDeliveryAttachments);
-				model.addAttribute("workDeliveryDetail", workDeliveryDetail.get());
 				model.addAttribute("deliveryAttachments", deliveryAttachments);
 			}
 

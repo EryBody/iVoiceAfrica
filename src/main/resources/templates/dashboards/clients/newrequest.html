@@ -7,11 +7,11 @@
 	display: none;
 }
 
-.upload-flex{
+/* .upload-flex{
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
-}
+} */
 </style>
 <body>
 	<div id="preloader">
@@ -52,15 +52,15 @@
 								<p class="newrequest-title">Give details of your project</p>
 								<div class="input-group mb-4">
 									 <label for="title">Project Title</label><input type="text"
-										placeholder="Ex: The Secrete of Dumbledore"
-										name="projectTitle"  id="title" />
+										placeholder="Project Title"
+										name="projectTitle"  id="title" required/>
 								</div>
 
 								<div class="input-group  mb-4">
 									<label for="" class="custom-file-lang-label"> Project
 										Description</label>
 									<textarea placeholder="Write details of the project here"
-										id="project-desc" name="projectDescription"></textarea>
+										id="project-desc" name="projectDescription" required></textarea>
 								</div>
 
 								<div class="input-group  mb-4">
@@ -80,7 +80,7 @@
 										<label for="" class="custom-file-lang-label"> Service
 											Type</label>
 										<div class="select-box">
-											<select id="main-combo" name="serviceType">
+											<select id="main-combo" name="serviceType" required>
 												<option value="">Select Service Type</option>
 												<option th:each="tempServiceType : ${serviceTypes}"
 													th:value="${tempServiceType.typeId}"
@@ -96,7 +96,7 @@
 									<div class="input-group  mb-4">
 										<label for="" class="custom-file-lang-label"> Duration</label>
 										<div class="select-box">
-											<select id="main-combo" name="duration">
+											<select id="main-combo" name="duration" required>
 												<option value="">Select Duration</option>
 												<option th:each="tempDuration : ${durations}"
 													th:value="${tempDuration.durationId}"
@@ -248,7 +248,7 @@
 													onclick="imgUrl(null,'upfile3','.uploadBtn3')">Upload
 													file here</div>
 												<div style="height: 0px; width: 0px; overflow: hidden">
-													<input name="languageUpload2" id="upfile3" type="file"
+													<input name="languageUpload2" id="upfile" type="file"
 														value="upload"
 														onchange="imgUrl(this,'upfile','.uploadBtn3')" />
 												</div>

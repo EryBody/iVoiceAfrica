@@ -91,7 +91,7 @@ public class ClientComponentModel {
 		return String.valueOf(workAttachmentSize);
 	}
 
-	public String translateIdToLanguage(@Nullable int languageId) {
+	public String translateIdToLanguage(int languageId) {
 
 		Optional<Language> languageName = Optional.empty();
 		try {

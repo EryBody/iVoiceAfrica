@@ -85,9 +85,9 @@
 							<img src="../../assets/images/profile_big.svg" alt=""
 								class="profile-pic" />
 							<p class="profilename mb-1"
-								th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael
+								th:text="|${userDetails?.firstName} ${userDetails?.lastName}|">Michael
 								Jordan</p>
-							<p class="profile-headline mb-3" th:text="${userDetails.summary}">I
+							<p class="profile-headline mb-3" th:text="${userDetails?.summary}">I
 								am a voice-over artist looking for freelance opportunities</p>
 							<div class="mb-2">
 								<span class="location-icon mr-3"><img
@@ -107,11 +107,12 @@
 								</span> <span class="completedproject">Completed many successful
 									projects on IVoice Africa</span>
 							</div>
-							<button class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
+							
+							<button th:if="${proposalDetails?.proposalId != null}" class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
 								data-toggle="modal" data-target="#hireFreelancer">Hire</button>
 
-							<!-- <button class="uploadbtn hire-btn mt-2 mb-5 clientrequesteditBtn">
-								Hire</button> -->
+							<a th:href="@{/client-dashboard}"><button th:unless="${proposalDetails?.proposalId != null}" class="uploadbtn mt-2 mb-5 clientrequesteditBtn">
+								Cancel</button> </a>
 						</div>
 					</div>
 
@@ -297,10 +298,10 @@
 								type="hidden" name="userID" th:value="${userDetails.username}" />
 								
 								<input
-								type="hidden" name="proposalId" th:value="${proposalDetails.proposalId}" />
+								type="hidden" name="proposalId" th:value="${proposalDetails?.proposalId}" />
 								
 							<input type="text" placeholder="Fix in amount for job"
-								name="clientAmount" id="clientAmount" th:value=${proposalDetails.amount} readonly style="font-size: 25px;" />
+								name="clientAmount" id="clientAmount" th:value=${proposalDetails?.amount} readonly style="font-size: 25px;" />
 						</div>
 					</div>
 
