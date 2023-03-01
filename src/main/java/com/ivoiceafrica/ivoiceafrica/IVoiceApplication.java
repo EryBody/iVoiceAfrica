@@ -1,23 +1,13 @@
 package com.ivoiceafrica.ivoiceafrica;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
-import com.ivoiceafrica.ivoiceafrica.entity.Bank;
-import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.BankBranchResponse;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponse;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.BankTransferResponse;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.NgnBankTransferRequest;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
@@ -34,8 +24,6 @@ import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @ComponentScan({ "com.ivoiceafrica.ivoiceafrica"})
@@ -236,8 +224,8 @@ public class IVoiceApplication implements CommandLineRunner {
 //		bank.setBankCode("");
 //		bank.setBankName("");
 		
-		String language = clientComponentModel.translateIdToLanguage(2);
-		System.out.println("===>>> Language: "+language);
+//		String language = clientComponentModel.translateIdToLanguage(2);
+//		System.out.println("===>>> Language: "+language);
 
 	}
 

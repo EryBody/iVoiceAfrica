@@ -24,10 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flutterwave.rave.java.entry.cardPayment;
-import com.flutterwave.rave.java.entry.validateCardCharge;
-import com.flutterwave.rave.java.payload.cardLoad;
-import com.flutterwave.rave.java.payload.validateCardPayload;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ivoiceafrica.ivoiceafrica.DTO.AddBankDTO;
@@ -713,105 +709,6 @@ public class PaymentController {
 		}
 
 		return "redirect:/freelancer-finances";
-
-	}
-
-	// Direct Charge threw error from flutterwave jar file
-	@PostMapping("/client-payment")
-	public String flutterwaveDirectCharge(@ModelAttribute("CardPaymentDTO") CardPaymentDTO cardPaymentDto,
-			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) throws UnknownHostException {
-
-		String userId = (String) session.getAttribute("userId");
-		Optional<User> user = userService.findFirstUserByUsername(userId);
-
-		System.out.println("===>>> cardPaymentDto: " + cardPaymentDto);
-
-		String[] cardExpiry = cardPaymentDto.getCardExpiry().split("/");
-		String expiryMonth = cardExpiry[0];
-		String expiryYear = cardExpiry[1];
-
-		// Testing flutterwave
-		cardPayment cardPayment = new cardPayment();
-		cardLoad cardload = new cardLoad();
-
-		cardload.setPublic_key(PBFPubKey);
-		cardload.setCardno(cardPaymentDto.getCardNumber().replaceAll("\\s", ""));
-		cardload.setCvv(cardPaymentDto.getCvv());
-		cardload.setExpirymonth(expiryMonth);
-//		cardload.setCurrency(cardPaymentDto.getCurrency());
-		cardload.setCurrency("NGN");
-		cardload.setCountry("NG");
-//		cardload.setCountry(cardPaymentDto.getBillingcountry());
-		cardload.setAmount(String.valueOf(cardPaymentDto.getAmount()));
-		cardload.setEmail(user.get().getUsername());
-		cardload.setPhonenumber(user.get().getPhone());
-		cardload.setFirstname(user.get().getFirstName());
-		cardload.setLastname(user.get().getLastName());
-		cardload.setMetaname("");
-		cardload.setMetavalue("");
-		cardload.setExpiryyear(expiryYear);
-		cardload.setRedirect_url(redirectUrl);
-		cardload.setDevice_fingerprint("");
-		cardload.setEncryption_key(encryptionKey);
-		cardload.setTxRef(RandomIdGenerator.randomString(12));
-		// if split payment set subaccount values
-		// set charge_type to "preauth" if preauth
-
-		String response = cardPayment.doflwcardpayment(cardload);
-		String jsonString = gson.toJson(response);
-		JsonObject myObject = gson.fromJson(jsonString, JsonObject.class);
-
-		System.out.println("===>>> myObject: " + myObject);
-
-		if (myObject.get("suggested_auth").getAsString().equals("PIN")) {
-			// get PIN fom customer
-			cardload.setPin(cardPaymentDto.getPin());
-			cardload.setSuggested_auth("PIN");
-
-			String response_one = cardPayment.doflwcardpayment(cardload);
-
-			JsonObject iObject = gson.fromJson(response_one, JsonObject.class);
-			JsonObject Object = iObject.getAsJsonObject("data");
-
-			String transaction_reference = Object.get("flwRef").getAsString();
-
-			validateCardCharge validatecardcharge = new validateCardCharge();
-			validateCardPayload validatecardpayload = new validateCardPayload();
-			validatecardpayload.setPBFPubKey(PBFPubKey);
-			validatecardpayload.setTransaction_reference(transaction_reference);
-
-			validatecardpayload.setOtp(cardPaymentDto.getOtp());
-
-			response = validatecardcharge.doflwcardvalidate(validatecardpayload);
-
-		} else if (myObject.get("suggested_auth").getAsString().equals("NOAUTH_INTERNATIONAL")) {
-			// billing info - billingzip, billingcity, billingaddress, billingstate,
-			// billingcountry
-
-			cardload.setBillingaddress(cardPaymentDto.getBillingaddress());
-			cardload.setBillingcity(cardPaymentDto.getBillingcity());
-			cardload.setBillingcountry(cardPaymentDto.getBillingcountry());
-			cardload.setBillingstate(cardPaymentDto.getBillingstate());
-			cardload.setBillingzip(cardPaymentDto.getBillingzip());
-			cardload.setSuggested_auth("NOAUTH_INTERNATIONAL");
-			String response_one = cardPayment.doflwcardpayment(cardload);
-
-			JsonObject iObject = gson.fromJson(response_one, JsonObject.class);
-			JsonObject Object = iObject.getAsJsonObject("data");
-
-			String transaction_reference = Object.get("flwRef").getAsString();
-
-			validateCardCharge validatecardcharge = new validateCardCharge();
-			validateCardPayload validatecardpayload = new validateCardPayload();
-			validatecardpayload.setPBFPubKey(PBFPubKey);
-			validatecardpayload.setTransaction_reference(transaction_reference);
-
-			response = validatecardcharge.doflwcardvalidate(validatecardpayload);
-		} else if (myObject.get("authurl").getAsString() != "N/A") {
-			// load the url in an IFRAME
-		}
-
-		return response;
 
 	}
 
