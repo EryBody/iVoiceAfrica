@@ -12,11 +12,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet" />
-	 <link
-       rel="shortcut icon"
-       href="../../assets/icons/fav.png"
-       type="image/x-icon"
-     />
+<link rel="shortcut icon" href="../../assets/icons/fav.png"
+	type="image/x-icon" />
 <!-- amchart css -->
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
@@ -31,6 +28,18 @@
 <!-- modernizr css -->
 <script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
 <script src="../../assets/JS/js/scripts.js" defer></script>
+<style>
+#outer-div {
+	width: 100%;
+	text-align: center;
+}
+
+#inner-div {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 3px;
+}
+</style>
 </head>
 
 <body>
@@ -122,13 +131,30 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="mt-3"
+						th:if="${clientProposalList.size() == 0}" id="outer-div">
+						<div class="mt-4" id="inner-div">
+							<div class="job-alerts mr-5">
+								<div class="job-alerts-card-body my-3" >
+									<div>
+										<div class="upload-start"
+											>
+											<span style="font-size: 30px">Check back later!</span>
+											<p style="font-size: 20px">No Recommended freelancer for your work order</p>
+											<!-- <button class="uploadbtn">Upload</button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-					<div class="job-alerts">
+					<div class="job-alerts" th:if="${clientProposalList.size() > 0}">
 						<span class="job-details-content-title">Recommended
 							Freelancers</span>
 
 						<div class="freelancer-bidding">
-
 							<div class="bidding-freelancer"
 								th:each="clientProposal, index : ${clientProposalList}">
 								<a

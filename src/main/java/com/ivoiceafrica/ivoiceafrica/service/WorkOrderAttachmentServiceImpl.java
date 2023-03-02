@@ -70,9 +70,25 @@ public class WorkOrderAttachmentServiceImpl implements WorkOrderAttachmentServic
 	}
 	
 	@Override
-	public int updateJobCounts(int wordCount, int pageCount, String workDeliveryId) {
-		return workOrderAttachmentRepository.updateJobCounts(wordCount, pageCount, workDeliveryId);
+	public int updateJobCounts(int wordCount, int pageCount, String timerCount, String workDeliveryId) {
+		return workOrderAttachmentRepository.updateJobCounts(wordCount, pageCount, timerCount, workDeliveryId);
 	}
+
+	@Override
+	public int updateWordCounts(int wordCount, String workDeliveryId) {
+		return workOrderAttachmentRepository.updateWordCounts(wordCount, workDeliveryId);
+	}
+
+	@Override
+	public int updatePageCounts(int pageCount, String workDeliveryId) {
+		return workOrderAttachmentRepository.updatePageCounts(pageCount, workDeliveryId);
+	}
+
+	@Override
+	public int updateTimerCounts(String timerCount, String workDeliveryId) {
+		return workOrderAttachmentRepository.updateTimerCounts(timerCount, workDeliveryId);
+	}
+
 	
 
 }

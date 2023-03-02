@@ -70,7 +70,9 @@
 			<div class="fl__d--container main__contentbox">
 				<div class="fl_overview-right">
 					<div class="fl__details">
-						<img src="../../assets/images/Mj.png" alt="lollll" />
+						<img
+							th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+							alt="profile picture" />
 						<div class="fl__details--d">
 							<div class="fl__name">
 								<h1 th:text="|${userDetails.firstName} ${userDetails.lastName}|"
@@ -293,14 +295,12 @@
 				}
 			});
 		});
-		
 
 		$(document).ready(function() {
-			
+
 			//On change load the financials
 			var week = $('#week').find(":selected").val();
-			
-			
+
 			$("select#week").change(function() {
 				var selectedWeek = $(this).children("option:selected").val();
 

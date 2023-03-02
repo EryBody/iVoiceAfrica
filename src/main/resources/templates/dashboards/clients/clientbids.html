@@ -87,16 +87,14 @@
 										<!-- <button class="uploadbtn">Upload</button> -->
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
 			
-			
 				<div>
-					<div>
-						<div class="job-alerts" th:each="workOrder : ${workOrdersList}">
+					<div th:each="workOrder : ${workOrdersList}">
+						<div class="job-alerts" th:if="${workOrder.workOrderStatus.status == 'bidding'}">
 							<a th:href="@{/client/bidsdetails/{id}(id=${workOrder.workId})}" class="job-alerts-card-body">
 								<div class="mb-2"></div>
 								<h2 class="job-alert-card-body-title mb-1 clientbidstitle" th:text="${workOrder.workTitle}">

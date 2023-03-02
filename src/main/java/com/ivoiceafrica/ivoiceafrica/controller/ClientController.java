@@ -451,21 +451,13 @@ public class ClientController {
 		return "dashboards/clients/clientfinance";
 	}
 
-	@GetMapping("/profile")
-	public String clientProfile(Model model) {
-
-		String userId = (String) session.getAttribute("userId");
-		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
-
-		model.addAttribute("userDetails", userDetails.get());
-		model.addAttribute("ProfileDTO", new ProfileDTO());
-
-		return "dashboards/clients/clientprofile";
-	}
 
 	@PostMapping("/profile/save")
 	public String saveProfile(@ModelAttribute("ProfileDTO") ProfileDTO profileDTO, Model model) {
 
+		String redirectUrl = "";
+		
+		
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
@@ -477,8 +469,16 @@ public class ClientController {
 		System.out.println("Update Status: " + updateUserInfoStatus);
 
 		model.addAttribute("userDetails", userDetails.get());
+		
+		
+		String userRole = (String) session.getAttribute("userRole");
+		if(userRole.equals("ROLE_CLIENT")) {
+			redirectUrl = "redirect:/profile";
+		}else if(userRole.equals("ROLE_FREELANCER")) {
+			redirectUrl = "redirect:/freelancer-profile";
+		}
 
-		return "redirect:/profile";
+		return redirectUrl;
 	}
 
 	@GetMapping("/clientFreelancerProfile/{id}/{user}")
@@ -553,8 +553,8 @@ public class ClientController {
 			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// 9 Means Freelancer Request
-																						// Sent Status
+			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(11);// 11 Means Freelancer accepted
+																						// request Status
 			List<Proposal> clientProposals = proposalService
 					.findProposalByWorkOrderAndProposalStatusOrderByCreatedDate(workOrder.get(), proposalStatus.get());
 

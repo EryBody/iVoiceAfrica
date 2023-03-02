@@ -53,12 +53,11 @@
 		<div class="main">
 			<div class="activejobs-heading profile-header main__headerbox w-100">
 				<div class="bidheader">
-					<a href="clientbids.html" style="color: inherit"
+					<a th:href="@{/freelancer-dashboard}" style="color: inherit"
 						class="header-link">
-						<h1>Bids</h1>
+						<h1>Dashboard</h1>
 					</a>
-					<h2>Freelancer</h2>
-					<h3>Micheal Jordan</h3>
+					
 				</div>
 			</div>
 
@@ -83,7 +82,8 @@
 						<img src="../../assets/images/profile_bg_img.jpg" alt="profile-bg"
 							class="profile-bg" />
 						<div class="profile-details">
-							<img src="../../assets/images/profile_big.svg" alt=""
+							<img th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+											style="width: 100px; height: 100px; border-radius: 50%;" alt=""
 								class="profile-pic" />
 							<p class="profilename mb-1"
 								th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael

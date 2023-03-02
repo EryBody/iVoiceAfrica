@@ -258,24 +258,32 @@ public class FreelancerController {
 			@ModelAttribute("FreelancerAcceptanceDTO") FreelancerAcceptanceDTO freelancerAcceptanceDTO, Model model) {
 
 		System.out.println("===>>> freelancerAcceptanceDTO: " + freelancerAcceptanceDTO.toString());
-
+		
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(freelancerAcceptanceDTO.getWorkOrderId());
-
 		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerAcceptanceDTO.getUserId());
-
-		int updateProposalAmount =  proposalService.updateProposalAmount(freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
 		
-//		WorkOrdersDelivery
-		
-		System.out.println("===>>> updateProposalAmount: "+updateProposalAmount);
+		if(freelancerAcceptanceDTO.getFreelancerAmount() >= opWorkOrder.get().getMinAmount() && freelancerAcceptanceDTO.getFreelancerAmount() <= opWorkOrder.get().getMaxAmount()) {
 
+			int updateProposalAmount =  proposalService.updateProposalAmount(freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
+			System.out.println("===>>> updateProposalAmount: "+updateProposalAmount);
+			
+			//update freelancer to accept request
+			int updateProposalStatus = proposalService.updateProposalByProposalId(11, freelancerAcceptanceDTO.getProposalId());//11 means freelancer accepted
+			System.out.println("===>>> updateProposalStatus: "+updateProposalStatus);
+			
+			model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
+			model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+			
+			model.addAttribute("message", "Great, Job has been accepted successfully.");
+		}else {
+			model.addAttribute("message", "Amount not in range, Your amount must be in range");
+		}
+		
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("opWorkOrder", opWorkOrder.get());
 		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
 		model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
 		
-		model.addAttribute("message", "Great, Job has been accepted successfully.");
-
 		return "dashboards/freelancers/jobdetail";
 	}
 
@@ -289,7 +297,13 @@ public class FreelancerController {
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(freelancerOfferDeclineDTO.getWorkOrderId());
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerOfferDeclineDTO.getUserId());
+		
+		//update freelancer to decline request
+		int updateProposalStatus = proposalService.updateProposalByProposalId(14, freelancerOfferDeclineDTO.getProposalId());//14 means freelancer declined workorder status
+		System.out.println("===>>> DeclineFreelancerRequest: "+updateProposalStatus);
 
+		model.addAttribute("freelancerStatus", 14);
+		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("opWorkOrder", opWorkOrder.get());
 		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());

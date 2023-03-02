@@ -3,21 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Client Profile</title>
+<title>Finances</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="shortcut icon" href="../../assets/icons/fav.png"
-	type="image/x-icon" />
+
 <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
-	rel="stylesheet" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
 <!-- amchart css -->
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
@@ -26,42 +23,37 @@
 <link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
-<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
-
-<!-- modernizr css -->
-<script src="../../assets/JS/js/vendor/modernizr-2.8.3.min.js"></script>
-<script src="../../assets/JS/js/scripts.js" defer></script>
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
 </head>
 
 <body>
 	<div id="preloader">
 		<div class="loader"></div>
 	</div>
-	<!-- preloader area end -->
-	<!-- page container area start -->
+
 	<div class="page-container">
 		<!-- Header area start -->
-
 		<div class="overlay"></div>
 
 		<!-- top-nav start -->
-		<div th:replace="fragments/main_topnav :: topnav"></div>
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
 		<!-- top-nav end -->
 
-		<!-- side-nav start -->
-		<div th:replace="fragments/main_sidenav :: sidenav"></div>
-		<!-- side-nav end -->
-		
-		
 
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<!-- Header area end -->
 		<div class="main">
 			<div class="main__headerbox">
 				<h1>Profile</h1>
 			</div>
 
 			<!-- job alerts area start -->
-			<div class="main__contentbox">
+			<div class="main__contentbox fl__finance-box">
 				<div>
 
 					<!-- display details of controller -->
@@ -89,8 +81,6 @@
 								</label> <input type="submit" class="text-success btn btn-link"
 									value="Update" />
 							</div>
-
-
 						</form>
 
 						<form th:action="@{/profile/save}" th:object="${ProfileDTO}"
@@ -158,6 +148,7 @@
 			</div>
 			
 			
+		
 		</div>
 	</div>
 
@@ -183,7 +174,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!--  -->
 	<!-- jquery latest version -->
 	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
 	<!-- bootstrap 4 js -->
@@ -193,18 +184,12 @@
 	<script src="../../assets/JS/js/metisMenu.min.js"></script>
 	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
 	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
-
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<!-- others plugins -->
 	<script src="../../assets/JS/js/plugins.js"></script>
 	<script src="../../assets/JS/js/scripts.js"></script>
-	<script>
-		function goBack() {
-			window.history.back();
-		}
-
-		function goBackByTwoSteps() {
-			window.history.back(2);
-		}
-	</script>
 </body>
 </html>

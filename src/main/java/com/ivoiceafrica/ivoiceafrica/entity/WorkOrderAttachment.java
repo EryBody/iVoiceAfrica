@@ -42,6 +42,9 @@ public class WorkOrderAttachment {
 	
 	@Column(name = "page_count")
 	private String pageCount;
+	
+	@Column(name = "timer_count")
+	private String timerCount;
 
 	public WorkOrderAttachment() {
 	}
@@ -120,6 +123,15 @@ public class WorkOrderAttachment {
 
 	public void setPageCount(String pageCount) {
 		this.pageCount = pageCount;
+	}
+	
+
+	public String getTimerCount() {
+		return timerCount;
+	}
+
+	public void setTimerCount(String timerCount) {
+		this.timerCount = timerCount;
 	}
 
 	@Override

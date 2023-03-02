@@ -77,8 +77,9 @@ public class ClientComponentModel {
 
 	@Autowired
 	DeliveryAttachmentService deliveryAttachmentService;
-	
-	@Autowired HttpSession session;
+
+	@Autowired
+	HttpSession session;
 
 	public String getWorkAttachments(String workOrderId) {
 
@@ -108,8 +109,8 @@ public class ClientComponentModel {
 
 	public String getFreelancersForBids(String workOrderId) {
 
-		Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// 9 Means Freelancer Request Sent
-																					// Status
+		Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(11);// 9 Means Freelancer Accepted
+																						// Status
 
 		Optional<WorkOrder> order = orderService.findById(workOrderId);
 
@@ -171,20 +172,19 @@ public class ClientComponentModel {
 
 		return deliveryAttachment;
 	}
-	
+
 	public List<WorkOrderAttachment> getAttachmentForDelivery(String workOrderId) {
-		
+
 		Optional<WorkOrder> opWorkOrder = orderService.findById(workOrderId);
 
 		List<WorkOrderAttachment> deliveryAttachment = attachmentService
 				.findWorkOrderAttachmentByWorkOrder(opWorkOrder.get());
-		
+
 		return deliveryAttachment;
 	}
-	
-	
+
 	public String getAttachmentSizeForDelivery(String workOrderId) {
-		
+
 		Optional<WorkOrder> opWorkOrder = orderService.findById(workOrderId);
 
 		List<WorkOrderAttachment> deliveryAttachment = attachmentService
@@ -192,7 +192,6 @@ public class ClientComponentModel {
 		return String.valueOf(deliveryAttachment.size());
 	}
 
-	
 	public String getSizeOfDeliveryAttachment(WorkOrdersDelivery workOrderDelivery) {
 
 		List<DeliveryAttachment> deliveryAttachment = deliveryAttachmentService
@@ -207,63 +206,57 @@ public class ClientComponentModel {
 
 		return String.valueOf(serviceRenderedSize);
 	}
-	
+
 	public String checkProfile() {
-		
-		String userRole = (String)session.getAttribute("userRole");
+
+		String userRole = (String) session.getAttribute("userRole");
 		String userRoleName = "";
-		
-		if(userRole.equals("ROLE_ADMIN")) {
+
+		if (userRole.equals("ROLE_ADMIN")) {
 			userRoleName = "Administrator";
-		}
-		else if(userRole.equals("ROLE_SUPERVISOR")) {
+		} else if (userRole.equals("ROLE_SUPERVISOR")) {
 			userRoleName = "Supervisor";
-		}
-		else if(userRole.equals("ROLE_CLIENT")) {
+		} else if (userRole.equals("ROLE_CLIENT")) {
 			userRoleName = "Client";
-		}
-		else if(userRole.equals("ROLE_FREELANCER")) {
+		} else if (userRole.equals("ROLE_FREELANCER")) {
 			userRoleName = "Freelancer";
 		}
-		
+
 		return String.valueOf(userRoleName);
 	}
-	
+
 	public String checkCurrentJobStatus(String workOrderId) {
-		
+
 		Optional<WorkOrder> workOrder = orderService.findById(workOrderId);
-		
+
 		return workOrder.get().getWorkOrderStatus().getStatus();
-		
+
 	}
-	
-	
+
 	public String checkExtention(String fileName) {
-		
-		String[] name = fileName.split(".",2);
+
+		String[] name = fileName.split(".", 2);
 		String extension = name[1];
-		
-		System.out.println("===>>> fileName: "+fileName);
+
+		System.out.println("===>>> fileName: " + fileName);
 		String fileType = "";
-		
-		String[] extensions = {"png","jpg","jpeg","pdf","tiff","tif","doc","docx","html","htm","xls","xlsx","txt","ppt","pptx"};
-		
+
+		String[] extensions = { "png", "jpg", "jpeg", "pdf", "tiff", "tif", "doc", "docx", "html", "htm", "xls", "xlsx",
+				"txt", "ppt", "pptx" };
+
 		// check if the specified element
-        // is present in the array or not
-        // using contains() method
-        boolean test
-            = Arrays.asList(extensions)
-                  .contains(extension);
-		
-		if(test == true) {
+		// is present in the array or not
+		// using contains() method
+		boolean test = Arrays.asList(extensions).contains(extension);
+
+		if (test == true) {
 			fileType = "image";
-		}else {
+		} else {
 			fileType = "other-file";
 		}
 		return fileType;
 	}
 
-	
 	public List<FreelancerServiceTypePricingDTO> getFreelancerPricing(ServiceType serviceType, String userId) {
 
 		List<FreelancerServiceTypePricingDTO> pricingsDTO = new ArrayList<>();
@@ -305,6 +298,16 @@ public class ClientComponentModel {
 		}
 
 		return pricingsDTO;
+	}
+
+	public String getProfilePictureName(String userId) {
+
+		String profilePictureName = "";
+		
+		Optional<User> opUser = userService.findFirstUserByUsername(userId);
+		profilePictureName = opUser.get().getProfilePicture();
+
+		return String.valueOf(profilePictureName);
 	}
 
 }

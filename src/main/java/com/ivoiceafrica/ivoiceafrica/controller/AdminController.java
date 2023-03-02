@@ -125,16 +125,16 @@ public class AdminController {
 
 	@Autowired
 	FreelancerDeliveryAttachmentService freelancerDeliveryAttachmentService;
-	
+
 	@Autowired
 	WorkTransactionService workTransactionService;
-	
+
 	@Autowired
 	WorkFreelancerPaymentService workFreelancerPaymentService;
-	
+
 	@Autowired
 	WorkPaymentService workPaymentService;
-	
+
 	@Autowired
 	WorkEscrowTransactionService workEscrowTransactionService;
 
@@ -283,125 +283,118 @@ public class AdminController {
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		return "dashboards/admin/overview/clients/clients";
 	}
-	
-	
+
 	@PostMapping("/admin-client-search")
 	public String searchAdminClient(@ModelAttribute("adminSearchDTO") AdminSearchDTO adminSearchDTO, Model model) {
 
-		System.out.println("===>>> AdminSearchDTO: "+adminSearchDTO);
-		
+		System.out.println("===>>> AdminSearchDTO: " + adminSearchDTO);
+
 		List<User> clients = new ArrayList<>();
-		
-		if(adminSearchDTO.getSearchOption().equals("ClientID")) {
+
+		if (adminSearchDTO.getSearchOption().equals("ClientID")) {
 			clients = userService.findUserByRoleAndUsername(3, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("FirstName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("FirstName")) {
 			clients = userService.findUserByRoleAndFirstname(3, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("LastName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("LastName")) {
 			clients = userService.findUserByRoleAndLastname(3, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("Phone")) {
+		} else if (adminSearchDTO.getSearchOption().equals("Phone")) {
 			clients = userService.findUserByRoleAndPhone(3, adminSearchDTO.getSearchValue());
-		}else {
+		} else {
 			clients = userService.findUserByRole(3);
 		}
-		
+
 		model.addAttribute("clients", clients);
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		return "dashboards/admin/overview/clients/clients";
 	}
 
-	
 	@GetMapping("/client-details/{user}")
 	public String clientDetails(@PathVariable(value = "user") String username, Model model) {
 
-		clientUserDetails(username, model, 0, "","",0);//The first String is the workId, The second String is the service type
+		clientUserDetails(username, model, 0, "", "", 0);// The first String is the workId, The second String is the
+															// service type
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	}
-	
-	
-	
+
 	@GetMapping("/client-details-by-type")
 	@ResponseBody
 	public String clientDetailsByType(@RequestParam String statusId, @RequestParam String userId, Model model) {
-		System.out.println("===>>> Status Id: " + statusId+" :User Id: "+userId);
+		System.out.println("===>>> Status Id: " + statusId + " :User Id: " + userId);
 
-		return "/client-details/"+userId+"/"+statusId+"";
+		return "/client-details/" + userId + "/" + statusId + "";
 	}
 
-	
 	@GetMapping("/client-details/{user}/{statusId}")
-	public String getclientDetailsByType(@PathVariable(value = "user") String userId,@PathVariable(value = "statusId") String statusId, Model model) {
-		System.out.println("===>>> Status Id: " + statusId+" :User Id: "+userId);
-		
-		clientUserDetails(userId, model, Integer.parseInt(statusId),"","",0);
+	public String getclientDetailsByType(@PathVariable(value = "user") String userId,
+			@PathVariable(value = "statusId") String statusId, Model model) {
+		System.out.println("===>>> Status Id: " + statusId + " :User Id: " + userId);
+
+		clientUserDetails(userId, model, Integer.parseInt(statusId), "", "", 0);
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	};
-	
-	
+
 	@GetMapping("/client-details-by-servicetype")
 	@ResponseBody
-	public String clientDetailsByServiceType(@RequestParam String serviceType, @RequestParam String userId, Model model) {
-		System.out.println("===>>>serviceType: " + serviceType+" :User Id: "+userId);
+	public String clientDetailsByServiceType(@RequestParam String serviceType, @RequestParam String userId,
+			Model model) {
+		System.out.println("===>>>serviceType: " + serviceType + " :User Id: " + userId);
 
-		return "/client-details-serviceType/"+userId+"/"+serviceType+"";
+		return "/client-details-serviceType/" + userId + "/" + serviceType + "";
 	}
-	
-	
+
 	@GetMapping("/client-details-serviceType/{user}/{serviceType}")
-	public String getclientDetailsByServiceType(@PathVariable(value = "user") String userId,@PathVariable(value = "serviceType") String serviceType, Model model) {
-		System.out.println("===>>> serviceType: " + serviceType+" :User Id: "+userId);
-		
-		clientUserDetails(userId, model, -2,"",serviceType,0);
+	public String getclientDetailsByServiceType(@PathVariable(value = "user") String userId,
+			@PathVariable(value = "serviceType") String serviceType, Model model) {
+		System.out.println("===>>> serviceType: " + serviceType + " :User Id: " + userId);
+
+		clientUserDetails(userId, model, -2, "", serviceType, 0);
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	};
-	
-	
+
 	@PostMapping("/client-details-search")
 	public String getClientDetailsBySearch(@ModelAttribute("SearchDTO") SearchDTO searchDTO, Model model) {
-		
-		System.out.println("===>>> Status Id: " +searchDTO);
-		
-		clientUserDetails(searchDTO.getUserId(), model, -1, searchDTO.getWorkOrderId(),"",0);
+
+		System.out.println("===>>> Status Id: " + searchDTO);
+
+		clientUserDetails(searchDTO.getUserId(), model, -1, searchDTO.getWorkOrderId(), "", 0);
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	};
-	
+
 	@GetMapping("/client-details-by-deliverytype")
 	@ResponseBody
 	public String clientDetailsByDeliveryType(@RequestParam String statusId, @RequestParam String userId, Model model) {
-		System.out.println("===>>> Delivery Status Id: " + statusId+" :User Id: "+userId);
+		System.out.println("===>>> Delivery Status Id: " + statusId + " :User Id: " + userId);
 
-		return "/client-details-deliveryType/"+userId+"/"+statusId+"";
+		return "/client-details-deliveryType/" + userId + "/" + statusId + "";
 	}
-	
+
 	@GetMapping("/client-details-deliveryType/{user}/{deliveryStatusId}")
-	public String getclientDetailsByDeliveryType(@PathVariable(value = "user") String userId,@PathVariable(value = "deliveryStatusId") String deliveryStatusId, Model model) {
-		System.out.println("===>>> Delivery status: " + deliveryStatusId+" :User Id: "+userId);
-		
-		clientUserDetails(userId, model, 0,"","", Integer.parseInt(deliveryStatusId));
+	public String getclientDetailsByDeliveryType(@PathVariable(value = "user") String userId,
+			@PathVariable(value = "deliveryStatusId") String deliveryStatusId, Model model) {
+		System.out.println("===>>> Delivery status: " + deliveryStatusId + " :User Id: " + userId);
+
+		clientUserDetails(userId, model, 0, "", "", Integer.parseInt(deliveryStatusId));
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	};
-	
-	
+
 	@PostMapping("/client-delivery-search")
 	public String getClientDeliveryBySearch(@ModelAttribute("SearchDTO") SearchDTO searchDTO, Model model) {
-		
-		System.out.println("===>>> Status Id: " +searchDTO);
-		
-		clientUserDetails(searchDTO.getUserId(), model, -3, searchDTO.getWorkOrderId(),"",0);
+
+		System.out.println("===>>> Status Id: " + searchDTO);
+
+		clientUserDetails(searchDTO.getUserId(), model, -3, searchDTO.getWorkOrderId(), "", 0);
 
 		return "dashboards/admin/overview/clients/clientdetails";
 	};
 
-	
-	public void clientUserDetails(String username, Model model, int statusId, String workId, String serviceTypeId, int deliveryStatusId) {
-		
+	public void clientUserDetails(String username, Model model, int statusId, String workId, String serviceTypeId,
+			int deliveryStatusId) {
+
 		Optional<User> opUser = userService.findFirstUserByUsername(username);
 
 		Optional<WorkOrderStatus> inprogressStatus = workOrderStatusService.findById(5); // means inprogress
@@ -416,44 +409,41 @@ public class AdminController {
 		List<WorkOrder> workOrdersFinished = workOrderService
 				.findWorkOrderByUserAndWorkOrderStatusOrderByPostingDate(opUser.get(), finishedStatus.get());
 
-		
 		List<WorkOrder> allWorkOrderRequest = new ArrayList<>();
-		
-		//Get job request based on status
-		if(statusId > 0) {
+
+		// Get job request based on status
+		if (statusId > 0) {
 			Optional<WorkOrderStatus> opWorkStatus = workOrderStatusService.findById(statusId);
-			allWorkOrderRequest = workOrderService.findWorkOrderByUserAndWorkOrderStatusOrderByPostingDate(opUser.get(), opWorkStatus.get());
-		}
-		else if(statusId == -1){
+			allWorkOrderRequest = workOrderService.findWorkOrderByUserAndWorkOrderStatusOrderByPostingDate(opUser.get(),
+					opWorkStatus.get());
+		} else if (statusId == -1) {
 			allWorkOrderRequest = workOrderService.findWorkOrderByUserAndWorkIdOrderByPostingDate(opUser.get(), workId);
-		}
-		else if(statusId == -2){
+		} else if (statusId == -2) {
 			Optional<ServiceType> sevice = serviceType.findById(serviceTypeId);
-			allWorkOrderRequest = workOrderService.findWorkOrderByServiceTypeAndUserOrderByPostingDate(sevice.get(), opUser.get());
-		}
-		else {
+			allWorkOrderRequest = workOrderService.findWorkOrderByServiceTypeAndUserOrderByPostingDate(sevice.get(),
+					opUser.get());
+		} else {
 			allWorkOrderRequest = workOrderService.findWorkOrderByUserOrderByPostingDate(opUser.get());
 		}
 
-		
 		List<WorkOrdersDelivery> workOrderDeliveries = new ArrayList<>();
-		
-		if(deliveryStatusId > 0) {
+
+		if (deliveryStatusId > 0) {
 			Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(deliveryStatusId);
 			workOrderDeliveries = deliveryService
-					.findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(opUser.get().getUserId(), deliveryStatus.get());
-		}else if(statusId == -3){
+					.findWorkOrdersDeliveryByClientUserIdAndDeliveryStatusOrderByCreatedDateDesc(
+							opUser.get().getUserId(), deliveryStatus.get());
+		} else if (statusId == -3) {
 			Optional<WorkOrder> workOrderOp = workOrderService.findById(workId);
 			workOrderDeliveries = deliveryService
-					.findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(opUser.get().getUserId(), workOrderOp.get());
-		}
-		else {
+					.findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(opUser.get().getUserId(),
+							workOrderOp.get());
+		} else {
 			workOrderDeliveries = deliveryService
-			.findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(opUser.get().getUserId());
+					.findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(opUser.get().getUserId());
 		}
-		
-		System.out.println("===>>>> workOrderDeliveries: "+workOrderDeliveries);
-		
+
+		System.out.println("===>>>> workOrderDeliveries: " + workOrderDeliveries);
 
 		Optional<DeliveryStatus> deliveryInprogressStatus = deliveryStatusService.findById(5); // means inprogress
 		List<WorkOrdersDelivery> inprogressDelivery = deliveryService
@@ -478,30 +468,28 @@ public class AdminController {
 		clientWorkDelivery.setCompletedDelivery(completedDelivery.size());
 		clientWorkDelivery.setFinishedDelivery(finishedDelivery.size());
 		clientWorkDelivery.setClientProposals(clientProposal.size());
-		
+
 		List<WorkOrderStatus> workOrderStatus = workOrderStatusService.findAll();
 		List<DeliveryStatus> deliveryStatus = deliveryStatusService.findAll();
 		List<ServiceType> serviceTypes = serviceType.findAll();
 
 		// TODO: Client Transactions(Payments) details
 
-		model.addAttribute("deliveryStatus",deliveryStatus);
-		model.addAttribute("serviceTypes",serviceTypes);
-		model.addAttribute("workOrderStatus",workOrderStatus);
+		model.addAttribute("deliveryStatus", deliveryStatus);
+		model.addAttribute("serviceTypes", serviceTypes);
+		model.addAttribute("workOrderStatus", workOrderStatus);
 		model.addAttribute("clientWorkDelivery", clientWorkDelivery);
 		model.addAttribute("workOrderDeliveries", workOrderDeliveries);
 
 		model.addAttribute("inprogressTotalNumber", workOrdersInprogress.size());
 		model.addAttribute("completedTotalNumber", workOrdersCompleted.size());
 		model.addAttribute("finishedTotalNumber", workOrdersFinished.size());
-		
-		
+
 		model.addAttribute("allJobRequest", allWorkOrderRequest);
 
 		model.addAttribute("opUser", opUser.get());
-		
+
 	}
-	
 
 	@GetMapping("/admin-freelancer")
 	public String adminFreelancer(Model model) {
@@ -511,29 +499,26 @@ public class AdminController {
 		model.addAttribute("freelancers", freelancers);
 		return "dashboards/admin/overview/freelancers/freelancers";
 	}
-	
+
 	@PostMapping("/admin-freelancer-search")
 	public String searchFreelancerClient(@ModelAttribute("adminSearchDTO") AdminSearchDTO adminSearchDTO, Model model) {
 
-		System.out.println("===>>> AdminSearchDTO: "+adminSearchDTO);
-		
+		System.out.println("===>>> AdminSearchDTO: " + adminSearchDTO);
+
 		List<User> freelancers = new ArrayList<>();
-		
-		if(adminSearchDTO.getSearchOption().equals("ClientID")) {
+
+		if (adminSearchDTO.getSearchOption().equals("ClientID")) {
 			freelancers = userService.findUserByRoleAndUsername(4, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("FirstName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("FirstName")) {
 			freelancers = userService.findUserByRoleAndFirstname(4, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("LastName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("LastName")) {
 			freelancers = userService.findUserByRoleAndLastname(4, adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("Phone")) {
+		} else if (adminSearchDTO.getSearchOption().equals("Phone")) {
 			freelancers = userService.findUserByRoleAndPhone(4, adminSearchDTO.getSearchValue());
-		}else {
+		} else {
 			freelancers = userService.findUserByRole(4);
 		}
-		
+
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		model.addAttribute("freelancers", freelancers);
 		return "dashboards/admin/overview/freelancers/freelancers";
@@ -541,70 +526,75 @@ public class AdminController {
 
 	@GetMapping("/get-freelancer/{user}")
 	public String getFreelancer(@PathVariable(value = "user") String username, Model model) {
-		
-		freelancerDetails(username, model,0,"",0);
+
+		freelancerDetails(username, model, 0, "", 0);
 
 		return "dashboards/admin/overview/freelancers/freelancer";
 	}
-	
+
 	@GetMapping("/freelancer-details-by-statusId")
 	@ResponseBody
-	public String getFreelancerProposalByStatus(@RequestParam String statusId, @RequestParam String userId, Model model) {
-		System.out.println("===>>> Freelancer Status: " + statusId+" :User Id: "+userId);
+	public String getFreelancerProposalByStatus(@RequestParam String statusId, @RequestParam String userId,
+			Model model) {
+		System.out.println("===>>> Freelancer Status: " + statusId + " :User Id: " + userId);
 
-		return "/freelancer-details-proposalStatus/"+userId+"/"+statusId+"";
+		return "/freelancer-details-proposalStatus/" + userId + "/" + statusId + "";
 	}
-	
+
 	@GetMapping("/freelancer-details-proposalStatus/{user}/{proposalStatusId}")
-	public String getFreelancerProposalStatusDetails(@PathVariable(value = "user") String userId,@PathVariable(value = "proposalStatusId") String proposalStatusId, Model model) {
-		System.out.println("===>>> Delivery status: " + proposalStatusId+" :User Id: "+userId);
-		
-		freelancerDetails(userId, model, Integer.parseInt(proposalStatusId),"",0);
+	public String getFreelancerProposalStatusDetails(@PathVariable(value = "user") String userId,
+			@PathVariable(value = "proposalStatusId") String proposalStatusId, Model model) {
+		System.out.println("===>>> Delivery status: " + proposalStatusId + " :User Id: " + userId);
+
+		freelancerDetails(userId, model, Integer.parseInt(proposalStatusId), "", 0);
 
 		return "dashboards/admin/overview/freelancers/freelancer";
 	};
-	
+
 	@PostMapping("/freelancer-proposal-search")
 	public String getFreelancerProposalDetail(@ModelAttribute("SearchDTO") SearchDTO searchDTO, Model model) {
-		
-		System.out.println("===>>> Status Id: " +searchDTO);
-		
-		freelancerDetails(searchDTO.getUserId(), model, -1, searchDTO.getWorkOrderId(),0);
+
+		System.out.println("===>>> Status Id: " + searchDTO);
+
+		freelancerDetails(searchDTO.getUserId(), model, -1, searchDTO.getWorkOrderId(), 0);
 
 		return "dashboards/admin/overview/freelancers/freelancer";
 	};
-	
-	//WORKING ON THIS START
+
+	// WORKING ON THIS START
 	@GetMapping("/freelancer-details-by-deliveryStatus")
 	@ResponseBody
-	public String getFreelancerDeliveryByStatus(@RequestParam String statusId, @RequestParam String userId, Model model) {
-		System.out.println("===>>> Freelancer Status: " + statusId+" :User Id: "+userId);
+	public String getFreelancerDeliveryByStatus(@RequestParam String statusId, @RequestParam String userId,
+			Model model) {
+		System.out.println("===>>> Freelancer Status: " + statusId + " :User Id: " + userId);
 
-		return "/freelancer-details-delivery/"+userId+"/"+statusId+"";
+		return "/freelancer-details-delivery/" + userId + "/" + statusId + "";
 	};
-	
+
 	@GetMapping("/freelancer-details-delivery/{user}/{deliveryStatusId}")
-	public String getFreelancerDeliveryStatusDetails(@PathVariable(value = "user") String userId,@PathVariable(value = "deliveryStatusId") String deliveryStatusId, Model model) {
-		System.out.println("===>>> Delivery status: " + deliveryStatusId+" :User Id: "+userId);
-		
-		freelancerDetails(userId, model, 0,"",Integer.parseInt(deliveryStatusId));
+	public String getFreelancerDeliveryStatusDetails(@PathVariable(value = "user") String userId,
+			@PathVariable(value = "deliveryStatusId") String deliveryStatusId, Model model) {
+		System.out.println("===>>> Delivery status: " + deliveryStatusId + " :User Id: " + userId);
+
+		freelancerDetails(userId, model, 0, "", Integer.parseInt(deliveryStatusId));
 
 		return "dashboards/admin/overview/freelancers/freelancer";
 	};
-	
+
 	@PostMapping("/freelancer-delivery-search")
 	public String getFreelancerDeliveryDetailSearch(@ModelAttribute("SearchDTO") SearchDTO searchDTO, Model model) {
-		
-		System.out.println("===>>> Status Id: " +searchDTO);
-		
+
+		System.out.println("===>>> Status Id: " + searchDTO);
+
 		freelancerDetails(searchDTO.getUserId(), model, 0, searchDTO.getWorkOrderId(), -3);
-		
+
 		return "dashboards/admin/overview/freelancers/freelancer";
 	};
-	//END
-	
-	public void freelancerDetails(String username, Model model, int proposalStatusId, String workOrderId, int deliveryId) {
-		
+	// END
+
+	public void freelancerDetails(String username, Model model, int proposalStatusId, String workOrderId,
+			int deliveryId) {
+
 		Optional<User> opUser = userService.findFirstUserByUsername(username);
 
 		List<ServiceRendered> servicesRendered = serviceRenderedService.findServiceRenderedListByUser(opUser.get());
@@ -625,41 +615,40 @@ public class AdminController {
 						deliveryFinishedStatus.get());
 
 		List<ProposalStatus> proposalsStatus = proposalStatusService.findAll();
-		
+
 		List<Proposal> proposals = new ArrayList<>();
-		
-		if(proposalStatusId > 0) {
+
+		if (proposalStatusId > 0) {
 			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(proposalStatusId);
-			proposals = proposalService.findProposalByUserAndProposalStatusOrderByCreatedDate(opUser.get(), proposalStatus.get());
-		}else if(proposalStatusId == -1) {
+			proposals = proposalService.findProposalByUserAndProposalStatusOrderByCreatedDate(opUser.get(),
+					proposalStatus.get());
+		} else if (proposalStatusId == -1) {
 			Optional<WorkOrder> workOrderOp = workOrderService.findById(workOrderId);
-			proposals = proposalService.findProposalByUserAndWorkOrderOrderByCreatedDateDesc(opUser.get(), workOrderOp.get());
-		}
-		else {
+			proposals = proposalService.findProposalByUserAndWorkOrderOrderByCreatedDateDesc(opUser.get(),
+					workOrderOp.get());
+		} else {
 			proposals = proposalService.findProposalByUserOrderByCreatedDate(opUser.get());
 		}
-		
+
 		List<DeliveryStatus> deliveryStatus = deliveryStatusService.findAll();
 		List<WorkOrdersDelivery> allFreelancerDelivery = new ArrayList<>();
-		
-		if(deliveryId > 0) {
+
+		if (deliveryId > 0) {
 			Optional<DeliveryStatus> deliveryStatusop = deliveryStatusService.findById(deliveryId);
-			allFreelancerDelivery = deliveryService
-					.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(opUser.get(), deliveryStatusop.get());
-		}else if(deliveryId == -3) {
+			allFreelancerDelivery = deliveryService.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(
+					opUser.get(), deliveryStatusop.get());
+		} else if (deliveryId == -3) {
 			try {
 				Optional<WorkOrder> workOrderOp = workOrderService.findById(workOrderId);
-				
-				allFreelancerDelivery = deliveryService
-						.findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(opUser.get(), workOrderOp.get());
-			}catch(Exception ex) {
-				model.addAttribute("message", ""+workOrderId+" does not exit");
+
+				allFreelancerDelivery = deliveryService.findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(
+						opUser.get(), workOrderOp.get());
+			} catch (Exception ex) {
+				model.addAttribute("message", "" + workOrderId + " does not exit");
 			}
-			
-		}
-		else {
-			allFreelancerDelivery = deliveryService
-					.findWorkOrdersDeliveryByUserOrderByCreatedDateDesc(opUser.get());
+
+		} else {
+			allFreelancerDelivery = deliveryService.findWorkOrdersDeliveryByUserOrderByCreatedDateDesc(opUser.get());
 		}
 
 		FreelancerWorkDeliveryForAdmin deliverySize = new FreelancerWorkDeliveryForAdmin();
@@ -677,7 +666,7 @@ public class AdminController {
 		model.addAttribute("deliverySize", deliverySize);
 		model.addAttribute("allFreelancerDelivery", allFreelancerDelivery);
 		model.addAttribute("proposals", proposals);
-		
+
 	}
 
 	@GetMapping("/admin-user")
@@ -690,24 +679,21 @@ public class AdminController {
 
 		return "dashboards/admin/overview/Users/users";
 	}
-	
+
 	@PostMapping("/admin-user-search")
 	public String adminUserSearch(@ModelAttribute("adminSearchDTO") AdminSearchDTO adminSearchDTO, Model model) {
 
 		List<User> users = userService.findAll();
-		
-		if(adminSearchDTO.getSearchOption().equals("ClientID")) {
+
+		if (adminSearchDTO.getSearchOption().equals("ClientID")) {
 			users = userService.findUsersByUsername(adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("FirstName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("FirstName")) {
 			users = userService.findUsersByFirstName(adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("LastName")) {
+		} else if (adminSearchDTO.getSearchOption().equals("LastName")) {
 			users = userService.findUsersByLastName(adminSearchDTO.getSearchValue());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("Phone")) {
+		} else if (adminSearchDTO.getSearchOption().equals("Phone")) {
 			users = userService.findUsersByPhone(adminSearchDTO.getSearchValue());
-		}else {
+		} else {
 			users = userService.findAll();
 		}
 
@@ -805,13 +791,13 @@ public class AdminController {
 				Optional<WorkOrdersDelivery> workDeliveryDetail = deliveryService
 						.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
 								workOrderService.findById(workId).get());
-				
-				if(workDeliveryDetail.isPresent()) {
+
+				if (workDeliveryDetail.isPresent()) {
 					model.addAttribute("workDeliveryDetail", workDeliveryDetail.get());
-				}else {
+				} else {
 					model.addAttribute("workDeliveryDetail", "NoData");
 				}
-				
+
 				List<DeliveryAttachment> deliveryAttachments = deliveryAttachmentService
 						.findDeliveryAttachmentByWorkOrderDelivery(workDeliveryDetail.get());
 
@@ -852,19 +838,62 @@ public class AdminController {
 
 		for (int i = 0; i < adminPageCount; i++) {
 
-			int pageCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
-			int wordCount = Integer.parseInt(adminPageWordCountDTO.getWorkCount().get(i));
+			int pageCount = 0;
+			int wordCount = 0;
+			String timerCount = "0";
 
-			int updateJobCounts = workOrderAttachmentService.updateJobCounts(wordCount, pageCount,
-					adminPageWordCountDTO.getWorkAttachmentId().get(i));
+			if (adminPageWordCountDTO.getPageCount().get(i).isEmpty()
+					) {
 
-			System.out.println("===>>> updateJobCounts: " + updateJobCounts);
+				pageCount = 0;
+//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
+				
+			} else {
+				pageCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
+				
+				int updatePageCount = workOrderAttachmentService.updatePageCounts(pageCount,
+						adminPageWordCountDTO.getWorkAttachmentId().get(i));
 
+				System.out.println("===>>> updatePageCount: " + updatePageCount);
+				attributes.addFlashAttribute("message", "Job counts saved successfully");
+			}
+			
+			
+			if (adminPageWordCountDTO.getWorkCount().get(i).isEmpty()
+					) {
+
+				wordCount = 0;
+//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
+				
+			} else {
+				wordCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
+				
+				int updateWordCount = workOrderAttachmentService.updateWordCounts(wordCount,
+						adminPageWordCountDTO.getWorkAttachmentId().get(i));
+
+				System.out.println("===>>> updateWordCount: " + updateWordCount);
+				attributes.addFlashAttribute("message", "Job counts saved successfully");
+			}
+			
+			if (adminPageWordCountDTO.getTimerCount().get(i).isEmpty()
+					) {
+
+				timerCount = "";
+//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
+				
+			} else {
+				timerCount = adminPageWordCountDTO.getTimerCount().get(i);
+				
+				int updateTimerCount = workOrderAttachmentService.updateTimerCounts(timerCount,
+						adminPageWordCountDTO.getWorkAttachmentId().get(i));
+
+				System.out.println("===>>> updateTimerCount: " + updateTimerCount);
+				attributes.addFlashAttribute("message", "Job counts saved successfully");
+			}
 		}
-
+		
 		model.addAttribute("jobStatusDTO", new SendJobDTO());
 
-		attributes.addFlashAttribute("message", "Job counts saved successfully");
 		return "redirect:/job-details/" + adminPageWordCountDTO.getWorkId() + "/"
 				+ adminPageWordCountDTO.getWorkOrderStatus() + "";
 	}
@@ -874,7 +903,7 @@ public class AdminController {
 			Model model, RedirectAttributes attributes) {
 
 		System.out.println("===>>> adminPageWordCountDTO: " + sendJobDTO);
-		
+
 		String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
 		// update work and delivery status
@@ -882,22 +911,24 @@ public class AdminController {
 																										// sending to
 																										// finished job
 		int updateWorkDeliveryStatus = deliveryService.updateWorkDeliveryStatus(9, sendJobDTO.getDeliveryId());
-		
-		//update transactions from escrow to inAccount
-		int updateWorkFreelancerPaymentStatus = workFreelancerPaymentService.updateWorkFreelancerPaymentStatus(6, sendJobDTO.getWorkId()); //6 means money is in account
-		System.out.println("===>>> updateWorkFreelancerPaymentStatus: "+updateWorkFreelancerPaymentStatus);
-		
-		
-		//update isRelesead and release date from work escrow 
-		int updateIsReleasedStatusAndDate = workEscrowTransactionService.updateWorkEscrowIsReleasedAndDate(true, currentDate, sendJobDTO.getWorkId());
-		System.out.println("===>>> updateIsReleasedStatusAndDate: "+updateIsReleasedStatusAndDate);
-		
-		
-		//update workPayments status
-		int updateWorkPaymentStatus = workPaymentService.updateWorkPaymentStatus(6, sendJobDTO.getWorkId()); //6 means money is in account
-		System.out.println("===>>> updateWorkPaymentStatus: "+updateWorkPaymentStatus);
-		
-		
+
+		// update transactions from escrow to inAccount
+		int updateWorkFreelancerPaymentStatus = workFreelancerPaymentService.updateWorkFreelancerPaymentStatus(6,
+				sendJobDTO.getWorkId()); // 6 means money is in account
+		System.out.println("===>>> updateWorkFreelancerPaymentStatus: " + updateWorkFreelancerPaymentStatus);
+
+		// update isRelesead and release date from work escrow
+		int updateIsReleasedStatusAndDate = workEscrowTransactionService.updateWorkEscrowIsReleasedAndDate(true,
+				currentDate, sendJobDTO.getWorkId());
+		System.out.println("===>>> updateIsReleasedStatusAndDate: " + updateIsReleasedStatusAndDate);
+
+		// update workPayments status
+		int updateWorkPaymentStatus = workPaymentService.updateWorkPaymentStatus(6, sendJobDTO.getWorkId()); // 6 means
+																												// money
+																												// is in
+																												// account
+		System.out.println("===>>> updateWorkPaymentStatus: " + updateWorkPaymentStatus);
+
 		System.out.println("===>>> updateWorkOrderStatus: " + updateWorkOrderStatus);
 		System.out.println("===>>> updateWorkDeliveryStatus: " + updateWorkDeliveryStatus);
 
@@ -917,6 +948,11 @@ public class AdminController {
 		Optional<WorkOrder> workOrder = workOrderService.findById(workId);
 		Optional<User> opUser = userService.findFirstUserByUsername(freelancerUserId);
 		Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// Freelancer Request Sent
+
+		// update workOrder to bidding
+		int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(13, workId); // 13 means the bidding for the
+																						// workOrder;
+		System.out.println("===>>> updateWorkOrderStatus: " + updateWorkOrderStatus);
 
 		Proposal proposal = new Proposal();
 //		proposal.setProposalId("");
@@ -966,36 +1002,38 @@ public class AdminController {
 
 		return "dashboards/admin/overview/users/freelancerdetails";
 	}
-	
+
 	@GetMapping("/review-job/{workId}/{deliveryId}")
-	public String reviewingJobs(@PathVariable(value = "workId") String workId, @PathVariable(value = "deliveryId") String deliveryId, RedirectAttributes attributes, Model model) {
-		
-		//reviewing jobs
+	public String reviewingJobs(@PathVariable(value = "workId") String workId,
+			@PathVariable(value = "deliveryId") String deliveryId, RedirectAttributes attributes, Model model) {
+
+		// reviewing jobs
 		int uopdateStatus = 4;
-		
-		int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, workId);//4 means reviewing
-		System.out.println("===>>>>> updateWorkOrdertoReviewing: "+updateWorkOrdertoReviewing);
-		
-		int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, deliveryId); //4 means reviewing 
-		System.out.println("===>>>>> updateDeliveryToReviewing: "+updateDeliveryToReviewing);
-		
+
+		int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, workId);// 4 means
+																										// reviewing
+		System.out.println("===>>>>> updateWorkOrdertoReviewing: " + updateWorkOrdertoReviewing);
+
+		int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, deliveryId); // 4 means
+																												// reviewing
+		System.out.println("===>>>>> updateDeliveryToReviewing: " + updateDeliveryToReviewing);
+
 		attributes.addFlashAttribute("message", "Reviewing application.");
-		
+
 		return "redirect:/job-details/" + workId + "/" + uopdateStatus + "";
 	}
-	
+
 	@PostMapping("/add-new-user")
-	public String addNewUser(@ModelAttribute("AddUserDTO") AddUserDTO addUserDTO,
-			 Model model, RedirectAttributes attributes) {
-		
-		System.out.println("===>>> addUserDTO: "+addUserDTO);
-		
+	public String addNewUser(@ModelAttribute("AddUserDTO") AddUserDTO addUserDTO, Model model,
+			RedirectAttributes attributes) {
+
+		System.out.println("===>>> addUserDTO: " + addUserDTO);
+
 		String modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		String createdDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
 		User user = new User();
 
-		
 		// Set user Role
 		List<Role> roles = new ArrayList<>();
 		roles.add(roleService.findById(1).get());// 4 means freelancer role, 3 means client role, 2 means
@@ -1037,37 +1075,36 @@ public class AdminController {
 
 	@GetMapping("/admin-finance")
 	public String adminFinance(Model model) {
-		
+
 		List<WorkTransactions> transactions = workTransactionService.findAll();
-		
+
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		model.addAttribute("transactions", transactions);
 
 		return "dashboards/admin/overview/finances";
 	}
-	
+
 	@PostMapping("/admin-finance-search")
 	public String searchAdminFinance(@ModelAttribute("adminSearchDTO") AdminSearchDTO adminSearchDTO, Model model) {
 
-		System.out.println("===>>> AdminSearchDTO: "+adminSearchDTO);
-		
+		System.out.println("===>>> AdminSearchDTO: " + adminSearchDTO);
+
 		List<WorkTransactions> transactions = new ArrayList<>();
-		
-		if(adminSearchDTO.getSearchOption().equals("freelancerId")) {
+
+		if (adminSearchDTO.getSearchOption().equals("freelancerId")) {
 			Optional<User> opUser = userService.findFirstUserByUsername(adminSearchDTO.getSearchValue());
 			transactions = workTransactionService.findWorkTransactionsByUserOrderByEntryDateDesc(opUser.get());
-		}
-		else if(adminSearchDTO.getSearchOption().equals("workOrderId")) {
+		} else if (adminSearchDTO.getSearchOption().equals("workOrderId")) {
 			Optional<WorkOrder> workOrder = workOrderService.findById(adminSearchDTO.getSearchValue());
 			transactions = workTransactionService.findWorkTransactionsByWorkOrderOrderByEntryDateDesc(workOrder.get());
-			
-		}else {
+
+		} else {
 			transactions = workTransactionService.findAll();
 		}
-		
-		System.out.println("===>>> transactions: "+transactions);
-		System.out.println("===>>> transactions Size : "+transactions.size());
-		
+
+		System.out.println("===>>> transactions: " + transactions);
+		System.out.println("===>>> transactions Size : " + transactions.size());
+
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		model.addAttribute("transactions", transactions);
 		return "dashboards/admin/overview/finances";

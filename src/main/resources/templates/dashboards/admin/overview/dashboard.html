@@ -25,6 +25,10 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Open+Sans:wght@500;600;700&display=swap"
 	rel="stylesheet" />
 <script defer src="../../../assets/JS/js/admin.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <title>Admin- ivoiceafrica</title>
 </head>
 
@@ -79,13 +83,13 @@
 						<div>
 							<span class="admin-stats-heading">Pending </span> <strong
 								class="admin-stats-number" th:if="${pendingJobSize > 0}"><span
-								th:text="${pendingJobSize}">120</span></strong> <strong class="admin-stats-number"
-								th:if="${pendingJobSize == 0}"><span
+								th:text="${pendingJobSize}">120</span></strong> <strong
+								class="admin-stats-number" th:if="${pendingJobSize == 0}"><span
 								th:text="${pendingJobSize}">120</span></strong>
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="jobs-stats">
 					<h1 class="jobs-heading">New Jobs</h1>
 				</div>
@@ -111,8 +115,9 @@
 						<tbody>
 							<tr th:each="temp, iStat : ${workOrderList}">
 								<td th:text="${iStat.index+1}">1</td>
-								<td><a  th:href="@{/job-details/{workId}/{workOrderStatus}(workId=${temp.workId}, workOrderStatus=${temp.workOrderStatus.woStatusId})}" class="table-link"> <span
-											th:text="${temp.workId}">temi.admin</span>
+								<td><a
+									th:href="@{/job-details/{workId}/{workOrderStatus}(workId=${temp.workId}, workOrderStatus=${temp.workOrderStatus.woStatusId})}"
+									class="table-link"> <span th:text="${temp.workId}">temi.admin</span>
 								</a></td>
 								<td th:text="${temp.workTitle}">Interpretation</td>
 								<td th:text="${temp.serviceType.typeName}">New</td>
@@ -121,7 +126,12 @@
 								<td th:text="${temp.maxAmount}">-</td>
 								<td th:text="${temp.workOrderStatus.status}">-</td>
 								<td th:text="${temp.workOrderStatus.status}">-</td>
-								<td th:text="${temp.description}">-</td>
+								<td>
+									<button type="button" class="btn btn-info" data-toggle="modal"
+										data-target="#view-description-info"
+										th:onclick="'javascript:view(this)'"
+										th:data-desc="${temp.description}">View</button>
+								</td>
 								<td th:text="${temp.modifiedDate}">-</td>
 								<td th:text="${temp.postingDate}">-</td>
 							</tr>
@@ -131,5 +141,67 @@
 			</div>
 		</div>
 	</div>
+
+
+	<div class="modal fade" id="view-description-info" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered max-width-400"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-body font-18">
+					<h3 class="mb-20">Description</h3>
+					<div>
+						<textarea class="form-control" rows="3" name="desc" id="desc" style="font-size: 18px;"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../../assets/JS/js/popper.min.js"></script>
+	<script src="../../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../../assets/JS/js/jquery.slicknav.min.js"></script>
+
+	<!-- others plugins -->
+	<script src="../../../assets/JS/js/plugins.js"></script>
+	<script src="../../../assets/JS/js/scripts.js"></script>
+
+	<script th:inline="javascript">
+		function view(value) {
+			$('#view-description-info').modal('show');
+			var desc = value.getAttribute('data-desc');
+			
+			$(".modal-body textarea#desc").val(desc);
+
+		}
+
+		/* $('#view-description-info').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget);
+		  var desc = button.data('desc');
+		  
+		  alert(desc);
+		  
+		  var modal = $(this);
+		  
+		  modal.find('.modal-body textarea#desc').text(desc);
+		}); */
+	</script>
 </body>
 </html>

@@ -21,7 +21,8 @@
 				alt="profile circle" />
 
 			<div class="profile__modal">
-				<img src="../../assets/images/propic.png" alt="profile picture" />
+				<img th:src="@{${'/profilepictures/' + @ClientComponentModel.getProfilePictureName(session.userId)}}"
+											style="width: 80px; height: 80px; border-radius: 50%;" alt="profile picture" />
 				<div class="profile__header">
 					<h1 th:text="${session.userId}">Bukola Adesina</h1>
 					<p th:text="${@ClientComponentModel.checkProfile()}">Freelancer</p>

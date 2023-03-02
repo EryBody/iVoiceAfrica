@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.UpdatePasswordDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
@@ -105,7 +106,7 @@ public class MainController {
 					int updatePasswordStatus = userService.updatePassword(newPasswordHash, user.get().getUserId());
 					System.out.println("===>>> updatePasswordStatus: " + updatePasswordStatus);
 					
-					result = "Password Change Successfully";
+					result = "Password Updated Successfully";
 				} else {
 					System.out.println("===>>> Invalid Username/Password");
 					result = "Invalid Username/Password";
@@ -133,5 +134,37 @@ public class MainController {
 		model.addAttribute("workOrdersList", workOrders);
 
 		return "dashboards/clients/clientnotification";
+	}
+	
+	@GetMapping("/profile")
+	public String clientProfile(Model model) {
+
+		String userId = (String) session.getAttribute("userId");
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+
+		model.addAttribute("userDetails", userDetails.get());
+		model.addAttribute("ProfileDTO", new ProfileDTO());
+
+		return "dashboards/clients/clientprofile";
+	}
+	
+	@GetMapping("/freelancer-profile")
+	public String freelancerProfile(Model model) {
+
+		String userId = (String) session.getAttribute("userId");
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+
+		model.addAttribute("userDetails", userDetails.get());
+		model.addAttribute("ProfileDTO", new ProfileDTO());
+
+		return "dashboards/freelancers/freelancerprofile";
+	}
+	
+	@GetMapping("/updatefreelancerpassword")
+	public String updateFreelancerPassword(Model model) {
+
+		model.addAttribute("UpdatePasswordDTO", new UpdatePasswordDTO());
+
+		return "dashboards/freelancers/freelancerchangepassword";
 	}
 }

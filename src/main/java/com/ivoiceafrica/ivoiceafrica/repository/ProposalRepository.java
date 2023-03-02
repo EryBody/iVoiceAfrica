@@ -35,4 +35,14 @@ public interface ProposalRepository extends JpaRepository<Proposal, String> {
 	@Query(value = "UPDATE proposals p set p.amount = :amount where p.proposal_id = :proposalId", nativeQuery = true)
 	public int updateProposalAmount(@Param("amount")double proposedAmount, @Param("proposalId")String proposalId);
 	
+	@Transactional
+	@Modifying(clearAutomatically = true,flushAutomatically = true)
+	@Query(value = "UPDATE proposals p set p.proposal_status_id = :proposalStatusId where p.proposal_id = :proposalId", nativeQuery = true)
+	public int updateProposalByProposalId(@Param("proposalStatusId")int proposalStatusId, @Param("proposalId")String proposalId);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true,flushAutomatically = true)
+	@Query(value = "UPDATE proposals p set p.proposal_status_id = :proposalStatusId where p.work_id = :workId", nativeQuery = true)
+	public int updateProposalByWorkOrderId(@Param("proposalStatusId")int proposalStatusId, @Param("workId")String workId);
+	
 }

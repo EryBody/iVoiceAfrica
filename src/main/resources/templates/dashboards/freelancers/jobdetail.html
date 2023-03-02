@@ -135,10 +135,18 @@
 								<div class="job-alerts-btns">
 									<a href="#" class="decline-btn mr-4" data-toggle="modal" data-target="#offerDeclineModal">Decline</a> 
 									
+									<span th:switch="${freelancerStatus}">
 									
-									<a href="#"
-										class="job-accept job-btn" data-toggle="modal"
-										data-target="#exampleModalCenter">Accept</a>
+										<a th:case="14" href="#"
+											class="job-accept job-btn" data-toggle="popover" data-placement="top" data-content="Work order has been declined"
+											>Accept</a>
+											
+										<a th:case="*" href="#"
+											class="job-accept job-btn" data-toggle="modal"
+											data-target="#exampleModalCenter">Accept</a>
+									</span>
+									
+									
 								</div>
 							</div>
 						</div>
@@ -323,6 +331,9 @@
 					<input type="hidden" name="workOrderId"
 								th:value=${opWorkOrder.workId}> <input type="hidden"
 								name="userId" th:value=${userDetails.username}> 
+								
+						<input type="hidden" name="proposalId"
+								th:value=${proposalId}>
 					
 						<a href="../../onboarding/client/sign-in.html">
 							<button class="transparentBtn" data-dismiss="modal">

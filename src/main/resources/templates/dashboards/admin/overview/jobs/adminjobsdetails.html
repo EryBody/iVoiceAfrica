@@ -226,7 +226,7 @@
 
 										<div th:each="attachment : ${workAttachments}">
 
-											<input type="hidden" th:value="${attachment.attachId}"
+											<input type="text" th:value="${attachment.attachId}"
 												name="workAttachmentId" />
 
 											<div class="attachemnt-flex">
@@ -263,13 +263,21 @@
 												</span> <input type="text" th:value="${attachment.pageCount} ?: ''"
 													name="pageCount" />
 											</div>
+											
+											<div class="attachemnt-flex" th:if="${workOrderInfoDetails.serviceType.typeId == 'ST103'} ">
+												<span>
+													<p>Timer</p>
+													<p>count</p>
+												</span> <input type="text" th:value="${attachment.timerCount} ?: ''"
+													name="timerCount" />
+											</div>
 
 											<hr class="text-secondary">
 										</div>
 
 										<button type="submit"
 											class="btn btn-outline-secondary btn-lg btn-block ">Save
-											Page and Word Count</button>
+											Count(s)</button>
 
 									</form>
 								</div>
