@@ -67,9 +67,13 @@
 
 			<!-- <div class="bigger-margin"> -->
 			<div class="fl__d--container main__contentbox">
+
+
 				<div class="fl_overview-right">
 					<div class="fl__details">
-						<img src="../../assets/images/Mj.png" alt="profile picture"/>
+						<img
+							th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+							alt="profile picture" />
 						<div class="fl__details--d">
 							<div class="fl__name">
 								<h1 th:text="|${userDetails.firstName} ${userDetails.lastName}|"
@@ -82,7 +86,7 @@
 							</div>
 							<div class="fl__ratings griddy">
 								<div class="mr-4 p-2">
-									<span>0</span>
+									<span th:text="${workfreelancerPaymentsSize}">0</span>
 									<p>Projects</p>
 								</div>
 								<!-- <div class="mr-4">
@@ -90,7 +94,7 @@
 									<p>Rating</p>
 								</div> -->
 								<div class="ml-5 p-2">
-									<span>$ 0</span>
+									<span>$ <span th:text="${totalEarning}"></span></span>
 									<p>Total Earnings</p>
 								</div>
 							</div>
@@ -99,36 +103,46 @@
 					<div class="job__notifications">
 						<div class="jobbings">
 							<div class="job__alerts">
-								<h1>Earnings</h1>
-								<select name="week" id="week" class="week">
-									<option value="This Week" class="week">This Week</option>
-									<option value="Last Week">Last Week</option>
-								</select>
+								<form>
+									<h1>Earnings</h1>
+									<select name="week" id="week" class="week">
+										<option value="this-week" class="week">This Week</option>
+										<option value="last-week">Last Week</option>
+									</select>
+
+								</form>
+
 							</div>
 							<div class="job__earnings">
 								<div class="job__amt">
-									<span> $ 0 </span>
-									<p>Withdrawn</p>
+									<span> $ <span th:text="${totalWithdrawn}"> </span>
+										<p>Withdrawn</p>
 								</div>
 								<div class="job__amt">
-									<span> $ 0 </span>
-									<p>In Escrow</p>
+									<span> $ <span th:text="${totalEscrow}"> </span>
+										<p>In Escrow</p>
 								</div>
 								<div class="job__amt">
-									<span> $ 0 </span>
-									<p>Credited</p>
+									<span> $ <span th:text="${inAccount}"> </span>
+										<p>In Account</p>
 								</div>
 							</div>
-							<p>view details</p>
+							<a th:href="@{/freelancer-finances}"><p>view details</p></a>
 						</div>
 					</div>
 				</div>
+
+
+
+
+
 				<div class="fl_overview-left">
 					<div class="fl__jobs">
 						<div class="fl__jobs--header">
 							<h1>Active Jobs</h1>
 							<ul class="fl__links">
-								<a th:href="@{/freelancer-dashboard}" class="fl__links-link"> All</a>
+								<a th:href="@{/freelancer-dashboard}" class="fl__links-link">
+									All</a>
 								<li class="active-li">Overdue</li>
 								<a th:href="@{/freelancer-inprogress}" class="fl__links-link">
 									In Progress</a>
@@ -166,14 +180,32 @@
 									</button>
 								</div>
 
+								<div th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
 								<button class="red-jobs-btn"
-									th:if="${delivery.deliveryStatus.status == 5}">
+									th:case="'Overdue'"> 
 									<span>Overdue</span>
 								</button>
-								<button class="red-jobs-btn yel-jobs-btn"
-									th:unless="${delivery.deliveryStatus.status == 9}">
-									<span>Duesoon</span>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-warning"
+									th:case="'DueSoon'">
+									<span>Due Soon</span>
 								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-success"
+									th:case="'DueToday'">
+									<span>Due Today</span>
+								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-info"
+									th:case="'Pending'">
+									<span>Pending</span>
+								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-dark"
+									th:case="'NoStatus'">
+									<span>No Status</span>
+								</button>
+								</div>
 							</div>
 							<span class="job__name" th:text="${delivery.workOrder.workTitle}">
 								Translate Physics textbook from English Language to French </span>
@@ -221,8 +253,9 @@
 									<span th:text="${srcLanguage}">Voice-over</span>
 								</button>
 							</div>
-							<p class="lang-title mt-3" th:text="${proposal.workOrder.workTitle}">Translate
-								Physics textbook from English Language to French</p>
+							<p class="lang-title mt-3"
+								th:text="${proposal.workOrder.workTitle}">Translate Physics
+								textbook from English Language to French</p>
 							<p class="lang-time">
 								Posted on <span th:text="${proposal.createdDate}"></span>
 							</p>
@@ -270,5 +303,48 @@
 	<!-- others plugins -->
 	<script src="../../assets/JS/js/plugins.js"></script>
 	<script src="../../assets/JS/js/scripts.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			//On page load the financials
+			var week = $('#week').find(":selected").val();
+			var action = "/freelancer-weekly-financials";
+
+			$.ajax({
+				url : action,
+				type : "GET",
+				data : {
+					inputParameter : week
+				},
+				success : function(data) {
+					console.log("!!FF!!");
+				}
+			});
+		});
+
+		$(document).ready(function() {
+
+			//On change load the financials
+			var week = $('#week').find(":selected").val();
+
+			$("select#week").change(function() {
+				var selectedWeek = $(this).children("option:selected").val();
+
+				var action = "/freelancer-weekly-financials";
+
+				$.ajax({
+					url : action,
+					type : "GET",
+					data : {
+						inputParameter : selectedWeek
+					},
+					success : function(data) {
+						alert(data);
+					}
+				});
+
+			});
+		});
+	</script>
 </body>
 </html>

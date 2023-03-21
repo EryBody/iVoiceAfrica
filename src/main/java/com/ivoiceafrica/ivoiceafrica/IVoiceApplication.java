@@ -1,6 +1,8 @@
 package com.ivoiceafrica.ivoiceafrica;
 
 
+import javax.activation.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
+import com.ivoiceafrica.ivoiceafrica.components.models.FreelancerComponentModel;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
@@ -23,6 +26,9 @@ import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 @SpringBootApplication
@@ -76,6 +82,11 @@ public class IVoiceApplication implements CommandLineRunner {
 	
 	@Autowired
 	BankDetailService bankDetailService;
+	
+	@Autowired
+	FreelancerComponentModel fComponentModel;
+	
+	private static final Logger log = LogManager.getLogger(IVoiceApplication.class);
 
 
 	public static void main(String[] args) {
@@ -84,7 +95,7 @@ public class IVoiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		
 //		Optional<UserStatus> userStatus = userStatusService.findById(2);
 //		System.out.println("===>>> userStatus: "+userStatus);
 
@@ -226,6 +237,18 @@ public class IVoiceApplication implements CommandLineRunner {
 		
 //		String language = clientComponentModel.translateIdToLanguage(2);
 //		System.out.println("===>>> Language: "+language);
+		
+//		String date = "2023-03-11 11:24:19";
+//		String dueStatus = fComponentModel.getDueStatus(date);
+//		
+//		System.out.println("===>>> dueStatus: "+dueStatus);
+		
+		log.info("===>>> This is an info log1");
+        log.info("===>>> This is an info log2");
+        log.debug("===>>> This is an debug log1");
+        log.debug("===>>> This is an debug log2");
+        log.error("===>>> This is an error log3");
+        log.error("===>>> This is an error log3");
 
 	}
 

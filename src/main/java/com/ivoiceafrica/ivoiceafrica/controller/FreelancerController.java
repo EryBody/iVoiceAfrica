@@ -172,6 +172,48 @@ public class FreelancerController {
 
 	@Autowired
 	WorkFreelancerPaymentService workFreelancerPaymentService;
+	
+	
+	 void dashboardFinancials(Model model, String userId) {
+		 
+		 	Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+		
+			List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
+			
+			double inAccount = 0.0;
+			double inEscrow = 0.0;
+			double Withdrawn = 0.0;
+			double totalEarnings = 0.0;
+			
+			for (WorkFreelancerPayment payment : workfreelancerPayments) {
+				
+				if(payment.getPaymentStatus().getPaymentStatusId() == 4) { //4 means excrow status
+					inEscrow += payment.getAmount();
+				}
+				
+				if(payment.getPaymentStatus().getPaymentStatusId() == 5) { //5 means withdrwal status
+					Withdrawn += payment.getAmount();
+				}
+				
+				if(payment.getPaymentStatus().getPaymentStatusId() == 6) {//6 means in account
+					inAccount += payment.getAmount();
+				}
+				
+				totalEarnings += payment.getAmount();
+				
+			}
+			
+			System.out.println("===>>>User ID Freelancer: " + userId);
+			
+			
+			model.addAttribute("workfreelancerPayments",workfreelancerPayments);
+			model.addAttribute("workfreelancerPaymentsSize",workfreelancerPayments.size());
+			model.addAttribute("totalEscrow",inEscrow);
+			model.addAttribute("totalWithdrawn",Withdrawn);
+			model.addAttribute("inAccount",inAccount);
+			model.addAttribute("totalEarning",totalEarnings);
+		
+	}
 
 
 	@GetMapping("/freelancer-dashboard")
@@ -184,10 +226,9 @@ public class FreelancerController {
 
 		String currentProposalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-		// TODO: Get Total financial for user from financial's table
-		// TODO: Get Projects from portfolio for freelancer
-
-		// TODO: Get Withdrawn, In Escrow and credited from user payments
+		
+		dashboardFinancials(model, userId);
+		
 
 		// Get jobs based on status (all, after deadline, deadline, processing) and the
 		// languages related to the jobs;
@@ -215,6 +256,7 @@ public class FreelancerController {
 		model.addAttribute("overdueDeliveries", overdueDelivery);
 		model.addAttribute("inprogressDeliveries", inprogressDelivery);
 		model.addAttribute("proposalsByLimit", proposalByLimit);
+	
 
 		return "dashboards/freelancers/dashboard";
 	}
@@ -267,14 +309,23 @@ public class FreelancerController {
 			int updateProposalAmount =  proposalService.updateProposalAmount(freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
 			System.out.println("===>>> updateProposalAmount: "+updateProposalAmount);
 			
-			//update freelancer to accept request
-			int updateProposalStatus = proposalService.updateProposalByProposalId(11, freelancerAcceptanceDTO.getProposalId());//11 means freelancer accepted
-			System.out.println("===>>> updateProposalStatus: "+updateProposalStatus);
-			
-			model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
-			model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
-			
-			model.addAttribute("message", "Great, Job has been accepted successfully.");
+			if(updateProposalAmount == 1) {
+				//update freelancer to accept request
+				int updateProposalStatus = proposalService.updateProposalByProposalId(11, freelancerAcceptanceDTO.getProposalId());//11 means freelancer accepted
+				System.out.println("===>>> updateProposalStatus: "+updateProposalStatus);
+				
+				if(updateProposalStatus == 1) {
+					model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
+					model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+					
+					model.addAttribute("message", "Great, Job has been accepted successfully.");
+				}else {
+					model.addAttribute("message", "Updating Proposal Details Failed, Logout and Try again");
+				}
+			}else {
+				model.addAttribute("message", "Updating Proposal Amount Failed, Logout and Try again");
+			}
+		
 		}else {
 			model.addAttribute("message", "Amount not in range, Your amount must be in range");
 		}
@@ -441,10 +492,7 @@ public class FreelancerController {
 
 		String currentProposalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-		// TODO: Get Total financial for user from financial's table
-		// TODO: Get Projects from portfolio for freelancer
-
-		// TODO: Get Withdrawn, In Escrow and credited from user payments
+		dashboardFinancials(model, userId);
 
 		// Get jobs based on status (all, after deadline, deadline, processing) and the
 		// languages related to the jobs;
@@ -483,10 +531,7 @@ public class FreelancerController {
 
 		String currentProposalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-		// TODO: Get Total financial for user from financial's table
-		// TODO: Get Projects from portfolio for freelancer
-
-		// TODO: Get Withdrawn, In Escrow and credited from user payments
+		dashboardFinancials(model, userId);
 
 		// Get jobs based on status (all, after deadline, deadline, processing) and the
 		// languages related to the jobs;
@@ -551,14 +596,10 @@ public class FreelancerController {
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
-		Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(5); // This will change to a status
-																						// submitted to the freelancer
+		List<Proposal> userProposal = proposalService.findProposalByUserAndStatusOrderByCreatedDesc(
+				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); //Freelancer Request Sent
 
-		List<WorkOrdersDelivery> workDelivery = deliveryService
-				.findWorkOrdersDeliveryByUserAndDeliveryStatusOrderByCreatedDateDesc(userDetails.get(),
-						deliveryStatus.get());
-
-		model.addAttribute("notificationWorkDeliveries", workDelivery);
+		model.addAttribute("notificationWorkDeliveries", userProposal);
 		return "dashboards/freelancers/notification";
 	}
 
@@ -722,14 +763,12 @@ public class FreelancerController {
 				Withdrawn += payment.getAmount();
 			}
 			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 6) {//6 means in account
+				inAccount += payment.getAmount();
+			}
+			
 			totalEarnings += payment.getAmount();
 			
-		}
-		
-		if(Withdrawn == 0.0) {
-			inAccount = 0.0;
-		}else {
-			inAccount = totalEarnings - Withdrawn;
 		}
 		
 		//TODO: Validate the amount the freelancer is sending

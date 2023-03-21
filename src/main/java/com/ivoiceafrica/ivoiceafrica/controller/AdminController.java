@@ -29,6 +29,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.ClientWorkDeliveryForAdmin;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerWorkDeliveryForAdmin;
 import com.ivoiceafrica.ivoiceafrica.DTO.GetJobsInfoDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SearchDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.SearchFreelancerDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SendJobDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
@@ -40,6 +41,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
@@ -657,7 +659,7 @@ public class AdminController {
 		deliverySize.setFinishedDelivery(finishedDelivery.size());
 		deliverySize.setAllRequest(allFreelancerDelivery.size());
 
-		// TODO: Freelancer Transactions(Payments) details
+		getFreelancerTransactions(model, opUser.get().getUsername());
 
 		model.addAttribute("deliveryStatus", deliveryStatus);
 		model.addAttribute("proposalsStatus", proposalsStatus);
@@ -776,56 +778,115 @@ public class AdminController {
 			@PathVariable(value = "workOrderStatus") String workOrderStatusId, Model model) {
 
 		try {
-
-			Optional<WorkOrder> workOrderInfo = workOrderService.findFirstWorkOrderByWorkId(workId);
-
-			List<WorkOrderAttachment> workAttachments = workOrderAttachmentService
-					.findWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
-
-			Optional<WorkOrderAttachment> workAttachmentDetails = workOrderAttachmentService
-					.findFirstWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
-
-			if (deliveryService.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
-					workOrderService.findById(workId).get()).isPresent()) {
-
-				Optional<WorkOrdersDelivery> workDeliveryDetail = deliveryService
-						.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
-								workOrderService.findById(workId).get());
-
-				if (workDeliveryDetail.isPresent()) {
-					model.addAttribute("workDeliveryDetail", workDeliveryDetail.get());
-				} else {
-					model.addAttribute("workDeliveryDetail", "NoData");
-				}
-
-				List<DeliveryAttachment> deliveryAttachments = deliveryAttachmentService
-						.findDeliveryAttachmentByWorkOrderDelivery(workDeliveryDetail.get());
-
-				List<FreelancerDeliveryAttachment> fDeliveryAttachments = freelancerDeliveryAttachmentService
-						.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(
-								workDeliveryDetail.get());
-
-				model.addAttribute("fDeliveryAttachments", fDeliveryAttachments);
-				model.addAttribute("deliveryAttachments", deliveryAttachments);
-			}
-
-			// get Freelancer based on service type
-			Optional<ServiceType> opServiceType = serviceType
-					.findById(workOrderInfo.get().getServiceType().getTypeId());
-			List<ServiceRendered> serviceRendered = serviceRenderedService
-					.findServiceRenderedListByServiceType(opServiceType.get());
-
-			model.addAttribute("workOrderInfoDetails", workOrderInfo.get());
-			model.addAttribute("workAttachments", workAttachments);
-			model.addAttribute("workAttachmentDetails", workAttachmentDetails.get());
-			model.addAttribute("adminPageWordCountDTO", new AdminPageWordCountDTO());
-			model.addAttribute("serviceRenderedList", serviceRendered);
+			processJobDetails(model, workId, workOrderStatusId, "");
 
 		} catch (Exception ex) {
 			System.out.println("===>>> Exception: " + ex);
 		}
 
 		return "dashboards/admin/overview/jobs/adminjobsdetails";
+	}
+
+	@PostMapping("/search-for-freelancer")
+	public String searchFreelnacer(@ModelAttribute("searchFreelancerDTO") SearchFreelancerDTO searchFreelancerDTO,
+			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
+
+		try {
+
+			processJobDetails(model, searchFreelancerDTO.getWorkId(), "", searchFreelancerDTO.getUsername());
+
+		} catch (Exception ex) {
+			System.out.println("===>>> Exception: " + ex);
+		}
+
+		return "dashboards/admin/overview/jobs/adminjobsdetails";
+
+	}
+
+	void processJobDetails(Model model, String workId, String workOrderStatus, String username) {
+
+		Optional<WorkOrder> workOrderInfo = workOrderService.findFirstWorkOrderByWorkId(workId);
+
+		System.out.println("===>>> workOrderInfo: " + workOrderInfo);
+
+		List<WorkOrderAttachment> workAttachments = workOrderAttachmentService
+				.findWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
+
+		Optional<WorkOrderAttachment> workAttachmentDetails = workOrderAttachmentService
+				.findFirstWorkOrderAttachmentByWorkOrder(workOrderInfo.get());
+
+		if (deliveryService
+				.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(workOrderService.findById(workId).get())
+				.isPresent()) {
+
+			Optional<WorkOrdersDelivery> workDeliveryDetail = deliveryService
+					.findFirstWorkOrdersDeliveryByWorkOrderOrderByCreatedDateDesc(
+							workOrderService.findById(workId).get());
+
+			if (workDeliveryDetail.isPresent()) {
+				model.addAttribute("workDeliveryDetail", workDeliveryDetail.get());
+			} else {
+				model.addAttribute("workDeliveryDetail", "NoData");
+			}
+
+			List<DeliveryAttachment> deliveryAttachments = deliveryAttachmentService
+					.findDeliveryAttachmentByWorkOrderDelivery(workDeliveryDetail.get());
+
+			List<FreelancerDeliveryAttachment> fDeliveryAttachments = freelancerDeliveryAttachmentService
+					.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(workDeliveryDetail.get());
+
+			model.addAttribute("fDeliveryAttachments", fDeliveryAttachments);
+			model.addAttribute("deliveryAttachments", deliveryAttachments);
+		}
+
+		if (!username.isEmpty()) {
+			
+			
+			Optional<User> opUser = userService.findFirstUserByUsername(username);
+
+			if (opUser.isPresent()) {
+				
+				Optional<ServiceType> opServiceType = serviceType
+						.findById(workOrderInfo.get().getServiceType().getTypeId());
+
+				
+				List<ServiceRendered> serviceRendered = serviceRenderedService
+						.findServiceRenderedListByUserAndServiceType(opUser.get(), opServiceType.get());
+
+				model.addAttribute("serviceRenderedList", serviceRendered);
+			} else {
+
+				List<ServiceRendered> serviceRendered = new ArrayList<>();
+				model.addAttribute("serviceRenderedList", serviceRendered);
+			}
+
+		} else {
+			// get Freelancer based on service type
+			Optional<ServiceType> opServiceType = serviceType
+					.findById(workOrderInfo.get().getServiceType().getTypeId());
+
+			List<ServiceRendered> serviceRendered = serviceRenderedService
+					.findServiceRenderedListByServiceType(opServiceType.get());
+
+			model.addAttribute("serviceRenderedList", serviceRendered);
+
+		}
+		
+//		//Adding client payment
+		if(workFreelancerPaymentService.findWorkFreelancerPaymentByworkOrder(workOrderInfo.get()).isPresent()) {
+			
+			Optional<WorkFreelancerPayment> workFreelancerPayment =   workFreelancerPaymentService.findWorkFreelancerPaymentByworkOrder(workOrderInfo.get());
+			model.addAttribute("workFreelancerPayment", workFreelancerPayment.get());
+			
+		}else {
+			model.addAttribute("workFreelancerPayment", null);
+		}
+
+		
+		model.addAttribute("workOrderInfoDetails", workOrderInfo.get());
+		model.addAttribute("workAttachments", workAttachments);
+		model.addAttribute("workAttachmentDetails", workAttachmentDetails.get());
+		model.addAttribute("adminPageWordCountDTO", new AdminPageWordCountDTO());
 	}
 
 	@PostMapping("/saveJobCount")
@@ -838,60 +899,50 @@ public class AdminController {
 
 		for (int i = 0; i < adminPageCount; i++) {
 
-			int pageCount = 0;
-			int wordCount = 0;
-			String timerCount = "0";
+			if (!adminPageWordCountDTO.getPageCount().get(i).isEmpty()) {
 
-			if (adminPageWordCountDTO.getPageCount().get(i).isEmpty()
-					) {
+				System.out.println("===>>> Page Count: ");
 
-				pageCount = 0;
-//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
-				
-			} else {
-				pageCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
-				
+				int pageCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
+				System.out.println("===>>> pageCount: " + adminPageWordCountDTO.getPageCount().get(i));
+
 				int updatePageCount = workOrderAttachmentService.updatePageCounts(pageCount,
 						adminPageWordCountDTO.getWorkAttachmentId().get(i));
 
 				System.out.println("===>>> updatePageCount: " + updatePageCount);
-				attributes.addFlashAttribute("message", "Job counts saved successfully");
-			}
-			
-			
-			if (adminPageWordCountDTO.getWorkCount().get(i).isEmpty()
-					) {
 
-				wordCount = 0;
-//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
-				
-			} else {
-				wordCount = Integer.parseInt(adminPageWordCountDTO.getPageCount().get(i));
-				
+			}
+
+			if (!adminPageWordCountDTO.getWorkCount().get(i).isEmpty()) {
+
+				System.out.println("===>>> Word Count: " + adminPageWordCountDTO.getWorkCount().get(i));
+
+				int wordCount = Integer.parseInt(adminPageWordCountDTO.getWorkCount().get(i));
+				System.out.println("===>>> wordCount: " + adminPageWordCountDTO.getWorkCount().get(i));
+
 				int updateWordCount = workOrderAttachmentService.updateWordCounts(wordCount,
 						adminPageWordCountDTO.getWorkAttachmentId().get(i));
 
 				System.out.println("===>>> updateWordCount: " + updateWordCount);
-				attributes.addFlashAttribute("message", "Job counts saved successfully");
-			}
-			
-			if (adminPageWordCountDTO.getTimerCount().get(i).isEmpty()
-					) {
 
-				timerCount = "";
-//				attributes.addFlashAttribute("message", "Please provide neccessary counts.");
-				
-			} else {
-				timerCount = adminPageWordCountDTO.getTimerCount().get(i);
-				
-				int updateTimerCount = workOrderAttachmentService.updateTimerCounts(timerCount,
-						adminPageWordCountDTO.getWorkAttachmentId().get(i));
-
-				System.out.println("===>>> updateTimerCount: " + updateTimerCount);
-				attributes.addFlashAttribute("message", "Job counts saved successfully");
 			}
+
+			if (adminPageWordCountDTO.getTimerCount() != null) {
+				if (!adminPageWordCountDTO.getTimerCount().get(i).isEmpty()) {
+
+					String timerCount = adminPageWordCountDTO.getTimerCount().get(i);
+
+					int updateTimerCount = workOrderAttachmentService.updateTimerCounts(timerCount,
+							adminPageWordCountDTO.getWorkAttachmentId().get(i));
+
+					System.out.println("===>>> updateTimerCount: " + updateTimerCount);
+					attributes.addFlashAttribute("message", "Job counts saved successfully");
+				}
+			}
+
 		}
-		
+
+		attributes.addFlashAttribute("message", "Job counts saved successfully");
 		model.addAttribute("jobStatusDTO", new SendJobDTO());
 
 		return "redirect:/job-details/" + adminPageWordCountDTO.getWorkId() + "/"
@@ -1021,6 +1072,47 @@ public class AdminController {
 		attributes.addFlashAttribute("message", "Reviewing application.");
 
 		return "redirect:/job-details/" + workId + "/" + uopdateStatus + "";
+	}
+
+	
+	void getFreelancerTransactions(Model model, String userId) {
+
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+		System.out.println("===>>> User Details Freelancer: " + userDetails.get());
+
+		// get Payments
+		List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService
+				.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
+
+		double inAccount = 0.0;
+		double inEscrow = 0.0;
+		double Withdrawn = 0.0;
+		double totalEarnings = 0.0;
+
+		for (WorkFreelancerPayment payment : workfreelancerPayments) {
+			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 4) { //4 means excrow status
+				inEscrow += payment.getAmount();
+			}
+			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 5) { //5 means withdrwal status
+				Withdrawn += payment.getAmount();
+			}
+			
+			if(payment.getPaymentStatus().getPaymentStatusId() == 6) {//6 means in account
+				inAccount += payment.getAmount();
+			}
+			
+			totalEarnings += payment.getAmount();
+			
+		}
+		
+		model.addAttribute("workfreelancerPayments",workfreelancerPayments);
+		model.addAttribute("workfreelancerPaymentsSize",workfreelancerPayments.size());
+		model.addAttribute("totalEscrow",inEscrow);
+		model.addAttribute("totalWithdrawn",Withdrawn);
+		model.addAttribute("inAccount",inAccount);
+		model.addAttribute("totalEarning",totalEarnings);
 	}
 
 	@PostMapping("/add-new-user")

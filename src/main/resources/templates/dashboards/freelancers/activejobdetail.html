@@ -277,10 +277,13 @@
 						enctype="multipart/form-data">
 
 						<div class="activejob-uploads-area">
+						
 							<div class="job-attc"
 								th:each="delivery, iStat : ${deliveryAttachments}">
-								<img src="../../assets/icons/vscode-icons_file-type.svg"
-									alt="file-icon" /> 
+								
+								<span class="material-symbols-outlined draft-icon">
+												draft </span> 
+									
 									<input type="hidden" name="deliveryId"
 									id="deliveryId"
 									th:value="${delivery.workOrderDelivery.deliveryId}"> 

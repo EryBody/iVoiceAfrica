@@ -81,6 +81,11 @@ public class SRenderedServiceImpl implements SRenderedService {
 	public List<ServiceRendered> findServiceRenderedListByServiceType(ServiceType serviceType) {
 		return serviceRenderedRepository.findServiceRenderedListByServiceType(serviceType);
 	}
+
+	@Override
+	public List<ServiceRendered> findServiceRenderedListByUserAndServiceType(User user, ServiceType type) {
+		return serviceRenderedRepository.findServiceRenderedListByUserAndServiceType(user, type);
+	}
 	
 	
 	

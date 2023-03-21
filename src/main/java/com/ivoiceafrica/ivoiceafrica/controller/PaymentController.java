@@ -81,7 +81,7 @@ public class PaymentController {
 
 	final static String PBFPubKey = "FLWPUBK_TEST-c080d8aa9590b4bdac7ab337dcb84f8f-X";
 	final static String redirectUrlDemo = "http://localhost:8080/client-dashboard";
-	final static String redirectUrlLive = "http://localhost:8080/client-dashboard";
+	final static String redirectUrlLive = "http://20.172.167.140:9000/client-dashboard";
 	final static String redirectUrl = redirectUrlDemo;
 	final static String encryptionKey = "FLWSECK_TEST6a46b266e750";
 	final static String PBFSecretKey = "FLWSECK_TEST-28bcc703fd128945e499d8e9a0fa2fa3-X";

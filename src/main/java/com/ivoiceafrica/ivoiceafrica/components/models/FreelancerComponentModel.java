@@ -1,6 +1,9 @@
 package com.ivoiceafrica.ivoiceafrica.components.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,7 @@ import com.ivoiceafrica.ivoiceafrica.service.ProposalStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
+import com.ivoiceafrica.ivoiceafrica.utility.CompareDates;
 
 @Component("FreelancerComponentModel")
 public class FreelancerComponentModel {
@@ -40,7 +44,7 @@ public class FreelancerComponentModel {
 
 	@Autowired
 	LanguageService languageService;
-	
+
 	@Autowired
 	ClientComponentModel clientModel;
 
@@ -53,7 +57,7 @@ public class FreelancerComponentModel {
 		Optional<WorkOrderStatus> status = workOrderStatusService.findById(workOrderId);
 		return status.get().getStatus();
 	}
-	
+
 	public WorkOrder getWorkOrderStatusId(String workOrderId) {
 		Optional<WorkOrder> status = orderService.findById(workOrderId);
 		return status.get();
@@ -62,6 +66,34 @@ public class FreelancerComponentModel {
 	public String getProposalStatus(int proposalStatusId) {
 		Optional<ProposalStatus> status = proposalStatusService.findById(proposalStatusId);
 		return status.get().getStatus();
+	}
+
+	public String getDueStatus(String dDate) {
+
+		String dueStatus = "";
+		String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+		try {
+			
+			String comparedDate = CompareDates.compareDates(currentDate, dDate);
+
+			if (comparedDate.equals("after")) {
+				dueStatus = "Overdue";
+			} else if (comparedDate.equals("before")) {
+				dueStatus = "DueSoon";
+			} else if (comparedDate.equals("equal")) {
+				dueStatus = "DueToday";
+			} else {
+				dueStatus = "Pending";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			dueStatus = "NoStatus";
+		}
+
+		return dueStatus;
 	}
 
 	public WorkAttachmentSourceDestinationDTO getWorkAttachmentLanguagesForSourceAndDestination(String workOrderId) {
@@ -74,13 +106,15 @@ public class FreelancerComponentModel {
 
 		try {
 			deliveryAttachments = attachmentService
-					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 3); // 3 is the Size of list of
+					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 3); // 3 is the Size of
+																									// list of
 																									// languages to
 																									// display
 		} catch (Exception ex) {
-			System.out.println("Exception in Freelancer Controller: "+ex.getMessage());
+			System.out.println("Exception in Freelancer Controller: " + ex.getMessage());
 			deliveryAttachments = attachmentService
-					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 1); // 1 is the Size of list of
+					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 1); // 1 is the Size of
+																									// list of
 																									// languages to
 																									// display
 		}
@@ -98,9 +132,9 @@ public class FreelancerComponentModel {
 
 		return workOrderLanguage;
 	}
-	
-	
-	public WorkAttachmentSourceDestinationDTO getWorkAttachmentLanguagesForSourceAndDestination(String workOrderId, int size) {
+
+	public WorkAttachmentSourceDestinationDTO getWorkAttachmentLanguagesForSourceAndDestination(String workOrderId,
+			int size) {
 
 		WorkAttachmentSourceDestinationDTO workOrderLanguage = new WorkAttachmentSourceDestinationDTO();
 
@@ -110,13 +144,15 @@ public class FreelancerComponentModel {
 
 		try {
 			deliveryAttachments = attachmentService
-					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), size); // 3 is the Size of list of
-																									// languages to
-																									// display
+					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), size); // 3 is the Size
+																										// of list of
+																										// languages to
+																										// display
 		} catch (Exception ex) {
-			System.out.println("Exception in Freelancer Controller: "+ex.getMessage());
+			System.out.println("Exception in Freelancer Controller: " + ex.getMessage());
 			deliveryAttachments = attachmentService
-					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 1); // 1 is the Size of list of
+					.findWorkOrderAttachmentByWorkOrderWithLimit(opWorkOrder.get().getWorkId(), 1); // 1 is the Size of
+																									// list of
 																									// languages to
 																									// display
 		}
@@ -134,7 +170,5 @@ public class FreelancerComponentModel {
 
 		return workOrderLanguage;
 	}
-	
-	
 
 }

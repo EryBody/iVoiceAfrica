@@ -59,7 +59,7 @@ public class SecurityConfig  {
 					"/freelancer-signup","/freelancer-profile-setup","/freelancer-profile-2",
 					"/freelancer-profile-3","/freelancer-profile-4","/freelancer/signup/save",
 					"/freelancer/detail/save", "/freelancer/skill/save","/freelancer/profilepicture/save",
-					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save").permitAll()
+					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save","/get-environment-profile").permitAll()
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()

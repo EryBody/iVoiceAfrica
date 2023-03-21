@@ -98,7 +98,8 @@
 
 
 					<div th:each="proposal : ${userProposal}">
-						<a th:href="@{/freelancer-jobs-details/{workOrderId}/{proposalId}(workOrderId=${proposal.workOrder.workId}, proposalId=${proposal.proposalId})}">
+						
+						<a th:if="${proposal.proposalStatus.proposalStatusId == 9}" th:href="@{/freelancer-jobs-details/{workOrderId}/{proposalId}(workOrderId=${proposal.workOrder.workId}, proposalId=${proposal.proposalId})}" >
 							<div class="mt-4">
 								<div class="job-alerts">
 									<div class="job-alerts-card-body my-3">

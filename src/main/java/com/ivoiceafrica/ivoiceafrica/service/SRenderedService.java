@@ -25,4 +25,6 @@ public interface SRenderedService {
 	List<ServiceRendered> findServiceRenderedListByUser(User user);
 	
 	List<ServiceRendered> findServiceRenderedListByServiceType(ServiceType serviceType);
+	
+	List<ServiceRendered> findServiceRenderedListByUserAndServiceType(User user, ServiceType type);
 }

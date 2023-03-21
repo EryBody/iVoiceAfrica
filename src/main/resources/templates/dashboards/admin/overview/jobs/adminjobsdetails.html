@@ -147,8 +147,10 @@
 
 								<div>
 									<p class="details-title">Freelancer ID</p>
-									<a th:href="@{/freelancer-details/{id}/{user}(id=${workDeliveryDetail.workOrder.workId}, user=${workDeliveryDetail.user.username})}"><span class="green"
-										th:text="|${workDeliveryDetail.user.firstName} ${workDeliveryDetail.user?.lastName}|" >-</span></a>
+									<a
+										th:href="@{/freelancer-details/{id}/{user}(id=${workDeliveryDetail.workOrder.workId}, user=${workDeliveryDetail.user.username})}"><span
+										class="green"
+										th:text="|${workDeliveryDetail.user.firstName} ${workDeliveryDetail.user?.lastName}|">-</span></a>
 								</div>
 
 								<div>
@@ -226,7 +228,7 @@
 
 										<div th:each="attachment : ${workAttachments}">
 
-											<input type="text" th:value="${attachment.attachId}"
+											<input type="hidden" th:value="${attachment.attachId}"
 												name="workAttachmentId" />
 
 											<div class="attachemnt-flex">
@@ -236,7 +238,9 @@
 													<p>File</p>
 												</span> <input type="text" th:value="${attachment.linkMediaFile}" />
 
-												<a th:href="@{|/files/download?id=${attachment.linkMediaFile}|}"><button type="button" class="btn btn-outline-secondary mx-3">Download</button></a>
+												<a
+													th:href="@{|/files/download?id=${attachment.linkMediaFile}|}"><button
+														type="button" class="btn btn-outline-secondary mx-3">Download</button></a>
 
 											</div>
 
@@ -263,13 +267,14 @@
 												</span> <input type="text" th:value="${attachment.pageCount} ?: ''"
 													name="pageCount" />
 											</div>
-											
-											<div class="attachemnt-flex" th:if="${workOrderInfoDetails.serviceType.typeId == 'ST103'} ">
+
+											<div class="attachemnt-flex"
+												th:if="${workOrderInfoDetails.serviceType.typeId == 'ST103'} ">
 												<span>
 													<p>Timer</p>
 													<p>count</p>
-												</span> <input type="text" th:value="${attachment.timerCount} ?: ''"
-													name="timerCount" />
+												</span> <input type="text"
+													th:value="${attachment.timerCount} ?: ''" name="timerCount" />
 											</div>
 
 											<hr class="text-secondary">
@@ -323,21 +328,30 @@
 								</div>
 								<div class="info">
 									<span class="info-title">Transaction ID</span>
-									<p class="green">00032356679849</p>
+									<p class="green" th:text="${workFreelancerPayment?.transId}">00032356679849</p>
 								</div>
 								<div class="info">
-									<span class="info-title">Rate</span>
-									<p>$5 per word</p>
+									<span class="info-title">Currency</span>
+									<p th:text="${workFreelancerPayment?.currency}"></p>
 								</div>
 								<div class="info">
 									<span class="info-title">Total Amount</span>
-									<p>$5,000</p> 
+									<p>$ <span th:text="${workFreelancerPayment?.amount}"></span></p>
 								</div>
 								<div class="info">
 									<span class="info-title">Status</span>
-									<p>In Escrow</p>
+									<p th:text="${workFreelancerPayment?.paymentStatus?.status}">In Escrow</p>
+								</div>
+								<div class="info">
+									<span class="info-title">Payment Gateway</span>
+									<p th:text="${workFreelancerPayment?.paymentGateway}"></p>
+								</div>
+								<div class="info">
+									<span class="info-title">Payment Date</span>
+									<p th:text="${workFreelancerPayment?.entryDate}"></p>
 								</div>
 							</div>
+							
 						</div>
 
 
@@ -347,10 +361,11 @@
 								<h2>Submissions</h2>
 							</div>
 
-							 <form th:action="@{/sendFinishedJob}" th:object="${jobStatusDTO}"
-								method="post"> 
 
-								<div class="works">
+
+							<div class="works">
+								<form th:action="@{/sendFinishedJob}"
+									th:object="${jobStatusDTO}" method="post">
 									<p class="service">
 										Service type: <span
 											th:text="${workOrderInfoDetails.serviceType.typeName}">>
@@ -382,7 +397,9 @@
 													th:text="${deliveryAttachment.workOrderDelivery.completedDate}">hours
 														ago</span></span>
 											</div>
-											<a th:href="@{|/files/download?id=${deliveryAttachment.linkMediaFile}|}" ><button type="button" class="download-btn">Download</button></a>
+											<a
+												th:href="@{|/files/download?id=${deliveryAttachment.linkMediaFile}|}"><button
+													type="button" class="download-btn">Download</button></a>
 										</div>
 									</div>
 
@@ -394,58 +411,86 @@
 
 									<div class="works-cta">
 
-										 <div >
-											 <a th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail?.deliveryId})}"><button type="button" class="review-btn">Review</button></a>
-										</div> 
-										
-										<button type="submit" class="fward-btn">Send Finished Job</button>
+										<a
+											th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail?.deliveryId})}"><button
+												type="button" class="review-btn"
+												th:disabled="${workOrderInfoDetails.workOrderStatus.status != 2}">Review</button></a>
+
+										<button type="submit" class="fward-btn"
+											th:disabled="${workOrderInfoDetails.workOrderStatus.status != 2}">Send
+											Finished Job</button>
+
 									</div>
 
-									<div>
-										<div class="info-header mt">
-											<h2>Forward to Freelancer</h2>
+								</form>
+
+								<div>
+									<div class="info-header mt">
+										<h2>Forward to Freelancer</h2>
+									</div>
+
+									<div class="row ml-2 mt-2">
+										<div class="col-md-3">
+											<form class="form-inline"
+												th:action="@{/search-for-freelancer}"
+												th:object="${searchFreelancerDTO}" method="post">
+
+												<input type="hidden" name="workId"
+													id="workId"
+													th:value="${workOrderInfoDetails.workId}" />
+
+												<div class="form-group">
+													<label for="username mx-0">Search For Freelancer</label> <input
+														type="text" name="username" id="username"
+														placeholder="Search..." />
+												</div>
+
+												<button type="submit" class="btn btn-dark btn-lg mt-2">Search</button>
+											</form>
 										</div>
 
-										<div class="util-cta-table my-5">
-											<table id="cta-table">
-												<thead>
-													<tr>
-														<th>S/N</th>
-														<th>Email</th>
-														<th>Username</th>
-														<th>Service Type</th>
-														<th>Experience(Year(s))</th>
-														<th>Send Request</th>
-														<th>Portfolio</th>
-														
-													</tr>
-												</thead>
-												<tbody>
-													<tr th:each="temp, iStat : ${serviceRenderedList}">
+									</div>
 
-														<td th:text="${iStat.index+1}">00032356679849</td>
-														<td th:text="${temp.user.username}"></td>
-														<td class=""
-															th:text="|${temp.user.firstName} ${temp.user.lastName}|">00032356679849</td>
-														<td th:text="${temp.serviceType.typeName}">Translation</td>
-														<td th:text="${temp.experienceInYears}">In progress</td>
-														<td><a onclick="sendProposal(this)"
-															th:attr="data-fuserId=${temp.user.username}, data-workId=${workOrderInfoDetails.workId}, data-status='12', data-message='Job Forwarded to client', data-user=${session.userId}, data-deliveryId=${workDeliveryDetail == null} ? '' : ${workDeliveryDetail.deliveryId}"><button
-																	type="button" class="btn btn-outline-secondary">Send</button></a>
-														</td>
-														<td class="id"><span class="portfolio-link"> <a
-																th:text="${temp.otherInfo}" target="_blank"
-																style="color: inherit">Portfolio</a> <img
-																src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
-														</span></td>
-														
-													</tr>
-												</tbody>
-											</table>
-										</div>
+									<div class="util-cta-table my-5">
+										<table id="cta-table">
+											<thead>
+												<tr>
+													<th>S/N</th>
+													<th>Email</th>
+													<th>Username</th>
+													<th>Service Type</th>
+													<th>Experience(Year(s))</th>
+													<th>Send Request</th>
+													<th>Portfolio</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="temp, iStat : ${serviceRenderedList}">
+
+													<td th:text="${iStat.index+1}">00032356679849</td>
+													<td th:text="${temp.user.username}"></td>
+													<td class=""
+														th:text="|${temp.user.firstName} ${temp.user.lastName}|">00032356679849</td>
+													<td th:text="${temp.serviceType.typeName}">Translation</td>
+													<td th:text="${temp.experienceInYears}">In progress</td>
+													<td><a onclick="sendProposal(this)"
+														th:attr="data-fuserId=${temp.user.username}, data-workId=${workOrderInfoDetails.workId}, data-status='12', data-message='Job Forwarded to client', data-user=${session.userId}, data-deliveryId=${workDeliveryDetail == null} ? '' : ${workDeliveryDetail.deliveryId}"><button
+																type="button" class="btn btn-outline-secondary">Send</button></a>
+													</td>
+													<td class="id"><span class="portfolio-link"> <a
+															th:text="${temp.otherInfo}" target="_blank"
+															style="color: inherit">Portfolio</a> <img
+															src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
+													</span></td>
+
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
-							</form>
+							</div>
+
 
 							<div>
 								<div class="info-header">
@@ -466,8 +511,8 @@
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		
-	<script th:inline="javascript">	
+
+	<script th:inline="javascript">
 		function sendProposal(param) {
 			var freelancerUserId = param.getAttribute("data-fuserId");
 			var workId = param.getAttribute("data-workId");
@@ -478,7 +523,7 @@
 
 			/* alert(freelancerUserId + " " + workId + " " + status + " "
 					+ message + " " + user + " " + deliveryId); */
-			
+
 			var action = "/sendJobProposal";
 
 			$.ajax({
@@ -489,7 +534,7 @@
 					workId : workId,
 					status : status,
 					message : message,
-					user: user,
+					user : user,
 					deliveryId : deliveryId
 				},
 				success : function(data) {

@@ -120,15 +120,30 @@
 									</span>
 
 								</div>
-								<div>
-									<button class="red-jobs-btn"
-										th:if="${delivery.deliveryStatus.status == 5}">
+								<div
+									th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
+									<button class="red-jobs-btn" th:case="'Overdue'">
 										<span>Overdue</span>
 									</button>
-									<button class="red-jobs-btn yel-jobs-btn"
-										th:unless="${delivery.deliveryStatus.status == 9}">
-										<span>Duesoon</span>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-warning"
+										th:case="'DueSoon'">
+										<span>Due Soon</span>
 									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-success"
+										th:case="'DueToday'">
+										<span>Due Today</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-info"
+										th:case="'Pending'">
+										<span>Pending</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-dark"
+										th:case="'NoStatus'">
+										<span>No Status</span>
 								</div>
 							</div>
 

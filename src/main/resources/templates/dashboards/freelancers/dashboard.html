@@ -85,7 +85,7 @@
 							</div>
 							<div class="fl__ratings griddy">
 								<div class="mr-4 p-2">
-									<span>0</span>
+									<span th:text="${workfreelancerPaymentsSize}">0</span>
 									<p>Projects</p>
 								</div>
 								<!-- <div class="mr-4">
@@ -93,7 +93,7 @@
 									<p>Rating</p>
 								</div> -->
 								<div class="ml-5 p-2">
-									<span>$ 0</span>
+									<span>$ <span th:text="${totalEarning}"></span></span>
 									<p>Total Earnings</p>
 								</div>
 							</div>
@@ -114,22 +114,26 @@
 							</div>
 							<div class="job__earnings">
 								<div class="job__amt">
-									<span> $ 0 </span>
+									<span> $ <span th:text="${totalWithdrawn}"> </span>
 									<p>Withdrawn</p>
 								</div>
 								<div class="job__amt">
-									<span> $ 0 </span>
+									<span> $ <span th:text="${totalEscrow}"> </span>
 									<p>In Escrow</p>
 								</div>
 								<div class="job__amt">
-									<span> $ 0 </span>
-									<p>Credited</p>
+									<span> $ <span th:text="${inAccount}"> </span>
+									<p>In Account</p>
 								</div>
 							</div>
-							<p>view details</p>
+							<a th:href="@{/freelancer-finances}"><p>view details</p></a>
 						</div>
 					</div>
 				</div>
+				
+				
+				
+				
 				<div class="fl_overview-left">
 					<div class="fl__jobs">
 						<div class="fl__jobs--header">
@@ -173,14 +177,32 @@
 									</button>
 								</div>
 
+								<div th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
 								<button class="red-jobs-btn"
-									th:if="${delivery.deliveryStatus.status == 5}">
+									th:case="'Overdue'"> 
 									<span>Overdue</span>
 								</button>
-								<button class="red-jobs-btn yel-jobs-btn"
-									th:unless="${delivery.deliveryStatus.status == 9}">
-									<span>Duesoon</span>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-warning"
+									th:case="'DueSoon'">
+									<span>Due Soon</span>
 								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-success"
+									th:case="'DueToday'">
+									<span>Due Today</span>
+								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-info"
+									th:case="'Pending'">
+									<span>Pending</span>
+								</button>
+								
+								<button class="red-jobs-btn yel-jobs-btn bg-dark"
+									th:case="'NoStatus'">
+									<span>No Status</span>
+								</button>
+								</div>
 							</div>
 							<span class="job__name" th:text="${delivery.workOrder.workTitle}">
 								Translate Physics textbook from English Language to French </span>

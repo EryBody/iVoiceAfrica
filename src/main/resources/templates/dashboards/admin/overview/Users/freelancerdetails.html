@@ -52,7 +52,7 @@
 					<div class="profile-c">
 						<div class="arrow-back-II">
 							<a
-								th:href="@{/client/bidsdetails/{id}(id=${workOrderDetails?.workId})}">
+								th:href="@{/job-details/{workId}/{workOrderStatus}(workId=${workOrderDetails?.workId}, workOrderStatus=${workOrderDetails?.workOrderStatus.status})}">
 								<img src="../../assets/icons/arrow_back_link.svg"
 								alt="arrow_back_link" />
 							</a>

@@ -5,7 +5,6 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <title>Client Finances</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
@@ -102,6 +101,16 @@
 								<div><span class="bidsforjob" th:text="${@ClientComponentModel.getFreelancersForBids(workOrder.workId)}">7 </span> <span class="bidsforjob">  Freelancers</span></div>
 							</a>
 						</div>
+						
+						<!-- This is applicable when there are no more bids -->
+						<!-- <div class="job-alerts" th:if="${workOrder.workOrderStatus.status != 'bidding'}">
+							<a href="#" class="job-alerts-card-body">
+								<div class="mb-2"></div>
+								<h2 class="job-alert-card-body-title mb-1 clientbidstitle" >
+									No Bids at this Time</h2>
+								
+							</a>
+						</div> -->
 					</div>
 				</div>
 			</div>

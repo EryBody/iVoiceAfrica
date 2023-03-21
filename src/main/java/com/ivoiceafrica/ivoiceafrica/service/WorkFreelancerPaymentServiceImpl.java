@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkEscrowTransaction;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.repository.WorkEscrowTransactionRepository;
 import com.ivoiceafrica.ivoiceafrica.repository.WorkFreelancerPaymentRepository;
 
@@ -56,6 +57,16 @@ public class WorkFreelancerPaymentServiceImpl implements WorkFreelancerPaymentSe
 	@Override
 	public int updateWorkFreelancerPaymentStatus(int paymentStatusId, String workId) {
 		return workFreelancerPaymentRepository.updateWorkFreelancerPaymentStatus(paymentStatusId, workId);
+	}
+
+	@Override
+	public Optional<WorkFreelancerPayment> findWorkFreelancerPaymentByfreelancerId(String freelancerId) {
+		return workFreelancerPaymentRepository.findWorkFreelancerPaymentByfreelancerId(freelancerId);
+	}
+
+	@Override
+	public Optional<WorkFreelancerPayment> findWorkFreelancerPaymentByworkOrder(WorkOrder workOrder) {
+		return workFreelancerPaymentRepository.findWorkFreelancerPaymentByworkOrder(workOrder);
 	}
 	
 }

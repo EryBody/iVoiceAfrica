@@ -70,12 +70,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		
 		Optional<User> result = userRepository.findFirstUserByUsername(username);
 		
-		if(result.isPresent()) {
-			return result;
-		}else {
-			//we didn't fing the Role
-			throw new RuntimeException("Did not find employee id - "+username);
-		}
+		return result;
 	}
 	
 	public int updateUserStatus(int userStatus, int userId){
