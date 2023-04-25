@@ -76,4 +76,14 @@ public class FreelancerPricingServiceImpl implements FreelancerPricingService {
 		return pricings;
 	}
 
+	@Override
+	public Optional<FreelancerServicePricing> findFreelancerServicePricingByServiceTypePricingAndUser(
+			ServiceTypePricing serviceTypePricing, User user) {
+		
+		Optional<FreelancerServicePricing> result = pricingRepository
+				.findFreelancerServicePricingByServiceTypePricingAndUser(serviceTypePricing , user);
+		
+		return result;
+	}
+
 }

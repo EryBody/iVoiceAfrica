@@ -108,7 +108,7 @@
 									<div class="mr-3 d-flex">
 										<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
 											th:text="${opWorkOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
-											th:text="${opWorkOrder.maxAmount}">30</span> <span>&nbsp;
+											th:text="${opWorkOrder.maxAmount}">30</span> &nbsp; <span th:text="${@ClientComponentModel.workRateSelection(opWorkOrder.workRate)}">
 											per page</span>
 									</div>
 									<div class="mr-3 d-flex">
@@ -256,9 +256,21 @@
 					</div>
 				</div>
 
-				<div>
+				<div th:switch="${workOrderStatus.workOrderStatus.woStatusId}">
 				
-				<div class="mt-3" th:if="${workOrderStatus.workOrderStatus.woStatusId == 2}">
+				<div class="mt-3" th:case="9">
+					<div class="activejob-uploads-area">
+						<div class="upload-start">
+							<span>Hey there, job has been marked as finished by admin</span>
+							<p>
+								You can always bid for a new job
+							</p>
+							<a th:href="@{/freelancer-active-jobs}"><button class="uploadbtn" type="button">close</button></a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mt-3" th:case="2">
 					<div class="activejob-uploads-area">
 						<div class="upload-start">
 							<span>Hey there, job has been submitted successfully</span>
@@ -270,8 +282,7 @@
 					</div>
 				</div>
 
-
-				<div class="mt-3"   th:if="${workOrderStatus.workOrderStatus.woStatusId != 2}">
+				<div class="mt-3" th:case="*">
 					<form th:action="@{/save-freelancer-jobs}"
 						th:object="${saveClientJobsDTO}" method="post"
 						enctype="multipart/form-data">

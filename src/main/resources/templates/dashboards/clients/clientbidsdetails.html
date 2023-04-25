@@ -75,13 +75,8 @@
 			<div class="main__contentbox mt-3 details-box-cl">
 				<div>
 					<div class="job-alerts mb-3">
-						<div class="arrow-back">
-							<a th:href="@{/client/job/bids}"> <img
-								src="../../assets/icons/arrow_back_link.svg"
-								alt="arrow_back_link" />
-							</a>
-						</div>
-						<div href="clientrequestdetails.html" class="job-alerts-card-body">
+						
+						<div class="job-alerts-card-body">
 							<div class="my-4">
 								<div class="griddy">
 									<span class="mr-3 job-alerts-voiceover">
@@ -104,7 +99,7 @@
 
 										<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
 											th:text="${workOrderDetails?.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
-											th:text="${workOrderDetails?.maxAmount}">30</span> <span>&nbsp;
+											th:text="${workOrderDetails?.maxAmount}">30</span>  &nbsp; <span th:text="${@ClientComponentModel.workRateSelection(workOrderDetails?.workRate)}">
 											per page</span></span>
 									</div>
 									<div class="mr-3 d-flex">

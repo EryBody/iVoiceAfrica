@@ -51,5 +51,10 @@ public interface DeliveryService {
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdOrderByCreatedDateDesc(int clientUserId);
 	
 	public int updateworkDeliveryAmount(double amount,String deliveryId);
+	
+	Optional<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrder(User user, WorkOrder workOrder);
+	
+	public int updateCompletedDate(String completedDate,String deliveryId);
+	
 
 }

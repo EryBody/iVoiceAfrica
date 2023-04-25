@@ -1,11 +1,13 @@
 package com.ivoiceafrica.ivoiceafrica.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposals;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
@@ -86,7 +88,17 @@ public class SRenderedServiceImpl implements SRenderedService {
 	public List<ServiceRendered> findServiceRenderedListByUserAndServiceType(User user, ServiceType type) {
 		return serviceRenderedRepository.findServiceRenderedListByUserAndServiceType(user, type);
 	}
-	
-	
-	
+
+	@Override
+	public Optional<ServiceRendered> findServiceRenderedByUserAndServiceType(User user, ServiceType type) {
+		Optional<ServiceRendered> result = serviceRenderedRepository.findServiceRenderedByUserAndServiceType(user, type);
+		return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> findFreelancerDetailsForWorks(String serviceTypeId, double freelancerMinPrice,
+			double freelancerMaxPrice) {
+		return serviceRenderedRepository.findFreelancerDetailsForWorks(serviceTypeId, freelancerMinPrice, freelancerMaxPrice);
+	}
+
 }

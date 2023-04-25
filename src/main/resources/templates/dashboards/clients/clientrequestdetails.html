@@ -9,11 +9,8 @@
 <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
- <link
-       rel="shortcut icon"
-       href="../../assets/icons/fav.png"
-       type="image/x-icon"
-     />
+<link rel="shortcut icon" href="../../assets/icons/fav.png"
+	type="image/x-icon" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -77,6 +74,7 @@
 
 			<!-- job alerts area start -->
 			<div class="mt-3 main__contentbox">
+
 				<div class="mt-4 d-flex cl-details-box align-items-start">
 					<div class="w-75">
 						<div class="job-alerts mb-3">
@@ -86,6 +84,11 @@
 									alt="arrow_back_link" />
 								</a>
 							</div>
+
+							<!-- display details of controller -->
+							<p th:text="${message}" th:if="${message ne null}"
+								class="alert alert-primary mt-3"></p>
+
 							<div class="job-alerts-card-body">
 								<div class="my-4">
 									<div class="griddy">
@@ -108,7 +111,8 @@
 										<div class="mr-3 d-flex">
 											<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
 												th:text="${workOrderDetails?.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
-												th:text="${workOrderDetails?.maxAmount}">30</span> <span>&nbsp;
+												th:text="${workOrderDetails?.maxAmount}">30</span> &nbsp; <span
+												th:text="${@ClientComponentModel.workRateSelection(workOrderDetails?.workRate)}">
 												per page</span></span>
 										</div>
 										<div class="mr-3 d-flex">
@@ -129,6 +133,20 @@
 										<p>
 											Posted on <span th:text="${workOrderDetails?.postingDate}"></span>
 										</p>
+									</div>
+									<div class="mt-3"
+										th:switch="${@ClientComponentModel.checkClientWordOrderPayment(session.user.userId, workOrderDetails?.workId)}">
+										<!-- This section means the customer has paid -->
+										<span th:case="'paid'">
+											<!-- <p>paid</p> -->
+										</span> 
+										
+										<span th:case="'not-paid'" th:if="${@ClientComponentModel.getLastProposalUser(workOrderDetails?.workId) != 0}"> <a
+											th:href="@{/client-profile-overview/{id}/{userId}(id=${workOrderDetails?.workId}, userId=${@ClientComponentModel.getLastProposalUser(workOrderDetails?.workId)})}"><button
+													type="button" class="btn btn-dark btn-lg">Pay for
+													work order</button></a>
+										</span>
+
 									</div>
 								</div>
 							</div>
@@ -217,8 +235,9 @@
 											to <span
 												th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttach.destination)}}"></span>
 										</p>
-										<p>Uploaded <span th:text="${tempAttach.workOrder.postingDate}">
-											3 Hours ago</span>
+										<p>
+											Uploaded <span th:text="${tempAttach.workOrder.postingDate}">
+												3 Hours ago</span>
 										</p>
 									</div>
 								</div>
@@ -230,7 +249,20 @@
 								<!-- <button class="logoutBtn margin-l">Cancel Request</button> -->
 								<a th:href="@{/client/requests/all}"><button type="button"
 										class="uploadbtn ml-4 clientrequesteditBtn">Back</button></a>
+
+
+								<!-- th:if="${workOrderDetails.workOrderStatus.status == 'bidding'}" -->
+								<span
+									th:if="${@ClientComponentModel.getProposalStatusFromWorkOrder(workOrderDetails.workId) == false}"><a
+									th:href="@{/client/bids-client-details/{id}(id=${workOrderDetails.workId})}"><button
+											type="button"
+											class="uploadbtn ml-4 clientrequesteditBtn bg-dark">
+											Send Bids (<span
+												th:text="${@ClientComponentModel.getFreelancerCount(workOrderDetails.workId)}"></span>)
+										</button></a></span>
 							</div>
+
+
 						</div>
 					</div>
 
@@ -238,15 +270,17 @@
 						<div class="job-status-heading">
 							<span>Job Status</span>
 						</div>
-						
+
 						<div th:each="jobStatusOb, iStat : ${jobStatuses}">
 							<div class="job-status-progress">
-								<div th:attr="class=${@ClientComponentModel.checkCurrentJobStatus(workOrderDetails.workId).equals(jobStatusOb.jobStatusName) ? 'circle circle-completed' : 'circle'}" th:text="${iStat.index+1}">1</div>
+								<div
+									th:attr="class=${@ClientComponentModel.checkCurrentJobStatus(workOrderDetails.workId).equals(jobStatusOb.jobStatusName) ? 'circle circle-completed' : 'circle'}"
+									th:text="${iStat.index+1}">1</div>
 								<span th:text="${jobStatusOb.jobStatusName}">Post job</span>
 							</div>
-							
+
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

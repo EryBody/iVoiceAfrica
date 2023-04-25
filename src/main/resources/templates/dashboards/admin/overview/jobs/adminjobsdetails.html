@@ -124,7 +124,9 @@
 									<p class="details-title">Budget</p>
 									<span>$ <span
 										th:text="${workOrderInfoDetails.minAmount}">7</span> - $ <span
-										th:text="${workOrderInfoDetails.maxAmount}">10</span> per word
+										th:text="${workOrderInfoDetails.maxAmount}">10</span> <span
+											th:text="${@ClientComponentModel.workRateSelection(workOrderInfoDetails.workRate)}">
+											per page</span>
 									</span>
 								</div>
 								<div>
@@ -254,7 +256,7 @@
 													th:value="${@ClientComponentModel.translateIdToLanguage(attachment.destination)}" />
 											</div>
 
-											<div class="attachemnt-flex">
+											<!-- <div class="attachemnt-flex">
 												<span><p>Word</p>
 													<p>count</p> </span> <input type="text"
 													th:value="${attachment.wordCount } ?: ''" name="workCount" />
@@ -275,14 +277,14 @@
 													<p>count</p>
 												</span> <input type="text"
 													th:value="${attachment.timerCount} ?: ''" name="timerCount" />
-											</div>
+											</div> -->
 
 											<hr class="text-secondary">
 										</div>
 
-										<button type="submit"
+										<!-- <button type="submit"
 											class="btn btn-outline-secondary btn-lg btn-block ">Save
-											Count(s)</button>
+											Count(s)</button> -->
 
 									</form>
 								</div>
@@ -336,11 +338,14 @@
 								</div>
 								<div class="info">
 									<span class="info-title">Total Amount</span>
-									<p>$ <span th:text="${workFreelancerPayment?.amount}"></span></p>
+									<p>
+										$ <span th:text="${workFreelancerPayment?.amount}"></span>
+									</p>
 								</div>
 								<div class="info">
 									<span class="info-title">Status</span>
-									<p th:text="${workFreelancerPayment?.paymentStatus?.status}">In Escrow</p>
+									<p th:text="${workFreelancerPayment?.paymentStatus?.status}">In
+										Escrow</p>
 								</div>
 								<div class="info">
 									<span class="info-title">Payment Gateway</span>
@@ -351,7 +356,7 @@
 									<p th:text="${workFreelancerPayment?.entryDate}"></p>
 								</div>
 							</div>
-							
+
 						</div>
 
 
@@ -411,20 +416,23 @@
 
 									<div class="works-cta">
 
+										<!-- th:disabled="${workOrderInfoDetails.workOrderStatus.statusId != 2}" -->
 										<a
 											th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail?.deliveryId})}"><button
-												type="button" class="review-btn"
-												th:disabled="${workOrderInfoDetails.workOrderStatus.status != 2}">Review</button></a>
+												type="button" class="review-btn">Review</button></a>
 
-										<button type="submit" class="fward-btn"
-											th:disabled="${workOrderInfoDetails.workOrderStatus.status != 2}">Send
+										<!-- th:disabled="${workOrderInfoDetails.workOrderStatus.statusId != 2}" -->
+										<button type="submit" class="fward-btn">Send
 											Finished Job</button>
+
+
 
 									</div>
 
 								</form>
 
-								<div>
+								<!-- Freelancer Request for Job and Search Section -->
+								<!-- <div>
 									<div class="info-header mt">
 										<h2>Forward to Freelancer</h2>
 									</div>
@@ -448,8 +456,8 @@
 												<button type="submit" class="btn btn-dark btn-lg mt-2">Search</button>
 											</form>
 										</div>
-
 									</div>
+
 
 									<div class="util-cta-table my-5">
 										<table id="cta-table">
@@ -462,7 +470,6 @@
 													<th>Experience(Year(s))</th>
 													<th>Send Request</th>
 													<th>Portfolio</th>
-
 												</tr>
 											</thead>
 											<tbody>
@@ -488,11 +495,12 @@
 											</tbody>
 										</table>
 									</div>
-								</div>
+								</div> -->
 							</div>
 
 
-							<div>
+							<!-- Reviews section -->
+							<!-- <div>
 								<div class="info-header">
 									<h2>Client</h2>
 								</div>
@@ -500,7 +508,7 @@
 									<h1>No feedback received yet</h1>
 									<p>When the client gives feedback, they would appear here.</p>
 								</div>
-							</div>
+							</div> -->
 
 						</div>
 					</div>

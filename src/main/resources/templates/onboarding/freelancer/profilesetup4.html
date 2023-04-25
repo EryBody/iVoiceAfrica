@@ -28,11 +28,10 @@
 		</div>
 
 		<form th:action="@{/freelancer/profilepicture/save}"
-			th:object="${FreelancerProfilePictureDetailDTO}"
-			method="post"
+			th:object="${FreelancerProfilePictureDetailDTO}" method="post"
 			enctype="multipart/form-data">
-			
-			
+
+
 
 			<div class="form multistep" id="client-form">
 				<div class="profile__overview">
@@ -42,13 +41,12 @@
 						<div class="profile__sbox">
 							<p>Profile Picture</p>
 							<img src="../../assets/images/profiledemo.svg"
-								alt="default profile picture" id="img_pro" /> 
-								
-								<label for="img_profile"> Add+ </label>
-								
-								<input type="file" name="profilePicture" th:field="*{profilePicture}"
-								id="img_profile" style="display: none" accept="image/png, image/jpeg" onchange="img_pathUrl(this)"/>
-								
+								alt="default profile picture" id="img_pro" /> <label
+								for="img_profile"> Add+ </label> <input type="file"
+								name="profilePicture" th:field="*{profilePicture}"
+								id="img_profile" style="display: none"
+								accept="image/png, image/jpeg" onchange="img_pathUrl(this)" />
+
 						</div>
 						<div class="row text-center">
 							<div class="w-100">
@@ -61,7 +59,9 @@
 				</div>
 
 				<div class="services-offer-btn">
-					<p><a th:href="@{/index}">Do this later</a></p>
+					<p>
+						<a th:href="@{/index}">Home</a>
+					</p>
 					<div class="onboarding-cta">
 						<a class="btn-mini-trans" th:href="@{/freelancer-profile-2}">Back</a>
 
@@ -76,31 +76,44 @@
 				  >
 					Finish
 				  </button> -->
-				  
+
 					</div>
 				</div>
 			</div>
 		</form>
 	</section>
-	<div class="modal fade" id="myModal-3">
+
+	<div class="modal fade" id="myModal-4" th:if="${message ne null}">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="success">
 					<div class="success-container">
 						<h2 class="my-2">All good!</h2>
-						<p>
-							Your profile has successfully been created! A message for <br />
-							the clients.
-						</p>
+						<p th:text="${message}">Your profile has successfully been
+							created!</p>
 						<img src="../../assets/images/Frame 79.png" alt="successicon"
-							class="success-icon" /> <a th:href="@{/signin}"
-							class="success-button button">Start</a>
+							class="success-icon" />
+
+						<button onclick="dismiss();"
+							class="success-button button text-white">Continue</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#myModal-4').modal('show');
+		});
+
+		function dismiss() {
+			$('#myModal-4').modal('hide');
+		}
+	</script>
+
 </body>
 </html>

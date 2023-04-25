@@ -45,4 +45,17 @@ public interface ProposalRepository extends JpaRepository<Proposal, String> {
 	@Query(value = "UPDATE proposals p set p.proposal_status_id = :proposalStatusId where p.work_id = :workId", nativeQuery = true)
 	public int updateProposalByWorkOrderId(@Param("proposalStatusId")int proposalStatusId, @Param("workId")String workId);
 	
+	
+	@Query(value = "select * from proposals p where p.user_id = :userId AND p.proposal_status_id = :propsalStatusId order by created_date desc LIMIT 1", nativeQuery = true)
+	public Proposal findProposalByUserAndStatusOrderByCreatedDescWithLimit(@Param("userId")int userId, @Param("propsalStatusId")int propsalStatusId);
+
+	@Query(value = "select * from proposals p where p.user_id = :userId AND p.work_id = :workId order by created_date desc LIMIT 1", nativeQuery = true)
+	public Proposal checkLastStatusOfProposal(@Param("userId")int userId, @Param("workId") String workId);
+
+	@Query(value = "select * from proposals p where p.work_id = :workId order by created_date desc", nativeQuery = true)
+	public List<Proposal> findProposalByWorkOrder(@Param("workId") String workId);
+	
+	@Query(value = "select * from proposals p where p.work_id = :workId order by created_date desc LIMIT 1", nativeQuery = true)
+	public Proposal findProposalByWorkOrderId(@Param("workId") String workId);
+
 }

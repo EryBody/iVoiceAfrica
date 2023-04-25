@@ -141,4 +141,14 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return deliveryRepository.updateworkDeliveryAmount(amount, deliveryId);
 	}
 
+	@Override
+	public Optional<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrder(User user, WorkOrder workOrder) {
+		return deliveryRepository.findWorkOrdersDeliveryByUserAndWorkOrder(user, workOrder);
+	}
+
+	@Override
+	public int updateCompletedDate(String completedDate, String deliveryId) {
+		return deliveryRepository.updateCompletedDate(completedDate, deliveryId);
+	}
+
 }

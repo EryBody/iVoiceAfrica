@@ -56,13 +56,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	public Optional<User> findById(int theId) {
 		
 		Optional<User> result = userRepository.findById(theId);
-		
-		if(result.isPresent()) {
-			return result;
-		}else {
-			//we didn't fing the Role
-			throw new RuntimeException("Did not find employee id - "+theId);
-		}
+		return result;
 	}
 	
 	
@@ -127,6 +121,10 @@ public class CustomUserDetailService implements UserDetailsService {
 	
 	public int updateProfilePicture(String profilePicture, int userId) {
 		return userRepository.updateProfilePicture(profilePicture, userId);
+	}
+	
+	public User findUserDetailsByUsername(String username) {
+		return userRepository.findUserDetailsByUsername(username);
 	}
 	
 }

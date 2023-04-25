@@ -23,4 +23,10 @@ public interface WorkTransactionService {
 	List<WorkTransactions> findWorkTransactionsByUserOrderByEntryDateDesc(User user);
 
 	List<WorkTransactions> findWorkTransactionsByWorkOrderOrderByEntryDateDesc(WorkOrder workOrder);
+	
+	List<WorkTransactions> findWorkTransactionsByWorkOrderAndIsInFlowOrderByEntryDateDesc(WorkOrder workOrder, Boolean isInFlow);
+	
+	List<WorkTransactions> findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(User user, Boolean isInFlow);
+	
+	Optional<WorkTransactions> findLastWorkTransactions(int userId);
 }

@@ -12,8 +12,10 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -36,17 +38,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientPersonalDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientSignupDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposals;
 import com.ivoiceafrica.ivoiceafrica.DTO.JobStatusDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.NewClientRequestDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.UpdateProfilePictureDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.WorkOrderCalculationsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
+import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.DurationType;
@@ -60,6 +67,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
+import com.ivoiceafrica.ivoiceafrica.models.AudioTimer;
 import com.ivoiceafrica.ivoiceafrica.models.ClientUploadModel;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
@@ -137,7 +145,7 @@ public class ClientController {
 
 	@Autowired
 	DeliveryAttachmentService deliveryAttachmentService;
-	
+
 	@Autowired
 	WorkPaymentStatusService workPaymentStatusService;
 
@@ -146,6 +154,9 @@ public class ClientController {
 
 	@Autowired
 	WorkFreelancerPaymentService workFreelancerPaymentService;
+
+	@Autowired
+	ClientComponentModel clientComponentModel;
 
 	@GetMapping("/client-dashboard")
 	public String clientDashboard(Model model) {
@@ -288,7 +299,8 @@ public class ClientController {
 				System.out.println("===>>> updateWorkOrderStatus Inprogess: " + updateWorkOrderStatus);
 
 //				attributes.addFlashAttribute("message", "Great, your job has been sent successfully");
-				return "redirect:/select-payment-option/"+user.get().getUsername()+"/"+clientAmountDTO.getProposalId();
+				return "redirect:/select-payment-option/" + user.get().getUsername() + "/"
+						+ clientAmountDTO.getProposalId();
 
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -434,30 +446,28 @@ public class ClientController {
 
 	@GetMapping("/client/finance/all")
 	public String clientAllFinance(Model model) {
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> user = userService.findFirstUserByUsername(userId);
-		
+
 		List<WorkPayments> workPayments = workPaymentService.findWorkPaymentsByClientIdOrderByEntryDateDesc(user.get());
-		
+
 		double totalAmount = 0.0;
-		for(WorkPayments payment : workPayments) {
+		for (WorkPayments payment : workPayments) {
 			totalAmount += payment.getAmount();
 		}
-		
+
 		model.addAttribute("totalAmount", totalAmount);
-		model.addAttribute("workPayments",workPayments);
+		model.addAttribute("workPayments", workPayments);
 
 		return "dashboards/clients/clientfinance";
 	}
-
 
 	@PostMapping("/profile/save")
 	public String saveProfile(@ModelAttribute("ProfileDTO") ProfileDTO profileDTO, Model model) {
 
 		String redirectUrl = "";
-		
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
@@ -469,12 +479,11 @@ public class ClientController {
 		System.out.println("Update Status: " + updateUserInfoStatus);
 
 		model.addAttribute("userDetails", userDetails.get());
-		
-		
+
 		String userRole = (String) session.getAttribute("userRole");
-		if(userRole.equals("ROLE_CLIENT")) {
+		if (userRole.equals("ROLE_CLIENT")) {
 			redirectUrl = "redirect:/profile";
-		}else if(userRole.equals("ROLE_FREELANCER")) {
+		} else if (userRole.equals("ROLE_FREELANCER")) {
 			redirectUrl = "redirect:/freelancer-profile";
 		}
 
@@ -512,16 +521,15 @@ public class ClientController {
 
 		try {
 			Optional<WorkOrder> workOrder = workOrderService.findById(id);
-			System.out.println("===>>> workOrderDetails: "+workOrder.get());
-			
+			System.out.println("===>>> workOrderDetails: " + workOrder.get());
+
 			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
-			System.out.println("===>>> workOrderFirstAttachment: "+workOrderAttachment.get());
+			System.out.println("===>>> workOrderFirstAttachment: " + workOrderAttachment.get());
 
 			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
-			System.out.println("===>>> workOrderAttachmentList: "+workOrderAttachments);
-			
+			System.out.println("===>>> workOrderAttachmentList: " + workOrderAttachments);
 
 			model.addAttribute("workOrderAttachmentList", workOrderAttachments);
 			model.addAttribute("workOrderFirstAttachment", workOrderAttachment.get());
@@ -533,7 +541,7 @@ public class ClientController {
 			model.addAttribute("jobStatuses", jobStatuses);
 
 		} catch (Exception ex) {
-			System.out.println("===>>> workOrderFirstAttachment: "+new WorkOrderAttachment());
+			System.out.println("===>>> workOrderFirstAttachment: " + new WorkOrderAttachment());
 			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
 		}
 
@@ -547,14 +555,13 @@ public class ClientController {
 
 			Optional<WorkOrder> workOrder = workOrderService.findById(id);
 
+			System.out.println("===>>> workOrder: " + workOrder.get());
+
 			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-			List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
-					.findWorkOrderAttachmentByWorkOrder(workOrder.get());
-
 			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(11);// 11 Means Freelancer accepted
-																						// request Status
+																							// request Status
 			List<Proposal> clientProposals = proposalService
 					.findProposalByWorkOrderAndProposalStatusOrderByCreatedDate(workOrder.get(), proposalStatus.get());
 
@@ -601,7 +608,7 @@ public class ClientController {
 
 		return "dashboards/clients/profile2";
 	}
-	
+
 	@GetMapping("/clientFreelancerOverview/{id}/{user}")
 	public String clientFreelancerOverview(@PathVariable(value = "id") String id,
 			@PathVariable(value = "user") String userId, Model model) {
@@ -633,12 +640,25 @@ public class ClientController {
 	public String saveClientSignupInfo(@ModelAttribute("ClientSignupDTO") ClientSignupDTO clientSignupDTO,
 			HttpSession session, Model model) {
 
-		System.out.println("===>>> Client Signup details: " + clientSignupDTO);
+		User user = userService.findUserDetailsByUsername(clientSignupDTO.getEmail());
 
-		session.setAttribute("clientSignupDTO", clientSignupDTO);
+		System.out.println("===>>> User: " + user);
 
-		model.addAttribute("ClientPersonalDetailDTO", new ClientPersonalDetailDTO());
-		return "onboarding/client/profilesetup";
+		if (user != null) {
+
+			model.addAttribute("message", "This user already exist");
+			model.addAttribute("ClientPersonalDetailDTO", new ClientPersonalDetailDTO());
+			return "onboarding/client/signup";
+
+		} else {
+			System.out.println("===>>> Client Signup details: " + clientSignupDTO);
+			session.setAttribute("clientSignupDTO", clientSignupDTO);
+
+			model.addAttribute("ClientPersonalDetailDTO", new ClientPersonalDetailDTO());
+
+			return "onboarding/client/profilesetup";
+		}
+
 	}
 
 	@PostMapping("/client/personalDetail/save")
@@ -710,6 +730,7 @@ public class ClientController {
 				user.setFirstName(clientPersonalDetail.getFirstName());
 				user.setLastName(clientPersonalDetail.getLastName());
 				user.setCountry(clientPersonalDetail.getCountry());
+				user.setCountryCode(clientPersonalDetail.getCountryCode());
 				user.setPhone(clientPersonalDetail.getMobileNumber());
 				user.setEmailAddress(clientSignupdto.getEmail());
 				user.setUserStatus(userStatus.get());
@@ -769,6 +790,26 @@ public class ClientController {
 		String modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		String postingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
+		double minAmount = 0.0;
+		double maxAmount = 0.0;
+
+		if (newClientRequestDTO.getRateSelection().equals("perword")) {
+			minAmount = newClientRequestDTO.getMinAmount();
+			maxAmount = newClientRequestDTO.getMaxAmount();
+		} else if (newClientRequestDTO.getRateSelection().equals("perseconds")) {
+			minAmount = newClientRequestDTO.getMinAmountPerSeconds();
+			maxAmount = newClientRequestDTO.getMaxAmountPerSeconds();
+		} else if (newClientRequestDTO.getRateSelection().equals("perminutes")) {
+			minAmount = newClientRequestDTO.getMinAmountPerMinute();
+			maxAmount = newClientRequestDTO.getMaxAmountPerMinute();
+		} else if (newClientRequestDTO.getRateSelection().equals("perhour")) {
+			minAmount = newClientRequestDTO.getMinAmountPerHour();
+			maxAmount = newClientRequestDTO.getMaxAmountPerHour();
+		} else if (newClientRequestDTO.getRateSelection().equals("perpage")) {
+			minAmount = newClientRequestDTO.getMinAmountPerPage();
+			maxAmount = newClientRequestDTO.getMaxAmountPerPage();
+		}
+
 		WorkOrder wo = new WorkOrder();
 //		wo.setWorkId("");
 		wo.setWorkTitle(newClientRequestDTO.getProjectTitle());
@@ -777,8 +818,9 @@ public class ClientController {
 		wo.setDuration(durationDetail.get());
 		wo.setWorkOrderStatus(workOrderStatus.get());
 		wo.setDescription(newClientRequestDTO.getProjectDescription());
-		wo.setMinAmount(newClientRequestDTO.getMinAmount());
-		wo.setMaxAmount(newClientRequestDTO.getMaxAMount());
+		wo.setMinAmount(minAmount);
+		wo.setMaxAmount(maxAmount);
+		wo.setWorkRate(newClientRequestDTO.getRateSelection());
 		wo.setModifiedDate(modifiedDate);
 		wo.setPostingDate(postingDate);
 
@@ -844,8 +886,14 @@ public class ClientController {
 
 		System.out.println("===>>> Work Order Attachment Saved");
 
-		attributes.addFlashAttribute("message", "Great, Job Created!");
-		return "redirect:/client-dashboard";
+		attributes.addFlashAttribute("message",
+				"Great, work order created, kindly go to bids to select a freelancer for work order.");
+
+		WorkOrder workObj = workOrderService.findLastWorkOrder(1);
+
+		System.out.println("===>>> Work Order Id: " + workObj.getWorkId());
+
+		return "redirect:/client/details/" + workObj.getWorkId();
 	}
 
 	public static String getUploadFileName(MultipartFile file) {
@@ -984,17 +1032,18 @@ public class ClientController {
 
 		return jobStatusList;
 	}
-	
-	
+
 	@PostMapping("/replace-profile-picture")
-	public String replaceProfilePicture(@ModelAttribute("UpdateProfilePictureDTO") UpdateProfilePictureDTO updateProfilePictureDTO, @RequestParam("profilePicture") MultipartFile profilePicture,
-			 RedirectAttributes attributes,HttpSession session, Model model) {
+	public String replaceProfilePicture(
+			@ModelAttribute("UpdateProfilePictureDTO") UpdateProfilePictureDTO updateProfilePictureDTO,
+			@RequestParam("profilePicture") MultipartFile profilePicture, RedirectAttributes attributes,
+			HttpSession session, Model model) {
 
 		System.out.println("===>>> update profile picture Detail: " + updateProfilePictureDTO);
-		String imageUUID= "";
+		String imageUUID = "";
 
 		try {
-			
+
 			String fileSize = FreelancerController.getDynamicSpace(profilePicture.getSize());
 
 			if (!fileSize.equals("2 MiB")) {
@@ -1007,21 +1056,164 @@ public class ClientController {
 					imageUUID = updateProfilePictureDTO.getUserId();
 				}
 			}
-			
-			//update db;
+
+			// update db;
 			Optional<User> userDetails = userService.findFirstUserByUsername(updateProfilePictureDTO.getUserId());
 			int updateProfilePicture = userService.updateProfilePicture(imageUUID, userDetails.get().getUserId());
-			System.out.println("===>>> updateProfilePicture: "+updateProfilePicture);
-			
+			System.out.println("===>>> updateProfilePicture: " + updateProfilePicture);
+
 			attributes.addFlashAttribute("message", "Profile picture change successfully.");
 
-		}catch(Exception ex) {
-			
+		} catch (Exception ex) {
+
 			attributes.addFlashAttribute("message", "File does not exist, if issues persist contact admin.");
 		}
-		
+
 		return "redirect:/profile";
 	}
 
+	@GetMapping("/client/bids-client-details/{id}")
+	public String bidDetailsForClient(@PathVariable(value = "id") String id, Model model) {
+
+		try {
+
+			Optional<WorkOrder> workOrder = workOrderService.findById(id);
+
+			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
+					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
+
+			List<FreelancerProposals> proposals = new ArrayList<>();
+
+			List<Map<String, Object>> freelancerProposals = serviceRenderedService.findFreelancerDetailsForWorks(
+					workOrder.get().getServiceType().getTypeId(), workOrder.get().getMinAmount(),
+					workOrder.get().getMaxAmount());
+			System.out.println("===>>> freelancerProposals: " + freelancerProposals);
+
+			for (Map<String, Object> map : freelancerProposals) {
+
+				// Create ObjectMapper instance
+				ObjectMapper mapper = new ObjectMapper();
+				// Converting POJO to Map
+				Map<String, Object> mapping = mapper.convertValue(map, new TypeReference<Map<String, Object>>() {
+				});
+				FreelancerProposals proposal = mapper.convertValue(mapping, FreelancerProposals.class);
+
+				proposals.add(proposal);
+
+			}
+
+			model.addAttribute("clientProposalList", proposals);
+			model.addAttribute("workOrderFirstAttachment", workOrderAttachment.get());
+			model.addAttribute("workOrderDetails", workOrder.get());
+
+		} catch (Exception ex) {
+			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
+		}
+
+		return "dashboards/clients/clientbidsdetailsforfreelancers";
+	}
+
+	@GetMapping("/client-profile-overview/{id}/{userId}")
+	public String clientProfileOverview(@PathVariable(value = "id") String workId,
+			@PathVariable(value = "userId") String userId, Model model, RedirectAttributes attribute) {
+
+		try {
+
+			Optional<WorkOrder> workOrder = workOrderService.findById(workId);
+
+			System.out.println("===>>> workOrder: " + workOrder);
+
+			Optional<User> user = userService.findById(Integer.parseInt(userId));
+			Optional<User> opUser = userService.findFirstUserByUsername(user.get().getUsername());
+
+			List<ServiceRendered> servicesRendered = serviceRenderedService.findServiceRenderedListByUser(opUser.get());
+
+			String message = clientComponentModel.workOrderCalculations(workOrder, model);
+			if (message.equals("done")) {
+				model.addAttribute("workOrderDetails", workOrder.get());
+				model.addAttribute("userDetails", opUser.get());
+				model.addAttribute("servicesRendered", servicesRendered);
+				model.addAttribute("clientAmountDTO", new ClientAmountDTO());
+			} else {
+				attribute.addFlashAttribute("message", message);
+				return "redirect:/client/bids-client-details/" + workOrder.get().getWorkId();
+			}
+
+		} catch (Exception ex) {
+			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
+		}
+
+		return "dashboards/clients/profile2";
+	}
+
+	@PostMapping("/client/amount/set-job-amount-for-freelancers")
+	public String setClientAmount(@ModelAttribute("clientAmountDTO") ClientAmountDTO clientAmountDTO,
+			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
+
+		try {
+
+			if (clientAmountDTO.getClientAmount() >= clientAmountDTO.getTotalMinAmount()
+					&& clientAmountDTO.getClientAmount() <= clientAmountDTO.getTotalMaxAmount()) {
+
+				String userId = (String) session.getAttribute("userId");
+				Optional<User> clientUserId = userService.findFirstUserByUsername(userId);
+
+				Optional<User> user = userService.findFirstUserByUsername(clientAmountDTO.getUserID());
+				Optional<WorkOrder> workOrder = workOrderService.findById(clientAmountDTO.getWorkOrderID());
+
+				// send proposal to freelancer to accept, get the last id and redirect to
+				// payment page
+
+				Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// Freelancer Request Sent
+				
+				
+				Proposal proposalByWorkId = proposalService.findProposalByWorkOrderId(workOrder.get().getWorkId());
+				
+				if(proposalByWorkId == null) {
+					
+					Proposal proposal = new Proposal();
+//					proposal.setProposalId("");
+					proposal.setWorkOrder(workOrder.get());
+					proposal.setUser(user.get());
+					proposal.setProposalStatus(proposalStatus.get());
+					proposal.setAmount(clientAmountDTO.getClientAmount());
+					proposal.setModifiedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+					proposal.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+					proposalService.save(proposal);
+					
+				}
+				
+				Proposal prop = proposalService.findProposalByUserAndStatusOrderByCreatedDescWithLimit(
+						user.get().getUserId(), proposalStatus.get().getProposalStatusId());
+				
+				//update proposal amount
+				int updateproposalAmount = proposalService.updateProposalAmount(clientAmountDTO.getClientAmount(), prop.getProposalId());
+				
+				System.out.println("===>>> Proposal Amount Update Status: "+updateproposalAmount);
+				System.out.println("===>>> prop: "+prop);
+
+				// This will check if the client has paid
+				if (workPaymentService.findWorkPaymentByWorkOrderIdAndClientId(clientUserId.get().getUserId(),
+						workOrder.get().getWorkId()) == null) {
+					return "redirect:/select-payment-option/" + user.get().getUsername() + "/" + prop.getProposalId();
+				} else {
+					attributes.addFlashAttribute("message", "Work order to sent freelancer");
+					return "redirect:/client-dashboard";
+				}
+
+			} else {
+				attributes.addFlashAttribute("message", "Specified work order fee not in range.");
+				return "redirect:/client-dashboard";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Exception: " + e.getMessage());
+		}
+
+		attributes.addFlashAttribute("message", "An error occured while creating job");
+		return "redirect:/client-dashboard";
+	}
 
 }

@@ -38,7 +38,6 @@ public class FreelancerServicePricing {
 	private double maxPrice;
 	
 	
-
 	public FreelancerServicePricing() {
 	}
 
@@ -90,7 +89,12 @@ public class FreelancerServicePricing {
 	public void setMaxPrice(double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "FreelancerServicePricing [fpricingId=" + fpricingId + ", minPrice=" + minPrice + ", maxPrice="
+				+ maxPrice + "]";
+	}
+
 	
 }

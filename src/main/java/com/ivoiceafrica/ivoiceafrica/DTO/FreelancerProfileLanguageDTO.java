@@ -8,6 +8,7 @@ public class FreelancerProfileLanguageDTO {
 	private Language languageId;
 	private ServiceRendered serviceRendered;
 	private String languageDesc;
+	private String voiceType;
 	private String languageUpload;
 
 	public FreelancerProfileLanguageDTO() {
@@ -41,6 +42,14 @@ public class FreelancerProfileLanguageDTO {
 	public String getLanguageDesc() {
 		return languageDesc;
 	}
+	
+	public String getVoiceType() {
+		return voiceType;
+	}
+
+	public void setVoiceType(String voiceType) {
+		this.voiceType = voiceType;
+	}
 
 	public void setLanguageDesc(String languageDesc) {
 		this.languageDesc = languageDesc;
@@ -57,7 +66,8 @@ public class FreelancerProfileLanguageDTO {
 	@Override
 	public String toString() {
 		return "FreelancerProfileLanguageDTO [languageId=" + languageId + ", serviceRendered=" + serviceRendered
-				+ ", languageDesc=" + languageDesc + ", languageUpload=" + languageUpload + "]";
+				+ ", languageDesc=" + languageDesc + ", voiceType=" + voiceType + ", languageUpload=" + languageUpload
+				+ "]";
 	}
 
 }

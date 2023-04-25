@@ -41,5 +41,13 @@ public interface ProposalService {
 	public int updateProposalByProposalId(int proposalStatusId, String proposalId);
 	
 	public int updateProposalByWorkOrderId(int proposalStatusId, String workId);
-
+	
+	public Proposal findProposalByUserAndStatusOrderByCreatedDescWithLimit(int userId, int proposalStatusId);
+	
+	public Proposal checkLastStatusOfProposal(int userId, String workId);
+	
+	public List<Proposal> findProposalByWorkOrder(String workId);
+	
+	public Proposal findProposalByWorkOrderId(String workId);
+	
 }

@@ -109,7 +109,8 @@
 									<div class="d-flex griddy align-items-center mb-3">
 										<div class="mr-3 d-flex">
 											<span class="material-symbols-outlined mr-2">savings</span>
-											<span>$</span><span th:text="${requestDetail.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span th:text="${requestDetail.maxAmount}">30</span> <span>&nbsp; per page</span></span>
+											<span>$</span><span th:text="${requestDetail.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span th:text="${requestDetail.maxAmount}">30</span>  &nbsp; <span th:text="${@ClientComponentModel.workRateSelection(requestDetail.workRate)}">
+											per page</span></span>
 										</div>
 										<div class="mr-3 d-flex">
 											<span class="material-symbols-outlined mr-2">attach_file</span>

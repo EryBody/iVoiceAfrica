@@ -4,15 +4,19 @@
 
 <div th:replace="fragments/main_css :: css-header"></div>
 
+<script src="../../assets/JS/onboarding.js" defer></script>
+<script src="../../assets/bootstrap/dist/js/bootstrap.bundle.js" defer></script>
+<script src="../../assets/@popperjs/core/dist/umd/popper.min.js" defer></script>
+<link rel="stylesheet"
+	href="../../assets/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+
 <body>
 	<div class="sign-modal">
 
 		<form th:action="@{/signin}" method="post">
 
 			<section class="onboarding-forms step active">
-
-
-
 
 				<div class="text-center">
 					<a href="../../index.html"> <img
@@ -24,13 +28,13 @@
 						for your professionalism!</p>
 				</div>
 
-		
+
 				<div th:if="${param.error}" class="alert alert-danger m-3">
 					Invalid username or password.</div>
 
-				<!-- display details of controller -->
-				<p th:text="${message}" th:if="${message ne null}"
-					class="alert alert-primary m-3"></p>
+				<!-- <!-- display details of controller -->
+				<!-- <p th:text="${message}" th:if="${message ne null}"
+					class="alert alert-primary m-3"></p> -->
 
 
 				<div class="form-container">
@@ -42,8 +46,8 @@
 					<div class="mb-5">
 						<label for="password" class="form-label">Password</label> <input
 							type="password" id="password" name="password"
-							placeholder="Write a password" /> <span
-							class="forgot-password">Forgot Password?</span>
+							placeholder="Write a password" /> <span class="forgot-password">Forgot
+							Password?</span>
 					</div>
 					<div class="onboard-footer footer-2">
 						<button class="button mb-3" id="formBtn-next" type="submit"
@@ -56,6 +60,37 @@
 			</section>
 		</form>
 	</div>
+
+	<div class="modal fade" id="myModal-3" th:if="${message ne null}">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="success">
+					<div class="success-container">
+						<h2 class="my-2">All good!</h2>
+						<p>Your profile has successfully been created!</p>
+						<img src="../../assets/images/Frame 79.png" alt="successicon"
+							class="success-icon" />
+
+						<button onclick="dismiss();"
+							class="success-button button text-white">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#myModal-3').modal('show');
+		});
+
+		function dismiss() {
+			$('#myModal-3').modal('hide');
+		}
+	</script>
 </body>
 </html>
 

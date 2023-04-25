@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceLanguages;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 
@@ -16,5 +17,7 @@ public interface ServiceLanguageRepository extends JpaRepository<ServiceLanguage
 	List<ServiceLanguages> findServiceLanguageByServiceRendered(ServiceRendered serviceRendered);
 	
 	List<ServiceLanguages> findFirst3ServiceLanguageByServiceRendered(ServiceRendered serviceRendered);
+	
+	List<ServiceLanguages> findFirst3ServiceLanguageByServiceRenderedAndUser(ServiceRendered serviceRendered, User user);
 	
 }

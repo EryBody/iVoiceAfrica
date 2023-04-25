@@ -3,6 +3,7 @@ package com.ivoiceafrica.ivoiceafrica.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceLanguages;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 
@@ -22,4 +23,6 @@ public interface SLanguageService {
 	List<ServiceLanguages> findServiceLanguageByServiceRendered(ServiceRendered serviceRendered);
 	
 	List<ServiceLanguages> findFirst3ServiceLanguageByServiceRendered(ServiceRendered serviceRendered);
+	
+	List<ServiceLanguages> findFirst3ServiceLanguageByServiceRenderedAndUser(ServiceRendered serviceRendered, User user);
 }

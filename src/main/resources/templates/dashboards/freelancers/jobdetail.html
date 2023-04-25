@@ -56,13 +56,10 @@
 			<div class="main__headerbox dashboard-heading">
 				<div class="">
 					<div class="job-detail-heading-first">
-						<span class="job-alerts-title-2"> 
-						<!-- <a
+						<span class="job-alerts-title-2"> <!-- <a
 							href="javascript:goBack()" style="color: inherit"> Job alerts
-						</a> -->
-						<a
-							th:href="@{/freelancer-jobs-alerts}" style="color: inherit"> Job alerts
-						</a>
+						</a> --> <a th:href="@{/freelancer-jobs-alerts}"
+							style="color: inherit"> Job alerts </a>
 						</span> <span class="job-details-title">Job details</span>
 					</div>
 				</div>
@@ -79,9 +76,9 @@
 								src="../../assets/icons/arrow_back_link.svg"
 								alt="arrow_back_link" />
 							</a> -->
-							<a 	th:href="@{/freelancer-jobs-alerts}"> <img
+							<a th:href="@{/freelancer-jobs-alerts}"> <img
 								src="../../assets/icons/arrow_back_link.svg"
-								alt="arrow_back_link"/>
+								alt="arrow_back_link" />
 							</a>
 						</div>
 						<div class="job-alerts-card-body my-3">
@@ -89,15 +86,14 @@
 							<!-- display details of controller -->
 							<p th:text="${message}" th:if="${message ne null}"
 								class="alert alert-primary mt-3"></p>
-								
+
 							<div
 								class="d-flex justify-content-between align-items-center mb-4">
 								<div class="griddy">
 									<span class="mr-3 job-alerts-voiceover">
 										<div class="mr-2 job-alerts-voiceover-color"></div> <span
 										th:text="${opWorkOrder.serviceType.typeName}">Voice-over</span>
-									</span> 
-									<span class="mr-3 job-alerts-lang"
+									</span> <span class="mr-3 job-alerts-lang"
 										th:each="srcLanguage : ${@FreelancerComponentModel.getWorkAttachmentLanguagesForSourceAndDestination(opWorkOrder.workId).sourceLanguage}">
 										<span th:text="${srcLanguage}">French</span>
 									</span>
@@ -113,7 +109,8 @@
 									<div class="mr-3 d-flex">
 										<span class="material-symbols-outlined mr-2">savings</span> <span>$</span><span
 											th:text="${opWorkOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
-											th:text="${opWorkOrder.maxAmount}">30</span> <span>&nbsp;
+											th:text="${opWorkOrder.maxAmount}">30</span> &nbsp; <span
+											th:text="${@ClientComponentModel.workRateSelection(opWorkOrder.workRate)}">
 											per page</span>
 
 									</div>
@@ -131,23 +128,22 @@
 											Posted on <span th:text="${opWorkOrder.postingDate}"></span>
 										</p>
 									</div>
+
 								</div>
-								<div class="job-alerts-btns">
-									<a href="#" class="decline-btn mr-4" data-toggle="modal" data-target="#offerDeclineModal">Decline</a> 
-									
-									<span th:switch="${freelancerStatus}">
-									
-										<a th:case="14" href="#"
-											class="job-accept job-btn" data-toggle="popover" data-placement="top" data-content="Work order has been declined"
-											>Accept</a>
-											
-										<a th:case="*" href="#"
-											class="job-accept job-btn" data-toggle="modal"
-											data-target="#exampleModalCenter">Accept</a>
+
+								<div class="job-alerts-btns" th:if="${delivery} == null">
+									<a href="#" class="decline-btn mr-4" data-toggle="modal"
+										data-target="#offerDeclineModal">Decline</a> <span> <span
+										th:switch="${@ClientComponentModel.checkClientWordOrderPayment(opWorkOrder.user.userId, opWorkOrder.workId)}">
+											<a href="#" class="job-accept job-btn" th:case="'paid'"
+											data-toggle="modal" data-target="#exampleModalCenter">Accept</a>
+
+											<a href="#" class="job-accept job-btn" th:case="'not-paid'">Work order validation in progress</a>
+
 									</span>
-									
-									
+									</span>
 								</div>
+
 							</div>
 						</div>
 					</div>
@@ -157,8 +153,8 @@
 							<span class="job-alerts-client-title d-block mb-1">The
 								Client</span> <span class="job-alerts-client-name d-block"
 								th:text="|${opWorkOrder.user.firstName} ${opWorkOrder.user.lastName}|">Godwin
-								Uchenna</span> <span class="job-alerts-client-location d-block fs-6" th:text="${opWorkOrder.user.country}">Lagos,
-								Nigeria</span>
+								Uchenna</span> <span class="job-alerts-client-location d-block fs-6"
+								th:text="${opWorkOrder.user.country}">Lagos, Nigeria</span>
 						</div>
 					</div>
 
@@ -180,13 +176,13 @@
 
 							<div class="job-desc-details my-3" id="descriptionContent">
 								<span class="abt">About the job</span>
-								<p class="mb-3 desc-text" th:text="${opWorkOrder.description}">At Pak Translations, we have
-									recently been receiving requests for projects concerning
-									African languages. We are, thus, looking to expand our database
-									of freelance translators, transcribers, and subtitlers of
-									African languages, especially the minor languages spoken in
-									this linguistically richest continent.</p>
-									
+								<p class="mb-3 desc-text" th:text="${opWorkOrder.description}">At
+									Pak Translations, we have recently been receiving requests for
+									projects concerning African languages. We are, thus, looking to
+									expand our database of freelance translators, transcribers, and
+									subtitlers of African languages, especially the minor languages
+									spoken in this linguistically richest continent.</p>
+
 								<!-- <span class="qwt">These are the qualities we are looking
 									for in the freelancer: </span>
 								<ul>
@@ -208,31 +204,40 @@
 										<h1>Native</h1>
 										<h1>Target</h1>
 										<h1>File</h1>
-										
+
 									</div>
-									<div class="inprogress-fbody-II" th:each="tempAttachment, iStat : ${workOrderAttachmentList}">
-									
-										<h1 class="fw-600" th:text=${tempAttachment.workOrder.serviceType.typeName}>Translation</h1>
-										<h1  th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.source)}}">French</h1>
-										<h1  th:text=@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.destination)}}>English</h1>
-										<h1  th:text="${tempAttachment.linkMediaFile}" class="wrap-file-container">1</h1>
+									<div class="inprogress-fbody-II"
+										th:each="tempAttachment, iStat : ${workOrderAttachmentList}">
+
+										<h1 class="fw-600"
+											th:text=${tempAttachment.workOrder.serviceType.typeName}>Translation</h1>
+										<h1
+											th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.source)}}">French</h1>
+										<h1
+											th:text=@{${@ClientComponentModel.translateIdToLanguage(tempAttachment.destination)}}>English</h1>
+										<h1 th:text="${tempAttachment.linkMediaFile}"
+											class="wrap-file-container">1</h1>
 									</div>
 								</div>
 							</div>
 
 							<div id="attachmentContent">
-								<div class="job-attc" th:each="tempAttach, iStat : ${workOrderAttachmentList}">
+								<div class="job-attc"
+									th:each="tempAttach, iStat : ${workOrderAttachmentList}">
 									<span class="material-symbols-outlined draft-icon">
-												draft </span>
+										draft </span>
 									<div class="ml-3">
-										<p  th:text="${tempAttach.linkMediaFile}">Physics textbook in French (01).pdf</p>
-										<p>This file is to be translated from <span
+										<p th:text="${tempAttach.linkMediaFile}">Physics textbook
+											in French (01).pdf</p>
+										<p>
+											This file is to be translated from <span
 												th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttach.source)}}"></span>
-												 to <span
+											to <span
 												th:text="@{${@ClientComponentModel.translateIdToLanguage(tempAttach.destination)}}"></span>
-												</p>
-										<p>Uploaded <span th:text="${tempAttach.workOrder.postingDate}">
-											3 Hours ago</span>
+										</p>
+										<p>
+											Uploaded <span th:text="${tempAttach.workOrder.postingDate}">
+												3 Hours ago</span>
 										</p>
 									</div>
 								</div>
@@ -240,16 +245,14 @@
 
 							<div
 								class="job-details-footer d-flex align-items-center justify-content-end mt-5">
-								
+
 								<!-- <a href="newrequest.html" class="editBtn">Edit</a> -->
 								<!-- <button class="uploadbtn clientrequesteditBtn"
 									data-toggle="modal" data-target="#jobPostedModal">
 									Post Job</button> -->
-									
-							
-									
-									 <a th:href="@{/freelancer-jobs-alerts}"><button type="button"
-										class="uploadbtn clientrequesteditBtn">Back</button></a>
+
+								<a th:href="@{/freelancer-jobs-alerts}"><button
+										type="button" class="uploadbtn clientrequesteditBtn">Back</button></a>
 							</div>
 						</div>
 					</div>
@@ -266,16 +269,56 @@
 						th:object=${freelancerAcceptanceDTO} method="post">
 
 						<div class="modal-header payment-modal-header border-0">
-							<h5 class="modal-title" id="exampleModalLongTitle">State
-								your price</h5>
+							<h5 class="modal-title" id="exampleModalLongTitle">Accept
+								Offer</h5>
 
-							<span>Let <span
+							<span> <span
 								th:text="|${opWorkOrder.user.firstName} ${opWorkOrder.user.lastName}|">Godwin
-									Uchenna</span> Know how much you would like to be paid for this
-								service
+									Uchenna</span> is proposing to pay the amount below for this service,
+								are you interested?
+
 							</span>
 						</div>
 						<div class="modal-body payment-modal-body">
+
+							<div class="row" th:each="workCal : ${workOrderCalculations}">
+								<div class="col-md-12 mb-4">
+									<h5 class="mb-1">Service Type</h5>
+									<input type="text" class="mb-2"
+										th:value="${workCal.serviceType}" style="font-size: 15px;"
+										readonly />
+								</div>
+
+								<div class="col-md-12 mb-4">
+
+									<h5 class="mb-2">
+										<span th:text="${workCal.workRateSelection}"></span> Min
+										Amount
+									</h5>
+									<input type="text" th:value="${workCal.jobAmount}"
+										style="font-size: 15px;" readonly class="mb-2" />
+
+									<h5 class="mb-2">
+										<span th:text="${workCal.workRateSelection}"></span> Max
+										Amount
+									</h5>
+									<input type="text" th:value="${workCal.jobMaxAmount}"
+										style="font-size: 15px;" readonly class="mb-2" />
+								</div>
+
+							</div>
+
+
+							<h5 class="mb-2">Total Min Amount</h5>
+							<input type="text" th:value="${totalMinAmount}"
+								style="font-size: 15px;" readonly class="mb-2"
+								name="totalMinAmount" />
+
+							<h5 class="mb-2">Total Max Amount</h5>
+							<input type="text" th:value="${totalMaxAmount}"
+								style="font-size: 15px;" readonly class="mb-2"
+								name="totalMaxAmount" />
+
 							<div class="payment-modal-input">
 								<div class="payment-money-sign">
 									<img src="../../assets/images/dollar-sign.svg"
@@ -283,23 +326,19 @@
 								</div>
 
 								<input type="text" name="freelancerAmount" id="freelancerAmount"
-									style="font-size: 20px;" class="pl-2" />
+									th:value="${proposal.amount}" style="font-size: 20px;"
+									class="pl-2" readonly />
 							</div>
 
 							<input type="hidden" name="workOrderId"
-								th:value=${opWorkOrder.workId}> 
-								
-							<input type=text name="proposalId"
-								th:value=${proposalId}> 
-								
-								<input type="hidden"
-								name="userId" th:value=${userDetails.username}> 
-								
-								<small>This
-								must be within the range of $ <span
+								th:value=${opWorkOrder.workId}> <input type=hidden
+								name="proposalId" th:value=${proposalId}> <input
+								type="hidden" name="userId" th:value=${userDetails.username}>
+
+							<!-- <small>This must be within the range of $ <span
 								th:text="${opWorkOrder.minAmount}">20</span> - $ <span
-								th:text="${opWorkOrder.maxAmount}">30</span> per page
-							</small>
+								th:text="${opWorkOrder.maxAmount}">30</span>
+							</small> -->
 						</div>
 						<div class="modal-footer border-0">
 							<button type="button" class="btn payment-modal-cancel-btn"
@@ -312,41 +351,39 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="modal fade" id="offerDeclineModal" data-backdrop="static"
 			data-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content logoutModal">
-				<form th:action=@{/freelancer-offer-decline}
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content logoutModal">
+					<form th:action=@{/freelancer-offer-decline}
 						th:object=${freelancerOfferDeclineDTO} method="post">
-					<div class="modal-header">
-						<p class="modal-title" id="logoutModalLabel">Are you sure you want to decline this offer?</p>
-					</div>
-					<!-- <div class="modal-body logoutModal-body">You can log in
+						<div class="modal-header">
+							<p class="modal-title" id="logoutModalLabel">Are you sure you
+								want to decline this offer?</p>
+						</div>
+						<!-- <div class="modal-body logoutModal-body">You can log in
 						anytime with your email and password</div> -->
-						
-					<div class="modal-footer logoutModal-footer">
-					
-					<input type="hidden" name="workOrderId"
+
+						<div class="modal-footer logoutModal-footer">
+
+							<input type="hidden" name="workOrderId"
 								th:value=${opWorkOrder.workId}> <input type="hidden"
-								name="userId" th:value=${userDetails.username}> 
-								
-						<input type="hidden" name="proposalId"
-								th:value=${proposalId}>
-					
-						<a href="../../onboarding/client/sign-in.html">
-							<button class="transparentBtn" data-dismiss="modal">
-								No</button>
-						</a>
-						
-						<button type="submit" class="logoutBtn" aria-label="Close">
-							Yes</button>
-					</div>
-				</form>
+								name="userId" th:value=${userDetails.username}> <input
+								type="hidden" name="proposalId" th:value=${proposalId}>
+
+							<a href="../../onboarding/client/sign-in.html">
+								<button class="transparentBtn" data-dismiss="modal">No</button>
+							</a>
+
+							<button type="submit" class="logoutBtn" aria-label="Close">
+								Yes</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
 		<!-- jquery latest version -->
 		<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
@@ -368,7 +405,7 @@
 			function goBack() {
 				window.history.back();
 			}
-			
+
 			function goBackByTwoSteps() {
 				window.history.back(2);
 			}

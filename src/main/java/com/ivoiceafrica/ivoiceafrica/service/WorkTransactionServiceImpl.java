@@ -64,5 +64,22 @@ public class WorkTransactionServiceImpl implements WorkTransactionService{
 	public List<WorkTransactions> findWorkTransactionsByWorkOrderOrderByEntryDateDesc(WorkOrder workOrder) {
 		return workTransactionRepository.findWorkTransactionsByWorkOrderOrderByEntryDateDesc(workOrder);
 	}
+
+	@Override
+	public List<WorkTransactions> findWorkTransactionsByWorkOrderAndIsInFlowOrderByEntryDateDesc(WorkOrder workOrder,
+			Boolean isInFlow) {
+		return workTransactionRepository.findWorkTransactionsByWorkOrderAndIsInFlowOrderByEntryDateDesc(workOrder, isInFlow);
+	}
+
+	@Override
+	public List<WorkTransactions> findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(User user,
+			Boolean isInFlow) {
+		return workTransactionRepository.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(user, isInFlow);
+	}
+
+	@Override
+	public Optional<WorkTransactions> findLastWorkTransactions(int userId) {
+		return workTransactionRepository.findLastWorkTransactions(userId);
+	}
 	
 }

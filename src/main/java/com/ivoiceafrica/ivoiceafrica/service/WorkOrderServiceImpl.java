@@ -60,7 +60,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 
 	@Override
 	public List<WorkOrder> findWorkOrderByUserOrderByPostingDate(User user) {
-		return workOrderRepository.findWorkOrderByUserOrderByPostingDate(user);
+		return workOrderRepository.findWorkOrderByUserOrderByPostingDateDesc(user);
 	}
 
 	@Override
@@ -113,6 +113,11 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	@Override
 	public List<WorkOrder> findWorkOrderByServiceTypeAndUserOrderByPostingDate(ServiceType serviceType, User user) {
 		return workOrderRepository.findWorkOrderByServiceTypeAndUserOrderByPostingDate(serviceType, user);
+	}
+
+	@Override
+	public WorkOrder findLastWorkOrder(int limit) {
+		return workOrderRepository.findLastWorkOrder(limit);
 	}
 	
 

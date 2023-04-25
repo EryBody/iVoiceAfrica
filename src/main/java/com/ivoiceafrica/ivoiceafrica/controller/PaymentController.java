@@ -10,6 +10,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,13 +79,25 @@ import com.ivoiceafrica.ivoiceafrica.utility.RandomIdGenerator;
 public class PaymentController {
 
 	Gson gson = new Gson();
+	
+	@Value("${flutterwave.baseurl}")
+	String baseUrl;
+	
+	@Value("${flutterwave.PBFPubKey}")
+	String PubKey;
+	
+	@Value("${flutterwave.encryptionKey}")
+	String encKey;
+	
+	@Value("${flutterwave.PBFSecretKey}")
+	String SecretKey;
 
-	final static String PBFPubKey = "FLWPUBK_TEST-c080d8aa9590b4bdac7ab337dcb84f8f-X";
-	final static String redirectUrlDemo = "http://localhost:8080/client-dashboard";
-	final static String redirectUrlLive = "http://20.172.167.140:9000/client-dashboard";
-	final static String redirectUrl = redirectUrlDemo;
-	final static String encryptionKey = "FLWSECK_TEST6a46b266e750";
-	final static String PBFSecretKey = "FLWSECK_TEST-28bcc703fd128945e499d8e9a0fa2fa3-X";
+	final String PBFPubKey = PubKey;
+	final String redirectUrlDemo = "http://localhost:8080/client-dashboard";
+	final String redirectUrlLive = baseUrl+"/client-dashboard";
+	final String redirectUrl = redirectUrlLive;
+	final String encryptionKey = encKey;
+	final String PBFSecretKey = SecretKey;
 
 	@Autowired
 	CustomUserDetailService userService;
@@ -118,14 +131,17 @@ public class PaymentController {
 
 	@Autowired
 	BankDetailService bankDetailService;
+	
+	@Autowired
+	PaymentComponent paymentComponent;
 
 	@GetMapping("/select-payment-option/{freelancer}/{proposalId}")
 	public String selectPaymentOption(@PathVariable(value = "freelancer") String freelancer,
 			@PathVariable(value = "proposalId") String proposalId, Model model) {
 
-		System.out.println("===>>> freelancer: "+freelancer);
-		System.out.println("===>>> proposalId: "+proposalId);
-		
+		System.out.println("===>>> freelancer: " + freelancer);
+		System.out.println("===>>> proposalId: " + proposalId);
+
 		Optional<Proposal> proposalOp = proposalService.findById(proposalId);
 		System.out.println("===>>> proposalOp: " + proposalOp);
 
@@ -252,11 +268,26 @@ public class PaymentController {
 		System.out.println("===>>> User ID Freelancer: " + userId);
 
 		BankDetail detail = bankDetailService.findBankDetailsWithUserId(user.get().getUserId());
+		
+		String createdDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
 		System.out.println("===>>> Detail: " + detail);
 
 		try {
-			if (!detail.getBankId().isEmpty()) {
+			
+			if (detail != null) {
+				
+				Optional<WorkTransactions> lastTransaction =  workTransactionService.findLastWorkTransactions(user.get().getUserId());
+				WorkTransactions trans = new WorkTransactions();
+//				trans.setTransId();
+				trans.setUser(user.get());
+				trans.setWorkOrder(lastTransaction.get().getWorkOrder());
+				trans.setAmount((double)fmw.getAmount());
+				trans.setCurrency(lastTransaction.get().getCurrency());
+				trans.setIsInFlow(false);// 1 == true, 0 == false from database
+				trans.setEntryDate(createdDate);
+				
+				workTransactionService.save(trans);
 
 				if (fmw.getCountryCode().equals("NGN")) {
 					NgnBankTransferRequest request = new NgnBankTransferRequest();
@@ -293,7 +324,7 @@ public class PaymentController {
 							+ detail.getMiddleName();
 					NgnBankTransferDomRequest request = new NgnBankTransferDomRequest();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -326,9 +357,11 @@ public class PaymentController {
 						NgnBankTransferDomResponse response = flutterwaveService.ngnDomBankTransfer(request);
 
 						if (response.getStatus().equals("success")) {
-							
+
 							model.addAttribute("message", "Operation Successful, Transfer Queued Successfully.");
+							
 						} else {
+							
 							model.addAttribute("message", "Transaction was not successful, Try again.");
 						}
 
@@ -343,7 +376,7 @@ public class PaymentController {
 					String beneficiaryName = detail.getFirstName() + " " + detail.getLastName() + " "
 							+ detail.getMiddleName();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -400,7 +433,7 @@ public class PaymentController {
 					String beneficiaryName = detail.getFirstName() + " " + detail.getLastName() + " "
 							+ detail.getMiddleName();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -460,7 +493,7 @@ public class PaymentController {
 					String beneficiaryName = detail.getFirstName() + " " + detail.getLastName() + " "
 							+ detail.getMiddleName();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -497,7 +530,7 @@ public class PaymentController {
 					String beneficiaryName = detail.getFirstName() + " " + detail.getLastName() + " "
 							+ detail.getMiddleName();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -543,7 +576,7 @@ public class PaymentController {
 					String beneficiaryName = detail.getFirstName() + " " + detail.getLastName() + " "
 							+ detail.getMiddleName();
 
-					String mobileNumberCode = "+234";
+					String mobileNumberCode = user.get().getCountryCode();
 
 					String mobileNumber = mobileNumberCode + user.get().getPhone().substring(1);
 
@@ -591,7 +624,7 @@ public class PaymentController {
 				}
 
 			} else {
-				model.addAttribute("message", "Bank Detail does not exist");
+				model.addAttribute("message", "Bank Detail does not exist, please add bank information.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -601,8 +634,6 @@ public class PaymentController {
 
 		return "dashboards/payments/clientPaymentForm";
 	}
-	
-	
 
 	@GetMapping("/get-banks/{country}")
 	public @ResponseBody List<Bank> getBanks(@PathVariable(name = "country") String country, Model model) {
@@ -675,11 +706,18 @@ public class PaymentController {
 
 		System.out.println("===>>> GetBankBranchCodeAndName: " + abt.getBankBranchCodeAndName());
 
-		if (!abt.getBankBranchCodeAndName().isEmpty()) {
-			branchCodeAndName = abt.getBankBranchCodeAndName().split("-", 2);
+		if (!abt.getBankBranchCodeAndName().isEmpty() || abt.getBankBranchCodeAndName() != null) {
 
-			branchCode = branchCodeAndName[0];
-			branchName = branchCodeAndName[1];
+			try {
+				branchCodeAndName = abt.getBankBranchCodeAndName().split("-", 2);
+				if (branchCodeAndName[0] != null || branchCodeAndName[1] != null) {
+					branchCode = branchCodeAndName[0];
+					branchName = branchCodeAndName[1];
+				}
+			}
+			catch (ArrayIndexOutOfBoundsException ex) {
+				System.out.println("===>>> Couldn't retrieve the bank branch code and name for this bank.");
+			}
 		}
 
 		String createdDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -699,11 +737,12 @@ public class PaymentController {
 		detail.setRoutingNumber(abt.getRoutingNumber());
 		detail.setSwiftCode(abt.getSwiftCode());
 		detail.setEntryDate(createdDate);
+		
+		BankDetail bank = paymentComponent.isBankDetailExist(userDetails.get().getUserId());
 
-		boolean isBankDetailsExist = new PaymentComponent().isBankDetailExist(userDetails.get().getUserId());
-
-		if (!isBankDetailsExist) {
+		if (bank == null) {
 			bankDetailService.save(detail);
+			model.addAttribute("message", "Bank Detail Saved");
 		} else {
 			model.addAttribute("message", "Bank Detail already exist");
 		}

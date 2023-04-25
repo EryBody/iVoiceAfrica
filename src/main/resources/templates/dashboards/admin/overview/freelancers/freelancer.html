@@ -176,47 +176,44 @@
 							</div>
 							<div class="service-off">
 
-								<div class="service-offered"
-									th:each="service : ${servicesRendered}">
-									<h1 th:text="${service.serviceType.typeName}">Translation</h1>
+								<div th:each="service : ${servicesRendered}">
+									<div class="service-offered">
+									
+										<h1 th:text="${service.serviceType.typeName}">Translation</h1>
 
-									<!-- <span class="charge"
-										>$
-										<span
-										>20</span>
-										<span>-</span> $ <span
-										th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
-									</span> -->
-
-									<div class="services-languages"
-										th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, opUser.username)}">
-										<span>$</span>
-										<button class="service-btn"
-											th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">Yoruba</button>
-										<span>-</span> <span>$</span>
-										<button class="service-btn"
-											th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">Yoruba</button>
+										<a th:href="${service.otherInfo}" target="_blank"
+											class="green"><span> Portfolio <img
+												src="../../../../assets/images/greenarr.svg"
+												alt="green arrow" />
+										</span></a>
 									</div>
+									
+									<div class="service-offered">
+									
+										<div class="services-languages"
+											th:each="pricing : ${@ClientComponentModel.getServicePricings(service.serviceType.typeId)}">
 
-									<div class="services-languages"
-										th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
-										<button class="service-btn"
-											th:text="${freelancerLanguage.languageId.language == null || freelancerLanguage.languageId.language.isEmpty()} ? ${freelancerLanguage.languageId.language == null} : 'No Language'">Yoruba</button>
+											<span>$</span>
+											<button class="service-btn"
+												th:text="${@ClientComponentModel.getFreelancerPrices(pricing,opUser.username).minPrice}">100.00</button>
+
+											<span>-</span> <span>$</span>
+											<button class="service-btn"
+												th:text="${@ClientComponentModel.getFreelancerPrices(pricing,opUser.username).maxPrice}">200.0</button>
+										</div>
+
+										<div class="services-languages"
+											th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguages(service,opUser.username)}">
+
+											<button class="service-btn"
+												th:text="${freelancerLanguage.languageId.language != null || !freelancerLanguage.languageId.language.isEmpty()} ? ${freelancerLanguage.languageId.language} : 'No Language'">Yoruba</button>
+											
+											<button class="service-btn" th:if="${freelancerLanguage.voiceType != null}"
+												th:text="${freelancerLanguage.voiceType}">Voice Type</button>
+
+										</div>
 									</div>
-
-									<!-- //TODO: arrow leads to a full details of languages freelancer can offer -->
-									<!-- <div class="documents-name">
-										<p>Relevant Documents</p>
-										<img src="../../../../assets/images/admin-imgs/dankarrow.svg"
-											alt="dark arrow" />
-									</div> -->
-
-									<a th:href="${service.otherInfo}" target="_blank" class="green"><span>
-											Portfolio <img src="../../../../assets/images/greenarr.svg"
-											alt="green arrow" />
-									</span></a>
 								</div>
-
 
 							</div>
 						</div>
@@ -338,23 +335,33 @@
 
 							<div class="info">
 								<span class="info-title">In Account</span>
-								<p>$ <span th:text="${inAccount}"></span></p>
+								<p>
+									$ <span th:text="${inAccount}"></span>
+								</p>
 							</div>
 							<div class="info">
 								<span class="info-title">In Escrow</span>
-								<p>$ <span th:text="${totalEscrow}"></span></p>
+								<p>
+									$ <span th:text="${totalEscrow}"></span>
+								</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Total Earnings</span>
-								<p>$ <span th:text="${totalEarning}"></span></p>
+								<p>
+									$ <span th:text="${totalEarning}"></span>
+								</p>
 							</div>
 							<div class="info">
 								<span class="info-title">Withdrawals</span>
-								<p>$ <span th:text="${totalWithdrawn}"></span></p>
+								<p>
+									$ <span th:text="${totalWithdrawn}"></span>
+								</p>
 							</div>
 							<div class="info random-m">
 								<span class="info-title">Transaction Count</span>
-								<p>$ <span th:text="${workfreelancerPaymentsSize}"></span></p>
+								<p>
+									$ <span th:text="${workfreelancerPaymentsSize}"></span>
+								</p>
 							</div>
 
 							<div class="info-header">
@@ -387,13 +394,12 @@
 								</div>
 
 							</div>
-							
+
 							<form th:action="@{/freelancer-delivery-search}"
 								th:object="${SearchDTO}" method="post">
-								
+
 								<div class="job-search">
-									<label class="light-text" id="job-search">Search:</label> 
-									<input
+									<label class="light-text" id="job-search">Search:</label> <input
 										type="hidden" name="userId" th:value="${opUser.username}" />
 
 									<div class="search">
@@ -401,11 +407,11 @@
 											alt="search icon" /> <input type="text" name="workOrderId"
 											id="job-search" placeholder="Search Job ID" />
 									</div>
-									
+
 									<button type="submit" class="btn btn-outline-secondary">Search</button>
 								</div>
 							</form>
-							
+
 							<div class="util-cta-table">
 								<table id="cta-table">
 									<thead>

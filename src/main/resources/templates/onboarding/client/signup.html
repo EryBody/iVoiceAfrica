@@ -3,6 +3,13 @@
 
 <div th:replace="fragments/main_css :: css-header"></div>
 
+<script src="../../assets/JS/onboarding.js" defer></script>
+<script src="../../assets/bootstrap/dist/js/bootstrap.bundle.js" defer></script>
+<script src="../../assets/@popperjs/core/dist/umd/popper.min.js" defer></script>
+<link rel="stylesheet"
+	href="../../assets/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../../assets/CSS/onboarding.css" />
+
 <body>
 	<form th:action="@{/client/signup/save}" th:object="${ClientSignupDTO}"
 		method="post">
@@ -18,31 +25,35 @@
 					</p>
 				</div>
 
+				<div th:if="${message ne null}" class="alert alert-danger m-3"
+					th:text="${message}">This user already exist</div>
+
 				<div class="form-container">
-						<div class="mb-5">
-							<label for="email" class="form-label">Username</label> <input
-								type="text" id="username" name="username" placeholder="Ex: Johndoe" required/>
-						</div>
-						<div class="mb-5">
-							<label for="email" class="form-label">Email</label> <input
-								type="email" id="email" name="email"
-								placeholder="Ex: Johndoe@gmail.com" required/>
-						</div>
-						<div class="mb-5">
-							<label for="password" class="form-label">Password</label> <input
-								type="password" id="password" name="password"
-								placeholder="Write a password" required/>
-						</div>
-						<div class="onboard-footer footer-2">
+					<div class="mb-5">
+						<label for="email" class="form-label">Username</label> <input
+							type="text" id="username" name="username"
+							placeholder="Ex: Johndoe" required />
+					</div>
+					<div class="mb-5">
+						<label for="email" class="form-label">Email</label> <input
+							type="email" id="email" name="email"
+							placeholder="Ex: Johndoe@gmail.com" required />
+					</div>
+					<div class="mb-5">
+						<label for="password" class="form-label">Password</label> <input
+							type="password" id="password" name="password"
+							placeholder="Write a password" required />
+					</div>
+					<div class="onboard-footer footer-2">
 
-							<input type="submit" class="button mb-3" value="Signup as Client" />
+						<input type="submit" class="button mb-3" value="Signup as Client" />
 
-							<!-- <a href="#" class="button mb-3" data-bs-toggle="modal"
+						<!-- <a href="#" class="button mb-3" data-bs-toggle="modal"
 							data-bs-target="#myModal">Signup as Client</a> -->
-							<p>
-								Already have an account? <a th:href="@{/signin}">Sign in</a>
-							</p>
-						</div>
+						<p>
+							Already have an account? <a th:href="@{/signin}">Sign in</a>
+						</p>
+					</div>
 				</div>
 
 

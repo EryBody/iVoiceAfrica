@@ -204,13 +204,18 @@
 					<div class="input-group mb-4">
 
 						<input type="hidden" id="idKey"
-							value="FLWPUBK_TEST-c080d8aa9590b4bdac7ab337dcb84f8f-X">
+							th:value="${@environment.getProperty('flutterwave.PBFPubKey')}">
+							
+						<input type="hidden" id="baseurl"
+							th:value="${@environment.getProperty('flutterwave.baseurl')}">
+						
 						<input type="hidden" id="fullName"
-							th:value="|${session.user.firstName} ${session.user.lastName}|">
+							th:value="|${@ClientComponentModel.getUserDetails(session?.user?.userId).firstName} ${@ClientComponentModel.getUserDetails(session?.user?.userId).lastName}|">
+						
 						<input type="hidden" id="email"
-							th:value="${session.user.username}"> <input type="hidden"
-							id="userId" th:value="${session.user.userId}"> <input
-							type="hidden" id="phone" th:value="${session.user.phone}">
+							th:value="${@ClientComponentModel.getUserDetails(session?.user?.userId).username}"> <input type="hidden"
+							id="userId" th:value="${@ClientComponentModel.getUserDetails(session?.user?.userId).userId}"> <input
+							type="hidden" id="phone" th:value="${@ClientComponentModel.getUserDetails(session?.user?.userId).phone}">
 
 						<input type="hidden" id="freelancerId" th:value="${freelancerId}">
 
@@ -219,8 +224,8 @@
 
 						<div class="mb-2">
 							<input type="number" placeholder="Enter payment amount"
-								name="paymentAmount" id="paymentAmount"
-								th:value="${proposalOp.amount}" style="font-size: 18px" readonly />
+								name="paymentAmount" id="paymentAmount" th:value="${proposalOp.amount}"
+								 style="font-size: 18px" readonly />
 						</div>
 
 
@@ -274,8 +279,9 @@
 			var paymentAmount = document.getElementById('paymentAmount').value;
 			var paymentDesc = document.getElementById('paymentDesc').value;
 			var flkpub = document.getElementById('idKey').value;
+			var baseurl = document.getElementById('baseurl').value;
 			var txRef = "ivoice-" + Math.random().toString(16).slice(2);
-			var redirectUrl = "http://localhost:8080/client-dashboard"
+			var redirectUrl = baseurl+"/client-dashboard"
 			var mac = genMAC();
 
 			var fullName = document.getElementById('fullName').value;
@@ -285,7 +291,7 @@
 			var freelancerId = document.getElementById('freelancerId').value;
 			var workId = document.getElementById('workId').value;
 
-			var currency = "NGN";
+			var currency = "USD";
 			var paymentOption = "card, " + "banktransfer, " + "ussd";
 			var title = "IVoice Africa Payment";
 			var logo = "https://files.fm/thumb_show.php?i=n6rqp3k7y";
@@ -306,20 +312,23 @@
 					console.log("payment " + JSON.stringify(payment));
 					var action = "/get-client-payment-details";
 
-					$
-							.ajax({
-								url : action,
-								type : "GET",
-								data : {
-									inputParameter : jsonString,
-									freelancerId : freelancerId,
-									workId : workId
-								},
-								success : function(data) {
-									 emptyFields();
-									alert('Your Payment data has been saved!!!, Please continue.');
-								}
-							});
+					$.ajax({
+						url : action,
+						type : "GET",
+						data : {
+							inputParameter : jsonString,
+							freelancerId : freelancerId,
+							workId : workId
+						},
+						success : function(data) {
+							 emptyFields();
+							alert('Your Payment data has been saved!!!, Please continue.');
+							setTimeout(() => {
+								document.location.href = '/client-dashboard'
+								}, "3000");
+						}
+					});
+							
 
 				},
 				onclose : function(incomplete) {
@@ -334,13 +343,21 @@
 							title : 'Oops...',
 							text : 'Payment Failed!',
 							footer : ''
-						})
+						});
+						setTimeout(() => {
+						}, "3000");
 					} else {
 						if (window.verified == true) {
 							Swal.fire('Good job!', 'Payment Successful!',
-									'success')
+									'success');
+							setTimeout(() => {
+								document.location.href = '/client-dashboard'
+								}, "3000");
 						} else {
-							Swal.fire('Your payment is under processing!!!')
+							Swal.fire('Your payment is under processing!!!');
+							setTimeout(() => {
+								document.location.href = '/client-dashboard'
+								}, "3000");
 						}
 					}
 				},

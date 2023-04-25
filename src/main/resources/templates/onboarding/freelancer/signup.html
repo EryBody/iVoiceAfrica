@@ -18,6 +18,11 @@
               Meet the right clients, get great value for your professionalism!
             </p>
           </div>
+          
+          
+          <div th:if="${message ne null}" class="alert alert-danger m-3"
+					th:text="${message}">This user already exist</div>
+          
           <div class="form-container">
            <div class="mb-5">
               <label for="first-name" class="form-label">Username</label>

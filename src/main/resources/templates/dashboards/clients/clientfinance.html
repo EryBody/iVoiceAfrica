@@ -97,6 +97,7 @@
 									<th>Payment Gateway</th>
 									<th>Entry Date</th>
 									<th>Amount</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -110,6 +111,15 @@
 									<td th:text="${temp.paymentGateway}">$200</td>
 									<td th:text="${temp.entryDate}">$200</td>
 									<td th:text="${temp.amount}">$200</td>
+									
+									<td th:switch="${@ClientComponentModel.checkClientWordOrderPayment(session.user.userId, temp.workOrder.workId)}">
+										<span th:case="'paid'">
+											<p>paid</p>
+										</span>
+										<span th:case="'not-paid'">
+											<a ><button type="button" class="btn btn-dark btn-lg">Pay</button></a>
+										</span>
+									</td>
 								</tr>
 								
 							</tbody>

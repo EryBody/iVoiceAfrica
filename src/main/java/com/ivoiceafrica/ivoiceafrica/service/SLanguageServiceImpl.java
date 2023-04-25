@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceLanguages;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.repository.ServiceLanguageRepository;
@@ -58,6 +59,12 @@ public class SLanguageServiceImpl implements SLanguageService {
 	@Override
 	public List<ServiceLanguages> findFirst3ServiceLanguageByServiceRendered(ServiceRendered serviceRendered) {
 		return serviceLanguageRepository.findFirst3ServiceLanguageByServiceRendered(serviceRendered);
+	}
+
+	@Override
+	public List<ServiceLanguages> findFirst3ServiceLanguageByServiceRenderedAndUser(ServiceRendered serviceRendered,
+			User user) {
+		return serviceLanguageRepository.findFirst3ServiceLanguageByServiceRenderedAndUser(serviceRendered, user);
 	}
 	
 	

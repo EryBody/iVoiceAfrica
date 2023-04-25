@@ -59,5 +59,10 @@ public class WorkPaymentServiceImpl implements WorkPaymentService{
 	public int updateWorkPaymentStatus(int paymentStatusId, String workId) {
 		return workPaymentRepository.updateWorkPaymentStatus(paymentStatusId, workId);
 	}
+
+	@Override
+	public WorkPayments findWorkPaymentByWorkOrderIdAndClientId(int clientId, String workId) {
+		return workPaymentRepository.findWorkPaymentByWorkOrderIdAndClientId(clientId, workId);
+	}
 	
 }

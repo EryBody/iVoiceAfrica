@@ -134,17 +134,17 @@
 								<div class="grey-dot"></div>
 
 								<span class="charge"
-									th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, userDetails.username)}">$
-									<span
-									th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">20</span>
-									<span>-</span> $ <span
-									th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
+									th:each="pricing : ${@ClientComponentModel.getServicePricings(service.serviceType.typeId)}">
+									$<span
+									th:text="${@ClientComponentModel.getFreelancerPrices(pricing,userDetails.username).minPrice}">20</span>
+									<span>-</span> $<span
+									th:text="${@ClientComponentModel.getFreelancerPrices(pricing,userDetails.username).maxPrice}">70</span>
 								</span>
 							</div>
 
 							<div class="d-flex align-items-center justify-content-between">
 								<div class="griddy"
-									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
+									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguages(service, userDetails.username)}">
 									<span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"
 										th:text="${freelancerLanguage.languageId.language}">
 										English </span>

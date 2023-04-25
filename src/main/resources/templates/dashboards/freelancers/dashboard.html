@@ -102,38 +102,40 @@
 					<div class="job__notifications">
 						<div class="jobbings">
 							<div class="job__alerts">
-								<form>
+								<h1>Earnings</h1>
+
+								<!-- <form>
 									<h1>Earnings</h1>
 									<select name="week" id="week" class="week">
 										<option value="this-week" class="week">This Week</option>
 										<option value="last-week">Last Week</option>
 									</select>
 
-								</form>
+								</form> -->
 
 							</div>
 							<div class="job__earnings">
 								<div class="job__amt">
 									<span> $ <span th:text="${totalWithdrawn}"> </span>
-									<p>Withdrawn</p>
+										<p>Withdrawn</p>
 								</div>
 								<div class="job__amt">
 									<span> $ <span th:text="${totalEscrow}"> </span>
-									<p>In Escrow</p>
+										<p>In Escrow</p>
 								</div>
 								<div class="job__amt">
 									<span> $ <span th:text="${inAccount}"> </span>
-									<p>In Account</p>
+										<p>In Account</p>
 								</div>
 							</div>
 							<a th:href="@{/freelancer-finances}"><p>view details</p></a>
 						</div>
 					</div>
 				</div>
-				
-				
-				
-				
+
+
+
+
 				<div class="fl_overview-left">
 					<div class="fl__jobs">
 						<div class="fl__jobs--header">
@@ -177,31 +179,31 @@
 									</button>
 								</div>
 
-								<div th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
-								<button class="red-jobs-btn"
-									th:case="'Overdue'"> 
-									<span>Overdue</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-warning"
-									th:case="'DueSoon'">
-									<span>Due Soon</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-success"
-									th:case="'DueToday'">
-									<span>Due Today</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-info"
-									th:case="'Pending'">
-									<span>Pending</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-dark"
-									th:case="'NoStatus'">
-									<span>No Status</span>
-								</button>
+								<div
+									th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
+									<button class="red-jobs-btn" th:case="'Overdue'">
+										<span>Overdue</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-warning"
+										th:case="'DueSoon'">
+										<span>Due Soon</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-success"
+										th:case="'DueToday'">
+										<span>Due Today</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-info"
+										th:case="'Pending'">
+										<span>Pending</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-dark"
+										th:case="'NoStatus'">
+										<span>No Status</span>
+									</button>
 								</div>
 							</div>
 							<span class="job__name" th:text="${delivery.workOrder.workTitle}">

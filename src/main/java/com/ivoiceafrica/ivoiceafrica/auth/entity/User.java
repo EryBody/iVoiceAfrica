@@ -28,6 +28,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.Freelancer;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.Portfolio;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
+import com.ivoiceafrica.ivoiceafrica.entity.ServiceLanguages;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.VoiceCapability;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkEscrowTransaction;
@@ -73,6 +74,9 @@ public class User {
 	@NotEmpty
 	@Column(name = "country", nullable = false)
 	private String country;
+	
+	@Column(name = "country_code")
+	private String countryCode;
 
 	@Column(name = "nationality")
 	private String nationality;
@@ -115,7 +119,9 @@ public class User {
 			inverseJoinColumns = {@JoinColumn (name = "role_id", referencedColumnName = "role_id")}
 	)
 	
+	
 	private Collection <Role> roles;
+	
 	//To Check if the user has a role or not
 	public boolean hasRole(String roleName) {
 		Iterator<Role> iterator = this.roles.iterator();
@@ -227,6 +233,13 @@ public class User {
 	@JsonIgnore
 	private Set<BankDetail> bankDetail;
 	
+	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<ServiceLanguages> serviceLanguages;
+	
 	public User() {
 		
 	}
@@ -290,6 +303,7 @@ public class User {
 		this.middleName = user.getMiddleName();
 		this.gender = user.getGender();
 		this.country = user.getCountry();
+		this.countryCode = user.getCountryCode();
 		this.nationality = user.getNationality();
 		this.address = user.getAddress();
 		this.phone = user.getPhone();
@@ -368,6 +382,16 @@ public class User {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	public String getNationality() {
@@ -593,12 +617,20 @@ public class User {
 	public void setBankDetail(Set<BankDetail> bankDetail) {
 		this.bankDetail = bankDetail;
 	}
+	
+	public Set<ServiceLanguages> getServiceLanguages() {
+		return serviceLanguages;
+	}
+
+	public void setServiceLanguages(Set<ServiceLanguages> serviceLanguages) {
+		this.serviceLanguages = serviceLanguages;
+	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", upassword=" + upassword + ", firstName="
 				+ firstName + ", lastName=" + lastName + ", middleName=" + middleName + ", gender=" + gender
-				+ ", country=" + country + ", nationality=" + nationality + ", address=" + address + ", phone=" + phone
+				+ ", country=" + country + ", countryCode=" + countryCode + ", nationality=" + nationality + ", address=" + address + ", phone=" + phone
 				+ ", emailAddress=" + emailAddress + ", summary=" + summary + ", education=" + education
 				+ ", userStatus=" + userStatus + ", profilePicture=" + profilePicture + ", modifiedDate=" + modifiedDate
 				+ ", createdDate=" + createdDate + ", postalCode=" + postalCode + "]";

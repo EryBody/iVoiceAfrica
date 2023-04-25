@@ -19,6 +19,8 @@ public interface FreelancerPricingService {
 	
 	Optional<FreelancerServicePricing> findFreelancerServicePricingByServiceTypePricing(ServiceTypePricing serviceTypePricing);
 	
+	Optional<FreelancerServicePricing> findFreelancerServicePricingByServiceTypePricingAndUser(ServiceTypePricing serviceTypePricing, User user);
+	
 	Optional<FreelancerServicePricing> findFirstFreelancerServicePricingByServiceTypePricingAndUser(ServiceTypePricing serviceTypePricing, User user);
 
 	List<FreelancerServicePricing> findFreelancerServicePricingListByServiceTypePricingAndUser(ServiceTypePricing serviceTypePricing, User user);

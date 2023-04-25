@@ -1088,6 +1088,7 @@ public class AdminController {
 		double inEscrow = 0.0;
 		double Withdrawn = 0.0;
 		double totalEarnings = 0.0;
+		double moneyInAccount = 0.0;
 
 		for (WorkFreelancerPayment payment : workfreelancerPayments) {
 			
@@ -1107,11 +1108,34 @@ public class AdminController {
 			
 		}
 		
+		List<WorkTransactions> debitedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), false);
+
+		List<WorkTransactions> creditedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), true);
+		
+		
+		double withdrawnTrans = 0.0;
+		for (WorkTransactions transactions : debitedTransactions) {
+			withdrawnTrans += transactions.getAmount();
+		}
+
+		double creditedTrans = 0.0;
+		for (WorkTransactions transactions : creditedTransactions) {
+			creditedTrans += transactions.getAmount();
+		}
+
+		if(withdrawnTrans == 0.0) {
+			moneyInAccount = inAccount;
+		}else {
+			moneyInAccount = creditedTrans-withdrawnTrans;
+		}
+		
 		model.addAttribute("workfreelancerPayments",workfreelancerPayments);
 		model.addAttribute("workfreelancerPaymentsSize",workfreelancerPayments.size());
 		model.addAttribute("totalEscrow",inEscrow);
-		model.addAttribute("totalWithdrawn",Withdrawn);
-		model.addAttribute("inAccount",inAccount);
+		model.addAttribute("totalWithdrawn",withdrawnTrans);
+		model.addAttribute("inAccount",moneyInAccount);
 		model.addAttribute("totalEarning",totalEarnings);
 	}
 

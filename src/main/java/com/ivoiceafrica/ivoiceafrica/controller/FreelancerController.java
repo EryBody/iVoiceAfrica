@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.ClientPersonalDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerAcceptanceDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerOfferDeclineDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerPersonalDetailDTO;
@@ -37,6 +39,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.SaveClientJobsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
+import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
@@ -55,6 +58,8 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
+import com.ivoiceafrica.ivoiceafrica.models.FreelancerDocumentNameModel;
 import com.ivoiceafrica.ivoiceafrica.models.FreelancerPricingModel;
 import com.ivoiceafrica.ivoiceafrica.models.SkillUploadModel;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
@@ -82,6 +87,8 @@ import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentStatusService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkTransactionService;
+import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 
 @Controller
 public class FreelancerController {
@@ -160,10 +167,10 @@ public class FreelancerController {
 
 	@Autowired
 	FreelancerDeliveryAttachmentService attachmentService;
-	
+
 	@Autowired
 	BankDetailService bankDetailService;
-	
+
 	@Autowired
 	WorkPaymentStatusService workPaymentStatusService;
 
@@ -172,49 +179,78 @@ public class FreelancerController {
 
 	@Autowired
 	WorkFreelancerPaymentService workFreelancerPaymentService;
-	
-	
-	 void dashboardFinancials(Model model, String userId) {
-		 
-		 	Optional<User> userDetails = userService.findFirstUserByUsername(userId);
-		
-			List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
-			
-			double inAccount = 0.0;
-			double inEscrow = 0.0;
-			double Withdrawn = 0.0;
-			double totalEarnings = 0.0;
-			
-			for (WorkFreelancerPayment payment : workfreelancerPayments) {
-				
-				if(payment.getPaymentStatus().getPaymentStatusId() == 4) { //4 means excrow status
-					inEscrow += payment.getAmount();
-				}
-				
-				if(payment.getPaymentStatus().getPaymentStatusId() == 5) { //5 means withdrwal status
-					Withdrawn += payment.getAmount();
-				}
-				
-				if(payment.getPaymentStatus().getPaymentStatusId() == 6) {//6 means in account
-					inAccount += payment.getAmount();
-				}
-				
-				totalEarnings += payment.getAmount();
-				
-			}
-			
-			System.out.println("===>>>User ID Freelancer: " + userId);
-			
-			
-			model.addAttribute("workfreelancerPayments",workfreelancerPayments);
-			model.addAttribute("workfreelancerPaymentsSize",workfreelancerPayments.size());
-			model.addAttribute("totalEscrow",inEscrow);
-			model.addAttribute("totalWithdrawn",Withdrawn);
-			model.addAttribute("inAccount",inAccount);
-			model.addAttribute("totalEarning",totalEarnings);
-		
-	}
 
+	@Autowired
+	ClientComponentModel clientComponentModel;
+
+	@Autowired
+	WorkTransactionService workTransactionService;
+
+	void dashboardFinancials(Model model, String userId) {
+
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+
+		List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService
+				.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
+
+		double inAccount = 0.0;
+		double inEscrow = 0.0;
+		double Withdrawn = 0.0;
+		double totalEarnings = 0.0;
+		double moneyInAccount = 0.0;
+
+		for (WorkFreelancerPayment payment : workfreelancerPayments) {
+
+			if (payment.getPaymentStatus().getPaymentStatusId() == 4) { // 4 means excrow status
+				inEscrow += payment.getAmount();
+			}
+
+//			if (payment.getPaymentStatus().getPaymentStatusId() == 5) { // 5 means withdrwal status
+//				Withdrawn += payment.getAmount();
+//			}
+
+			if (payment.getPaymentStatus().getPaymentStatusId() == 6) {// 6 means in account
+				inAccount += payment.getAmount();
+			}
+
+			totalEarnings += payment.getAmount();
+
+		}
+		
+		List<WorkTransactions> debitedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), false);
+
+		List<WorkTransactions> creditedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), true);
+
+		
+		
+		double withdrawnTrans = 0.0;
+		for (WorkTransactions transactions : debitedTransactions) {
+			withdrawnTrans += transactions.getAmount();
+		}
+
+		double creditedTrans = 0.0;
+		for (WorkTransactions transactions : creditedTransactions) {
+			creditedTrans += transactions.getAmount();
+		}
+
+		if(withdrawnTrans == 0.0) {
+			moneyInAccount = inAccount;
+		}else {
+			moneyInAccount = creditedTrans-withdrawnTrans;
+		}
+
+		System.out.println("===>>>User ID Freelancer: " + userId);
+
+		model.addAttribute("workfreelancerPayments", workfreelancerPayments);
+		model.addAttribute("workfreelancerPaymentsSize", workfreelancerPayments.size());
+		model.addAttribute("totalEscrow", inEscrow);
+		model.addAttribute("totalWithdrawn", withdrawnTrans);
+		model.addAttribute("inAccount", moneyInAccount);
+		model.addAttribute("totalEarning", totalEarnings);
+
+	}
 
 	@GetMapping("/freelancer-dashboard")
 	public String freelancerDashboard(Model model) {
@@ -226,9 +262,7 @@ public class FreelancerController {
 
 		String currentProposalDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-		
 		dashboardFinancials(model, userId);
-		
 
 		// Get jobs based on status (all, after deadline, deadline, processing) and the
 		// languages related to the jobs;
@@ -256,7 +290,6 @@ public class FreelancerController {
 		model.addAttribute("overdueDeliveries", overdueDelivery);
 		model.addAttribute("inprogressDeliveries", inprogressDelivery);
 		model.addAttribute("proposalsByLimit", proposalByLimit);
-	
 
 		return "dashboards/freelancers/dashboard";
 	}
@@ -268,14 +301,15 @@ public class FreelancerController {
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
 		List<Proposal> userProposal = proposalService.findProposalByUserAndStatusOrderByCreatedDesc(
-				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); //Freelancer Request Sent
-
+				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); // Freelancer
+																												// Request
 		model.addAttribute("userProposal", userProposal);
 		return "dashboards/freelancers/jobalerts";
 	}
 
 	@GetMapping("/freelancer-jobs-details/{workOrderId}/{proposalId}")
-	public String freelancerJobDetails(@PathVariable(value = "workOrderId") String workOrderId, @PathVariable(value = "proposalId") String proposalId, Model model) {
+	public String freelancerJobDetails(@PathVariable(value = "workOrderId") String workOrderId,
+			@PathVariable(value = "proposalId") String proposalId, Model model) {
 
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(workOrderId);
 
@@ -284,14 +318,23 @@ public class FreelancerController {
 
 		List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 				.findWorkOrderAttachmentByWorkOrder(opWorkOrder.get());
-		
-		
-		model.addAttribute("workOrderAttachmentList", workOrderAttachments);
-		model.addAttribute("userDetails", userDetails.get());
-		model.addAttribute("opWorkOrder", opWorkOrder.get());
-		model.addAttribute("proposalId", proposalId);
-		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
-		model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+
+		Optional<Proposal> proposal = proposalService.findById(proposalId);
+
+		String message = clientComponentModel.workOrderCalculations(opWorkOrder, model);
+		if (message.equals("done")) {
+			model.addAttribute("workOrderAttachmentList", workOrderAttachments);
+			model.addAttribute("userDetails", userDetails.get());
+			model.addAttribute("opWorkOrder", opWorkOrder.get());
+			model.addAttribute("proposalId", proposalId);
+			model.addAttribute("proposal", proposal.get());
+			model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
+			model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+		} else {
+			model.addAttribute("message", message);
+			return "dashboards/freelancers/jobdetail";
+		}
+
 		return "dashboards/freelancers/jobdetail";
 	}
 
@@ -300,41 +343,104 @@ public class FreelancerController {
 			@ModelAttribute("FreelancerAcceptanceDTO") FreelancerAcceptanceDTO freelancerAcceptanceDTO, Model model) {
 
 		System.out.println("===>>> freelancerAcceptanceDTO: " + freelancerAcceptanceDTO.toString());
-		
-		Optional<WorkOrder> opWorkOrder = workOrderService.findById(freelancerAcceptanceDTO.getWorkOrderId());
-		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerAcceptanceDTO.getUserId());
-		
-		if(freelancerAcceptanceDTO.getFreelancerAmount() >= opWorkOrder.get().getMinAmount() && freelancerAcceptanceDTO.getFreelancerAmount() <= opWorkOrder.get().getMaxAmount()) {
 
-			int updateProposalAmount =  proposalService.updateProposalAmount(freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
-			System.out.println("===>>> updateProposalAmount: "+updateProposalAmount);
-			
-			if(updateProposalAmount == 1) {
-				//update freelancer to accept request
-				int updateProposalStatus = proposalService.updateProposalByProposalId(11, freelancerAcceptanceDTO.getProposalId());//11 means freelancer accepted
-				System.out.println("===>>> updateProposalStatus: "+updateProposalStatus);
-				
-				if(updateProposalStatus == 1) {
+		try {
+			Optional<WorkOrder> workOrder = workOrderService.findById(freelancerAcceptanceDTO.getWorkOrderId());
+			Optional<User> userDetails = userService.findFirstUserByUsername(freelancerAcceptanceDTO.getUserId());
+			Optional<Proposal> proposal = proposalService.findById(freelancerAcceptanceDTO.getProposalId());
+
+			String createdDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			String sd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			Date startDate;
+
+			int updateProposalAmount = proposalService.updateProposalAmount(
+					freelancerAcceptanceDTO.getFreelancerAmount(), freelancerAcceptanceDTO.getProposalId());
+			System.out.println("===>>> updateProposalAmount: " + updateProposalAmount);
+
+			if (updateProposalAmount == 1) {
+
+				// update freelancer to accept request
+				int updateProposalStatus = proposalService.updateProposalByProposalId(11,
+						freelancerAcceptanceDTO.getProposalId());// 11 means freelancer accepted
+
+				System.out.println("===>>> updateProposalStatus: " + updateProposalStatus);
+
+				if (updateProposalStatus == 1) {
+
+					WorkOrdersDelivery workDelivery = new WorkOrdersDelivery();
+
+					startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sd);
+					Date endDate = GetEndDate.calculateNextSettleDate(startDate,
+							workOrder.get().getDuration().getDurationId());
+
+					String ed = new SimpleDateFormat("yyyy-MM-dd").format(endDate);
+
+					System.out.println("EndDate: " + endDate);
+					System.out.println("==>> ED: " + ed);
+
+					Optional<DeliveryStatus> deliveryStatus = deliveryStatusService.findById(5);// 5 means inprogress
+																								// status
+					// add workOrder Delivery
+//					workDelivery.setDeliveryId("");
+					workDelivery.setWorkOrder(workOrder.get());
+					workDelivery.setClientUserId(workOrder.get().getUser().getUserId());// client User Id
+					workDelivery.setUser(userDetails.get());// freelancer User
+					workDelivery.setAmount(String.valueOf(freelancerAcceptanceDTO.getFreelancerAmount()));
+					workDelivery.setDeliveryStatus(deliveryStatus.get());
+					workDelivery.setStartDate(sd);
+					workDelivery.setEndDate(ed);
+					workDelivery.setCreatedDate(createdDate);
+
+					deliveryService.save(workDelivery);
+
+					Optional<WorkOrdersDelivery> opWorkOrderDelivery = deliveryService
+							.findFirstWorkOrdersDeliveryByUserOrderByCreatedDateDesc(userDetails.get());
+
+					List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
+							.findWorkOrderAttachmentByWorkOrder(workOrder.get());
+
+					for (WorkOrderAttachment attachment : workOrderAttachments) {
+
+						DeliveryAttachment deliveryAttachment = new DeliveryAttachment();
+//						deliveryAttachment.setDeliveryAttachId("");
+						deliveryAttachment.setWorkOrderDelivery(opWorkOrderDelivery.get());
+						deliveryAttachment.setLinkMediaFile(attachment.getLinkMediaFile());
+						deliveryAttachment.setDescription(attachment.getDescription());
+						deliveryAttachment.setSource(attachment.getSource());
+						deliveryAttachment.setDestination(attachment.getDestination());
+
+						deliveryAttachmentService.save(deliveryAttachment);
+					}
+
+					int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(5, workOrder.get().getWorkId());
+					System.out.println("===>>> updateWorkOrderStatus Inprogess: " + updateWorkOrderStatus);
+
 					model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
 					model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
-					
 					model.addAttribute("message", "Great, Job has been accepted successfully.");
-				}else {
+
+				} else {
 					model.addAttribute("message", "Updating Proposal Details Failed, Logout and Try again");
 				}
-			}else {
+			} else {
 				model.addAttribute("message", "Updating Proposal Amount Failed, Logout and Try again");
 			}
-		
-		}else {
-			model.addAttribute("message", "Amount not in range, Your amount must be in range");
+
+			Optional<WorkOrdersDelivery> delivery = deliveryService
+					.findWorkOrdersDeliveryByUserAndWorkOrder(userDetails.get(), workOrder.get());
+
+			model.addAttribute("userDetails", userDetails.get());
+			model.addAttribute("opWorkOrder", workOrder.get());
+			model.addAttribute("proposal", proposal.get());
+			model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
+			model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
+			model.addAttribute("delivery", delivery.get());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Exception in date: " + e.getMessage());
 		}
-		
-		model.addAttribute("userDetails", userDetails.get());
-		model.addAttribute("opWorkOrder", opWorkOrder.get());
-		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
-		model.addAttribute("freelancerOfferDeclineDTO", new FreelancerOfferDeclineDTO());
-		
+
 		return "dashboards/freelancers/jobdetail";
 	}
 
@@ -348,10 +454,11 @@ public class FreelancerController {
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(freelancerOfferDeclineDTO.getWorkOrderId());
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerOfferDeclineDTO.getUserId());
-		
-		//update freelancer to decline request
-		int updateProposalStatus = proposalService.updateProposalByProposalId(14, freelancerOfferDeclineDTO.getProposalId());//14 means freelancer declined workorder status
-		System.out.println("===>>> DeclineFreelancerRequest: "+updateProposalStatus);
+
+		// update freelancer to decline request
+		int updateProposalStatus = proposalService.updateProposalByProposalId(14,
+				freelancerOfferDeclineDTO.getProposalId());// 14 means freelancer declined workorder status
+		System.out.println("===>>> DeclineFreelancerRequest: " + updateProposalStatus);
 
 		model.addAttribute("freelancerStatus", 14);
 		model.addAttribute("userDetails", userDetails.get());
@@ -371,9 +478,10 @@ public class FreelancerController {
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
+		System.out.println("====>>> User: " + userDetails.get().getUserId());
+
 		String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-		// TODO: Change to the original Status
 		Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(5); // 5 represents in Progress
 
 		List<WorkOrdersDelivery> allDelivery = deliveryService
@@ -597,7 +705,9 @@ public class FreelancerController {
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
 		List<Proposal> userProposal = proposalService.findProposalByUserAndStatusOrderByCreatedDesc(
-				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); //Freelancer Request Sent
+				userDetails.get().getUserId(), proposalStatusService.findById(9).get().getProposalStatusId()); // Freelancer
+																												// Request
+																												// Sent
 
 		model.addAttribute("notificationWorkDeliveries", userProposal);
 		return "dashboards/freelancers/notification";
@@ -622,28 +732,27 @@ public class FreelancerController {
 
 		return "redirect:/freelancer-dashboard";
 	}
-	
-	
+
 	@GetMapping("/freelancer-job-status/{statusId}/{workOrderId}")
-	public String freelancerJobStatus(@PathVariable(value = "statusId") String statusId, @PathVariable(value = "workOrderId") String workOrderId, Model model) {
+	public String freelancerJobStatus(@PathVariable(value = "statusId") String statusId,
+			@PathVariable(value = "workOrderId") String workOrderId, Model model) {
 
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
 
 		if (statusId.equals("inprogress")) {
 			int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(5, workOrderId);
-			System.out.println("===>>> updateWorkOrderStatus Inprogess: "+updateWorkOrderStatus);
+			System.out.println("===>>> updateWorkOrderStatus Inprogess: " + updateWorkOrderStatus);
 		} else if (statusId.equals("decline")) {
 			int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(3, workOrderId);
-			System.out.println("===>>> updateWorkOrderStatus Decline: "+updateWorkOrderStatus);
+			System.out.println("===>>> updateWorkOrderStatus Decline: " + updateWorkOrderStatus);
 		} else if (statusId.equals("pending")) {
 			int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(1, workOrderId);
-			System.out.println("===>>> updateWorkOrderStatus Pending: "+updateWorkOrderStatus);
+			System.out.println("===>>> updateWorkOrderStatus Pending: " + updateWorkOrderStatus);
 		}
 
-		return "redirect:/freelancer-active-details/" + workOrderId+"";
+		return "redirect:/freelancer-active-details/" + workOrderId + "";
 	}
-	
 
 	@GetMapping("/freelancer-weekly-financials")
 	@ResponseBody
@@ -666,31 +775,30 @@ public class FreelancerController {
 		return financialType;
 	}
 
-	
 	@PostMapping("/save-freelancer-jobs")
-	public String submitClientJob(@ModelAttribute("saveClientJobsDTO") SaveClientJobsDTO saveClientJobsDTO,
-			Model model, RedirectAttributes attributes) {
+	public String submitClientJob(@ModelAttribute("saveClientJobsDTO") SaveClientJobsDTO saveClientJobsDTO, Model model,
+			RedirectAttributes attributes) {
 
 		System.out.println("===>>> SaveClientJobsDTO: " + saveClientJobsDTO);
 
 		String modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		String entryDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		
+
 		int attachmentSize = saveClientJobsDTO.getDeliveryId().length;
-		
+
 		for (int i = 0; i < attachmentSize; i++) {
-		
+
 			MultipartFile[] attachment = saveClientJobsDTO.getMultipartList();
-			
+
 			FreelancerDeliveryAttachment delivery = new FreelancerDeliveryAttachment();
 
 			Optional<WorkOrdersDelivery> workOrderDelivery = deliveryService
 					.findById(saveClientJobsDTO.getDeliveryId()[0]);
 
 			String fileSize = FreelancerController.getDynamicSpace(attachment[i].getSize());
-			
-			System.out.println("File Size: "+fileSize);
-			
+
+			System.out.println("File Size: " + fileSize);
+
 			String imageUUID;
 			if (!attachment[i].isEmpty()) {
 				imageUUID = attachment[i].getOriginalFilename();
@@ -700,14 +808,15 @@ public class FreelancerController {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					System.out.println("===>>>Exception: "+e.getMessage());
+					System.out.println("===>>>Exception: " + e.getMessage());
 				}
 			} else {
 				imageUUID = "";
 			}
-			
+
 			String[] deliveryAttachmentId = saveClientJobsDTO.getDeliveryAttachment();
-			Optional<DeliveryAttachment> opDeliveryAttachment = deliveryAttachmentService.findById(deliveryAttachmentId[i]);
+			Optional<DeliveryAttachment> opDeliveryAttachment = deliveryAttachmentService
+					.findById(deliveryAttachmentId[i]);
 
 //			delivery.setAttachmentId("");
 			delivery.setWorkOrderDelivery(workOrderDelivery.get());
@@ -719,18 +828,20 @@ public class FreelancerController {
 			attachmentService.save(delivery);
 			System.out.println("===>>> Job submitted successfully");
 		}
-		
-				
-		//update workDelivery and WorkOrder
-		//2 means completed
+
+		// update workDelivery and WorkOrder
+		// 2 means completed
 		int updateDeliveryStatus = deliveryService.updateWorkDeliveryStatus(2, saveClientJobsDTO.getDeliveryId()[0]);
-		System.out.println("===>>> updateDeliveryStatus: "+updateDeliveryStatus);
-		
+		System.out.println("===>>> updateDeliveryStatus: " + updateDeliveryStatus);
+
 		int updateWorkOrderStatus = workOrderService.updateWorkOrderStatus(2, saveClientJobsDTO.getWorkOrderId()[0]);
-		System.out.println("===>>> updateWorkOrderStatus: "+updateWorkOrderStatus);
+		System.out.println("===>>> updateWorkOrderStatus: " + updateWorkOrderStatus);
 		
-		attributes.addFlashAttribute("message", "Great, your job was succesfully submitted.");		
-		return "redirect:/freelancer-active-details/" + saveClientJobsDTO.getWorkOrderId()[0]+"";
+		int updateCompletedDate = deliveryService.updateCompletedDate(modifiedDate, saveClientJobsDTO.getDeliveryId()[0]);
+		System.out.println("===>>> updateCompletedDate: " + updateCompletedDate);
+
+		attributes.addFlashAttribute("message", "Great, your job was succesfully submitted.");
+		return "redirect:/freelancer-active-details/" + saveClientJobsDTO.getWorkOrderId()[0] + "";
 	}
 
 	@GetMapping("/freelancer-faqs")
@@ -740,72 +851,114 @@ public class FreelancerController {
 
 	@GetMapping("/freelancer-finances")
 	public String freelancerFinances(Model model) {
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
-		System.out.println("===>>> User Details Freelancer: "+userDetails.get());
-		
-		//get Payments
-		List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
-		
+		System.out.println("===>>> User Details Freelancer: " + userDetails.get());
+
+		// get Payments
+		List<WorkFreelancerPayment> workfreelancerPayments = workFreelancerPaymentService
+				.findWorkFreelancerPaymentByFreelancerIdOrderByEntryDateDesc(userDetails.get());
+
 		double inAccount = 0.0;
 		double inEscrow = 0.0;
 		double Withdrawn = 0.0;
 		double totalEarnings = 0.0;
 		
+		double moneyInAccount = 0.0;
+
 		for (WorkFreelancerPayment payment : workfreelancerPayments) {
-			
-			if(payment.getPaymentStatus().getPaymentStatusId() == 4) { //4 means excrow status
+
+			if (payment.getPaymentStatus().getPaymentStatusId() == 4) { // 4 means excrow status
 				inEscrow += payment.getAmount();
 			}
-			
-			if(payment.getPaymentStatus().getPaymentStatusId() == 5) { //5 means withdrwal status
-				Withdrawn += payment.getAmount();
-			}
-			
-			if(payment.getPaymentStatus().getPaymentStatusId() == 6) {//6 means in account
+
+//			if (payment.getPaymentStatus().getPaymentStatusId() == 5) { // 5 means withdrwal status
+//				Withdrawn += payment.getAmount();
+//			}
+
+			if (payment.getPaymentStatus().getPaymentStatusId() == 6) {// 6 means in account
 				inAccount += payment.getAmount();
 			}
-			
+
 			totalEarnings += payment.getAmount();
-			
+
+		}
+
+		List<WorkTransactions> debitedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), false);
+
+		List<WorkTransactions> creditedTransactions = workTransactionService
+				.findWorkTransactionsByUserAndIsInFlowOrderByEntryDateDesc(userDetails.get(), true);
+
+		
+		double withdrawnTrans = 0.0;
+		for (WorkTransactions transactions : debitedTransactions) {
+			withdrawnTrans += transactions.getAmount();
+		}
+
+		double creditedTrans = 0.0;
+		for (WorkTransactions transactions : creditedTransactions) {
+			creditedTrans += transactions.getAmount();
+		}
+
+		if(withdrawnTrans == 0.0) {
+			moneyInAccount = inAccount;
+		}else {
+			moneyInAccount = creditedTrans-withdrawnTrans;
 		}
 		
-		//TODO: Validate the amount the freelancer is sending
 		session.setAttribute("inAccountBalance", inAccount);
 		session.setAttribute("totalEarnings", totalEarnings);
-		
+
 		boolean isBankDetailsExist = false;
 
 		System.out.println("===>>>User ID Freelancer: " + userId);
 
 		BankDetail detail = bankDetailService.findBankDetailsWithUserId(userDetails.get().getUserId());
 
-		if(detail != null) {
+		if (detail != null) {
 			if (!detail.getBankId().isEmpty()) {
 				isBankDetailsExist = true;
 			} else {
 				isBankDetailsExist = false;
 			}
-			
+
 			if (!isBankDetailsExist) {
 				model.addAttribute("message", "Please add your Bank Detail.");
-			}else {
+			} else {
 				model.addAttribute("message", "Bank Details Exist.");
 			}
-		}else {
+
+		} else {
 			model.addAttribute("message", "Please add your Bank Detail.");
 		}
-		
-		
-		model.addAttribute("workfreelancerPayments",workfreelancerPayments);
-		model.addAttribute("totalEscrow",inEscrow);
-		model.addAttribute("totalWithdrawn",Withdrawn);
-		model.addAttribute("inAccount",inAccount);
-		model.addAttribute("totalEarning",totalEarnings);
-		
+
+		model.addAttribute("workfreelancerPayments", workfreelancerPayments);
+		model.addAttribute("totalEscrow", inEscrow);
+		model.addAttribute("totalWithdrawn", withdrawnTrans);
+		model.addAttribute("inAccount", moneyInAccount);
+		model.addAttribute("totalEarning", totalEarnings);
+
 		return "dashboards/freelancers/Finances";
 	}
+	
+	@GetMapping("/freelancer-transactions")
+	public String freelancerTransactions(Model model) {
+
+		String userId = (String) session.getAttribute("userId");
+		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+		System.out.println("===>>> User Details Freelancer: " + userDetails.get());
+
+		List<WorkTransactions> transactions = workTransactionService
+				.findWorkTransactionsByUserOrderByEntryDateDesc(userDetails.get());
+
+		model.addAttribute("transactions", transactions);
+
+		return "dashboards/freelancers/transactions";
+	}
+	
+
 
 	@GetMapping("/freelancer-profile/{user}")
 	public String freelnacerProfile(@PathVariable(value = "user") String user, Model model) {
@@ -856,8 +1009,8 @@ public class FreelancerController {
 		} catch (Exception ex) {
 			System.out.println("===>>> Upload File Exception: " + ex.getMessage());
 		}
-		
-		System.out.println("====>>> Final File name to save: "+filename);
+
+		System.out.println("====>>> Final File name to save: " + filename);
 
 		return filename;
 	}
@@ -866,14 +1019,23 @@ public class FreelancerController {
 	public String saveFreelancerSign(@ModelAttribute("FreelancerSignupDTO") FreelancerSignupDTO freelancerSignupDTO,
 			HttpSession session, Model model) {
 
-//		List<UserStatus> userStatus = userStatusService.findAll();
-//		model.addAttribute("userStatus", userStatus);
+		User user = userService.findUserDetailsByUsername(freelancerSignupDTO.getEmail());
 
-		session.setAttribute("freelancerSignupDto", freelancerSignupDTO);
+		System.out.println("===>>> User: " + user);
 
-		model.addAttribute("FreelancerPersonalDetailDTO", new FreelancerPersonalDetailDTO());
+		if (user != null) {
 
-		return "onboarding/freelancer/profilesetup";
+			model.addAttribute("message", "This user already exist");
+			model.addAttribute("FreelancerPersonalDetailDTO", new FreelancerPersonalDetailDTO());
+			return "onboarding/freelancer/signup";
+
+		} else {
+			session.setAttribute("freelancerSignupDto", freelancerSignupDTO);
+
+			model.addAttribute("FreelancerPersonalDetailDTO", new FreelancerPersonalDetailDTO());
+
+			return "onboarding/freelancer/profilesetup";
+		}
 	}
 
 	@PostMapping("/freelancer/detail/save")
@@ -882,7 +1044,6 @@ public class FreelancerController {
 			HttpSession session, Model model) {
 
 		List<Language> languages = languageService.findAll();
-
 		List<Industry> industries = industryService.findAll();
 
 		System.out.println("===>>> Freelancer personal details: " + freelancerPersonalDetailDTO);
@@ -915,28 +1076,9 @@ public class FreelancerController {
 		System.out.println("===>>>Binding Result: " + bindingResult);
 
 		try {
+			FreelancerDocumentNameModel documentName = new FreelancerDocumentNameModel();
 
-			// TODO: Change mongoPark code later
-			System.out.println("===>>> tu1: " + tu1);
-			System.out.println("===>>> tu2: " + tu2);
-			System.out.println("===>>> tu3: " + tu3);
-			System.out.println("===>>> tu4: " + tu4);
-			System.out.println("===>>> tu5: " + tu5);
-			System.out.println("===>>> iu1: " + iu1);
-			System.out.println("===>>> iu2: " + iu2);
-			System.out.println("===>>> iu3: " + iu3);
-			System.out.println("===>>> iu4: " + iu4);
-			System.out.println("===>>> iu4: " + iu4);
-			System.out.println("===>>> vcu1: " + vcu1);
-			System.out.println("===>>> vcu2: " + vcu2);
-			System.out.println("===>>> vcu3: " + vcu3);
-			System.out.println("===>>> vcu4: " + vcu4);
-			System.out.println("===>>> vcu5: " + vcu5);
-			System.out.println("===>>> tsu1: " + tsu1);
-			System.out.println("===>>> tsu2: " + tsu2);
-			System.out.println("===>>> tsu3: " + tsu3);
-			System.out.println("===>>> tsu4: " + tsu4);
-			System.out.println("===>>> tsu5: " + tsu5);
+			List<MultipartFile> uploads = new ArrayList<>();
 
 			freelancerSkillDetailDTO.setTranslationUpload1(tu1);
 			freelancerSkillDetailDTO.setTranslationUpload2(tu2);
@@ -944,11 +1086,23 @@ public class FreelancerController {
 			freelancerSkillDetailDTO.setTranslationUpload4(tu4);
 			freelancerSkillDetailDTO.setTranslationUpload5(tu5);
 
+			documentName.setTranslationFilename1(getUploadFileName(tu1) == null ? "" : getUploadFileName(tu1));
+			documentName.setTranslationFilename2(getUploadFileName(tu2) == null ? "" : getUploadFileName(tu2));
+			documentName.setTranslationFilename3(getUploadFileName(tu3) == null ? "" : getUploadFileName(tu3));
+			documentName.setTranslationFilename4(getUploadFileName(tu4) == null ? "" : getUploadFileName(tu4));
+			documentName.setTranslationFilename5(getUploadFileName(tu5) == null ? "" : getUploadFileName(tu5));
+
 			freelancerSkillDetailDTO.setInterUpload1(iu1);
 			freelancerSkillDetailDTO.setInterUpload2(iu2);
 			freelancerSkillDetailDTO.setInterUpload3(iu3);
 			freelancerSkillDetailDTO.setInterUpload4(iu4);
 			freelancerSkillDetailDTO.setInterUpload5(iu5);
+
+			documentName.setInterFilename1(getUploadFileName(iu1) == null ? "" : getUploadFileName(iu1));
+			documentName.setInterFilename2(getUploadFileName(iu2) == null ? "" : getUploadFileName(iu2));
+			documentName.setInterFilename3(getUploadFileName(iu3) == null ? "" : getUploadFileName(iu3));
+			documentName.setInterFilename4(getUploadFileName(iu4) == null ? "" : getUploadFileName(iu4));
+			documentName.setInterFilename5(getUploadFileName(iu5) == null ? "" : getUploadFileName(iu5));
 
 			freelancerSkillDetailDTO.setVcUpload1(vcu1);
 			freelancerSkillDetailDTO.setVcUpload2(vcu2);
@@ -956,16 +1110,32 @@ public class FreelancerController {
 			freelancerSkillDetailDTO.setVcUpload4(vcu4);
 			freelancerSkillDetailDTO.setVcUpload5(vcu5);
 
+			documentName.setVcFilename1(getUploadFileName(vcu1) == null ? "" : getUploadFileName(vcu1));
+			documentName.setVcFilename2(getUploadFileName(vcu2) == null ? "" : getUploadFileName(vcu2));
+			documentName.setVcFilename3(getUploadFileName(vcu3) == null ? "" : getUploadFileName(vcu3));
+			documentName.setVcFilename4(getUploadFileName(vcu4) == null ? "" : getUploadFileName(vcu4));
+			documentName.setVcFilename5(getUploadFileName(vcu5) == null ? "" : getUploadFileName(vcu5));
+
 			freelancerSkillDetailDTO.setTranscribeUpload1(tsu1);
 			freelancerSkillDetailDTO.setTranscribeUpload2(tsu2);
 			freelancerSkillDetailDTO.setTranscribeUpload3(tsu3);
 			freelancerSkillDetailDTO.setTranscribeUpload4(tsu4);
 			freelancerSkillDetailDTO.setTranscribeUpload5(tsu5);
 
+			documentName.setTranscribeFilename1(getUploadFileName(tsu1) == null ? "" : getUploadFileName(tsu1));
+			documentName.setTranscribeFilename2(getUploadFileName(tsu2) == null ? "" : getUploadFileName(tsu2));
+			documentName.setTranscribeFilename3(getUploadFileName(tsu3) == null ? "" : getUploadFileName(tsu3));
+			documentName.setTranscribeFilename4(getUploadFileName(tsu4) == null ? "" : getUploadFileName(tsu4));
+			documentName.setTranscribeFilename5(getUploadFileName(tsu5) == null ? "" : getUploadFileName(tsu5));
+
 			System.out.println("===>>> Freelancer Skill details: " + freelancerSkillDetailDTO);
+			System.out.println("===>>> FreelancerDocumentNameModel: " + documentName);
+
 			session.setAttribute("freelancerSkillDetailDTO", freelancerSkillDetailDTO);
+			session.setAttribute("freelancerDocumentNameModel", documentName);
 
 			model.addAttribute("FreelancerProfilePictureDetailDTO", new FreelancerProfilePictureDetailDTO());
+			model.addAttribute("message", "Uploads saved successfully, please continue with final step.");
 
 		} catch (Exception e) {
 			System.out.println("===>>> Exception: " + e);
@@ -973,8 +1143,6 @@ public class FreelancerController {
 
 		return "onboarding/freelancer/profilesetup4";
 	}
-	
-	
 
 	@PostMapping("/freelancer/profilepicture/save")
 	public String saveFreelancerProfile(
@@ -1025,8 +1193,11 @@ public class FreelancerController {
 				FreelancerProfilePictureDetailDTO profilePictureData = (FreelancerProfilePictureDetailDTO) session
 						.getAttribute("freelancerProfilePictureDetailDTO");
 
-				// Pass the session data to the user service and save
+				// Get the freeLancer fileName from session
+				FreelancerDocumentNameModel documentName = (FreelancerDocumentNameModel) session
+						.getAttribute("freelancerDocumentNameModel");
 
+				// Pass the session data to the user service and save
 				User user = new User();
 
 				// Set user Role
@@ -1053,6 +1224,7 @@ public class FreelancerController {
 				user.setLastName(signupData.getLastName());
 				user.setCountry(personalInfoData.getCountry());
 				user.setPhone(personalInfoData.getMobileNumber());
+				user.setCountryCode(personalInfoData.getCountryCode());
 				user.setEmailAddress(signupData.getEmail());
 				user.setUserStatus(userStatus.get());
 				user.setGender(personalInfoData.getGender());
@@ -1079,7 +1251,8 @@ public class FreelancerController {
 					String industryData = freelancerSkillData.getTranslationIndustries();
 
 					if (industryData != null) {
-						saveTranslationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveTranslationInfo(signupData, freelancerSkillData, profilePictureData, industryData,
+								documentName);
 					}
 				}
 
@@ -1090,7 +1263,20 @@ public class FreelancerController {
 					String industryData = freelancerSkillData.getInterpretationIndustries();
 
 					if (industryData != null) {
-						saveInterpretationInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveInterpretationInfo(signupData, freelancerSkillData, profilePictureData, industryData,
+								documentName);
+					}
+				}
+
+				if (freelancerSkillData.getScribingServiceType().equals("ST104")) {
+
+					System.out.println("====>>>> Scribing Data Entry");
+					// insert into service industries;
+					String industryData = freelancerSkillData.getScribingIndustries();
+
+					if (industryData != null) {
+						saveTranscribinginfo(signupData, freelancerSkillData, profilePictureData, industryData,
+								documentName);
 					}
 				}
 
@@ -1101,19 +1287,8 @@ public class FreelancerController {
 					String industryData = freelancerSkillData.getVcIndustries();
 
 					if (industryData != null) {
-						saveVcInfo(signupData, freelancerSkillData, profilePictureData, industryData);
+						saveVcInfo(signupData, freelancerSkillData, profilePictureData, industryData, documentName);
 					}
-				}
-
-				if (freelancerSkillData.getScribingServiceType().equals("ST104")) {
-
-					System.out.println("====>>>> Scribing Data Entry");
-					// insert into service industries;
-					String industryData = freelancerSkillData.getScribingIndustries();
-					if (industryData != null) {
-						saveTranscribinginfo(signupData, freelancerSkillData, profilePictureData, industryData);
-					}
-
 				}
 
 				attributes.addFlashAttribute("message", "Great, your profile has been created!");
@@ -1122,16 +1297,15 @@ public class FreelancerController {
 			} else {
 				return "onboarding/freelancer/profilesetup4";
 			}
-
 		} catch (Exception e) {
-
 			System.out.println("===>>> Exception: " + e);
 		}
 		return "onboarding/freelancer/profilesetup4";
 	}
 
 	public void saveTranslationInfo(FreelancerSignupDTO signupData, FreelancerSkillDetailDTO freelancerSkillData,
-			FreelancerProfilePictureDetailDTO profilePictureData, String industryData) {
+			FreelancerProfilePictureDetailDTO profilePictureData, String industryData,
+			FreelancerDocumentNameModel documentName) {
 		System.out.println("====>>> Translation IN");
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(signupData.getEmail());
@@ -1139,8 +1313,8 @@ public class FreelancerController {
 
 		System.out.println("====>>> userDetails: " + userDetails.get());
 		System.out.println("====>>> serviceTypeDetail: " + serviceTypeDetail);
-		
-		System.out.println("===>>>> freelancerSkillData Translation: "+freelancerSkillData);
+
+		System.out.println("===>>>> freelancerSkillData Translation: " + freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1154,11 +1328,13 @@ public class FreelancerController {
 		System.out.println("====>>> Translation Service Saved");
 		System.out.println("===>>> Translation industryData List: " + industryData);
 
-		Optional<ServiceRendered> serviceRenderedId = serviceRendered.findFirstServiceRenderedByUser(userDetails.get());
+		Optional<ServiceRendered> serviceRenderedId = serviceRendered
+				.findServiceRenderedByUserAndServiceType(userDetails.get(), serviceTypeDetail.get());
 
 		System.out.println("===>>> Translation serviceRenderedId: " + serviceRenderedId);
 
 		if (industryData.split(",").length > 1) {
+
 			String[] industries = industryData.split(",");
 
 			System.out.println("===>>> Translation List of Industries: " + industries);
@@ -1180,7 +1356,6 @@ public class FreelancerController {
 
 				System.out.println("====>>> Translation Service Industry Saved(Multiple)");
 			}
-
 		} else {
 			ServiceIndustries industry = new ServiceIndustries();
 			Optional<Industry> industryId = industryService.findById(Integer.parseInt(industryData));
@@ -1196,41 +1371,33 @@ public class FreelancerController {
 			System.out.println("====>>> Translation Service Industry Saved(one)");
 		}
 
-		// insert into service languages;
-		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
-		
-		MultipartFile tu1 = freelancerSkillData.getTranslationUpload1();
-		MultipartFile tu2 = freelancerSkillData.getTranslationUpload2();
-		MultipartFile tu3 = freelancerSkillData.getTranslationUpload3();
-		MultipartFile tu4 = freelancerSkillData.getTranslationUpload4();
-		MultipartFile tu5 = freelancerSkillData.getTranslationUpload5();
 
 		if (!freelancerSkillData.getTranslationLanguage1().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage1()),
-					getUploadFileName(tu1)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage1()), "",
+					documentName.getTranslationFilename1()));
 		}
 		if (!freelancerSkillData.getTranslationLanguage2().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage2()),
-					getUploadFileName(tu2)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage2()), "",
+					documentName.getTranslationFilename2()));
 		}
 		if (!freelancerSkillData.getTranslationLanguage3().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage3()),
-					getUploadFileName(tu3)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage3()), "",
+					documentName.getTranslationFilename3()));
 		}
 		if (!freelancerSkillData.getTranslationLanguage4().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage4()),
-					getUploadFileName(tu4)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage4()), "",
+					documentName.getTranslationFilename4()));
 		}
 		if (!freelancerSkillData.getTranslationLanguage5().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage5()),
-					getUploadFileName(tu5)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranslationLanguage5()), "",
+					documentName.getTranslationFilename5()));
 		}
 
 		System.out.println("===>>> Translation List of Languages: " + skillModels);
 
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("\n===>>> freelancer SkillModel Translation: "+skillModel);
+			System.out.println("\n===>>> freelancer SkillModel Translation: " + skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1244,10 +1411,11 @@ public class FreelancerController {
 //			language.setServiceLanguageId(industryData);
 			serviceLanguageObj.setLanguageId(opLanguage.get());
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
+			serviceLanguageObj.setUser(userDetails.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
-			
-			System.out.println("===>>> serviceLanguageObj Translation: "+serviceLanguageObj);
+
+			System.out.println("===>>> serviceLanguageObj Translation: " + serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
@@ -1275,8 +1443,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
-			
-			System.out.println("===>>> freelancerPricingData Translation: "+freelancerPricingData);
+
+			System.out.println("===>>> freelancerPricingData Translation: " + freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1286,7 +1454,8 @@ public class FreelancerController {
 	}
 
 	public void saveInterpretationInfo(FreelancerSignupDTO signupData, FreelancerSkillDetailDTO freelancerSkillData,
-			FreelancerProfilePictureDetailDTO profilePictureData, String industryData) {
+			FreelancerProfilePictureDetailDTO profilePictureData, String industryData,
+			FreelancerDocumentNameModel documentName) {
 		System.out.println("====>>> Interpretation IN");
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(signupData.getEmail());
@@ -1294,7 +1463,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> Inter userDetails: " + userDetails.get());
 		System.out.println("====>>> Inter serviceTypeDetail: " + serviceTypeDetail);
-		System.out.println("===>>>> freelancerSkillData Interpretation: "+freelancerSkillData);
+		System.out.println("===>>>> freelancerSkillData Interpretation: " + freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1309,7 +1478,8 @@ public class FreelancerController {
 
 		System.out.println("===>>> Inter industryData List: " + industryData);
 
-		Optional<ServiceRendered> serviceRenderedId = serviceRendered.findFirstServiceRenderedByUser(userDetails.get());
+		Optional<ServiceRendered> serviceRenderedId = serviceRendered
+				.findServiceRenderedByUserAndServiceType(userDetails.get(), serviceTypeDetail.get());
 
 		System.out.println("===>>> Inter serviceRenderedId: " + serviceRenderedId);
 
@@ -1354,37 +1524,31 @@ public class FreelancerController {
 		// insert into service languages;
 		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
-		
-		MultipartFile inter1 = freelancerSkillData.getInterUpload1();
-		MultipartFile inter2 = freelancerSkillData.getInterUpload2();
-		MultipartFile inter3 = freelancerSkillData.getInterUpload3();
-		MultipartFile inter4 = freelancerSkillData.getInterUpload4();
-		MultipartFile inter5 = freelancerSkillData.getInterUpload5();
 
 		if (!freelancerSkillData.getInterLanguage1().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage1()),
-					getUploadFileName(inter1)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage1()), "",
+					documentName.getInterFilename1()));
 		}
 		if (!freelancerSkillData.getInterLanguage2().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage2()),
-					getUploadFileName(inter2)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage2()), "",
+					documentName.getInterFilename2()));
 		}
 		if (!freelancerSkillData.getInterLanguage3().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage3()),
-					getUploadFileName(inter3)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage3()), "",
+					documentName.getInterFilename3()));
 		}
 		if (!freelancerSkillData.getInterLanguage4().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage4()),
-					getUploadFileName(inter4)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage4()), "",
+					documentName.getInterFilename4()));
 		}
 		if (!freelancerSkillData.getInterLanguage5().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage5()),
-					getUploadFileName(inter5)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getInterLanguage5()), "",
+					documentName.getInterFilename5()));
 		}
 
 		System.out.println("===>>> Inter List of Languages: " + skillModels);
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("\n===>>> freelancer SkillModel Interpretation: "+skillModel);
+			System.out.println("\n===>>> freelancer SkillModel Interpretation: " + skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1398,10 +1562,11 @@ public class FreelancerController {
 //			language.setServiceLanguageId(industryData);
 			serviceLanguageObj.setLanguageId(opLanguage.get());
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
+			serviceLanguageObj.setUser(userDetails.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
-			
-			System.out.println("===>>>> serviceLanguageObj Inter: "+serviceLanguageObj);
+
+			System.out.println("===>>>> serviceLanguageObj Inter: " + serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
@@ -1430,8 +1595,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
-			
-			System.out.println("===>>>> freelancerPricingData Inter: "+freelancerPricingData);
+
+			System.out.println("===>>>> freelancerPricingData Inter: " + freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1441,7 +1606,8 @@ public class FreelancerController {
 	}
 
 	public void saveVcInfo(FreelancerSignupDTO signupData, FreelancerSkillDetailDTO freelancerSkillData,
-			FreelancerProfilePictureDetailDTO profilePictureData, String industryData) {
+			FreelancerProfilePictureDetailDTO profilePictureData, String industryData,
+			FreelancerDocumentNameModel documentName) {
 		System.out.println("====>>> VC IN");
 
 		Optional<User> userDetails = userService.findFirstUserByUsername(signupData.getEmail());
@@ -1449,7 +1615,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> VC userDetails: " + userDetails);
 		System.out.println("====>>> VC serviceTypeDetail: " + serviceTypeDetail);
-		System.out.println("===>>>> freelancerSkillData VC: "+freelancerSkillData);
+		System.out.println("===>>>> freelancerSkillData VC: " + freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1465,7 +1631,8 @@ public class FreelancerController {
 		System.out.println("===>>> VC industryData List: " + industryData);
 		System.out.println("===>>> VC opUser: " + userDetails);
 
-		Optional<ServiceRendered> serviceRenderedId = serviceRendered.findFirstServiceRenderedByUser(userDetails.get());
+		Optional<ServiceRendered> serviceRenderedId = serviceRendered
+				.findServiceRenderedByUserAndServiceType(userDetails.get(), serviceTypeDetail.get());
 
 		System.out.println("===>>> VC serviceRenderedId: " + serviceRenderedId);
 
@@ -1509,39 +1676,32 @@ public class FreelancerController {
 		}
 
 		List<SkillUploadModel> skillModels = new ArrayList<>();
-		
-		MultipartFile vc1 = freelancerSkillData.getVcUpload1();
-		MultipartFile vc2 = freelancerSkillData.getVcUpload2();
-		MultipartFile vc3 = freelancerSkillData.getVcUpload3();
-		MultipartFile vc4 = freelancerSkillData.getVcUpload4();
-		MultipartFile vc5 = freelancerSkillData.getVcUpload5();
-		
-		// insert into service languages;
-		// TODO: Upload document file goes as null to db, Check why!!!
+
 		if (!freelancerSkillData.getVcLanguage1().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage1()),
-					freelancerSkillData.getVoiceDesc1(), getUploadFileName(vc1)));
+					freelancerSkillData.getVoiceDesc1(), documentName.getVcFilename1()));
 		}
 		if (!freelancerSkillData.getVcLanguage2().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage2()),
-					freelancerSkillData.getVoiceDesc2(), getUploadFileName(vc2)));
+					freelancerSkillData.getVoiceDesc2(), documentName.getVcFilename2()));
 		}
 		if (!freelancerSkillData.getVcLanguage3().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage3()),
-					freelancerSkillData.getVoiceDesc3(), getUploadFileName(vc3)));
+					freelancerSkillData.getVoiceDesc3(), documentName.getVcFilename3()));
 		}
 		if (!freelancerSkillData.getVcLanguage4().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage4()),
-					freelancerSkillData.getVoiceDesc4(), getUploadFileName(vc4)));
+					freelancerSkillData.getVoiceDesc4(), documentName.getVcFilename4()));
 		}
 		if (!freelancerSkillData.getVcLanguage5().isEmpty()) {
 			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getVcLanguage5()),
-					freelancerSkillData.getVoiceDesc5(), getUploadFileName(vc5)));
+					freelancerSkillData.getVoiceDesc5(), documentName.getVcFilename5()));
 		}
 
 		System.out.println("===>>> VC List of Languages: " + skillModels);
+
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("\n===>>> freelancer SkillModel VC: "+skillModel);
+			System.out.println("\n===>>> freelancer SkillModel VC: " + skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1554,20 +1714,19 @@ public class FreelancerController {
 
 //			language.setServiceLanguageId(industryData);
 			serviceLanguageObj.setLanguageId(opLanguage.get());
+			serviceLanguageObj.setUser(userDetails.get());
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
+			serviceLanguageObj.setVoiceType(skillModel.getDescriptionOfVoice());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
-			
-			System.out.println("===>>>> serviceLanguageObj VC : "+serviceLanguageObj);
+
+			System.out.println("===>>>> serviceLanguageObj VC : " + serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
 
 			System.out.println("====>>> VC Service Language Saved");
 
 		}
-
-		// insert into freeLancer pricing
-		FreelancerServicePricing freelancerPricingData = new FreelancerServicePricing();
 
 		List<FreelancerPricingModel> fPricingModels = new ArrayList<>();
 
@@ -1581,31 +1740,29 @@ public class FreelancerController {
 					new FreelancerPricingModel("stm106", Double.parseDouble(freelancerSkillData.getVcPerMinuteMin()),
 							Double.parseDouble(freelancerSkillData.getVcPerMinuteMax())));
 		}
-		
+
 		if (!freelancerSkillData.getVcPerWordMin().isEmpty()) {
 			fPricingModels
 					.add(new FreelancerPricingModel("stm104", Double.parseDouble(freelancerSkillData.getVcPerWordMin()),
 							Double.parseDouble(freelancerSkillData.getVcPerWordMax())));
 		}
-		
-		System.out.println("===>>> fPricingModels: "+fPricingModels);
-		
+
+		System.out.println("===>>> fPricingModels: " + fPricingModels);
 
 		for (FreelancerPricingModel freelancerPricingModel : fPricingModels) {
-			
+
+			FreelancerServicePricing freelancerPricingData = new FreelancerServicePricing();
+
 			Optional<ServiceTypePricing> serviceTypePricingData = serviceTypePricing
 					.findById(freelancerPricingModel.getPricingType());
-
-			System.out.println("===>>> VC serviceTypePricingData: " + serviceTypePricingData);
-			System.out.println("===>>> VC freelancerUser: " + userDetails);
 
 //			freelancerPricing.setFpricingId("");
 			freelancerPricingData.setServiceTypePricing(serviceTypePricingData.get());
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
-			
-			System.out.println("===>>>> freelancerPricingData VC: "+freelancerPricingData);
+
+			System.out.println("===>>>> freelancerPricingData VC: " + freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 
@@ -1615,7 +1772,8 @@ public class FreelancerController {
 	}
 
 	public void saveTranscribinginfo(FreelancerSignupDTO signupData, FreelancerSkillDetailDTO freelancerSkillData,
-			FreelancerProfilePictureDetailDTO profilePictureData, String industryData) {
+			FreelancerProfilePictureDetailDTO profilePictureData, String industryData,
+			FreelancerDocumentNameModel documentName) {
 
 		System.out.println("====>>> Scribing IN");
 
@@ -1624,7 +1782,7 @@ public class FreelancerController {
 
 		System.out.println("====>>> SC userDetails: " + userDetails);
 		System.out.println("====>>> SC serviceTypeDetail: " + serviceTypeDetail);
-		System.out.println("===>>>> freelancerSkillData Transcribing: "+freelancerSkillData);
+		System.out.println("===>>>> freelancerSkillData Transcribing: " + freelancerSkillData);
 
 		ServiceRendered rendered = new ServiceRendered();
 //		rendered.setRenderId("SR01");
@@ -1639,11 +1797,13 @@ public class FreelancerController {
 		System.out.println("===>>> SC industryData List: " + industryData);
 		System.out.println("===>>> SC opUser: " + userDetails);
 
-		Optional<ServiceRendered> serviceRenderedId = serviceRendered.findFirstServiceRenderedByUser(userDetails.get());
+		Optional<ServiceRendered> serviceRenderedId = serviceRendered
+				.findServiceRenderedByUserAndServiceType(userDetails.get(), serviceTypeDetail.get());
 
 		System.out.println("===>>> SC serviceRenderedId: " + serviceRenderedId);
 
 		if (industryData.split(",").length > 1) {
+
 			String[] industries = industryData.split(",");
 
 			System.out.println("===>>> SC List of Industries: " + industries);
@@ -1681,41 +1841,32 @@ public class FreelancerController {
 			System.out.println("====>>> SC Service Industry Saved(one)");
 		}
 
-		// insert into service languages;
-		// TODO: Upload document file goes as null to db, Check why!!!
 		List<SkillUploadModel> skillModels = new ArrayList<>();
-		
-		MultipartFile trans1 = freelancerSkillData.getTranscribeUpload1();
-		MultipartFile trans2 = freelancerSkillData.getTranscribeUpload2();
-		MultipartFile trans3 = freelancerSkillData.getTranscribeUpload3();
-		MultipartFile trans4 = freelancerSkillData.getTranscribeUpload4();
-		MultipartFile trans5 = freelancerSkillData.getTranscribeUpload5();
 
 		if (!freelancerSkillData.getTranscribeLanguage1().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage1()),
-					getUploadFileName(trans1)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage1()), "",
+					documentName.getTranscribeFilename1()));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage2().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage2()),
-					getUploadFileName(trans2)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage2()), "",
+					documentName.getTranscribeFilename2()));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage3().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage3()),
-					getUploadFileName(trans3)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage3()), "",
+					documentName.getTranscribeFilename3()));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage4().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage4()),
-					getUploadFileName(trans4)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage4()), "",
+					documentName.getTranscribeFilename4()));
 		}
 		if (!freelancerSkillData.getTranscribeLanguage5().isEmpty()) {
-			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage5()),
-					getUploadFileName(trans5)));
+			skillModels.add(new SkillUploadModel(Integer.parseInt(freelancerSkillData.getTranscribeLanguage5()), "",
+					documentName.getTranscribeFilename5()));
 		}
 
 		System.out.println("===>>> SC List of Languages: " + skillModels);
-		
 		for (SkillUploadModel skillModel : skillModels) {
-			System.out.println("\n===>>> freelancer SkillModel Transcribing: "+skillModel);
+			System.out.println("\n===>>> freelancer SkillModel VC: " + skillModel);
 
 			ServiceLanguages serviceLanguageObj = new ServiceLanguages();
 
@@ -1728,14 +1879,17 @@ public class FreelancerController {
 
 //			language.setServiceLanguageId(industryData);
 			serviceLanguageObj.setLanguageId(opLanguage.get());
+			serviceLanguageObj.setUser(userDetails.get());
 			serviceLanguageObj.setServiceRendered(serviceRenderedId.get());
 			serviceLanguageObj.setLanguageDesc(languageName.getLanguage());
+			serviceLanguageObj.setVoiceType(skillModel.getDescriptionOfVoice());
 			serviceLanguageObj.setLanguageUpload(skillModel.getDocumentName());
-			
-			System.out.println("===>>>> serviceLanguageObj Transcribing: "+serviceLanguageObj);
+
+			System.out.println("===>>>> serviceLanguageObj VC : " + serviceLanguageObj);
 
 			serviceLanguage.save(serviceLanguageObj);
-			System.out.println("====>>> SC Service Language Saved");
+
+			System.out.println("====>>> VC Service Language Saved");
 
 		}
 
@@ -1760,8 +1914,8 @@ public class FreelancerController {
 			freelancerPricingData.setUser(userDetails.get());
 			freelancerPricingData.setMinPrice(freelancerPricingModel.getMinPrice());
 			freelancerPricingData.setMaxPrice(freelancerPricingModel.getMaxPrice());
-			
-			System.out.println("===>>>> freelancerPricingData Transcribing: "+freelancerPricingData);
+
+			System.out.println("===>>>> freelancerPricingData Transcribing: " + freelancerPricingData);
 
 			freelancerPricing.save(freelancerPricingData);
 			System.out.println("====>>> SC Freelancer Saved");

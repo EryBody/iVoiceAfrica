@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,6 +57,9 @@ public class WorkOrder {
 	@Column(name = "max_amount")
 	private double maxAmount;
 
+	@Column(name = "work_rate")
+	private String workRate;
+
 	@Column(name = "modified_date")
 	private String modifiedDate;
 
@@ -102,7 +106,7 @@ public class WorkOrder {
 	}
 
 	public WorkOrder(String workId, String workTitle, User user, ServiceType serviceType, DurationType duration,
-			WorkOrderStatus workOrderStatus, String description, double minAmount, double maxAmount,
+			WorkOrderStatus workOrderStatus, String description, double minAmount, double maxAmount, String workRate,
 			String modifiedDate, String postingDate, Set<Proposal> proposals,
 			Set<WorkOrderAttachment> workOrderAttachments, Set<WorkOrdersDelivery> workOrdersDeliveries,
 			Set<WorkPayments> workPayments, Set<WorkEscrowTransaction> escrowTransactions,
@@ -116,6 +120,7 @@ public class WorkOrder {
 		this.description = description;
 		this.minAmount = minAmount;
 		this.maxAmount = maxAmount;
+		this.workRate = workRate;
 		this.modifiedDate = modifiedDate;
 		this.postingDate = postingDate;
 		this.proposals = proposals;
@@ -199,6 +204,14 @@ public class WorkOrder {
 		this.maxAmount = maxAmount;
 	}
 
+	public String getWorkRate() {
+		return workRate;
+	}
+
+	public void setWorkRate(String workRate) {
+		this.workRate = workRate;
+	}
+
 	public String getModifiedDate() {
 		return modifiedDate;
 	}
@@ -273,9 +286,11 @@ public class WorkOrder {
 
 	@Override
 	public String toString() {
-		return "WorkOrder [workId=" + workId + ", workTitle=" + workTitle + ", description=" + description
-				+ ", minAmount=" + minAmount + ", maxAmount=" + maxAmount + ", modifiedDate=" + modifiedDate
-				+ ", postingDate=" + postingDate + "]";
+		return "WorkOrder [workId=" + workId + ", workTitle=" + workTitle + ", user=" + user + ", serviceType="
+				+ serviceType + ", duration=" + duration + ", workOrderStatus=" + workOrderStatus + ", description="
+				+ description + ", minAmount=" + minAmount + ", maxAmount=" + maxAmount + ", workRate=" + workRate
+				+ ", modifiedDate=" + modifiedDate + ", postingDate=" + postingDate + "]";
 	}
 
+	
 }

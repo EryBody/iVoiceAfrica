@@ -7,6 +7,10 @@
 	display: none;
 }
 
+.perword, .perminutes, .perseconds, .perhour, .perpage{
+	display: none;
+}
+
 /* .upload-flex{
 	display: flex;
 	flex-direction: column;
@@ -108,20 +112,104 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="input-group mb-4" >
+										<label for="" class="custom-file-lang-label"> Select
+											Rate type</label>
+										<div class="select-box">
+											<select name="rateSelection" class="jobRate"
+												id="main-combo">
+												<option value="">Select Rate</option>
+												<option value="perword">Per Word</option>
+												<option value="perpage">Per Page</option>
+												<option value="perseconds">Per Seconds(Voice over service)</option>
+												<option value="perminutes">Per Minutes(Voice over service)</option>
+												<option value="perhour">Per Hour(Voice over service)</option>
+											</select>
+											<div class="down-icon">
+												<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+													alt="" />
+											</div>
+										</div>
+									</div>
 
-									<div class="input-group  mb-4">
-										<label for="" class="custom-file-lang-label"> Rate</label>
-										<div class="rates m-0 p-0">
-											<div class="col-md-6 col-sm-12">
+									<div class="input-group mb-4 perword amountrates">
+										<label for="" class="custom-file-lang-label"> Rate(Per Word)</label>
+										<div class="rates m-0 p-0 perword amountrates">
+											<div class="row col-md-12">
 												<div class="custom-min-word">
 													<span>Min($)</span> <input type="text" name="minAmount"
 														id="minAmount" />
 												</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
+											
 												<div class="custom-min-word">
-													<span>Max($)</span> <input type="text" name="maxAMount"
-														id="maxAMount" />
+													<span>Max($)</span> <input type="text" name="maxAmount"
+														id="maxAmount" />
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="input-group mb-4 perpage amountrates">
+										<label for="" class="custom-file-lang-label"> Rate(Per Page)</label>
+										<div class="rates m-0 p-0 perpage amountrates">
+											<div class="row col-md-12">
+												<div class="custom-min-word">
+													<span>Min($)</span> <input type="text" name="minAmountPerPage"
+														id="minAmountPerPage" />
+												</div>
+											
+												<div class="custom-min-word">
+													<span>Max($)</span> <input type="text" name="maxAmountPerPage"
+														id="maxAmountPerPage" />
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="input-group mb-4 perseconds amountrates">
+										<label for="" class="custom-file-lang-label"> Rate(Per Seconds)</label>
+										<div class="rates m-0 p-0 perseconds amountrates">
+											<div class="row col-md-12">
+												<div class="custom-min-word">
+													<span>Min($)</span> <input type="text" name="minAmountPerSeconds"
+														id="minAmountPerSeconds"/>
+												</div>
+												<div class="custom-min-word">
+													<span>Max($)</span> <input type="text" name="maxAmountPerSeconds"
+														id="maxAmountPerSeconds"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="input-group mb-4 perminutes amountrates">
+										<label for="" class="custom-file-lang-label"> Rate(Per Minute)</label>
+										<div class="rates m-0 p-0 perminutes amountrates">
+											<div class="row col-md-12">
+												<div class="custom-min-word">
+													<span>Min($)</span> <input type="text" name="minAmountPerMinute"
+														id="minAmountPerMinute" />
+												</div>
+												<div class="custom-min-word">
+													<span>Max($)</span> <input type="text" name="maxAmountPerMinute"
+														id="maxAmountPerMinute" />
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="input-group mb-4 perhour amountrates">
+										<label for="" class="custom-file-lang-label"> Rate(Per Hour)</label>
+										<div class="rates m-0 p-0 perhour amountrates">
+											<div class="row col-md-12">
+												<div class="custom-min-word">
+													<span>Min($)</span> <input type="text" name="minAmountPerHour"
+														id="minAmountPerHour" />
+												</div>
+												<div class="custom-min-word">
+													<span>Max($)</span> <input type="text" name="maxAmountPerHour"
+														id="maxAmountPerHour"/>
 												</div>
 											</div>
 										</div>
@@ -501,6 +589,13 @@
 		$('.jobLanguages').on('change', function() {
 			var divClass = $(this).val();
 			$(".language").hide();
+			$("." + divClass).slideDown('medium');
+		});
+	</script>
+	<script>
+		$('.jobRate').on('change', function() {
+			var divClass = $(this).val();
+			$(".amountrates").hide();
 			$("." + divClass).slideDown('medium');
 		});
 	</script>

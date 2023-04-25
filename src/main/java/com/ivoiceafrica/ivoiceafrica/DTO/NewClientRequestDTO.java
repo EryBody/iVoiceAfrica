@@ -9,51 +9,74 @@ public class NewClientRequestDTO {
 	private String projectDescription;
 	private String duration;
 	private double minAmount;
-	private double maxAMount;
-	
+	private double maxAmount;
+
+	private double minAmountPerSeconds;
+	private double maxAmountPerSeconds;
+
+	private double minAmountPerPage;
+	private double maxAmountPerPage;
+
+	private double minAmountPerMinute;
+	private double maxAmountPerMinute;
+
+	private double minAmountPerHour;
+	private double maxAmountPerHour;
+
 	private MultipartFile languageUpload1;
 	private String languageSource1;
 	private String languageDestination1;
-	
-	private MultipartFile languageUpload2; 
+
+	private MultipartFile languageUpload2;
 	private String languageSource2;
 	private String languageDestination2;
-	
-	private MultipartFile languageUpload3; 
+
+	private MultipartFile languageUpload3;
 	private String languageSource3;
 	private String languageDestination3;
-	
+
 	private MultipartFile languageUpload4;
 	private String languageSource4;
 	private String languageDestination4;
-	
-	private MultipartFile languageUpload5; 
+
+	private MultipartFile languageUpload5;
 	private String languageSource5;
 	private String languageDestination5;
-	
-	private MultipartFile languageUpload6; 
+
+	private MultipartFile languageUpload6;
 	private String languageSource6;
 	private String languageDestination6;
-	
-	
+
+	private String rateSelection;
+
 	public NewClientRequestDTO() {
-		
+
 	}
-	
+
 	public NewClientRequestDTO(String serviceType, String projectTitle, String projectDescription, String duration,
-			double minAmount, double maxAMount, MultipartFile languageUpload1, String languageSource1,
+			double minAmount, double maxAmount, double minAmountPerSeconds, double maxAmountPerSeconds,
+			double minAmountPerPage, double maxAmountPerPage, double minAmountPerMinute, double maxAmountPerMinute,
+			double minAmountPerHour, double maxAmountPerHour, MultipartFile languageUpload1, String languageSource1,
 			String languageDestination1, MultipartFile languageUpload2, String languageSource2,
 			String languageDestination2, MultipartFile languageUpload3, String languageSource3,
 			String languageDestination3, MultipartFile languageUpload4, String languageSource4,
 			String languageDestination4, MultipartFile languageUpload5, String languageSource5,
-			String languageDestination5, MultipartFile languageUpload6, String languageSourc6,
-			String languageDestination6) {
+			String languageDestination5, MultipartFile languageUpload6, String languageSource6,
+			String languageDestination6, String rateSelection) {
 		this.serviceType = serviceType;
 		this.projectTitle = projectTitle;
 		this.projectDescription = projectDescription;
 		this.duration = duration;
 		this.minAmount = minAmount;
-		this.maxAMount = maxAMount;
+		this.maxAmount = maxAmount;
+		this.minAmountPerSeconds = minAmountPerSeconds;
+		this.maxAmountPerSeconds = maxAmountPerSeconds;
+		this.minAmountPerPage = minAmountPerPage;
+		this.maxAmountPerPage = maxAmountPerPage;
+		this.minAmountPerMinute = minAmountPerMinute;
+		this.maxAmountPerMinute = maxAmountPerMinute;
+		this.minAmountPerHour = minAmountPerHour;
+		this.maxAmountPerHour = maxAmountPerHour;
 		this.languageUpload1 = languageUpload1;
 		this.languageSource1 = languageSource1;
 		this.languageDestination1 = languageDestination1;
@@ -72,6 +95,7 @@ public class NewClientRequestDTO {
 		this.languageUpload6 = languageUpload6;
 		this.languageSource6 = languageSource6;
 		this.languageDestination6 = languageDestination6;
+		this.rateSelection = rateSelection;
 	}
 
 	public String getServiceType() {
@@ -114,12 +138,12 @@ public class NewClientRequestDTO {
 		this.minAmount = minAmount;
 	}
 
-	public double getMaxAMount() {
-		return maxAMount;
+	public double getMaxAmount() {
+		return maxAmount;
 	}
 
-	public void setMaxAMount(double maxAMount) {
-		this.maxAMount = maxAMount;
+	public void setMaxAmount(double maxAmount) {
+		this.maxAmount = maxAmount;
 	}
 
 	public MultipartFile getLanguageUpload1() {
@@ -266,19 +290,96 @@ public class NewClientRequestDTO {
 		this.languageDestination6 = languageDestination6;
 	}
 
+	public double getMinAmountPerMinute() {
+		return minAmountPerMinute;
+	}
+
+	public void setMinAmountPerMinute(double minAmountPerMinute) {
+		this.minAmountPerMinute = minAmountPerMinute;
+	}
+
+	public double getMaxAmountPerMinute() {
+		return maxAmountPerMinute;
+	}
+
+	public void setMaxAmountPerMinute(double maxAmountPerMinute) {
+		this.maxAmountPerMinute = maxAmountPerMinute;
+	}
+
+	public double getMinAmountPerHour() {
+		return minAmountPerHour;
+	}
+
+	public void setMinAmountPerHour(double minAmountPerHour) {
+		this.minAmountPerHour = minAmountPerHour;
+	}
+
+	public double getMaxAmountPerHour() {
+		return maxAmountPerHour;
+	}
+
+	public void setMaxAmountPerHour(double maxAmountPerHour) {
+		this.maxAmountPerHour = maxAmountPerHour;
+	}
+
+	public double getMinAmountPerSeconds() {
+		return minAmountPerSeconds;
+	}
+
+	public void setMinAmountPerSeconds(double minAmountPerSeconds) {
+		this.minAmountPerSeconds = minAmountPerSeconds;
+	}
+
+	public double getMaxAmountPerSeconds() {
+		return maxAmountPerSeconds;
+	}
+
+	public void setMaxAmountPerSeconds(double maxAmountPerSeconds) {
+		this.maxAmountPerSeconds = maxAmountPerSeconds;
+	}
+
+	public String getRateSelection() {
+		return rateSelection;
+	}
+
+	public void setRateSelection(String rateSelection) {
+		this.rateSelection = rateSelection;
+	}
+
+	public double getMinAmountPerPage() {
+		return minAmountPerPage;
+	}
+
+	public void setMinAmountPerPage(double minAmountPerPage) {
+		this.minAmountPerPage = minAmountPerPage;
+	}
+
+	public double getMaxAmountPerPage() {
+		return maxAmountPerPage;
+	}
+
+	public void setMaxAmountPerPage(double maxAmountPerPage) {
+		this.maxAmountPerPage = maxAmountPerPage;
+	}
+
 	@Override
 	public String toString() {
 		return "NewClientRequestDTO [serviceType=" + serviceType + ", projectTitle=" + projectTitle
 				+ ", projectDescription=" + projectDescription + ", duration=" + duration + ", minAmount=" + minAmount
-				+ ", maxAMount=" + maxAMount + ", languageUpload1=" + languageUpload1 + ", languageSource1="
-				+ languageSource1 + ", languageDestination1=" + languageDestination1 + ", languageUpload2="
-				+ languageUpload2 + ", languageSource2=" + languageSource2 + ", languageDestination2="
-				+ languageDestination2 + ", languageUpload3=" + languageUpload3 + ", languageSource3=" + languageSource3
+				+ ", maxAmount=" + maxAmount + ", minAmountPerSeconds=" + minAmountPerSeconds + ", maxAmountPerSeconds="
+				+ maxAmountPerSeconds + ", minAmountPerPage=" + minAmountPerPage + ", maxAmountPerPage="
+				+ maxAmountPerPage + ", minAmountPerMinute=" + minAmountPerMinute + ", maxAmountPerMinute="
+				+ maxAmountPerMinute + ", minAmountPerHour=" + minAmountPerHour + ", maxAmountPerHour="
+				+ maxAmountPerHour + ", languageUpload1=" + languageUpload1 + ", languageSource1=" + languageSource1
+				+ ", languageDestination1=" + languageDestination1 + ", languageUpload2=" + languageUpload2
+				+ ", languageSource2=" + languageSource2 + ", languageDestination2=" + languageDestination2
+				+ ", languageUpload3=" + languageUpload3 + ", languageSource3=" + languageSource3
 				+ ", languageDestination3=" + languageDestination3 + ", languageUpload4=" + languageUpload4
 				+ ", languageSource4=" + languageSource4 + ", languageDestination4=" + languageDestination4
 				+ ", languageUpload5=" + languageUpload5 + ", languageSource5=" + languageSource5
 				+ ", languageDestination5=" + languageDestination5 + ", languageUpload6=" + languageUpload6
-				+ ", languageSource6=" + languageSource6 + ", languageDestination6=" + languageDestination6 + "]";
+				+ ", languageSource6=" + languageSource6 + ", languageDestination6=" + languageDestination6
+				+ ", rateSelection=" + rateSelection + "]";
 	}
-	
+
 }

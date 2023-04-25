@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 
 @Entity
 @Table(name = "service_languages")
@@ -33,11 +34,18 @@ public class ServiceLanguages {
     private Language languageId;
 	
 	@ManyToOne // Mapping the column of this table 
+    @JoinColumn(name = "user_id")
+    private User user;
+	
+	@ManyToOne // Mapping the column of this table 
     @JoinColumn(name = "render_id")
     private ServiceRendered serviceRendered;
 	
 	@Column(name="language_desc")
 	private String languageDesc;
+	
+	@Column(name="voice_type")
+	private String voiceType;
 	
 	@Column(name="language_upload")
 	private String languageUpload;
@@ -55,11 +63,12 @@ public class ServiceLanguages {
 
 
 	public ServiceLanguages(String serviceLanguageId, Language languageId, ServiceRendered serviceRendered,
-			String languageDesc, String languageUpload, Set<VoiceCapability> voiceCapabilities) {
+			String languageDesc, String voiceType, String languageUpload, Set<VoiceCapability> voiceCapabilities) {
 		this.serviceLanguageId = serviceLanguageId;
 		this.languageId = languageId;
 		this.serviceRendered = serviceRendered;
 		this.languageDesc = languageDesc;
+		this.voiceType = voiceType;
 		this.languageUpload = languageUpload;
 		this.voiceCapabilities = voiceCapabilities;
 	}
@@ -93,6 +102,16 @@ public class ServiceLanguages {
 	public void setServiceRendered(ServiceRendered serviceRendered) {
 		this.serviceRendered = serviceRendered;
 	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 
 	public String getLanguageDesc() {
@@ -102,6 +121,16 @@ public class ServiceLanguages {
 
 	public void setLanguageDesc(String languageDesc) {
 		this.languageDesc = languageDesc;
+	}
+
+	
+	public String getVoiceType() {
+		return voiceType;
+	}
+
+
+	public void setVoiceType(String voiceType) {
+		this.voiceType = voiceType;
 	}
 
 
@@ -128,10 +157,9 @@ public class ServiceLanguages {
 	@Override
 	public String toString() {
 		return "ServiceLanguages [serviceLanguageId=" + serviceLanguageId + ", languageId=" + languageId
-				+ ", serviceRendered=" + serviceRendered + ", languageDesc=" + languageDesc + ", languageUpload="
-				+ languageUpload + "]";
+				+ ", languageDesc=" + languageDesc + ", voiceType=" + voiceType + ", languageUpload=" + languageUpload
+				+ ", voiceCapabilities=" + voiceCapabilities + "]";
 	}
 
-	
 
 }

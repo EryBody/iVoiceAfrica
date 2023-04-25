@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Finances</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/slicknav.min.css" />
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
+<link rel="shortcut icon"
+	href="../../assets/images/ivoiceafrica logo 1.png" type="image/x-icon" />
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="../../assets/CSS/css/typography.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/default-css.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/styles.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/finance.css" />
+<link rel="stylesheet" href="../../assets/CSS/css/responsive.css" />
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+
+	<div class="page-container">
+		<!-- Header area start -->
+		<div class="overlay"></div>
+
+		<!-- top-nav start -->
+		<div th:replace="fragments/main_topnav_freelancer :: topnavfreelancer"></div>
+		<!-- top-nav end -->
+
+
+		<!-- side-nav start -->
+		<div
+			th:replace="fragments/main_sidenav_freelancer :: sidenavfreelancer"></div>
+		<!-- side-nav end -->
+
+		<!-- Header area end -->
+		<div class="main">
+			<div class="main__headerbox">
+				<h1>Finances</h1>
+			</div>
+
+			<!-- job alerts area start -->
+			<div class="main__contentbox fl__finance-box">
+				
+				<div class="fl_finance-history">
+
+					<!-- display details of controller -->
+					<p th:text="${message}" th:if="${message ne null}"
+						class="alert alert-primary m-2"></p>
+
+					<span class="finance-hist-label m-1">Transaction History</span>
+
+					<!-- <div class="finance-filter">
+						<div class="finance-head">
+							<div class="flex">
+								<div class="trans-finance-filter">
+									<span>Transaction type</span> <select name="" id="">
+										<option value="All">All</option>
+										<option value="All">All</option>
+										<option value="All">All</option>
+									</select>
+									<div class="custom-select-arr">
+										<img src="../../assets/images/dropdown.svg"
+											alt="dropdown arrow" />
+									</div>
+								</div>
+								<div class="trans-finance-filter">
+									<select name="days" id="days">
+										<option value="Last 7 days">Last 7 days</option>
+										<option value="Last 7 days">Last 7 days</option>
+									</select> <label class="custom-select-arr-II" for="days"> <img
+										src="../../assets/images/dropdown.svg" alt="dropdown arrow" />
+									</label> <span class="border-left">September 20 - September 27</span>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+					<div class="row ml-2 mt-3">
+						<div class="col-md-12">
+						<div class="row">
+							<div class="mr-2">
+								<a th:href="@{/freelancer-finances}"><button
+										class="withdraw-btn bg-dark">Back</button></a>
+							</div>
+							
+						</div>
+							
+						</div>
+					</div>
+
+
+					<div class="finance-table">
+						<table class="finance-stats-table">
+							<thead>
+								<tr>
+									<th>S/N</th>
+									<th>Trans ID</th>
+									<th>WorkOrder ID</th>
+									<th>Currency</th>
+									<th>Amount</th>
+									<th>Transaction Type</th>
+									<th>Entry Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="temp, iStat : ${transactions}">
+									<td th:text="${iStat.index+1}">1</td>
+									<td th:text="${temp.transId}">26th September, 2022</td>
+									<td th:text="${temp.workOrder.workId}">008-445-786</td>
+									<td th:text="${temp.currency}">$200</td>
+									<td th:text="${temp.amount}">$200</td>
+									<td th:text="${temp.isInFlow} == true ? credit : debit">$200</td>
+									<td th:text="${temp.entryDate}">$200</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- logout Modal -->
+	<div class="modal fade" id="logoutModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content logoutModal">
+				<div class="modal-header">
+					<p class="modal-title" id="logoutModalLabel">Log out of iVoice
+						Africa?</p>
+				</div>
+				<div class="modal-body logoutModal-body">You can log in
+					anytime with your email and password</div>
+				<div class="modal-footer logoutModal-footer">
+					<a href="../../onboarding/client/sign-in.html">
+						<button class="transparentBtn">Logout</button>
+					</a>
+					<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
+						Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  -->
+	<!-- jquery latest version -->
+	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
+	<!-- bootstrap 4 js -->
+	<script src="../../assets/JS/js/popper.min.js"></script>
+	<script src="../../assets/JS/js/bootstrap.min.js"></script>
+	<script src="../../assets/JS/js/owl.carousel.min.js"></script>
+	<script src="../../assets/JS/js/metisMenu.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/JS/js/jquery.slicknav.min.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- others plugins -->
+	<script src="../../assets/JS/js/plugins.js"></script>
+	<script src="../../assets/JS/js/scripts.js"></script>
+</body>
+</html>

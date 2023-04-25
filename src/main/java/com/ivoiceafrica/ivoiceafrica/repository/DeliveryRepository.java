@@ -47,9 +47,17 @@ public interface DeliveryRepository extends JpaRepository<WorkOrdersDelivery, St
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByClientUserIdAndWorkOrderOrderByCreatedDateDesc(int user, WorkOrder workOrder);
 	
 	List<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrderOrderByCreatedDateDesc(User user, WorkOrder workOrder);
+	
+	Optional<WorkOrdersDelivery> findWorkOrdersDeliveryByUserAndWorkOrder(User user, WorkOrder workOrder);
 
 	@Transactional
 	@Modifying(clearAutomatically = true,flushAutomatically = true)
 	@Query(value = "UPDATE wo_delivery w set w.amount = :amount where w.delivery_id = :deliveryId", nativeQuery = true)
 	public int updateworkDeliveryAmount(@Param("amount")double amount, @Param("deliveryId")String deliveryId);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true,flushAutomatically = true)
+	@Query(value = "UPDATE wo_delivery w set w.completed_date = :completedDate where w.delivery_id = :deliveryId", nativeQuery = true)
+	public int updateCompletedDate(@Param("completedDate")String completedDate, @Param("deliveryId")String deliveryId);
+	
 }

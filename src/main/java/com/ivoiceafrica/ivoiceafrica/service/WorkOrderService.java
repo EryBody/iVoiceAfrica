@@ -45,4 +45,6 @@ public interface WorkOrderService {
 	
 	List<WorkOrder> findWorkOrderByServiceTypeAndUserOrderByPostingDate(ServiceType serviceType, User user);
 	
+	WorkOrder findLastWorkOrder(int limit);
+	
 }

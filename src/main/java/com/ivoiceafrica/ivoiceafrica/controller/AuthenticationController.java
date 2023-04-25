@@ -60,7 +60,6 @@ public class AuthenticationController {
 		return "onboarding/client/uploadprofilepic";
 	}
 	
-	
 	//Freelancers
 	@GetMapping("/freelancer-signup")
 	public String freelancerSignup(Model model) {

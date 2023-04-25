@@ -86,7 +86,7 @@
 									<div class="mr-3 d-flex">
 										<span class="material-symbols-outlined mr-2">timer</span> <span>$</span><span
 											th:text="${opDelivery.workOrder.minAmount}">20</span>&nbsp;-&nbsp;<span>$</span><span
-											th:text="${opDelivery.workOrder.maxAmount}">30</span> <span>&nbsp;
+											th:text="${opDelivery.workOrder.maxAmount}">30</span>  &nbsp; <span th:text="${@ClientComponentModel.workRateSelection(opDelivery.workOrder.workRate)}">
 											per page</span></span>
 									</div>
 

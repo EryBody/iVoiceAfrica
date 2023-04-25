@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>FAQs</title>
+<title>Select Bank</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../../assets/CSS/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../../assets/CSS/css/metisMenu.css" />
@@ -107,7 +107,6 @@
 
 												<div class="col-md-12 ">
 													<div class="clientform-section2 mt-4 mb-4">
-
 														<select id="selector" style="appearance: none" name="country"
 															onchange="onChangeCountry();">
 															<option value="">Select Country</option>
@@ -145,37 +144,37 @@
 												<div class="col-md-12">
 													<div class="input-group mb-4">
 														<label for="">First Name</label> <input type="text"
-															placeholder="Amount" name="firstName" id="amount" />
+															placeholder="First Name" name="firstName" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Last Name</label> <input type="text"
-															placeholder="Amount" name="lastName" id="amount" />
+															placeholder="Last Name" name="lastName" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Middle Name</label> <input type="text"
-															placeholder="Amount" name="middleName" id="amount" />
+															placeholder="Middle Name" name="middleName" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Account Number</label> <input type="text"
-															placeholder="Amount" name="accountNumber" id="amount" />
+															placeholder="Account Number" name="accountNumber" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Merchant Name(Optional)</label> <input type="text"
-															placeholder="Amount" name="merchantName" id="amount" />
+															placeholder="Merchant Name" name="merchantName" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Routing Number(Optional)</label> <input type="text"
-															placeholder="Amount" name="routingNumber" id="amount" />
+															placeholder="Routing Number" name="routingNumber" id="amount" />
 													</div>
 													
 													<div class="input-group mb-4">
 														<label for="">Swift Number(Optional)</label> <input type="text"
-															placeholder="Amount" name="swiftCode" id="amount" />
+															placeholder="Swift Number" name="swiftCode" id="amount" />
 													</div>
 												</div>
 											</div>
@@ -277,15 +276,13 @@
 		
 			var href = "/get-banks/" + countryCode;
 
-			$('#bankSelect').empty().append(
-					'<option value="">Select Bank</option>');
-
 			$.get(href, function(userRoles, status) {
 				
 				if(userRoles == 0 || userRoles == null){
 					$('#bankSelect').empty().append(
 					'<option value="">An Error occurred while getting banks, try later</option>');
 				}else{
+					
 					userRoles.forEach(function(roles) {
 						/* console.log(roles); */
 						$('#bankSelect').append(

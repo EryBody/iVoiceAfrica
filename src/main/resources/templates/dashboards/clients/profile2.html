@@ -11,11 +11,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet" />
-	  <link
-       rel="shortcut icon"
-       href="../../assets/icons/fav.png"
-       type="image/x-icon"
-     />
+<link rel="shortcut icon" href="../../assets/icons/fav.png"
+	type="image/x-icon" />
 <!-- amchart css -->
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
@@ -52,12 +49,14 @@
 		<div class="main">
 			<div class="activejobs-heading profile-header main__headerbox w-100">
 				<div class="bidheader">
-					<a href="clientbids.html" style="color: inherit"
-						class="header-link">
+					<a
+						th:href="@{/client/bids-client-details/{id}(id=${workOrderDetails?.workId})}"
+						style="color: inherit" class="header-link">
 						<h1>Bids</h1>
 					</a>
 					<h2>Freelancer</h2>
-					<h3>Micheal Jordan</h3>
+					<h3 th:text="|${userDetails?.firstName} ${userDetails?.lastName}|">Micheal
+						Jordan</h3>
 				</div>
 			</div>
 
@@ -67,55 +66,63 @@
 						src="../../assets/icons/arrow_back_link.svg" alt="arrow_back_link" />
 					</a>
 				</div>
+				
+				<!-- display details of controller -->
+				<p th:text="${message}" th:if="${message ne null}"
+					class="alert alert-primary mt-3"></p>
+				
 
-				<div class="profile-c">
-					<div class="arrow-back-II">
-						<a
-							th:href="@{/client/bidsdetails/{id}(id=${workOrderDetails?.workId})}">
-							<img src="../../assets/icons/arrow_back_link.svg"
-							alt="arrow_back_link" />
-						</a>
-					</div>
-				</div>
 				<div class="mt-4">
 					<div class="profile-info">
 						<img src="../../assets/images/profile_bg_img.jpg" alt="profile-bg"
 							class="profile-bg" />
 						<div class="profile-details">
-							<img src="../../assets/images/profile_big.svg" alt=""
-								class="profile-pic" />
+							<img
+								th:src="@{${'/profilepictures/' + @ClientComponentModel.getUserDetails(userDetails?.userId).profilePicture}}"
+								alt="" class="profile-pic"
+								style="width: 120px; height: 120px; border-radius: 50%;" />
 							<p class="profilename mb-1"
 								th:text="|${userDetails?.firstName} ${userDetails?.lastName}|">Michael
 								Jordan</p>
-							<p class="profile-headline mb-3" th:text="${userDetails?.summary}">I
-								am a voice-over artist looking for freelance opportunities</p>
+							<p class="profile-headline mb-3"
+								th:text="${userDetails?.summary}">I am a voice-over artist
+								looking for freelance opportunities</p>
 							<div class="mb-2">
 								<span class="location-icon mr-3"><img
 									src="../../assets/icons/location.svg" alt="" /></span> <span
 									class="location" th:text="${userDetails.address}">Lagos,
 									Nigeria</span>
 							</div>
+
 							<div class="mb-2">
 								<span class="mr-3"><img
 									src="../../assets/icons/dateofentry.svg" alt="" /></span> <span
 									class="dateofentry" th:text="${userDetails.country}">Member
 									Since May, 2022</span>
 							</div>
+
 							<div class="mb-4">
 								<span class="location-icon mr-3"> <img
 									src="../../assets/icons/completed_project.svg" alt="" />
 								</span> <span class="completedproject">Completed many successful
 									projects on IVoice Africa</span>
 							</div>
-							
-							<button th:if="${proposalDetails?.proposalId != null}" class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
-								data-toggle="modal" data-target="#hireFreelancer">Hire</button>
 
-							<a th:href="@{/client-dashboard}"><button th:unless="${proposalDetails?.proposalId != null}" class="uploadbtn mt-2 mb-5 clientrequesteditBtn">
-								Cancel</button> </a>
+							<!-- This means a freelancer has accepted -->
+							<span
+								th:if="${@ClientComponentModel.getProposalStatusFromWorkOrder(workOrderDetails?.workId) == false}">
+								
+								<button
+									th:if="${@ClientComponentModel.getProposalDetails(userDetails?.userId, workOrderDetails?.workId) == null OR @ClientComponentModel.getLastProposalUser(workOrderDetails?.workId) != 0} "
+									class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
+									data-toggle="modal" data-target="#hireFreelancer">Hire</button>
+									
+									
+							</span> <a th:href="@{/client-dashboard}"><button
+									class="uploadbtn mt-2 mb-5 clientrequesteditBtn">
+									Cancel</button> </a>
 						</div>
 					</div>
-
 
 					<div class="profile-services">
 						<label for="" class="profile-service-label">Services</label>
@@ -130,28 +137,27 @@
 								</span>
 								<div class="grey-dot"></div>
 
+								<!-- userDetails.username -->
 								<span class="charge"
-									th:each="pricing : ${@ClientComponentModel.getFreelancerPricing(service.serviceType.typeId, userDetails.username)}">$
-									<span
-									th:text="${pricing.minPrice ne null} ? ${pricing.minPrice} : '(no content)'">20</span>
-									<span>-</span> $ <span
-									th:text="${pricing.maxPrice ne null} ? ${pricing.maxPrice} : '(no content)'">70</span>
+									th:each="pricing : ${@ClientComponentModel.getServicePricings(service.serviceType.typeId)}">
+									$<span
+									th:text="${@ClientComponentModel.getFreelancerPrices(pricing,userDetails.username).minPrice}">20</span>
+									<span>-</span> $<span
+									th:text="${@ClientComponentModel.getFreelancerPrices(pricing,userDetails.username).maxPrice}">70</span>
 								</span>
 							</div>
 
 							<div class="d-flex align-items-center justify-content-between">
 								<div class="griddy"
-									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguage(service)}">
+									th:each="freelancerLanguage : ${@ClientComponentModel.get3FreelancerServiceLanguages(service, userDetails.username)}">
 									<span class="mr-3 job-alerts-lang dashboard-jobalerts-lang"
 										th:text="${freelancerLanguage.languageId.language}">
 										English </span>
-
 								</div>
 								<span class="portfolio-link"> <a
 									th:href="${service.otherInfo}" target="_blank"
 									style="color: inherit">Portfolio</a> <img
 									src="../../assets/icons/arrow_up.svg" alt=" arrow up" />
-
 								</span>
 							</div>
 						</div>
@@ -270,7 +276,6 @@
 				</div>
 			</div>
 		</div>
-	
 	</div>
 
 	<!-- logout Modal -->
@@ -279,7 +284,7 @@
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 
-			<form th:action="@{/client/amount/set-job-amount}"
+			<form th:action="@{/client/amount/set-job-amount-for-freelancers}"
 				th:object="${clientAmountDTO}" method="post">
 
 				<div class="modal-content logoutModal">
@@ -291,17 +296,58 @@
 
 					<div class="modal-body">
 						<div class="input-group mb-4">
-							<input type="hidden" name="workOrderID"
-								th:value="${workOrderDetails?.workId}" />
+
+							<div class="row" th:each="workCal : ${workOrderCalculations}">
+								<div class="col-md-12 mb-4">
+									<h5 class="mb-1">Service Type</h5>
+									<input type="text" class="mb-2"
+										th:value="${workCal.serviceType}" style="font-size: 15px;"
+										readonly />
+								</div>
+
+								<div class="col-md-12 mb-4">
+
+									<h5 class="mb-2">
+										<span th:text="${workCal.workRateSelection}"></span> Min
+										Amount
+									</h5>
+									<input type="text" th:value="${workCal.jobAmount}"
+										style="font-size: 15px;" readonly class="mb-2" />
+
+									<h5 class="mb-2">
+										<span th:text="${workCal.workRateSelection}"></span> Max
+										Amount
+									</h5>
+									<input type="text" th:value="${workCal.jobMaxAmount}"
+										style="font-size: 15px;" readonly  class="mb-2"/>
+								</div>
+
+							</div>
+
+
+							<h5 class="mb-2">Total Min Amount</h5>
+							<input type="text" th:value="${totalMinAmount}"
+								style="font-size: 15px;" readonly class="mb-2" name="totalMinAmount"/>
+
+							<h5 class="mb-2">Total Max Amount</h5>
+							<input type="text" th:value="${totalMaxAmount}"
+								style="font-size: 15px;" readonly class="mb-2" name="totalMaxAmount"/>
+								
+								<input type="hidden"
+								name="workOrderID" th:value="${workOrderDetails?.workId}" /> 
 								
 								<input
-								type="hidden" name="userID" th:value="${userDetails.username}" />
-								
-								<input
-								type="hidden" name="proposalId" th:value="${proposalDetails?.proposalId}" />
-								
+								type="hidden" name="userID" th:value="${userDetails.username}"
+								readonly />
+
+							<h5 class="mb-1">Job Amount</h5>
+
 							<input type="text" placeholder="Fix in amount for job"
-								name="clientAmount" id="clientAmount" th:value=${proposalDetails?.amount} readonly style="font-size: 25px;" />
+								name="clientAmount" id="clientAmount" style="font-size: 25px;"
+								required /> <small class="text-muted mt-2">For voice
+								over service the value can change to what you what from the
+								option(Per word, Per hour and Per Minute)</small>
+
 						</div>
 					</div>
 
