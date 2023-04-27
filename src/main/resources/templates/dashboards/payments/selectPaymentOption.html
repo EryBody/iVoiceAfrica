@@ -207,7 +207,7 @@
 							th:value="${@environment.getProperty('flutterwave.PBFPubKey')}">
 							
 						<input type="hidden" id="baseurl"
-							th:value="${@environment.getProperty('flutterwave.baseurl')}">
+							th:value="${@environment.getProperty('flutterwave.payment.redirect')}">
 						
 						<input type="hidden" id="fullName"
 							th:value="|${@ClientComponentModel.getUserDetails(session?.user?.userId).firstName} ${@ClientComponentModel.getUserDetails(session?.user?.userId).lastName}|">
@@ -279,9 +279,9 @@
 			var paymentAmount = document.getElementById('paymentAmount').value;
 			var paymentDesc = document.getElementById('paymentDesc').value;
 			var flkpub = document.getElementById('idKey').value;
-			var baseurl = document.getElementById('baseurl').value;
+			var redirecturl = document.getElementById('baseurl').value;
 			var txRef = "ivoice-" + Math.random().toString(16).slice(2);
-			var redirectUrl = baseurl+"/client-dashboard"
+			var redirectUrl = redirecturl+"/client-dashboard"
 			var mac = genMAC();
 
 			var fullName = document.getElementById('fullName').value;

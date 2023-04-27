@@ -3,6 +3,7 @@ package com.ivoiceafrica.ivoiceafrica.service;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,8 +33,16 @@ import reactor.core.publisher.Flux;
 
 @Service
 public class FlutterwaveService {
+	
+	@Value("${flutterwave.PBFSecretKey}")
+	String SecretKey;
+	
+	@Value("${flutterwave.baseurl}")
+	String baseUrl;
 
-	String SecurityToken = "Bearer FLWSECK_TEST-28bcc703fd128945e499d8e9a0fa2fa3-X";
+	String SecurityToken = "Bearer "+SecretKey;
+	
+	String PAYMENT_BASEURI = baseUrl;
 
 	@Autowired
 	WebClient webClient;
@@ -60,7 +69,7 @@ public class FlutterwaveService {
 
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-			String uri = "https://api.flutterwave.com/v3/banks/{countryCode}";
+			String uri = PAYMENT_BASEURI+"/banks/{countryCode}";
 			ResponseEntity<BankResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity,
 					BankResponse.class, countryCode);
 
@@ -95,7 +104,7 @@ public class FlutterwaveService {
 
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-			String uri = "https://api.flutterwave.com/v3/banks/{bankCode}/branches";
+			String uri = PAYMENT_BASEURI+"/banks/{bankCode}/branches";
 			ResponseEntity<BankBranchResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity,
 					BankBranchResponse.class, bankCode);
 
@@ -129,7 +138,7 @@ public class FlutterwaveService {
 
 			HttpEntity<NgnBankTransferRequest> request = new HttpEntity<>(ngnBankTransferRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<BankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					BankTransferResponse.class);
 
@@ -164,7 +173,7 @@ public class FlutterwaveService {
 
 			HttpEntity<NgnBankTransferDomRequest> request = new HttpEntity<>(ngnBankTransferDomRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -198,7 +207,7 @@ public class FlutterwaveService {
 
 			HttpEntity<NgnBankTransferDomFcmbRequest> request = new HttpEntity<>(ngnBankTransferDomFcmbRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -232,7 +241,7 @@ public class FlutterwaveService {
 
 			HttpEntity<NgnBankTransferDomUNFIRequest> request = new HttpEntity<>(ngnBankTransferDomUNFIRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -267,7 +276,7 @@ public class FlutterwaveService {
 
 			HttpEntity<GhsBankTransferRequest> request = new HttpEntity<>(ghsBankTransferRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<GhsBankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					GhsBankTransferResponse.class);
 
@@ -301,7 +310,7 @@ public class FlutterwaveService {
 
 			HttpEntity<KesBankTransferRequest> request = new HttpEntity<>(kesBankTransferResponse, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<KesBankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					KesBankTransferResponse.class);
 
@@ -334,7 +343,7 @@ public class FlutterwaveService {
 
 			HttpEntity<ZarBankTransferRequest> request = new HttpEntity<>(zarBankTransferRequest, headers);
 
-			String uri = "https://api.flutterwave.com/v3/transfers";
+			String uri = PAYMENT_BASEURI+"/transfers";
 			ResponseEntity<ZarBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					ZarBankTransferDomResponse.class);
 

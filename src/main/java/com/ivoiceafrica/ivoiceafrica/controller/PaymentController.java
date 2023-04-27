@@ -80,8 +80,8 @@ public class PaymentController {
 
 	Gson gson = new Gson();
 	
-	@Value("${flutterwave.baseurl}")
-	String baseUrl;
+	@Value("${flutterwave.payment.redirect}")
+	String paymentRedirectUrl;
 	
 	@Value("${flutterwave.PBFPubKey}")
 	String PubKey;
@@ -94,7 +94,7 @@ public class PaymentController {
 
 	final String PBFPubKey = PubKey;
 	final String redirectUrlDemo = "http://localhost:8080/client-dashboard";
-	final String redirectUrlLive = baseUrl+"/client-dashboard";
+	final String redirectUrlLive = paymentRedirectUrl+"/client-dashboard";
 	final String redirectUrl = redirectUrlLive;
 	final String encryptionKey = encKey;
 	final String PBFSecretKey = SecretKey;
