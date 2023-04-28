@@ -126,6 +126,7 @@ public class ClientComponentModel {
 
 	// Check the System Utility Class on GeekForGeek(Online)
 	public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/profilepictures";
+	public static String uploadDir2 = "classpath:static/profilepictures";
 
 	public String getWorkAttachments(String workOrderId) {
 
@@ -156,7 +157,6 @@ public class ClientComponentModel {
 	public String getFreelancersForBids(String workOrderId) {
 
 		Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(11);// 9 Means Freelancer Accepted
-																						// Status
 
 		Optional<WorkOrder> order = orderService.findById(workOrderId);
 

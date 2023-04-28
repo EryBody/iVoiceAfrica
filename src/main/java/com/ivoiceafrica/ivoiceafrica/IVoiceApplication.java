@@ -107,6 +107,9 @@ public class IVoiceApplication implements CommandLineRunner {
 //        log.debug("===>>> This is an debug log1");
 //        log.debug("===>>> This is an debug log2");
 //        log.error("===>>> This is an error log3");
+		
+		String upload = System.getProperty("user.dir");
+		System.out.println("===>>> upload:"+upload);
 
 	}
 
