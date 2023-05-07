@@ -1,20 +1,28 @@
 package com.ivoiceafrica.ivoiceafrica;
 
+import java.util.Arrays;
 import java.util.Optional;
+
+import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.components.models.FreelancerComponentModel;
+import com.ivoiceafrica.ivoiceafrica.controller.ClientController;
 import com.ivoiceafrica.ivoiceafrica.controller.FreelancerController;
 import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
+import com.ivoiceafrica.ivoiceafrica.models.CountryCodesBean;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
@@ -92,8 +100,14 @@ public class IVoiceApplication implements CommandLineRunner {
 
 	@Autowired
 	FreelancerController freelancerController;
+	
+	@Autowired
+	ClientController clientController;
 
 	private static final Logger log = LogManager.getLogger(IVoiceApplication.class);
+
+	@Value("${upload.path}")
+	String uploadDir;
 
 	public static void main(String[] args) {
 		SpringApplication.run(IVoiceApplication.class, args);
@@ -101,16 +115,30 @@ public class IVoiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-//		log.info("===>>> This is an info log1");
-//        log.info("===>>> This is an info log2");
-//        log.debug("===>>> This is an debug log1");
-//        log.debug("===>>> This is an debug log2");
-//        log.error("===>>> This is an error log3");
 		
-		String upload = System.getProperty("user.dir");
-		System.out.println("===>>> upload:"+upload);
+		CountryCodesBean[] list = clientComponentModel.loadCountriesFromJsonFile();
+		
+		System.out.println("===>>> List: "+Arrays.asList(list));
 
+		log.info("===>>> This is an info log");
+
+		System.out.println("===>>> upload:" + uploadDir);
+		
+		String filename = "avatar.png";
+		Resource file = clientController.load(filename);
+
+		if (file.exists() || file.isReadable()) {
+			 ResponseEntity<Resource> body = ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+					.body(file);
+			 
+			 System.out.println("Body 1: "+body);
+		} else {
+			String fileOutput = "no filename";
+			 ResponseEntity<Resource> body = ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileOutput + "\"").body(file);
+			
+			 System.out.println("Body 2: "+body);
+		}
 	}
-
 }

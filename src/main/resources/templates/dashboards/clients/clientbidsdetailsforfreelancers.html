@@ -75,9 +75,10 @@
 			<div class="main__contentbox mt-3 details-box-cl">
 				<div>
 					<div class="job-alerts mb-3">
-					
-					<!-- display details of controller -->
-          			 <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary mt-3"></p>
+
+						<!-- display details of controller -->
+						<p th:text="${message}" th:if="${message ne null}"
+							class="alert alert-primary mt-3"></p>
 
 
 						<div class="job-alerts-card-body">
@@ -157,12 +158,13 @@
 							<div class="bidding-freelancer"
 								th:each="clientProposal, index : ${clientProposalList}">
 
-								<a  th:href="@{/client-profile-overview/{id}/{userId}(id=${workOrderDetails.workId}, userId=${clientProposal.userId})}">
+								<a
+									th:href="@{/client-profile-overview/{id}/{userId}(id=${workOrderDetails.workId}, userId=${clientProposal.userId})}">
 									<div class="d-flex align-items-start p-4 griddy pb-0">
 										<img
-											th:src="@{${'/profilepictures/' + @ClientComponentModel.getUserDetails(clientProposal.userId).profilePicture}}"
+											th:src="@{|/images/view?filename=${@ClientComponentModel.getUserDetails(clientProposal.userId).profilePicture}|}"
 											style="width: 80px; height: 80px; border-radius: 50%;"
-											alt="freelancer" />
+											alt="freelancer"  />
 
 										<div class="ml-4">
 											<p class="freelancers-bidding-name"

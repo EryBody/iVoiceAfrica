@@ -14,6 +14,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProfilePictureDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerSignupDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerSkillDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SaveClientJobsDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.UpdateProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
@@ -93,8 +95,8 @@ import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 @Controller
 public class FreelancerController {
 
-	// Check the System Utility Class on GeekForGeek(Online)
-	public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/profilepictures";
+	@Value("${upload.path}")
+	String uploadDir;
 
 	@Autowired
 	CustomUserDetailService userService;
@@ -963,6 +965,7 @@ public class FreelancerController {
 	@GetMapping("/freelancer-profile/{user}")
 	public String freelnacerProfile(@PathVariable(value = "user") String user, Model model) {
 
+		
 		try {
 
 			Optional<User> opUser = userService.findFirstUserByUsername(user);
@@ -977,6 +980,45 @@ public class FreelancerController {
 		}
 
 		return "dashboards/freelancers/profile";
+	}
+	
+	@PostMapping("/replace-freelancerprofile-picture")
+	public String replaceProfilePicture(
+			@ModelAttribute("UpdateProfilePictureDTO") UpdateProfilePictureDTO updateProfilePictureDTO,
+			@RequestParam("profilePicture") MultipartFile profilePicture, RedirectAttributes attributes,
+			HttpSession session, Model model) {
+
+		System.out.println("===>>> update profile picture Detail: " + updateProfilePictureDTO);
+		String imageUUID = "";
+
+		try {
+
+			String fileSize = FreelancerController.getDynamicSpace(profilePicture.getSize());
+
+			if (!fileSize.equals("2 MiB")) {
+				System.out.println("fileSize: " + fileSize);
+				if (!profilePicture.isEmpty()) {
+					imageUUID = profilePicture.getOriginalFilename();
+					Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+					Files.write(fileNameAndPath, profilePicture.getBytes());
+				} else {
+					imageUUID = updateProfilePictureDTO.getUserId();
+				}
+			}
+
+			// update db;
+			Optional<User> userDetails = userService.findFirstUserByUsername(updateProfilePictureDTO.getUserId());
+			int updateProfilePicture = userService.updateProfilePicture(imageUUID, userDetails.get().getUserId());
+			System.out.println("===>>> updateProfilePicture: " + updateProfilePicture);
+
+			attributes.addFlashAttribute("message", "Profile picture change successfully.");
+
+		} catch (Exception ex) {
+
+			attributes.addFlashAttribute("message", "File does not exist, if issues persist contact admin.");
+		}
+
+		return "redirect:/freelancer-profile";
 	}
 
 	public static String getDynamicSpace(long diskSpaceUsed) {
@@ -993,6 +1035,7 @@ public class FreelancerController {
 	public static String getUploadFileName(MultipartFile file) {
 		String filename = "";
 
+		FreelancerController f = new FreelancerController();
 		try {
 
 			System.out.println("===>>> Multipart File: " + file.getSize());
@@ -1000,7 +1043,7 @@ public class FreelancerController {
 			if (!file.isEmpty()) {
 				filename = file.getOriginalFilename();
 				System.out.println("===>>> Multipart File: " + file.getOriginalFilename());
-				Path fileNameAndPath = Paths.get(uploadDir, filename);
+				Path fileNameAndPath = Paths.get(f.uploadDir, filename);
 				Files.write(fileNameAndPath, file.getBytes());
 			} else {
 				filename = "";

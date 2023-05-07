@@ -11,11 +11,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet" />
-	  <link
-       rel="shortcut icon"
-       href="../../assets/icons/fav.png"
-       type="image/x-icon"
-     />
+<link rel="shortcut icon" href="../../assets/icons/fav.png"
+	type="image/x-icon" />
 <!-- amchart css -->
 <link rel="stylesheet"
 	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
@@ -57,7 +54,7 @@
 						class="header-link">
 						<h1>Dashboard</h1>
 					</a>
-					
+
 				</div>
 			</div>
 
@@ -70,9 +67,8 @@
 
 				<div class="profile-c">
 					<div class="arrow-back-II">
-						<a
-							th:href="@{/freelancer-dashboard}">
-							<img src="../../assets/icons/arrow_back_link.svg"
+						<a th:href="@{/freelancer-dashboard}"> <img
+							src="../../assets/icons/arrow_back_link.svg"
 							alt="arrow_back_link" />
 						</a>
 					</div>
@@ -82,8 +78,10 @@
 						<img src="../../assets/images/profile_bg_img.jpg" alt="profile-bg"
 							class="profile-bg" />
 						<div class="profile-details">
-							<img th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
-											style="width: 100px; height: 100px; border-radius: 50%;" alt=""
+
+							<img
+								th:src="@{|/images/view?filename=${userDetails.profilePicture}|}"
+								style="width: 100px; height: 100px; border-radius: 50%;" alt=""
 								class="profile-pic" />
 							<p class="profilename mb-1"
 								th:text="|${userDetails.firstName} ${userDetails.lastName}|">Michael
@@ -96,23 +94,23 @@
 									class="location" th:text="${userDetails.address}">Lagos,
 									Nigeria</span>
 							</div>
-							
+
 							<div class="mb-2">
 								<span class="mr-3"><img
 									src="../../assets/icons/dateofentry.svg" alt="" /></span> <span
 									class="dateofentry" th:text="${userDetails.country}">Member
 									Since May, 2022</span>
 							</div>
-							
+
 							<div class="mb-4">
 								<span class="location-icon mr-3"> <img
 									src="../../assets/icons/completed_project.svg" alt="" />
 								</span> <span class="completedproject">Completed many successful
 									projects on IVoice Africa</span>
 							</div>
-							
-							<a th:href="@{/freelancer-dashboard}"><button type="button" class="uploadbtn mt-2 mb-5 clientrequesteditBtn"
-								>Back</button></a>
+
+							<a th:href="@{/freelancer-dashboard}"><button type="button"
+									class="uploadbtn mt-2 mb-5 clientrequesteditBtn">Back</button></a>
 
 							<!-- <button class="uploadbtn hire-btn mt-2 mb-5 clientrequesteditBtn">
 								Hire</button> -->
@@ -275,7 +273,7 @@
 		</div>
 	</div>
 
-	
+
 	<!-- jquery latest version -->
 	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
 	<!-- bootstrap 4 js -->

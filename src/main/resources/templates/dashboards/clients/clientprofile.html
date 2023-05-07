@@ -52,8 +52,8 @@
 		<!-- side-nav start -->
 		<div th:replace="fragments/main_sidenav :: sidenav"></div>
 		<!-- side-nav end -->
-		
-		
+
+
 
 		<div class="main">
 			<div class="main__headerbox">
@@ -76,7 +76,7 @@
 								<p>Profile Picture</p>
 								<div class="picture-area">
 									<img
-										th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+										th:src="@{|/images/view?filename=${userDetails.profilePicture}|}"
 										style="width: 75px; height: 75px; border-radius: 60%;"
 										alt="client-profile" id="client-profile" />
 								</div>
@@ -156,8 +156,8 @@
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 

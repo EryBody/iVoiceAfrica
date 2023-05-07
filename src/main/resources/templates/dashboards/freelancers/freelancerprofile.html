@@ -61,14 +61,14 @@
 						class="alert alert-primary m-3"></p>
 
 					<div class="clientprofile">
-						<form th:action="@{/replace-profile-picture}"
+						<form th:action="@{/replace-freelancerprofile-picture}"
 							th:object="${UpdateProfilePictureDTO}" method="post"
 							enctype="multipart/form-data">
 							<div class="clientphoto">
 								<p>Profile Picture</p>
 								<div class="picture-area">
 									<img
-										th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+										th:src="@{|/images/view?filename=${userDetails.profilePicture}|}"
 										style="width: 75px; height: 75px; border-radius: 60%;"
 										alt="client-profile" id="client-profile" />
 								</div>
@@ -146,9 +146,9 @@
 					</div>
 				</div>
 			</div>
-			
-			
-		
+
+
+
 		</div>
 	</div>
 

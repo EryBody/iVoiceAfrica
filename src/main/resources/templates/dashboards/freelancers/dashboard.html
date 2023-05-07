@@ -64,15 +64,16 @@
 		<div class="main">
 			<div class="main__headerbox">
 				<h1>Dashboard</h1>
-			</div>
+			</div> 
 
 			<!-- <div class="bigger-margin"> -->
 			<div class="fl__d--container main__contentbox">
 				<div class="fl_overview-right">
 					<div class="fl__details">
+
 						<img
-							th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
-							alt="profile picture" />
+							th:src="@{|/images/view?filename=${userDetails.profilePicture}|}"
+							alt="profile picture"/>
 						<div class="fl__details--d">
 							<div class="fl__name">
 								<h1 th:text="|${userDetails.firstName} ${userDetails.lastName}|"

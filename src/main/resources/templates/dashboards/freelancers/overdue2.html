@@ -72,7 +72,7 @@
 				<div class="fl_overview-right">
 					<div class="fl__details">
 						<img
-							th:src="@{${'/profilepictures/' + userDetails.profilePicture}}"
+							th:src="@{|/images/view?filename=${userDetails.profilePicture}|}"
 							alt="profile picture" />
 						<div class="fl__details--d">
 							<div class="fl__name">
@@ -180,31 +180,31 @@
 									</button>
 								</div>
 
-								<div th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
-								<button class="red-jobs-btn"
-									th:case="'Overdue'"> 
-									<span>Overdue</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-warning"
-									th:case="'DueSoon'">
-									<span>Due Soon</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-success"
-									th:case="'DueToday'">
-									<span>Due Today</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-info"
-									th:case="'Pending'">
-									<span>Pending</span>
-								</button>
-								
-								<button class="red-jobs-btn yel-jobs-btn bg-dark"
-									th:case="'NoStatus'">
-									<span>No Status</span>
-								</button>
+								<div
+									th:switch="${@FreelancerComponentModel.getDueStatus(delivery.createdDate)}">
+									<button class="red-jobs-btn" th:case="'Overdue'">
+										<span>Overdue</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-warning"
+										th:case="'DueSoon'">
+										<span>Due Soon</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-success"
+										th:case="'DueToday'">
+										<span>Due Today</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-info"
+										th:case="'Pending'">
+										<span>Pending</span>
+									</button>
+
+									<button class="red-jobs-btn yel-jobs-btn bg-dark"
+										th:case="'NoStatus'">
+										<span>No Status</span>
+									</button>
 								</div>
 							</div>
 							<span class="job__name" th:text="${delivery.workOrder.workTitle}">

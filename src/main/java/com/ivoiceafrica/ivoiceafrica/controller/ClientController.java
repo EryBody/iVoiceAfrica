@@ -3,6 +3,7 @@ package com.ivoiceafrica.ivoiceafrica.controller;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
@@ -12,18 +13,24 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.HttpHeaders;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +56,6 @@ import com.ivoiceafrica.ivoiceafrica.DTO.JobStatusDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.NewClientRequestDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.UpdateProfilePictureDTO;
-import com.ivoiceafrica.ivoiceafrica.DTO.WorkOrderCalculationsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.UserStatus;
@@ -57,6 +63,7 @@ import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.DurationType;
+import com.ivoiceafrica.ivoiceafrica.entity.FreelancerDeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.Language;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
@@ -67,13 +74,13 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
-import com.ivoiceafrica.ivoiceafrica.models.AudioTimer;
 import com.ivoiceafrica.ivoiceafrica.models.ClientUploadModel;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.DurationTypeService;
+import com.ivoiceafrica.ivoiceafrica.service.FreelancerDeliveryAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.LanguageService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalStatusService;
@@ -92,8 +99,8 @@ import com.ivoiceafrica.ivoiceafrica.utility.GetEndDate;
 @Controller
 public class ClientController {
 
-	// Check the System Utility Class on GeekForGeek(Online)
-	public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/profilepictures";
+	@Value("${upload.path}")
+	String uploadDir;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -154,6 +161,9 @@ public class ClientController {
 
 	@Autowired
 	WorkFreelancerPaymentService workFreelancerPaymentService;
+
+	@Autowired
+	FreelancerDeliveryAttachmentService freelancerDeliveryAttachmentService;
 
 	@Autowired
 	ClientComponentModel clientComponentModel;
@@ -425,9 +435,12 @@ public class ClientController {
 		List<DeliveryAttachment> deliveryAttachment = deliveryAttachmentService
 				.findDeliveryAttachmentByWorkOrderDelivery(opDeliveryDetails.get());
 
+		List<FreelancerDeliveryAttachment> fDeliveryAttachments = freelancerDeliveryAttachmentService
+				.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(opDeliveryDetails.get());
+
 		System.out.println("===>>>> deliveryAttachment: " + deliveryAttachment);
 
-		model.addAttribute("deliveryAttachmentList", deliveryAttachment);
+		model.addAttribute("deliveryAttachmentList", fDeliveryAttachments);
 		model.addAttribute("opDeliveryDetails", opDeliveryDetails.get());
 		model.addAttribute("workOrderStatus", workOrderStatus.get());
 		model.addAttribute("workOrderDeliveryList", workOrderDelivery);
@@ -682,6 +695,8 @@ public class ClientController {
 
 		String imageUUID = "";
 
+		System.out.println("===>>> uploads : " + uploadDir);
+
 		try {
 
 			System.out.println("===>>> Client Profile picture info: " + clientProfilePictureDTO);
@@ -703,7 +718,7 @@ public class ClientController {
 					Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
 					Files.write(fileNameAndPath, file.getBytes());
 				} else {
-					imageUUID = "tom@gmail.com";
+					imageUUID = clientSignupdto.getEmail();
 				}
 			}
 
@@ -896,18 +911,22 @@ public class ClientController {
 		return "redirect:/client/details/" + workObj.getWorkId();
 	}
 
-	public static String getUploadFileName(MultipartFile file) {
+	public String getUploadFileName(MultipartFile file) {
 		String filename = "";
-
+		
 		try {
-
 			System.out.println("===>>> Multipart File: " + file.getSize());
 
 			if (!file.isEmpty()) {
 				filename = file.getOriginalFilename();
-				System.out.println("===>>> Multipart File: " + file.getOriginalFilename());
-				Path fileNameAndPath = Paths.get(uploadDir, filename);
-				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println("===>>> Multipart File: " + filename);
+
+				File fileNameAndPath = new File(uploadDir + "/" + filename);
+
+				FileOutputStream output = new FileOutputStream(fileNameAndPath);
+				output.write(file.getBytes());
+				output.close();
+
 			} else {
 				filename = "";
 			}
@@ -917,6 +936,75 @@ public class ClientController {
 		}
 
 		return filename;
+	}
+
+	public Resource load(String filename) {
+
+		final Path root = Paths.get(uploadDir);
+
+		System.out.println("===>>>> Path Root: " + root);
+
+		try {
+			Path file = root.resolve(filename);
+
+			System.out.println("===>>>> Path File: " + file);
+			Resource resource = new UrlResource(file.toUri());
+
+			if (resource.exists() || resource.isReadable()) {
+				return resource;
+			} else {
+				throw new RuntimeException("Could not read the file!");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error: " + e.getMessage());
+		}
+	}
+
+	// This makes the app slow
+	@GetMapping("/images/view/slow")
+	public ResponseEntity<Resource> getImage(@Param(value = "filename") String filename) {
+		Resource file = load(filename);
+
+		if (file.exists() || file.isReadable()) {
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+					.body(file);
+		} else {
+			String fileOutput = "no filename";
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileOutput + "\"").body(file);
+		}
+
+	}
+
+	@GetMapping("/images/view")
+	public @ResponseBody void affichimage(@Param(value = "filename") String filename, HttpServletResponse response,
+			HttpServletRequest request) {
+
+		try {
+
+			String file = uploadDir + "/" + filename;
+
+			System.out.println("===>>> file: " + file + " :filename: " + filename);
+
+			File imageFile = new File(file);
+
+			String mimeType = URLConnection.guessContentTypeFromName(imageFile.getName());
+			if (mimeType == null) {
+				// unknown mimetype so set the mimetype to application/octet-stream
+				mimeType = "application/octet-stream";
+			}
+
+			response.setContentType(mimeType);
+
+			InputStream in = new FileInputStream(imageFile);
+
+			FileCopyUtils.copy(in, response.getOutputStream());
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("===>>> Exception: " + ex.getMessage());
+		}
 	}
 
 	@GetMapping("/files/download")
@@ -973,7 +1061,7 @@ public class ClientController {
 			throws ServletException, IOException {
 
 		System.out.println("===>>> ID: " + id);
-		String filePath = "/profilepictures";
+		String filePath = uploadDir;
 
 		String fileName = id;
 		String fileUrl = filePath.concat("/").concat(fileName);
@@ -1165,12 +1253,11 @@ public class ClientController {
 				// payment page
 
 				Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// Freelancer Request Sent
-				
-				
+
 				Proposal proposalByWorkId = proposalService.findProposalByWorkOrderId(workOrder.get().getWorkId());
-				
-				if(proposalByWorkId == null) {
-					
+
+				if (proposalByWorkId == null) {
+
 					Proposal proposal = new Proposal();
 //					proposal.setProposalId("");
 					proposal.setWorkOrder(workOrder.get());
@@ -1181,17 +1268,18 @@ public class ClientController {
 					proposal.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
 					proposalService.save(proposal);
-					
+
 				}
-				
+
 				Proposal prop = proposalService.findProposalByUserAndStatusOrderByCreatedDescWithLimit(
 						user.get().getUserId(), proposalStatus.get().getProposalStatusId());
-				
-				//update proposal amount
-				int updateproposalAmount = proposalService.updateProposalAmount(clientAmountDTO.getClientAmount(), prop.getProposalId());
-				
-				System.out.println("===>>> Proposal Amount Update Status: "+updateproposalAmount);
-				System.out.println("===>>> prop: "+prop);
+
+				// update proposal amount
+				int updateproposalAmount = proposalService.updateProposalAmount(clientAmountDTO.getClientAmount(),
+						prop.getProposalId());
+
+				System.out.println("===>>> Proposal Amount Update Status: " + updateproposalAmount);
+				System.out.println("===>>> prop: " + prop);
 
 				// This will check if the client has paid
 				if (workPaymentService.findWorkPaymentByWorkOrderIdAndClientId(clientUserId.get().getUserId(),

@@ -9,12 +9,21 @@ public class ProfileController {
 	
 	@Value("${profile.environment}")
 	String profileEnvironment;
+	
+	@Value("${upload.path}")
+	String uploadDir;
 
 	
 	@GetMapping("/get-environment-profile")
 	public String getProfile() {
 		
 		return "Current Env Profile : "+profileEnvironment;
+	}
+	
+	@GetMapping("/get-upload-path")
+	public String getUploadPath() {
+		
+		return "Current Upload Profile : "+uploadDir;
 	}
 	
 }

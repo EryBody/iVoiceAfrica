@@ -33,6 +33,12 @@ public class SecurityConfig  {
 	@Value("${spring.websecurity.debug:false}")
     boolean webSecurityDebug;
 	
+	@Value("${upload.path}")
+	String uploadDir;
+	
+	@Value("${flutterwave.baseurl}")
+	String baseUrl;
+	
 	@Autowired
     CustomUserDetailService customUserDetailService;
 	
@@ -59,7 +65,7 @@ public class SecurityConfig  {
 					"/freelancer-signup","/freelancer-profile-setup","/freelancer-profile-2",
 					"/freelancer-profile-3","/freelancer-profile-4","/freelancer/signup/save",
 					"/freelancer/detail/save", "/freelancer/skill/save","/freelancer/profilepicture/save",
-					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save","/get-environment-profile").permitAll()
+					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save","/get-environment-profile","/get-upload-path").permitAll()
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
@@ -100,7 +106,7 @@ public class SecurityConfig  {
 	SecurityFilterChain resources(HttpSecurity http) throws Exception {
 	    http
 	        .requestMatchers((matchers) -> matchers.antMatchers("/static/**","/assets/**", "/@popperjs/**", "/bootstrap/**", "/CSS/**", 
-					"/fonts/**", "/icons/**", "/images/**","/JS/**"))
+					"/fonts/**", "/icons/**", "/images/**","/JS/**", uploadDir+"/**"))
 	        .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
 	        .requestCache().disable()
 	        .securityContext().disable()
@@ -125,7 +131,7 @@ public class SecurityConfig  {
 
         WebClient webClient = WebClient
                 .builder()
-                .baseUrl("https://api.flutterwave.com/v3")
+                .baseUrl(baseUrl)
                 .defaultCookie("cookieKey", "cookieValue")
                 .exchangeStrategies(strategies)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

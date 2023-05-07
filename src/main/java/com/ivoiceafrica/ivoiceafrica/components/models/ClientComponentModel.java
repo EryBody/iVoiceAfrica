@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +17,9 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
@@ -25,10 +29,19 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.ooxml.POIXMLDocument;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.mp3.MP3AudioHeader;
+import org.jaudiotagger.audio.mp3.MP3File;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.springframework.util.StreamUtils;
 
+import com.coremedia.iso.IsoFile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProfileLanguageDTO;
@@ -64,17 +77,6 @@ import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
-import com.ivoiceafrica.ivoiceafrica.utility.ReadFromJsonFile;
-
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.mp3.MP3AudioHeader;
-import org.jaudiotagger.audio.mp3.MP3File;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
-import com.coremedia.iso.IsoFile;
 
 @Component("ClientComponentModel")
 public class ClientComponentModel {
@@ -124,9 +126,8 @@ public class ClientComponentModel {
 	@Autowired
 	WorkPaymentService workPaymentService;
 
-	// Check the System Utility Class on GeekForGeek(Online)
-	public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/profilepictures";
-	public static String uploadDir2 = "classpath:static/profilepictures";
+	@Value("${upload.path}")
+	String uploadDir;
 
 	public String getWorkAttachments(String workOrderId) {
 
@@ -794,12 +795,6 @@ public class ClientComponentModel {
 		return second * 1000 + milliSecond;
 	}
 
-	public CountryCodesBean[] loadCountriesFromJsonFile() {
-		ReadFromJsonFile file = new ReadFromJsonFile();
-		CountryCodesBean[] countries = file.readFromJson(uploadDir + "/CountryCodesMod.json");
-		return countries;
-	}
-
 	public String workOrderCalculations(Optional<WorkOrder> workOrder, Model model) {
 
 		String message = "";
@@ -811,12 +806,15 @@ public class ClientComponentModel {
 		List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 				.findWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-		final String[] fileExtention = new String[] { "mp3", "pdf", "doc", "docx", "txt", "m4a", "wav" };
+		final String[] fileExtention = new String[] {"mp3", "pdf", "doc", "docx", "txt", "m4a", "wav"};
 		for (WorkOrderAttachment workAttach : workOrderAttachments) {
 
 			WorkOrderCalculationsDTO workOrderCalculation = new WorkOrderCalculationsDTO();
 
 			String filePath = uploadDir + "/" + workAttach.getLinkMediaFile();
+			
+			System.out.println("===>>>> Calculations FileName: "+workAttach.getLinkMediaFile());
+			System.out.println("===>>>> Calculations Directory: "+uploadDir);
 
 			// pass it through the calculation based on the file type
 			int index = filePath.lastIndexOf('.');
@@ -865,6 +863,10 @@ public class ClientComponentModel {
 							workSelection = "Rate(Per Hour)";
 							minAmount = timerCountInHours * workOrder.get().getMinAmount();
 							maxAmount = timerCountInHours * workOrder.get().getMaxAmount();
+						}else {
+							workSelection = "Rate(Document uploaded doesn't match service type)";
+							minAmount = 0;
+							maxAmount = 0;
 						}
 
 						workOrderCalculation.setWorkRateSelection(workSelection);
@@ -873,7 +875,7 @@ public class ClientComponentModel {
 
 					} else if (extension.equals("doc") || extension.equals("docx")) {
 
-						int wordPageCount = countPageDoc(filePath, "docx");
+						int wordPageCount = countPageDoc(filePath, extension);
 						System.out.println("===>>> wordPageCount: " + wordPageCount);
 
 						long wordDocCount = countWordDoc(filePath);
@@ -894,6 +896,10 @@ public class ClientComponentModel {
 							workSelection = "Rate(Per Page)";
 							minAmount = wordPageCount * workOrder.get().getMinAmount();
 							maxAmount = wordPageCount * workOrder.get().getMaxAmount();
+						}else {
+							workSelection = "Rate(Document uploaded doesn't match service type)";
+							minAmount = 0;
+							maxAmount = 0;
 						}
 
 						workOrderCalculation.setWorkRateSelection(workSelection);
@@ -923,6 +929,10 @@ public class ClientComponentModel {
 							workSelection = "Rate(Per Page)";
 							minAmount = pdfPageCount * workOrder.get().getMinAmount();
 							maxAmount = pdfPageCount * workOrder.get().getMaxAmount();
+						}else {
+							workSelection = "Rate(Document uploaded doesn't match service type)";
+							minAmount = 0;
+							maxAmount = 0;
 						}
 
 						workOrderCalculation.setWorkRateSelection(workSelection);
@@ -948,6 +958,10 @@ public class ClientComponentModel {
 							workSelection = "Rate(Per Word)";
 							minAmount = txtCount * workOrder.get().getMinAmount();
 							maxAmount = txtCount * workOrder.get().getMaxAmount();
+						}else {
+							workSelection = "Rate(Document uploaded doesn't match service type)";
+							minAmount = 0;
+							maxAmount = 0;
 						}
 
 						workOrderCalculation.setWorkRateSelection(workSelection);
@@ -1018,6 +1032,25 @@ public class ClientComponentModel {
 		} else {
 			return prop.getUser().getUserId();
 		}
+	}
+
+	public CountryCodesBean[] loadCountriesFromJsonFile() {
+
+		CountryCodesBean[] countries = null;
+		
+		String json = "";
+		try {
+			json = StreamUtils.copyToString( new ClassPathResource("/static/CountryCodesMod.json").getInputStream(), Charset.defaultCharset()  );
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			countries = objectMapper.readValue(json, CountryCodesBean[].class);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return countries;
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,8 +72,8 @@ import com.ivoiceafrica.ivoiceafrica.service.WorkTransactionService;
 @Controller
 public class AdminController {
 
-	// Check the System Utility Class on GeekForGeek(Online)
-	public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/profilepictures";
+	@Value("${upload.path}")
+	String uploadDir;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
