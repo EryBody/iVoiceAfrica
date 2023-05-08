@@ -349,7 +349,12 @@
 					</div>
 
 					<div class="modal-footer logoutModal-footer">
-						<button type="submit" class="transparentBtn">Hire</button>
+						
+						<!-- <a th:case="'not-paid'" th:href="@{/client/details/{id}(id=${workOrderDetails?.workId})}"><button type="button"  class="transparentBtn">Pay for job service</button></a>
+						 -->
+						 
+						<button type="submit"  class="transparentBtn">Hire</button>
+						
 						<button class="logoutBtn" data-dismiss="modal" aria-label="Close">
 							Cancel</button>
 					</div>

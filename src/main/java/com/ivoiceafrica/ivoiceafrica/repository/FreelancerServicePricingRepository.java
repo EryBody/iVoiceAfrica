@@ -19,5 +19,7 @@ public interface FreelancerServicePricingRepository extends JpaRepository<Freela
 	Optional<FreelancerServicePricing> findFirstFreelancerServicePricingByServiceTypePricingAndUser(ServiceTypePricing serviceTypePricing, User user);
 	
 	List<FreelancerServicePricing> findFreelancerServicePricingListByServiceTypePricingAndUser(ServiceTypePricing serviceTypePricing, User user);
+	
+	Optional<FreelancerServicePricing> findFirstFreelancerServicePricingByUser(User user);
 
 }

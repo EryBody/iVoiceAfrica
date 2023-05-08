@@ -29,6 +29,7 @@ import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientWorkDeliveryForAdmin;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerWorkDeliveryForAdmin;
 import com.ivoiceafrica.ivoiceafrica.DTO.GetJobsInfoDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.ReviewWorkOrderDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SearchDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SearchFreelancerDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.SendJobDTO;
@@ -45,6 +46,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderReview;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
@@ -64,6 +66,7 @@ import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkEscrowTransactionService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkOrderReviewService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
@@ -140,6 +143,9 @@ public class AdminController {
 
 	@Autowired
 	WorkEscrowTransactionService workEscrowTransactionService;
+	
+	@Autowired
+	WorkOrderReviewService workOrderReviewService;
 
 	@GetMapping("/admin-dashboard")
 	public String adminDashboard(Model model) {
@@ -176,7 +182,7 @@ public class AdminController {
 	@GetMapping("/admin-job")
 	public String adminJobs(Model model) {
 
-		List<WorkOrder> getWorkOrder = workOrderService.findAll();
+		List<WorkOrder> getWorkOrder = workOrderService.findWorkOrders();
 
 		List<ServiceType> serviceTypes = serviceType.findAll();
 		List<WorkOrderStatus> workOrdersStatus = workOrderStatusService.findAll();
@@ -883,7 +889,11 @@ public class AdminController {
 			model.addAttribute("workFreelancerPayment", null);
 		}
 
-		
+
+		//Get Reviews
+		List<WorkOrderReview> reviews = workOrderReviewService.findWorkOrderReviewByworkOrderOrderByEntryDateDesc(workOrderInfo.get());
+
+		model.addAttribute("reviews", reviews);
 		model.addAttribute("workOrderInfoDetails", workOrderInfo.get());
 		model.addAttribute("workAttachments", workAttachments);
 		model.addAttribute("workAttachmentDetails", workAttachmentDetails.get());
@@ -1225,6 +1235,45 @@ public class AdminController {
 		model.addAttribute("adminSearchDTO", new AdminSearchDTO());
 		model.addAttribute("transactions", transactions);
 		return "dashboards/admin/overview/finances";
+	}
+	
+	@PostMapping("/review-work-order")
+	public String reviewWorkOrder(@ModelAttribute("ReviewWorkOrderDTO") ReviewWorkOrderDTO reviewWorkOrderDTO,
+			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
+
+		try {
+			//Review
+			String entryDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			int uopdateStatus = 4;
+
+			int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, reviewWorkOrderDTO.getWorkOrderId());// 4 means reviewing
+			System.out.println("===>>>>> updateWorkOrdertoReviewing: " + updateWorkOrdertoReviewing);
+
+			int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, reviewWorkOrderDTO.getDeliveryId()); // 4 means reviewing
+			System.out.println("===>>>>> updateDeliveryToReviewing: " + updateDeliveryToReviewing);
+			
+			Optional<User> user = userService.findById(reviewWorkOrderDTO.getUserId());
+			Optional<WorkOrder> workOrder = workOrderService.findFirstWorkOrderByWorkId(reviewWorkOrderDTO.getWorkOrderId());
+			
+			WorkOrderReview order = new WorkOrderReview();
+//			order.setReviewId(0);
+			order.setUser(user.get());
+			order.setWorkOrder(workOrder.get());
+			order.setReview(reviewWorkOrderDTO.getReview());
+			order.setEntryDate(entryDate);
+			
+			workOrderReviewService.save(order);
+
+			attributes.addFlashAttribute("message", "Reviewing application.");
+
+			return "redirect:/job-details/" + reviewWorkOrderDTO.getWorkOrderId() + "/" + uopdateStatus + "";
+
+		} catch (Exception ex) {
+			System.out.println("===>>> Exception: " + ex);
+		}
+
+		return "dashboards/admin/overview/jobs/adminjobsdetails";
+
 	}
 
 	public int updateUserStatus(String username, int status) {

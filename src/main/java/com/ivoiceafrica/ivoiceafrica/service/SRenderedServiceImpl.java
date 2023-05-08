@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposals;
+import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposalsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;

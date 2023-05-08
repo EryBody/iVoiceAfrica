@@ -16,11 +16,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
+import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.components.models.FreelancerComponentModel;
 import com.ivoiceafrica.ivoiceafrica.controller.ClientController;
 import com.ivoiceafrica.ivoiceafrica.controller.FreelancerController;
 import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
+import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
+import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.models.CountryCodesBean;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
@@ -122,23 +125,5 @@ public class IVoiceApplication implements CommandLineRunner {
 
 		log.info("===>>> This is an info log");
 
-		System.out.println("===>>> upload:" + uploadDir);
-		
-		String filename = "avatar.png";
-		Resource file = clientController.load(filename);
-
-		if (file.exists() || file.isReadable()) {
-			 ResponseEntity<Resource> body = ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-					.body(file);
-			 
-			 System.out.println("Body 1: "+body);
-		} else {
-			String fileOutput = "no filename";
-			 ResponseEntity<Resource> body = ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileOutput + "\"").body(file);
-			
-			 System.out.println("Body 2: "+body);
-		}
 	}
 }

@@ -137,11 +137,10 @@
 									<div class="mt-3"
 										th:switch="${@ClientComponentModel.checkClientWordOrderPayment(session.user.userId, workOrderDetails?.workId)}">
 										<!-- This section means the customer has paid -->
-										<span th:case="'paid'">
-											<!-- <p>paid</p> -->
-										</span> 
-										
-										<span th:case="'not-paid'" th:if="${@ClientComponentModel.getLastProposalUser(workOrderDetails?.workId) != 0}"> <a
+										<span th:case="'paid'"> <!-- <p>paid</p> -->
+										</span> <span th:case="'not-paid'"
+											th:if="${@ClientComponentModel.getLastProposalUser(workOrderDetails?.workId) != 0}">
+											<a
 											th:href="@{/client-profile-overview/{id}/{userId}(id=${workOrderDetails?.workId}, userId=${@ClientComponentModel.getLastProposalUser(workOrderDetails?.workId)})}"><button
 													type="button" class="btn btn-dark btn-lg">Pay for
 													work order</button></a>
@@ -250,18 +249,27 @@
 								<a th:href="@{/client/requests/all}"><button type="button"
 										class="uploadbtn ml-4 clientrequesteditBtn">Back</button></a>
 
-
 								<!-- th:if="${workOrderDetails.workOrderStatus.status == 'bidding'}" -->
-								<span
-									th:if="${@ClientComponentModel.getProposalStatusFromWorkOrder(workOrderDetails.workId) == false}"><a
-									th:href="@{/client/bids-client-details/{id}(id=${workOrderDetails.workId})}"><button
-											type="button"
-											class="uploadbtn ml-4 clientrequesteditBtn bg-dark">
-											Send Bids (<span
-												th:text="${@ClientComponentModel.getFreelancerCount(workOrderDetails.workId)}"></span>)
-										</button></a></span>
-							</div>
 
+								<span
+									th:switch="${@ClientComponentModel.checkClientWordOrderPayment(session.user.userId, workOrderDetails?.workId)}">
+									<span th:case="'not-paid'"
+									th:if="${@ClientComponentModel.getProposalStatusFromWorkOrder(workOrderDetails.workId) == false}">
+										<a
+										th:href="@{/bids-client-details/{id}/{filter}(id=${workOrderDetails.workId}, filter='serviceType')}"><button
+												type="button"
+												class="uploadbtn ml-4 clientrequesteditBtn bg-dark">
+												Send Bids</button></a>
+								</span> 
+								
+								<span th:case="'paid'">
+										<button type="button"
+											class="uploadbtn ml-4 clientrequesteditBtn bg-dark">
+											Work order has been paid</button>
+								</span>
+								</span>
+
+							</div>
 
 						</div>
 					</div>

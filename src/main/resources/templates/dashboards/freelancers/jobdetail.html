@@ -128,22 +128,28 @@
 											Posted on <span th:text="${opWorkOrder.postingDate}"></span>
 										</p>
 									</div>
-
 								</div>
 
-								<div class="job-alerts-btns" th:if="${delivery} == null">
-									<a href="#" class="decline-btn mr-4" data-toggle="modal"
-										data-target="#offerDeclineModal">Decline</a> <span> <span
-										th:switch="${@ClientComponentModel.checkClientWordOrderPayment(opWorkOrder.user.userId, opWorkOrder.workId)}">
+
+								<!-- 14 Means decline -->
+								<div th:if="${freelancerStatus != 14}">
+									<div class="job-alerts-btns" th:if="${delivery} == null">
+
+
+										<a href="#" class="decline-btn mr-4" data-toggle="modal"
+											data-target="#offerDeclineModal">Decline</a> <span
+											th:switch="${@ClientComponentModel.checkClientWordOrderPayment(opWorkOrder.user.userId, opWorkOrder.workId)}">
+
+
 											<a href="#" class="job-accept job-btn" th:case="'paid'"
 											data-toggle="modal" data-target="#exampleModalCenter">Accept</a>
 
-											<a href="#" class="job-accept job-btn" th:case="'not-paid'">Work order validation in progress</a>
+											<a href="#" class="job-accept job-btn" th:case="'not-paid'">Work
+												order validation in progress</a>
 
-									</span>
-									</span>
+										</span>
+									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -373,9 +379,9 @@
 								name="userId" th:value=${userDetails.username}> <input
 								type="hidden" name="proposalId" th:value=${proposalId}>
 
-							<a href="../../onboarding/client/sign-in.html">
-								<button class="transparentBtn" data-dismiss="modal">No</button>
-							</a>
+
+							<button class="transparentBtn" data-dismiss="modal">No</button>
+
 
 							<button type="submit" class="logoutBtn" aria-label="Close">
 								Yes</button>

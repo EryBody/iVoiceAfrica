@@ -1,6 +1,6 @@
 package com.ivoiceafrica.ivoiceafrica.DTO;
 
-public class FreelancerProposals {
+public class FreelancerProposalsDTO {
 
 	
 	private String renderId;
@@ -14,10 +14,10 @@ public class FreelancerProposals {
 	private double freelancerMinPrice;
 	private double freelancerMaxPrice;
 	
-	public FreelancerProposals() {
+	public FreelancerProposalsDTO() {
 	}
 	
-	public FreelancerProposals(String renderId, int userId, String typeId, int experienceInYears,
+	public FreelancerProposalsDTO(String renderId, int userId, String typeId, int experienceInYears,
 			String servicePortfolioLink, String pricingId, String pricingType, String freelancerPricingId,
 			double freelancerMinPrice, double freelancerMaxPrice) {
 		this.renderId = renderId;
@@ -93,7 +93,7 @@ public class FreelancerProposals {
 	}
 	@Override
 	public String toString() {
-		return "FreelancerProposals [renderId=" + renderId + ", userId=" + userId + ", typeId=" + typeId
+		return "FreelancerProposalsDTO [renderId=" + renderId + ", userId=" + userId + ", typeId=" + typeId
 				+ ", experienceInYears=" + experienceInYears + ", servicePortfolioLink=" + servicePortfolioLink
 				+ ", pricingId=" + pricingId + ", pricingType=" + pricingType + ", freelancerPricingId="
 				+ freelancerPricingId + ", freelancerMinPrice=" + freelancerMinPrice + ", freelancerMaxPrice="

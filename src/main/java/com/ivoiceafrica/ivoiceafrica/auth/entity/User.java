@@ -34,6 +34,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.VoiceCapability;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkEscrowTransaction;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderReview;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
@@ -239,6 +240,13 @@ public class User {
 					CascadeType.REFRESH, CascadeType.DETACH})
 	@JsonIgnore
 	private Set<ServiceLanguages> serviceLanguages;
+	
+	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.REFRESH, CascadeType.DETACH})
+	@JsonIgnore
+	private Set<WorkOrderReview> workOrderReviews;
 	
 	public User() {
 		
@@ -624,6 +632,14 @@ public class User {
 
 	public void setServiceLanguages(Set<ServiceLanguages> serviceLanguages) {
 		this.serviceLanguages = serviceLanguages;
+	}
+	
+	public Set<WorkOrderReview> getWorkOrderReviews() {
+		return workOrderReviews;
+	}
+
+	public void setWorkOrderReviews(Set<WorkOrderReview> workOrderReviews) {
+		this.workOrderReviews = workOrderReviews;
 	}
 
 	@Override

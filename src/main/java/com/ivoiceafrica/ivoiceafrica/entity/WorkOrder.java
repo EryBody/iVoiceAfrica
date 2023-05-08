@@ -100,6 +100,11 @@ public class WorkOrder {
 			CascadeType.DETACH })
 	@JsonIgnore
 	private Set<WorkTransactions> workTransaction;
+	
+	@OneToMany(mappedBy = "workOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JsonIgnore
+	private Set<WorkOrderReview> workOrderReviews;
 
 	public WorkOrder() {
 
@@ -110,7 +115,7 @@ public class WorkOrder {
 			String modifiedDate, String postingDate, Set<Proposal> proposals,
 			Set<WorkOrderAttachment> workOrderAttachments, Set<WorkOrdersDelivery> workOrdersDeliveries,
 			Set<WorkPayments> workPayments, Set<WorkEscrowTransaction> escrowTransactions,
-			Set<WorkFreelancerPayment> freelancerPayments, Set<WorkTransactions> workTransaction) {
+			Set<WorkFreelancerPayment> freelancerPayments, Set<WorkTransactions> workTransaction, Set<WorkOrderReview> workOrderReviews) {
 		this.workId = workId;
 		this.workTitle = workTitle;
 		this.user = user;
@@ -130,6 +135,7 @@ public class WorkOrder {
 		this.escrowTransactions = escrowTransactions;
 		this.freelancerPayments = freelancerPayments;
 		this.workTransaction = workTransaction;
+		this.workOrderReviews = workOrderReviews;
 	}
 
 	public String getWorkId() {
@@ -282,6 +288,14 @@ public class WorkOrder {
 
 	public void setWorkTransaction(Set<WorkTransactions> workTransaction) {
 		this.workTransaction = workTransaction;
+	}
+	
+	public Set<WorkOrderReview> getWorkOrderReviews() {
+		return workOrderReviews;
+	}
+
+	public void setWorkOrderReviews(Set<WorkOrderReview> workOrderReviews) {
+		this.workOrderReviews = workOrderReviews;
 	}
 
 	@Override

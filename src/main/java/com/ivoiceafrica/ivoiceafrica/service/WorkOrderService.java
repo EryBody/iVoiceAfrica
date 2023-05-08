@@ -47,4 +47,6 @@ public interface WorkOrderService {
 	
 	WorkOrder findLastWorkOrder(int limit);
 	
+	List<WorkOrder> findWorkOrders();
+	
 }

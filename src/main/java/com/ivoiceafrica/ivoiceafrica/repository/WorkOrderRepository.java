@@ -46,6 +46,9 @@ public interface WorkOrderRepository extends JpaRepository<WorkOrder, String> {
 	@Query(value = "select * from work_orders order by posting_date DESC LIMIT :limit", nativeQuery = true)
 	List<WorkOrder> findWorkOrderByLimit(@Param("limit")int limit);
 	
+	@Query(value = "select * from work_orders order by posting_date DESC", nativeQuery = true)
+	List<WorkOrder> findWorkOrders();
+	
 	@Query(value = "select * from work_orders order by posting_date DESC LIMIT :limit", nativeQuery = true)
 	WorkOrder findLastWorkOrder(@Param("limit")int limit);
 	

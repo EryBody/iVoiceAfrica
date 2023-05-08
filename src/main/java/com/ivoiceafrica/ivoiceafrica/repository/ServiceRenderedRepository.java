@@ -28,11 +28,11 @@ public interface ServiceRenderedRepository extends JpaRepository<ServiceRendered
 	
 	List<ServiceRendered> findServiceRenderedListByUserAndServiceType(User user, ServiceType type);
 	
-	@Query("SELECT sr.renderId AS renderId, sr.user.userId AS userId , sr.serviceType.typeId AS typeId, sr.experienceInYears AS experienceInYears, sr.otherInfo AS servicePortfolioLink, "
+	@Query("SELECT DISTINCT sr.renderId AS renderId, sr.user.userId AS userId , sr.serviceType.typeId AS typeId, sr.experienceInYears AS experienceInYears, sr.otherInfo AS servicePortfolioLink, "
 			+ "sp.pricingId AS pricingId, sp.pricingType.pricingType AS pricingType, fp.fpricingId AS freelancerPricingId, fp.minPrice AS freelancerMinPrice, fp.maxPrice AS freelancerMaxPrice "
-			+ "FROM ServiceRendered sr  JOIN sr.serviceType st "
-			+ "ON sr.serviceType.typeId = st.typeId JOIN st.serviceTypePricings sp "
-			+ "ON sp.serviceType.typeId = st.typeId JOIN sp.freelancerServicePricings fp "
+			+ "FROM ServiceRendered sr INNER JOIN sr.serviceType st "
+			+ "ON sr.serviceType.typeId = st.typeId INNER JOIN st.serviceTypePricings sp "
+			+ "ON sp.serviceType.typeId = st.typeId INNER JOIN sp.freelancerServicePricings fp "
 			+ "ON fp.serviceTypePricing.pricingId = sp.pricingId "
 			+ "WHERE sp.serviceType.typeId = :serviceTypeId AND fp.minPrice >= :freelancerMinPrice AND fp.maxPrice <= :freelancerMaxPrice")
 	List<Map<String,Object>> findFreelancerDetailsForWorks(@Param("serviceTypeId")String serviceTypeId,@Param("freelancerMinPrice")double freelancerMinPrice,@Param("freelancerMaxPrice")double freelancerMaxPrice);

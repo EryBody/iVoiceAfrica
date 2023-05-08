@@ -45,7 +45,7 @@ import com.coremedia.iso.IsoFile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProfileLanguageDTO;
-import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposals;
+import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposalsDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerServiceTypePricingDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.WorkOrderCalculationsDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
@@ -173,7 +173,7 @@ public class ClientComponentModel {
 
 		Optional<WorkOrder> order = orderService.findById(workOrderId);
 
-		List<FreelancerProposals> proposals = new ArrayList<>();
+		List<FreelancerProposalsDTO> proposals = new ArrayList<>();
 
 		List<Map<String, Object>> freelancerProposals = serviceRenderedService.findFreelancerDetailsForWorks(
 				order.get().getServiceType().getTypeId(), order.get().getMinAmount(), order.get().getMaxAmount());
@@ -185,10 +185,15 @@ public class ClientComponentModel {
 			// Converting POJO to Map
 			Map<String, Object> mapping = mapper.convertValue(map, new TypeReference<Map<String, Object>>() {
 			});
-			FreelancerProposals proposal = mapper.convertValue(mapping, FreelancerProposals.class);
+			
+			FreelancerProposalsDTO proposal = mapper.convertValue(mapping, FreelancerProposalsDTO.class);
 
 			proposals.add(proposal);
 
+		}
+		
+		if(proposals.size() == 0) {
+			
 		}
 
 		int clientProposalSize = proposals.size();

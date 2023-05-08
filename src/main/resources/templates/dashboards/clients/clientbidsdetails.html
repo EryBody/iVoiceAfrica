@@ -147,55 +147,51 @@
 					</div>
 
 					<div class="job-alerts" th:if="${clientProposalList.size() > 0}">
-						<span class="job-details-content-title">Recommended
-							Freelancers</span>
+						<span class="job-details-content-title">Work order bids</span>
 
 						<div class="freelancer-bidding">
 							<div class="bidding-freelancer"
 								th:each="clientProposal, index : ${clientProposalList}">
-								<a
-									th:href="@{/clientProfileOverview/{id}/{proposalId}(id=${workOrderDetails.workId}, proposalId=${clientProposal.proposalId})}">
-									<div class="d-flex align-items-start p-4 griddy pb-0">
-										<img
-											th:src="@{|/images/view?filename=${clientProposal.user.profilePicture}|}"
-											style="width: 80px; height: 80px; border-radius: 50%;"
-											alt="freelancer" />
+								<div class="d-flex align-items-start p-4 griddy pb-0">
+									<img
+										th:src="@{|/images/view?filename=${clientProposal.user.profilePicture}|}"
+										style="width: 80px; height: 80px; border-radius: 50%;"
+										alt="freelancer" />
 
-										<div class="ml-4">
-											<p class="freelancers-bidding-name"
-												th:text="|${clientProposal.user.firstName} ${clientProposal.user.lastName}|">Michael
-												Jordan</p>
-											<p class="freelancer-bidding-skill"
-												th:text="${clientProposal.user.address}">No 2, Fassy
-												Adesina</p>
-											<p class="freelancer-location"
-												th:text="${clientProposal.user.country}">Nigeria</p>
-											<p class="mr-3 freelance-expertise"
-												th:each="freelancerLanguage : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(clientProposal.user)}">
-												<span th:text="${freelancerLanguage.languageId.language}">Hausa</span>
-											</p>
-										</div>
+									<div class="ml-4">
+										<p class="freelancers-bidding-name"
+											th:text="|${clientProposal.user.firstName} ${clientProposal.user.lastName}|">Michael
+											Jordan</p>
+										<p class="freelancer-bidding-skill"
+											th:text="${clientProposal.user.address}">No 2, Fassy
+											Adesina</p>
+										<p class="freelancer-location"
+											th:text="${clientProposal.user.country}">Nigeria</p>
+										<p class="mr-3 freelance-expertise"
+											th:each="freelancerLanguage : ${@ClientComponentModel.getFirst3FreelancerServiceLanguage(clientProposal.user)}">
+											<span th:text="${freelancerLanguage.languageId.language}">Hausa</span>
+										</p>
 									</div>
+								</div>
 
-									<div class="dashboard-earning-stats mt-3 freelance-history">
-										<div>
-											<p class="withdrawn-amt"
-												th:text="${@ClientComponentModel.getNoOfServiceRendered(clientProposal.user)}">4</p>
-											<p>Service Rendered</p>
-										</div>
-										<div>
-											<p class="credited-amt">
-												$ <span th:text="${clientProposal.amount}">40</span>
-											</p>
-											<p>Rate</p>
-										</div>
-										<!-- <div>
+								<div class="dashboard-earning-stats mt-3 freelance-history">
+									<div>
+										<p class="withdrawn-amt"
+											th:text="${@ClientComponentModel.getNoOfServiceRendered(clientProposal.user)}">4</p>
+										<p>Service Rendered</p>
+									</div>
+									<div>
+										<p class="credited-amt">
+											$ <span th:text="${clientProposal.amount}">40</span>
+										</p>
+										<p>Rate</p>
+									</div>
+									<!-- <div>
 										<p class="escrow-amt">4.5</p>
 										<p>Rating</p>
 									</div> -->
 
-									</div>
-								</a>
+								</div>
 							</div>
 
 						</div>

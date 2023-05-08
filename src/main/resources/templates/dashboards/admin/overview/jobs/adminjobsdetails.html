@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
 <style>
 #outer-div {
 	width: 100%;
@@ -50,7 +54,6 @@
 							class="alert alert-primary mt-3"></p>
 
 						<div>
-
 							<h1>
 								Job ID: <span th:text="${workOrderInfoDetails.workId}">089456765</span>
 							</h1>
@@ -125,7 +128,7 @@
 									<span>$ <span
 										th:text="${workOrderInfoDetails.minAmount}">7</span> - $ <span
 										th:text="${workOrderInfoDetails.maxAmount}">10</span> <span
-											th:text="${@ClientComponentModel.workRateSelection(workOrderInfoDetails.workRate)}">
+										th:text="${@ClientComponentModel.workRateSelection(workOrderInfoDetails.workRate)}">
 											per page</span>
 									</span>
 								</div>
@@ -414,18 +417,16 @@
 									<input type="hidden" name="deliveryId"
 										th:value="${workDeliveryDetail == null} ? '' : ${workDeliveryDetail.deliveryId}" />
 
-									<div class="works-cta">
-
+									<div class="works-cta" th:if="${workDeliveryDetail != null}">
 										<!-- th:disabled="${workOrderInfoDetails.workOrderStatus.statusId != 2}" -->
-										<a
-											th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail?.deliveryId})}"><button
+										<!-- th:href="@{/review-job/{workId}/{deliveryId}(workId=${workOrderInfoDetails.workId}, deliveryId=${workDeliveryDetail?.deliveryId})}"
+										 -->
+										<a data-toggle="modal" data-target="#reviewmodal"><button
 												type="button" class="review-btn">Review</button></a>
 
 										<!-- th:disabled="${workOrderInfoDetails.workOrderStatus.statusId != 2}" -->
-										<button type="submit" class="fward-btn">Send
-											Finished Job</button>
-
-
+										<button type="submit" class="fward-btn">Send Finished
+											Job</button>
 
 									</div>
 
@@ -457,7 +458,6 @@
 											</form>
 										</div>
 									</div>
-
 
 									<div class="util-cta-table my-5">
 										<table id="cta-table">
@@ -500,25 +500,163 @@
 
 
 							<!-- Reviews section -->
-							<!-- <div>
+							<div th:if="${reviews.size() == 0}">
 								<div class="info-header">
 									<h2>Client</h2>
 								</div>
 								<div class="feedback">
 									<h1>No feedback received yet</h1>
-									<p>When the client gives feedback, they would appear here.</p>
+									<p>When a client or admin gives feedback, they would appear here.</p>
 								</div>
-							</div> -->
+							</div>
+
+							<div th:if="${reviews.size() > 0}">
+								<div class="info-header">
+									<h2>Client</h2>
+								</div>
+								<div class="">
+									<div>
+										<div class="client-review profile-services">
+											<label for="" class="profile-service-label mb-3">
+												Reviews</label>
+
+											<div>
+												<div class="d-flex align-item-center mb-5 flex-wrap"
+													th:each="review : ${reviews}">
+													<div class="client-profile-photo"
+														th:switch="${@ClientComponentModel.checkProfile()}">
+
+														<img th:case="'Administrator'"
+															src="../../../assets/images/avatar.png"
+															alt="client-profile" /> <img th:case="'Supervisor'"
+															th:src="@{|/images/view?filename=${@ClientComponentModel.getUserDetails(review.user.userId).profilePicture}|}"
+															alt="client-profile"
+															style="width: 100px; height: 50px; border-radius: 50px;" />
+														<img th:case="'Client'"
+															th:src="@{|/images/view?filename=${@ClientComponentModel.getUserDetails(review.user.userId).profilePicture}|}"
+															alt="client-profile"
+															style="width: 100px; height: 50px; border-radius: 50px;" />
+														<img th:case="'Freelancer'"
+															th:src="@{|/images/view?filename=${@ClientComponentModel.getUserDetails(review.user.userId).profilePicture}|}"
+															alt="client-profile"
+															style="width: 100px; height: 50px; border-radius: 50px;" />
+													</div>
+
+													<div class="ml-3">
+														<div class="client-profile-name">
+															<div>
+																<span>Freelancer - </span> <span
+																	th:text="|${@ClientComponentModel.getUserDetails(review.user.userId).firstName} ${@ClientComponentModel.getUserDetails(review.user.userId).lastName}|">
+																	Godwin Uchenna</span>
+
+															</div>
+
+															<small class="client-reviewdate"
+																th:text="${review.entryDate}">3rd October 2022</small>
+
+															<p th:text=${review.review}>Micheal is easy to talk
+																to and very helpful in guiding writers in the steps
+																required to get their work published.</p>
+														</div>
+														<!-- Ratings for review -->
+														<!-- <span class="client-ratingstar"><img
+															src="../../assets/icons/rating stars.svg" alt="" /></span> -->
+													</div>
+
+
+												</div>
+											</div>
+
+											<!-- button to see all reviews -->
+											<!-- <a href="#" class="more-reviews">See all Reviews <span><img
+								src="../../assets/icons/arrow_right.svg" alt="" /></span>
+						</a> -->
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+
+					<form th:action="@{/review-work-order}"
+						th:object="${ReviewWorkOrderDTO}" method="post">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Admin
+								Review</h5>
+
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-body">
+							<div class="input-group mb-4">
+								<h4>Review work order.</h4>
+							</div>
+
+							<input type="hidden" name="deliveryId"
+								th:value="${workDeliveryDetail?.deliveryId}" /> <input
+								type="hidden" name="workOrderId"
+								th:value="${workOrderInfoDetails?.workId}" /> <input
+								type="hidden" name="userId"
+								th:value="${workDeliveryDetail?.user.userId}" />
+
+							<div class="input-group mb-4">
+								<textarea name="review" rows="6" style="font-size: 15px;"></textarea>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success btn-lg">Review</button>
+
+							<button type="button" class="btn btn-secondary btn-lg"
+								data-dismiss="modal">Close</button>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+		integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+		crossorigin="anonymous"></script>
 
 	<script th:inline="javascript">
 		function sendProposal(param) {

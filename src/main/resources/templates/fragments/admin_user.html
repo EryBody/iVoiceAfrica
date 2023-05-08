@@ -3,8 +3,8 @@
 <a th:href="@{/admin-profile}" class="admin__header-details"
 	th:fragment="admin-user-header"> 
 	<img
-	src="../../../assets/images/avatar.png" width=30 height=30
+	src="../../../assets/images/avatar.png" width=40 height=40
 	alt="A woman smiling" />
-	<p th:text="${session.userId}">sandra.admin@iVoice.org</p>
+	<p class="mt-3" th:text="${session.userId}">sandra.admin@iVoice.org</p>
 </a>
 </html>

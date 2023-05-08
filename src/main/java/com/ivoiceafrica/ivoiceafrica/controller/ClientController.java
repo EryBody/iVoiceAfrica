@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.HttpHeaders;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -51,10 +50,12 @@ import com.ivoiceafrica.ivoiceafrica.DTO.ClientAmountDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientPersonalDetailDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ClientSignupDTO;
-import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposals;
+import com.ivoiceafrica.ivoiceafrica.DTO.FilterBidsRequestDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.FreelancerProposalsDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.JobStatusDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.NewClientRequestDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.ProfileDTO;
+import com.ivoiceafrica.ivoiceafrica.DTO.ReviewWorkOrderDTO;
 import com.ivoiceafrica.ivoiceafrica.DTO.UpdateProfilePictureDTO;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.Role;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
@@ -64,6 +65,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.DeliveryAttachment;
 import com.ivoiceafrica.ivoiceafrica.entity.DeliveryStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.DurationType;
 import com.ivoiceafrica.ivoiceafrica.entity.FreelancerDeliveryAttachment;
+import com.ivoiceafrica.ivoiceafrica.entity.FreelancerServicePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.Language;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
@@ -71,6 +73,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.ServiceRendered;
 import com.ivoiceafrica.ivoiceafrica.entity.ServiceType;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderReview;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkPayments;
@@ -81,6 +84,7 @@ import com.ivoiceafrica.ivoiceafrica.service.DeliveryService;
 import com.ivoiceafrica.ivoiceafrica.service.DeliveryStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.DurationTypeService;
 import com.ivoiceafrica.ivoiceafrica.service.FreelancerDeliveryAttachmentService;
+import com.ivoiceafrica.ivoiceafrica.service.FreelancerPricingService;
 import com.ivoiceafrica.ivoiceafrica.service.LanguageService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalService;
 import com.ivoiceafrica.ivoiceafrica.service.ProposalStatusService;
@@ -90,6 +94,7 @@ import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkOrderReviewService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
@@ -167,6 +172,12 @@ public class ClientController {
 
 	@Autowired
 	ClientComponentModel clientComponentModel;
+
+	@Autowired
+	FreelancerPricingService freelancerPricingService;
+
+	@Autowired
+	WorkOrderReviewService workOrderReviewService;
 
 	@GetMapping("/client-dashboard")
 	public String clientDashboard(Model model) {
@@ -439,7 +450,11 @@ public class ClientController {
 				.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(opDeliveryDetails.get());
 
 		System.out.println("===>>>> deliveryAttachment: " + deliveryAttachment);
+		
+		//Get Reviews
+		List<WorkOrderReview> reviews = workOrderReviewService.findWorkOrderReviewByworkOrderOrderByEntryDateDesc(opWorkOrder.get());
 
+		model.addAttribute("reviews", reviews);
 		model.addAttribute("deliveryAttachmentList", fDeliveryAttachments);
 		model.addAttribute("opDeliveryDetails", opDeliveryDetails.get());
 		model.addAttribute("workOrderStatus", workOrderStatus.get());
@@ -456,6 +471,7 @@ public class ClientController {
 
 		return "dashboards/clients/clientfinishedDetails";
 	}
+	
 
 	@GetMapping("/client/finance/all")
 	public String clientAllFinance(Model model) {
@@ -573,7 +589,7 @@ public class ClientController {
 			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(11);// 11 Means Freelancer accepted
+			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// 11 Means Freelancer accepted
 																							// request Status
 			List<Proposal> clientProposals = proposalService
 					.findProposalByWorkOrderAndProposalStatusOrderByCreatedDate(workOrder.get(), proposalStatus.get());
@@ -913,7 +929,7 @@ public class ClientController {
 
 	public String getUploadFileName(MultipartFile file) {
 		String filename = "";
-		
+
 		try {
 			System.out.println("===>>> Multipart File: " + file.getSize());
 
@@ -1153,13 +1169,13 @@ public class ClientController {
 			attributes.addFlashAttribute("message", "Profile picture change successfully.");
 
 		} catch (Exception ex) {
-
 			attributes.addFlashAttribute("message", "File does not exist, if issues persist contact admin.");
 		}
 
 		return "redirect:/profile";
 	}
 
+	//Old implementation of selecting freelancers
 	@GetMapping("/client/bids-client-details/{id}")
 	public String bidDetailsForClient(@PathVariable(value = "id") String id, Model model) {
 
@@ -1170,7 +1186,7 @@ public class ClientController {
 			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
 
-			List<FreelancerProposals> proposals = new ArrayList<>();
+			List<FreelancerProposalsDTO> proposals = new ArrayList<>();
 
 			List<Map<String, Object>> freelancerProposals = serviceRenderedService.findFreelancerDetailsForWorks(
 					workOrder.get().getServiceType().getTypeId(), workOrder.get().getMinAmount(),
@@ -1184,7 +1200,7 @@ public class ClientController {
 				// Converting POJO to Map
 				Map<String, Object> mapping = mapper.convertValue(map, new TypeReference<Map<String, Object>>() {
 				});
-				FreelancerProposals proposal = mapper.convertValue(mapping, FreelancerProposals.class);
+				FreelancerProposalsDTO proposal = mapper.convertValue(mapping, FreelancerProposalsDTO.class);
 
 				proposals.add(proposal);
 
@@ -1199,6 +1215,122 @@ public class ClientController {
 		}
 
 		return "dashboards/clients/clientbidsdetailsforfreelancers";
+	}
+
+	@GetMapping("/bids-client-details/{id}/{filter}")
+	public String bidDetailsForClientUsingFilters(@PathVariable(value = "id") String id,
+			@PathVariable(value = "filter") String filterType, Model model) {
+
+		try {
+
+			Optional<WorkOrder> workOrder = workOrderService.findById(id);
+
+			Optional<WorkOrderAttachment> workOrderAttachment = workOrderAttachmentService
+					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
+
+			List<FreelancerProposalsDTO> proposals = new ArrayList<>();
+
+			if (filterType.equals("serviceType")) {
+				List<ServiceRendered> serviceRendereds = serviceRenderedService
+						.findServiceRenderedListByServiceType(workOrder.get().getServiceType());
+
+				for (ServiceRendered serviceRendered : serviceRendereds) {
+
+					FreelancerProposalsDTO freelancerProposal = new FreelancerProposalsDTO();
+
+					freelancerProposal.setUserId(serviceRendered.getUser().getUserId());
+					freelancerProposal.setExperienceInYears(Integer.parseInt(serviceRendered.getExperienceInYears()));
+
+					proposals.add(freelancerProposal);
+				}
+			} else if (filterType.equals("minAmount")) {
+
+				List<ServiceRendered> serviceRendereds = serviceRenderedService.findAll();
+
+				for (ServiceRendered serviceRendered : serviceRendereds) {
+
+					FreelancerProposalsDTO freelancerProposal = new FreelancerProposalsDTO();
+
+					Optional<FreelancerServicePricing> freelancerServicePricing = freelancerPricingService
+							.findFirstFreelancerServicePricingByUser(serviceRendered.getUser());
+
+					if (freelancerServicePricing.isPresent()) {
+						if (freelancerServicePricing.get().getMinPrice() >= workOrder.get().getMinAmount()
+								&& freelancerServicePricing.get().getMinPrice() <= workOrder.get().getMaxAmount()) {
+
+							freelancerProposal.setUserId(freelancerServicePricing.get().getUser().getUserId());
+
+							Optional<ServiceRendered> opService = serviceRenderedService
+									.findFirstServiceRenderedByUser(freelancerServicePricing.get().getUser());
+							freelancerProposal
+									.setExperienceInYears(Integer.parseInt(opService.get().getExperienceInYears()));
+
+							proposals.add(freelancerProposal);
+						}
+					}
+
+				}
+			} else if (filterType.equals("maxAmount")) {
+
+				List<ServiceRendered> serviceRendereds = serviceRenderedService.findAll();
+
+				for (ServiceRendered serviceRendered : serviceRendereds) {
+
+					FreelancerProposalsDTO freelancerProposal = new FreelancerProposalsDTO();
+
+					Optional<FreelancerServicePricing> freelancerServicePricing = freelancerPricingService
+							.findFirstFreelancerServicePricingByUser(serviceRendered.getUser());
+
+					System.out.println("====>>> freelancerServicePricing: " + freelancerServicePricing);
+
+					if (freelancerServicePricing.isPresent()) {
+
+						if (freelancerServicePricing.get().getMaxPrice() >= workOrder.get().getMinAmount()
+								&& freelancerServicePricing.get().getMaxPrice() <= workOrder.get().getMaxAmount()) {
+
+							freelancerProposal.setUserId(freelancerServicePricing.get().getUser().getUserId());
+
+							Optional<ServiceRendered> opService = serviceRenderedService
+									.findFirstServiceRenderedByUser(freelancerServicePricing.get().getUser());
+							freelancerProposal
+									.setExperienceInYears(Integer.parseInt(opService.get().getExperienceInYears()));
+
+							proposals.add(freelancerProposal);
+
+						}
+					}
+				}
+			} else if (filterType.equals("allusers")) {
+				List<ServiceRendered> serviceRendereds = serviceRenderedService.findAll();
+				for (ServiceRendered serviceRendered : serviceRendereds) {
+
+					FreelancerProposalsDTO freelancerProposal = new FreelancerProposalsDTO();
+
+					freelancerProposal.setUserId(serviceRendered.getUser().getUserId());
+					freelancerProposal.setExperienceInYears(Integer.parseInt(serviceRendered.getExperienceInYears()));
+
+					proposals.add(freelancerProposal);
+				}
+			}
+
+			model.addAttribute("FilterBidsRequestDTO", new FilterBidsRequestDTO());
+			model.addAttribute("clientProposalList", proposals);
+			model.addAttribute("workOrderFirstAttachment", workOrderAttachment.get());
+			model.addAttribute("workOrderDetails", workOrder.get());
+
+		} catch (Exception ex) {
+			model.addAttribute("workOrderFirstAttachment", new WorkOrderAttachment());
+		}
+
+		return "dashboards/clients/clientbidsdetailsforfreelancers";
+	}
+
+	@PostMapping("/client/bid-request-filter")
+	public String bidDetailsForClientUsingFilter(
+			@ModelAttribute("FilterBidsRequestDTO") FilterBidsRequestDTO filterBidsRequestDTO) {
+
+		return "redirect:/bids-client-details/" + filterBidsRequestDTO.getWorkOrderId() + "/"
+				+ filterBidsRequestDTO.getFilterType();
 	}
 
 	@GetMapping("/client-profile-overview/{id}/{userId}")
@@ -1224,7 +1356,7 @@ public class ClientController {
 				model.addAttribute("clientAmountDTO", new ClientAmountDTO());
 			} else {
 				attribute.addFlashAttribute("message", message);
-				return "redirect:/client/bids-client-details/" + workOrder.get().getWorkId();
+				return "redirect:/bids-client-details/" + workOrder.get().getWorkId() + "/serviceType";
 			}
 
 		} catch (Exception ex) {
@@ -1244,20 +1376,24 @@ public class ClientController {
 					&& clientAmountDTO.getClientAmount() <= clientAmountDTO.getTotalMaxAmount()) {
 
 				String userId = (String) session.getAttribute("userId");
+				
 				Optional<User> clientUserId = userService.findFirstUserByUsername(userId);
+				System.out.println("===>>> clientUserId: "+clientUserId);
 
 				Optional<User> user = userService.findFirstUserByUsername(clientAmountDTO.getUserID());
+				
+				System.out.println("===>>> freelancer user: "+user);
+				
 				Optional<WorkOrder> workOrder = workOrderService.findById(clientAmountDTO.getWorkOrderID());
+				
+				System.out.println("===>>> workOrder: "+workOrder);
 
 				// send proposal to freelancer to accept, get the last id and redirect to
 				// payment page
 
 				Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// Freelancer Request Sent
 
-				Proposal proposalByWorkId = proposalService.findProposalByWorkOrderId(workOrder.get().getWorkId());
-
-				if (proposalByWorkId == null) {
-
+				if(proposalService.checkLastStatusOfProposal(user.get().getUserId(),workOrder.get().getWorkId()) == null) {
 					Proposal proposal = new Proposal();
 //					proposal.setProposalId("");
 					proposal.setWorkOrder(workOrder.get());
@@ -1266,14 +1402,15 @@ public class ClientController {
 					proposal.setAmount(clientAmountDTO.getClientAmount());
 					proposal.setModifiedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					proposal.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
+	
 					proposalService.save(proposal);
-
+	
+					System.out.println("===>>> proposal Saved: "+proposal);
 				}
 
 				Proposal prop = proposalService.findProposalByUserAndStatusOrderByCreatedDescWithLimit(
 						user.get().getUserId(), proposalStatus.get().getProposalStatusId());
-
+				
 				// update proposal amount
 				int updateproposalAmount = proposalService.updateProposalAmount(clientAmountDTO.getClientAmount(),
 						prop.getProposalId());
@@ -1302,6 +1439,45 @@ public class ClientController {
 
 		attributes.addFlashAttribute("message", "An error occured while creating job");
 		return "redirect:/client-dashboard";
+	}
+	
+	@PostMapping("/review-work-order-client")
+	public String reviewWorkOrder(@ModelAttribute("ReviewWorkOrderDTO") ReviewWorkOrderDTO reviewWorkOrderDTO,
+			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
+
+		try {
+			//Review
+			String entryDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			int uopdateStatus = 4;
+
+			int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, reviewWorkOrderDTO.getWorkOrderId());// 4 means reviewing
+			System.out.println("===>>>>> updateWorkOrdertoReviewing: " + updateWorkOrdertoReviewing);
+
+			int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, reviewWorkOrderDTO.getDeliveryId()); // 4 means reviewing
+			System.out.println("===>>>>> updateDeliveryToReviewing: " + updateDeliveryToReviewing);
+			
+			Optional<User> user = userService.findById(reviewWorkOrderDTO.getUserId());
+			Optional<WorkOrder> workOrder = workOrderService.findFirstWorkOrderByWorkId(reviewWorkOrderDTO.getWorkOrderId());
+			
+			WorkOrderReview order = new WorkOrderReview();
+//			order.setReviewId(0);
+			order.setUser(user.get());
+			order.setWorkOrder(workOrder.get());
+			order.setReview(reviewWorkOrderDTO.getReview());
+			order.setEntryDate(entryDate);
+			
+			workOrderReviewService.save(order);
+
+			attributes.addFlashAttribute("message", "Reviewing application.");
+
+			return "redirect:/client-finished-details/"+reviewWorkOrderDTO.getWorkOrderId()+"/"+reviewWorkOrderDTO.getDeliveryId();
+
+		} catch (Exception ex) {
+			System.out.println("===>>> Exception: " + ex);
+		}
+
+		return "dashboards/admin/overview/jobs/adminjobsdetails";
+
 	}
 
 }

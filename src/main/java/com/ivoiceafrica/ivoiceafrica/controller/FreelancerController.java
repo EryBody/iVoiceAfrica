@@ -59,6 +59,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.ServiceTypePricing;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkFreelancerPayment;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderAttachment;
+import com.ivoiceafrica.ivoiceafrica.entity.WorkOrderReview;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrdersDelivery;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
 import com.ivoiceafrica.ivoiceafrica.models.FreelancerDocumentNameModel;
@@ -85,6 +86,7 @@ import com.ivoiceafrica.ivoiceafrica.service.STypeService;
 import com.ivoiceafrica.ivoiceafrica.service.UserStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkFreelancerPaymentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
+import com.ivoiceafrica.ivoiceafrica.service.WorkOrderReviewService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderStatusService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkPaymentService;
@@ -187,6 +189,9 @@ public class FreelancerController {
 
 	@Autowired
 	WorkTransactionService workTransactionService;
+	
+	@Autowired
+	WorkOrderReviewService orderReviewService;
 
 	void dashboardFinancials(Model model, String userId) {
 
@@ -431,6 +436,7 @@ public class FreelancerController {
 			Optional<WorkOrdersDelivery> delivery = deliveryService
 					.findWorkOrdersDeliveryByUserAndWorkOrder(userDetails.get(), workOrder.get());
 
+			model.addAttribute("freelancerStatus", 5);
 			model.addAttribute("userDetails", userDetails.get());
 			model.addAttribute("opWorkOrder", workOrder.get());
 			model.addAttribute("proposal", proposal.get());
@@ -454,16 +460,31 @@ public class FreelancerController {
 		System.out.println("===>>> freelancerOfferDeclineDTO: " + freelancerOfferDeclineDTO.toString());
 
 		Optional<WorkOrder> opWorkOrder = workOrderService.findById(freelancerOfferDeclineDTO.getWorkOrderId());
+		
+		System.out.println("===>>> opWorkOrder: " + opWorkOrder);
 
-		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerOfferDeclineDTO.getUserId());
+		Optional<User> userDetails = userService.findFirstUserByUsername(freelancerOfferDeclineDTO.getUserId()); //freelancer user
+		
+		System.out.println("===>>> userDetails: " + userDetails);
+		
+		Optional<Proposal> proposal = proposalService.findById(freelancerOfferDeclineDTO.getProposalId());
+		
+		System.out.println("===>>> proposal: " + proposal);
+		
+//		Optional<WorkOrdersDelivery> delivery = deliveryService
+//				.findWorkOrdersDeliveryByUserAndWorkOrder(userDetails.get(), opWorkOrder.get());
+		
+//		System.out.println("===>>> delivery: " + delivery);
 
 		// update freelancer to decline request
 		int updateProposalStatus = proposalService.updateProposalByProposalId(14,
 				freelancerOfferDeclineDTO.getProposalId());// 14 means freelancer declined workorder status
+		
 		System.out.println("===>>> DeclineFreelancerRequest: " + updateProposalStatus);
 
+		model.addAttribute("proposal", proposal.get());
+//		model.addAttribute("delivery", delivery.get());
 		model.addAttribute("freelancerStatus", 14);
-		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("userDetails", userDetails.get());
 		model.addAttribute("opWorkOrder", opWorkOrder.get());
 		model.addAttribute("freelancerAcceptanceDTO", new FreelancerAcceptanceDTO());
@@ -519,8 +540,11 @@ public class FreelancerController {
 
 		List<WorkOrderAttachment> workOrderAttachments = workOrderAttachmentService
 				.findWorkOrderAttachmentByWorkOrder(opWorkOrder.get());
+		
+		//Get Reviews
+		List<WorkOrderReview> reviews = orderReviewService.findWorkOrderReviewByworkOrderAndUserOrderByEntryDateDesc(opWorkOrder.get(), userDetails.get());
 
-		// TODO: add total payment for job.
+		model.addAttribute("reviews", reviews);
 		model.addAttribute("workOrderAttachmentList", workOrderAttachments);
 		model.addAttribute("deliveryAttachments", deliveryAttachments);
 		model.addAttribute("opWorkOrderDelivery", opWorkOrderDelivery.get());

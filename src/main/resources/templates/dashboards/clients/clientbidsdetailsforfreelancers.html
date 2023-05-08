@@ -151,8 +151,38 @@
 					</div>
 
 					<div class="job-alerts" th:if="${clientProposalList.size() > 0}">
+
 						<span class="job-details-content-title">Recommended
 							Freelancers</span>
+
+						<form th:action="@{/client/bid-request-filter}"
+							th:object="${FilterBidsRequestDTO}" method="post">
+
+							<input type="hidden" name="workOrderId"
+								th:value="${workOrderDetails?.workId}" />
+
+							<div class="input-group mb-4">
+								<span class="job-details-content-title">Filter by </span>
+								<div class="select-box">
+									<select name="filterType" class="jobRate" id="main-combo">
+										<option value="serviceType">Service type</option>
+										<option value="minAmount">Work-order minimum amount</option>
+										<option value="maxAmount">Work-order maximum amount</option>
+										<option value="allusers">All freelancers</option>
+									</select>
+									<div class="down-icon">
+										<img src="../../../../assets/images/admin-imgs/drpdown.svg"
+											alt="" />
+									</div>
+								</div>
+							</div>
+							
+							<button type="submit" name="submit"
+										class="uploadbtn clientrequesteditBtn bg-dark text-white">filter</button>
+
+						</form>
+
+
 
 						<div class="freelancer-bidding">
 							<div class="bidding-freelancer"
@@ -164,7 +194,7 @@
 										<img
 											th:src="@{|/images/view?filename=${@ClientComponentModel.getUserDetails(clientProposal.userId).profilePicture}|}"
 											style="width: 80px; height: 80px; border-radius: 50%;"
-											alt="freelancer"  />
+											alt="freelancer" />
 
 										<div class="ml-4">
 											<p class="freelancers-bidding-name"

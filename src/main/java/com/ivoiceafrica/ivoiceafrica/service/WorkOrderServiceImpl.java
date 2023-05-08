@@ -119,6 +119,11 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	public WorkOrder findLastWorkOrder(int limit) {
 		return workOrderRepository.findLastWorkOrder(limit);
 	}
+
+	@Override
+	public List<WorkOrder> findWorkOrders() {
+		return workOrderRepository.findWorkOrders();
+	}
 	
 
 }
