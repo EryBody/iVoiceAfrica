@@ -667,10 +667,13 @@ public class PaymentController {
 	public String addFreelancerBank(@ModelAttribute("AddBankDTO") AddBankDTO abt, BindingResult bindingResultModel,
 			Model model, RedirectAttributes attributes) throws UnknownHostException {
 
+		try {
 		System.out.println("===>>> addBankDTO: " + abt);
 
 		String userId = (String) session.getAttribute("userId");
 		Optional<User> userDetails = userService.findFirstUserByUsername(userId);
+		
+		System.out.println("===>>> userDetails: " + userDetails);
 
 		String[] branchCodeAndName = {};
 
@@ -745,6 +748,10 @@ public class PaymentController {
 			model.addAttribute("message", "Bank Detail Saved");
 		} else {
 			model.addAttribute("message", "Bank Detail already exist");
+		}
+		
+		}catch(Exception ex){
+			System.out.println("===>>> Exception: "+ex);
 		}
 
 		return "redirect:/freelancer-finances";

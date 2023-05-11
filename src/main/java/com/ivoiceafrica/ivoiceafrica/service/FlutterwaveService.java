@@ -1,6 +1,5 @@
 package com.ivoiceafrica.ivoiceafrica.service;
 
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,10 +39,6 @@ public class FlutterwaveService {
 	@Value("${flutterwave.baseurl}")
 	String baseUrl;
 
-	String SecurityToken = "Bearer "+SecretKey;
-	
-	String PAYMENT_BASEURI = baseUrl;
-
 	@Autowired
 	WebClient webClient;
 
@@ -53,7 +48,7 @@ public class FlutterwaveService {
 	public Flux<?> getBankUsingWebFlux(String id) {
 
 		Flux<BankResponse> response = webClient.get().uri(uriBuilder -> uriBuilder.path("/banks/{id}").build(id))
-				.header("Authorization", SecurityToken).retrieve().bodyToFlux(BankResponse.class)
+				.header("Authorization", "Bearer "+SecretKey).retrieve().bodyToFlux(BankResponse.class)
 
 				.doOnError(throwable -> System.out.printf("Failed for some reason", throwable));
 
@@ -63,13 +58,13 @@ public class FlutterwaveService {
 	public BankResponse getBank(String countryCode) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-			String uri = PAYMENT_BASEURI+"/banks/{countryCode}";
+			String uri = baseUrl+"/banks/{countryCode}";
 			ResponseEntity<BankResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity,
 					BankResponse.class, countryCode);
 
@@ -98,13 +93,13 @@ public class FlutterwaveService {
 	public BankBranchResponse getBankBranch(String bankCode) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-			String uri = PAYMENT_BASEURI+"/banks/{bankCode}/branches";
+			String uri = baseUrl+"/banks/{bankCode}/branches";
 			ResponseEntity<BankBranchResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity,
 					BankBranchResponse.class, bankCode);
 
@@ -132,13 +127,13 @@ public class FlutterwaveService {
 	public BankTransferResponse ngnBankTransfer(NgnBankTransferRequest ngnBankTransferRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<NgnBankTransferRequest> request = new HttpEntity<>(ngnBankTransferRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<BankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					BankTransferResponse.class);
 
@@ -167,13 +162,13 @@ public class FlutterwaveService {
 	public NgnBankTransferDomResponse ngnDomBankTransfer(NgnBankTransferDomRequest ngnBankTransferDomRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<NgnBankTransferDomRequest> request = new HttpEntity<>(ngnBankTransferDomRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -201,13 +196,13 @@ public class FlutterwaveService {
 	public NgnBankTransferDomResponse ngnDomFcmbBankTransfer(NgnBankTransferDomFcmbRequest ngnBankTransferDomFcmbRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<NgnBankTransferDomFcmbRequest> request = new HttpEntity<>(ngnBankTransferDomFcmbRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -235,13 +230,13 @@ public class FlutterwaveService {
 	public NgnBankTransferDomResponse ngnDomUnfiBankTransfer(NgnBankTransferDomUNFIRequest ngnBankTransferDomUNFIRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<NgnBankTransferDomUNFIRequest> request = new HttpEntity<>(ngnBankTransferDomUNFIRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<NgnBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					NgnBankTransferDomResponse.class);
 
@@ -270,13 +265,13 @@ public class FlutterwaveService {
 	public GhsBankTransferResponse GhsBankTransfer(GhsBankTransferRequest ghsBankTransferRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<GhsBankTransferRequest> request = new HttpEntity<>(ghsBankTransferRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<GhsBankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					GhsBankTransferResponse.class);
 
@@ -304,13 +299,13 @@ public class FlutterwaveService {
 	public KesBankTransferResponse kesBankTransfer(KesBankTransferRequest kesBankTransferResponse) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<KesBankTransferRequest> request = new HttpEntity<>(kesBankTransferResponse, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<KesBankTransferResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					KesBankTransferResponse.class);
 
@@ -337,13 +332,13 @@ public class FlutterwaveService {
 	public ZarBankTransferDomResponse zarBankTransfer(ZarBankTransferRequest zarBankTransferRequest) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.set("Authorization", SecurityToken);
+			headers.set("Content-Type","application/json");
+			headers.set("Accept","application/json");
+			headers.set("Authorization", "Bearer "+SecretKey);
 
 			HttpEntity<ZarBankTransferRequest> request = new HttpEntity<>(zarBankTransferRequest, headers);
 
-			String uri = PAYMENT_BASEURI+"/transfers";
+			String uri = baseUrl+"/transfers";
 			ResponseEntity<ZarBankTransferDomResponse> response = restTemplate.exchange(uri, HttpMethod.POST, request,
 					ZarBankTransferDomResponse.class);
 

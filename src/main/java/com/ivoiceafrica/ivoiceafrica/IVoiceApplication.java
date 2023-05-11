@@ -1,6 +1,7 @@
 package com.ivoiceafrica.ivoiceafrica;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -25,6 +26,8 @@ import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
 import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
 import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
 import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponse;
+import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponseData;
 import com.ivoiceafrica.ivoiceafrica.models.CountryCodesBean;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
@@ -106,6 +109,9 @@ public class IVoiceApplication implements CommandLineRunner {
 	
 	@Autowired
 	ClientController clientController;
+	
+	@Autowired
+	FlutterwaveService flutterwaveService;
 
 	private static final Logger log = LogManager.getLogger(IVoiceApplication.class);
 
@@ -124,6 +130,11 @@ public class IVoiceApplication implements CommandLineRunner {
 		System.out.println("===>>> List: "+Arrays.asList(list));
 
 		log.info("===>>> This is an info log");
+		
+		BankResponse response = flutterwaveService.getBank("NG");
+		List<BankResponseData> data = response.getData();
+		
+		System.out.println("===>>> data: "+data);
 
 	}
 }

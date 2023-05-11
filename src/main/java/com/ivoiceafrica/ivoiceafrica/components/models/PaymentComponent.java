@@ -14,12 +14,11 @@ public class PaymentComponent {
 
 	public BankDetail isBankDetailExist(int userId) {
 
-		boolean isBankDetailsExist = false;
 		System.out.println("===>>> User ID Freelancer: " + userId);
 
-		BankDetail bank = bankDetailService.findBankDetailsWithUserId(71);
+		BankDetail bank = bankDetailService.findBankDetailsWithUserId(userId);
 
-		System.out.println("===>>> isBankDetailExist(Freelancer): " + isBankDetailsExist);
+		System.out.println("===>>> bank(Freelancer): " + bank);
 
 		return bank;
 
