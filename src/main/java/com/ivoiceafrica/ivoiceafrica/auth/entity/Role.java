@@ -14,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "roles")
 public class Role {
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="role_id")

@@ -22,8 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	Optional<User> findFirstUserByUsername(String username);
 	
-	
-	
 	List<User> findUsersByUsername(String username);
 	
 	List<User> findUsersByFirstName(String firstName);

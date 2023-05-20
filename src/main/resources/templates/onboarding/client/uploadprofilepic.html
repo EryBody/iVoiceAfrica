@@ -32,22 +32,22 @@
 			</div>
 
 			<div class="form active-card">
-				<div class="client-upload">
-					<img src="../../assets/icons/client-person-icon.svg"
-						alt="profile-picture" class="profile-picture"
-						id="img_urlfreelancer" /> <input type="file"
-						name="profilePicture" id="img_fl" accept="image/png, image/jpeg"
-						style="display: none" onChange="img_pathUrl_fl(this);" /> <label
-						for="img_fl"> <img
-						src="../../assets/icons/add_profile_photobtn.svg"
-						alt="file-upload" class="file-upload" />
-					</label>
+
+				<div class="profile__overview--settings">
+					<div class="profile__sbox" style="border-radius: 10rem; ">
+						<img src="../../assets/images/profiledemo.svg"
+							alt="default profile picture" id="img_pro" style="border-radius: 10rem;"/> <label
+							for="img_profile"> Add+ </label> <input type="file"
+							name="profilePicture" th:field="*{profilePicture}"
+							id="img_profile" style="display: none;"
+							accept="image/png, image/jpeg" onchange="img_pathUrl(this)" />
+
+					</div>
 				</div>
 
 				<div class="services-offer-btn">
 					<a id="formBtn-prev" th:href="@{/client-profile-setup}"
 						class="button btn-service"> Back </a>
-
 
 					<button class="button" type="submit">Finish</button>
 

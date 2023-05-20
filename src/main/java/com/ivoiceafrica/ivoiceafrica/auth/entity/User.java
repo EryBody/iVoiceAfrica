@@ -42,7 +42,7 @@ import com.ivoiceafrica.ivoiceafrica.entity.WorkTransactions;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -119,9 +119,7 @@ public class User {
 			joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
 			inverseJoinColumns = {@JoinColumn (name = "role_id", referencedColumnName = "role_id")}
 	)
-	
-	
-	private Collection <Role> roles;
+	private Collection<Role> roles;
 	
 	//To Check if the user has a role or not
 	public boolean hasRole(String roleName) {

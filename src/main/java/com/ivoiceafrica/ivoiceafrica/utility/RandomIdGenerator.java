@@ -6,6 +6,7 @@ import java.util.Random;
 public class RandomIdGenerator {
 
 	private static final Random generator = new Random();
+	
 	static final String SOURCE = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz";
 	static SecureRandom secureRnd = new SecureRandom();
 

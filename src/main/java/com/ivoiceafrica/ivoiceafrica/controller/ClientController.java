@@ -450,9 +450,10 @@ public class ClientController {
 				.findFreelancerDeliveryAttachmentByWorkOrderDeliveryOrderByEntryDateDesc(opDeliveryDetails.get());
 
 		System.out.println("===>>>> deliveryAttachment: " + deliveryAttachment);
-		
-		//Get Reviews
-		List<WorkOrderReview> reviews = workOrderReviewService.findWorkOrderReviewByworkOrderOrderByEntryDateDesc(opWorkOrder.get());
+
+		// Get Reviews
+		List<WorkOrderReview> reviews = workOrderReviewService
+				.findWorkOrderReviewByworkOrderOrderByEntryDateDesc(opWorkOrder.get());
 
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("deliveryAttachmentList", fDeliveryAttachments);
@@ -471,7 +472,6 @@ public class ClientController {
 
 		return "dashboards/clients/clientfinishedDetails";
 	}
-	
 
 	@GetMapping("/client/finance/all")
 	public String clientAllFinance(Model model) {
@@ -590,7 +590,7 @@ public class ClientController {
 					.findFirstWorkOrderAttachmentByWorkOrder(workOrder.get());
 
 			Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// 11 Means Freelancer accepted
-																							// request Status
+																						// request Status
 			List<Proposal> clientProposals = proposalService
 					.findProposalByWorkOrderAndProposalStatusOrderByCreatedDate(workOrder.get(), proposalStatus.get());
 
@@ -1175,7 +1175,7 @@ public class ClientController {
 		return "redirect:/profile";
 	}
 
-	//Old implementation of selecting freelancers
+	// Old implementation of selecting freelancers
 	@GetMapping("/client/bids-client-details/{id}")
 	public String bidDetailsForClient(@PathVariable(value = "id") String id, Model model) {
 
@@ -1372,28 +1372,29 @@ public class ClientController {
 
 		try {
 
+			String userId = (String) session.getAttribute("userId");
+
+			Optional<User> clientUserId = userService.findFirstUserByUsername(userId);
+			System.out.println("===>>> clientUserId: " + clientUserId);
+
+			Optional<User> user = userService.findFirstUserByUsername(clientAmountDTO.getUserID());
+
+			System.out.println("===>>> freelancer user: " + user);
+
+			Optional<WorkOrder> workOrder = workOrderService.findById(clientAmountDTO.getWorkOrderID());
+
+			System.out.println("===>>> workOrder: " + workOrder);
+
 			if (clientAmountDTO.getClientAmount() >= clientAmountDTO.getTotalMinAmount()
 					&& clientAmountDTO.getClientAmount() <= clientAmountDTO.getTotalMaxAmount()) {
-
-				String userId = (String) session.getAttribute("userId");
-				
-				Optional<User> clientUserId = userService.findFirstUserByUsername(userId);
-				System.out.println("===>>> clientUserId: "+clientUserId);
-
-				Optional<User> user = userService.findFirstUserByUsername(clientAmountDTO.getUserID());
-				
-				System.out.println("===>>> freelancer user: "+user);
-				
-				Optional<WorkOrder> workOrder = workOrderService.findById(clientAmountDTO.getWorkOrderID());
-				
-				System.out.println("===>>> workOrder: "+workOrder);
 
 				// send proposal to freelancer to accept, get the last id and redirect to
 				// payment page
 
 				Optional<ProposalStatus> proposalStatus = proposalStatusService.findById(9);// Freelancer Request Sent
 
-				if(proposalService.checkLastStatusOfProposal(user.get().getUserId(),workOrder.get().getWorkId()) == null) {
+				if (proposalService.checkLastStatusOfProposal(user.get().getUserId(),
+						workOrder.get().getWorkId()) == null) {
 					Proposal proposal = new Proposal();
 //					proposal.setProposalId("");
 					proposal.setWorkOrder(workOrder.get());
@@ -1402,15 +1403,15 @@ public class ClientController {
 					proposal.setAmount(clientAmountDTO.getClientAmount());
 					proposal.setModifiedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					proposal.setCreatedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-	
+
 					proposalService.save(proposal);
-	
-					System.out.println("===>>> proposal Saved: "+proposal);
+
+					System.out.println("===>>> proposal Saved: " + proposal);
 				}
 
 				Proposal prop = proposalService.findProposalByUserAndStatusOrderByCreatedDescWithLimit(
 						user.get().getUserId(), proposalStatus.get().getProposalStatusId());
-				
+
 				// update proposal amount
 				int updateproposalAmount = proposalService.updateProposalAmount(clientAmountDTO.getClientAmount(),
 						prop.getProposalId());
@@ -1429,7 +1430,9 @@ public class ClientController {
 
 			} else {
 				attributes.addFlashAttribute("message", "Specified work order fee not in range.");
-				return "redirect:/client-dashboard";
+
+				return "redirect:/client-profile-overview/" + workOrder.get().getWorkId() + "/"
+						+ user.get().getUserId();
 			}
 
 		} catch (Exception e) {
@@ -1437,40 +1440,44 @@ public class ClientController {
 			System.out.println("Exception: " + e.getMessage());
 		}
 
-		attributes.addFlashAttribute("message", "An error occured while creating job");
+		attributes.addFlashAttribute("message", "An error occured while processing bids");
 		return "redirect:/client-dashboard";
 	}
-	
+
 	@PostMapping("/review-work-order-client")
 	public String reviewWorkOrder(@ModelAttribute("ReviewWorkOrderDTO") ReviewWorkOrderDTO reviewWorkOrderDTO,
 			BindingResult bindingResultModel, Model model, RedirectAttributes attributes) {
 
 		try {
-			//Review
+			// Review
 			String entryDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 			int uopdateStatus = 4;
 
-			int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus, reviewWorkOrderDTO.getWorkOrderId());// 4 means reviewing
+			int updateWorkOrdertoReviewing = workOrderService.updateWorkOrderStatus(uopdateStatus,
+					reviewWorkOrderDTO.getWorkOrderId());// 4 means reviewing
 			System.out.println("===>>>>> updateWorkOrdertoReviewing: " + updateWorkOrdertoReviewing);
 
-			int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus, reviewWorkOrderDTO.getDeliveryId()); // 4 means reviewing
+			int updateDeliveryToReviewing = deliveryService.updateWorkDeliveryStatus(uopdateStatus,
+					reviewWorkOrderDTO.getDeliveryId()); // 4 means reviewing
 			System.out.println("===>>>>> updateDeliveryToReviewing: " + updateDeliveryToReviewing);
-			
+
 			Optional<User> user = userService.findById(reviewWorkOrderDTO.getUserId());
-			Optional<WorkOrder> workOrder = workOrderService.findFirstWorkOrderByWorkId(reviewWorkOrderDTO.getWorkOrderId());
-			
+			Optional<WorkOrder> workOrder = workOrderService
+					.findFirstWorkOrderByWorkId(reviewWorkOrderDTO.getWorkOrderId());
+
 			WorkOrderReview order = new WorkOrderReview();
 //			order.setReviewId(0);
 			order.setUser(user.get());
 			order.setWorkOrder(workOrder.get());
 			order.setReview(reviewWorkOrderDTO.getReview());
 			order.setEntryDate(entryDate);
-			
+
 			workOrderReviewService.save(order);
 
 			attributes.addFlashAttribute("message", "Reviewing application.");
 
-			return "redirect:/client-finished-details/"+reviewWorkOrderDTO.getWorkOrderId()+"/"+reviewWorkOrderDTO.getDeliveryId();
+			return "redirect:/client-finished-details/" + reviewWorkOrderDTO.getWorkOrderId() + "/"
+					+ reviewWorkOrderDTO.getDeliveryId();
 
 		} catch (Exception ex) {
 			System.out.println("===>>> Exception: " + ex);

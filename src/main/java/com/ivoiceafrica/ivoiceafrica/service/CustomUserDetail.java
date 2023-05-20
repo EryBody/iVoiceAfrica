@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 
 
-
 public class CustomUserDetail extends User implements UserDetails {
 	
 	public CustomUserDetail(User user) {
