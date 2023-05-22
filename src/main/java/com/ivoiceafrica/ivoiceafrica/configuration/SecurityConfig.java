@@ -132,7 +132,7 @@ public class SecurityConfig  {
 	    final CorsConfiguration config = new CorsConfiguration();
 	    config.setAllowCredentials(true);
 	    // TODO: change this in production, use a proper list of allowed origins
-	    config.setAllowedOrigins(Collections.singletonList("*"));
+	    config.setAllowedOriginPatterns(Arrays.asList("*","https://checkout-v3-ui-prod.f4b-flutterwave.com/","https://api.ravepay.co/v3/checkout/initialize"));
 	    config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
 	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
 	    config.setMaxAge(3600L);

@@ -1,6 +1,7 @@
 package com.ivoiceafrica.ivoiceafrica;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,16 +126,7 @@ public class IVoiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		CountryCodesBean[] list = clientComponentModel.loadCountriesFromJsonFile();
-		
-		System.out.println("===>>> List: "+Arrays.asList(list));
-
 		log.info("===>>> This is an info log");
 		
-		BankResponse response = flutterwaveService.getBank("NG");
-		List<BankResponseData> data = response.getData();
-		
-		System.out.println("===>>> data: "+data);
-
 	}
 }
