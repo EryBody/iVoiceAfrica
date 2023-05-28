@@ -134,6 +134,11 @@ public class PaymentController {
 	
 	@Autowired
 	PaymentComponent paymentComponent;
+	
+	@GetMapping("/paymentTest")
+	public String paymentTest() {
+		return "dashboards/payments/paymentTest";
+	}
 
 	@GetMapping("/select-payment-option/{freelancer}/{proposalId}")
 	public String selectPaymentOption(@PathVariable(value = "freelancer") String freelancer,

@@ -7,7 +7,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600"
 	rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
+<!-- <link rel="stylesheet" href="./style.css"> -->
 <link rel="stylesheet" href="../../payments/payment.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -248,7 +248,6 @@
 		</div>
 	</div>
 
-
 	<!-- jquery latest version -->
 	<script src="../../assets/JS/js/vendor/jquery-2.2.4.min.js"></script>
 	<!-- bootstrap 4 js -->
@@ -266,7 +265,7 @@
 	<script src="../../assets/JS/js/plugins.js"></script>
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script>
-	<script src="./script.js"></script>
+	<!-- <script src="./script.js"></script> -->
 	<script src="../../payments/payment.js"></script>
 	<script src="https://checkout.flutterwave.com/v3.js"></script>
 	<script src="../../assets/sweetalert/sweetalert2.all.js"></script>
@@ -321,7 +320,7 @@
 							workId : workId
 						},
 						success : function(data) {
-							 emptyFields();
+							emptyFields();
 							alert('Your Payment data has been saved!!!, Please continue.');
 							setTimeout(() => {
 								document.location.href = '/client-dashboard'

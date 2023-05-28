@@ -1,12 +1,5 @@
 package com.ivoiceafrica.ivoiceafrica;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
-import javax.ws.rs.core.HttpHeaders;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 
-import com.ivoiceafrica.ivoiceafrica.auth.entity.User;
 import com.ivoiceafrica.ivoiceafrica.components.models.ClientComponentModel;
 import com.ivoiceafrica.ivoiceafrica.components.models.FreelancerComponentModel;
 import com.ivoiceafrica.ivoiceafrica.controller.ClientController;
 import com.ivoiceafrica.ivoiceafrica.controller.FreelancerController;
-import com.ivoiceafrica.ivoiceafrica.entity.BankDetail;
-import com.ivoiceafrica.ivoiceafrica.entity.Proposal;
-import com.ivoiceafrica.ivoiceafrica.entity.ProposalStatus;
-import com.ivoiceafrica.ivoiceafrica.entity.WorkOrder;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponse;
-import com.ivoiceafrica.ivoiceafrica.flutterwave.BankResponseData;
-import com.ivoiceafrica.ivoiceafrica.models.CountryCodesBean;
 import com.ivoiceafrica.ivoiceafrica.repository.UserRepository;
 import com.ivoiceafrica.ivoiceafrica.service.BankDetailService;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
@@ -48,7 +31,7 @@ import com.ivoiceafrica.ivoiceafrica.service.WorkOrderAttachmentService;
 import com.ivoiceafrica.ivoiceafrica.service.WorkOrderService;
 
 @SpringBootApplication
-@ComponentScan({ "com.ivoiceafrica.ivoiceafrica" })
+@ComponentScan({ "com.ivoiceafrica.ivoiceafrica"})
 public class IVoiceApplication implements CommandLineRunner {
 
 	@Autowired
