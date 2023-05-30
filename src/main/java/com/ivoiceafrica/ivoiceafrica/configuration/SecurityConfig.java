@@ -75,8 +75,9 @@ public class SecurityConfig {
 				.successHandler(loginSuccessHandler).permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index")
 				.invalidateHttpSession(true).permitAll().deleteCookies("JSESSIONID").and().exceptionHandling().and()
-				.csrf().and().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.disable().headers().frameOptions().sameOrigin();
+				.csrf().and().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				
+//				.disable().headers().frameOptions().sameOrigin();
 
 		return http.build();
 	}
@@ -102,8 +103,7 @@ public class SecurityConfig {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOriginPatterns(Arrays.asList("*", "https://checkout-v3-ui-prod.f4b-flutterwave.com/",
-				"https://api.ravepay.co/v3/checkout/initialize"));
+		config.setAllowedOriginPatterns(Arrays.asList("*"));
 		config.setAllowedHeaders(
 				Arrays.asList("Origin", "Content-Type", "Accept", "Authorization", "Cache-Control", "Content-Type"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
