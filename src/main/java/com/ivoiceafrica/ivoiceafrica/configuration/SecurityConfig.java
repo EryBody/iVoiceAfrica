@@ -21,6 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
@@ -29,153 +30,106 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.ivoiceafrica.ivoiceafrica.models.LoginSuccessHandler;
 import com.ivoiceafrica.ivoiceafrica.service.CustomUserDetailService;
 
-
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true) //Method Security
-public class SecurityConfig  {
-	
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true) // Method Security
+public class SecurityConfig {
+
 	@Value("${spring.websecurity.debug:false}")
-    boolean webSecurityDebug;
-	
+	boolean webSecurityDebug;
+
 	@Value("${upload.path}")
 	String uploadDir;
-	
+
 	@Value("${flutterwave.baseurl}")
 	String baseUrl;
-	
+
 	@Autowired
-    CustomUserDetailService customUserDetailService;
-	
-	@Autowired 
+	CustomUserDetailService customUserDetailService;
+
+	@Autowired
 	private LoginSuccessHandler loginSuccessHandler;
-	
-	
+
 	@Bean
-	public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) 
-	  throws Exception {
-	    return http.getSharedObject(AuthenticationManagerBuilder.class)
-	      .userDetailsService(customUserDetailService)
-	      .passwordEncoder(bCryptPasswordEncoder)
-	      .and()
-	      .build();
+	public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder)
+			throws Exception {
+		return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(customUserDetailService)
+				.passwordEncoder(bCryptPasswordEncoder).and().build();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		
-		http
-			.authorizeRequests()
-			.antMatchers("/","/login","/landingpage","/mainpage","/signin","/client-signup","/client-profile-setup","/client-upload-pic",
-					"/freelancer-signup","/freelancer-profile-setup","/freelancer-profile-2",
-					"/freelancer-profile-3","/freelancer-profile-4","/freelancer/signup/save",
-					"/freelancer/detail/save", "/freelancer/skill/save","/freelancer/profilepicture/save",
-					"/client/signup/save","/client/personalDetail/save","/client/profilePicture/save","/get-environment-profile","/get-upload-path").permitAll()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
-				.loginPage("/signin")
-				.failureUrl("/signin?error=true")
-				.usernameParameter("username")
+
+		http.authorizeRequests()
+				.antMatchers("/", "/login", "/landingpage", "/mainpage", "/signin", "/client-signup",
+						"/client-profile-setup", "/client-upload-pic", "/freelancer-signup",
+						"/freelancer-profile-setup", "/freelancer-profile-2", "/freelancer-profile-3",
+						"/freelancer-profile-4", "/freelancer/signup/save", "/freelancer/detail/save",
+						"/freelancer/skill/save", "/freelancer/profilepicture/save", "/client/signup/save",
+						"/client/personalDetail/save", "/client/profilePicture/save", "/get-environment-profile",
+						"/get-upload-path")
+				.permitAll().antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated().and().formLogin()
+				.loginPage("/signin").failureUrl("/signin?error=true").usernameParameter("username")
 				.passwordParameter("password")
-	//			.defaultSuccessUrl("/admin-home")
-				.successHandler(loginSuccessHandler)
-				.permitAll()
-			.and()
-				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/index")
-				.invalidateHttpSession(true)
-				.permitAll()
-			.deleteCookies("JSESSIONID")
-			.and()
-			.exceptionHandling()
-			.and()
-			.csrf()
-			.and()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.disable()
-			.headers()
-			.frameOptions()
-			.sameOrigin();
+				// .defaultSuccessUrl("/admin-home")
+				.successHandler(loginSuccessHandler).permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index")
+				.invalidateHttpSession(true).permitAll().deleteCookies("JSESSIONID").and().exceptionHandling().and()
+				.csrf().and().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.disable().headers().frameOptions().sameOrigin();
 
-	    return http.build();
+		return http.build();
 	}
-	
-	
+
 //	This second filter chain will secure the static resources without reading the SecurityContext from the session.
-	@Bean 
-	@Order(0)
+	@Bean
 	SecurityFilterChain resources(HttpSecurity http) throws Exception {
-	    http
-	        .requestMatchers((matchers) -> matchers.antMatchers("/static/**","/assets/**", "/@popperjs/**", "/bootstrap/**", "/CSS/**", 
-					"/fonts/**", "/icons/**", "/images/**","/JS/**", uploadDir+"/**"))
-	        .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
-	        .requestCache().disable()
-	        .securityContext().disable()
-	        .sessionManagement().disable();
+		http.requestMatchers((matchers) -> matchers.antMatchers("/static/**", "/assets/**", "/@popperjs/**",
+				"/bootstrap/**", "/CSS/**", "/fonts/**", "/icons/**", "/images/**", "/JS/**", uploadDir + "/**"))
+				.authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll()).requestCache().disable()
+				.securityContext().disable().sessionManagement().disable();
 
-	    return http.build();
+		return http.build();
 	}
-	
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public CorsFilter corsFilter() {
-	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    final CorsConfiguration config = new CorsConfiguration();
-	    config.setAllowCredentials(true);
-	    // TODO: change this in production, use a proper list of allowed origins
-	    config.setAllowedOriginPatterns(Arrays.asList("*","https://checkout-v3-ui-prod.f4b-flutterwave.com/","https://api.ravepay.co/v3/checkout/initialize"));
-	    config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
-	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
-	    config.setMaxAge(3600L);
-	    source.registerCorsConfiguration("/**", config);
-	    return new CorsFilter(source);
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		final CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.setAllowedOriginPatterns(Arrays.asList("*", "https://checkout-v3-ui-prod.f4b-flutterwave.com/",
+				"https://api.ravepay.co/v3/checkout/initialize"));
+		config.setAllowedHeaders(
+				Arrays.asList("Origin", "Content-Type", "Accept", "Authorization", "Cache-Control", "Content-Type"));
+		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
+		config.setMaxAge(3600L);
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
-	
-	//Using webflux
-	@Bean
-    public WebClient webclient() {
-        final int size = 32 * 1024 * 1024;
-        final ExchangeStrategies strategies = ExchangeStrategies.builder()
-                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(size))
-                .build();
 
-        WebClient webClient = WebClient
-                .builder()
-                .baseUrl(baseUrl)
-                .defaultCookie("cookieKey", "cookieValue")
-                .exchangeStrategies(strategies)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-        return webClient;
-    }
-	
-	 @Bean
-	 public RestTemplate getRestTemplate(){
-		 return  new RestTemplate();
-	 }
-	
-	
-//	web.ignoring() means that Spring Security cannot provide any security headers or other protective
-//	measures on those endpoints. Instead, using permitAll allows Spring Security to write headers and otherwise secure the 
-//	request without requiring authorization. This is why permitAll is recommended. The warning message is intended to alert 
-//	you to the tradeoff
-	
-//	@Bean
-//	public WebSecurityCustomizer webSecurityCustomizer() {
-//		
-//	    return (web) -> web.debug(webSecurityDebug)
-//	      .ignoring()
-//	      .antMatchers("/static/**","/assets/**", "/@popperjs/**", "/bootstrap/**", "/CSS/**", 
-//					"/fonts/**", "/icons/**", "/images/**","/JS/**","/core/**");
-//	}
-	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		final CorsConfiguration configuration = new CorsConfiguration();
+		// configuration.setAllowedOrigins(ImmutableList.of("http://localhost:8080","http://localhost:8084"));
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(
+				Arrays.asList("Origin", "Content-Type", "Accept", "Authorization", "Cache-Control", "Content-Type"));
+		configuration.setMaxAge(3600L);
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+
 }

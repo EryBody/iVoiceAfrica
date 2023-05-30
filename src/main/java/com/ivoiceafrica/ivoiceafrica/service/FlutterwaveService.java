@@ -40,20 +40,7 @@ public class FlutterwaveService {
 	String baseUrl;
 
 	@Autowired
-	WebClient webClient;
-
-	@Autowired
 	RestTemplate restTemplate;
-
-	public Flux<?> getBankUsingWebFlux(String id) {
-
-		Flux<BankResponse> response = webClient.get().uri(uriBuilder -> uriBuilder.path("/banks/{id}").build(id))
-				.header("Authorization", "Bearer "+SecretKey).retrieve().bodyToFlux(BankResponse.class)
-
-				.doOnError(throwable -> System.out.printf("Failed for some reason", throwable));
-
-		return response;
-	}
 
 	public BankResponse getBank(String countryCode) {
 		try {
